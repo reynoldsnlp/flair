@@ -1,0 +1,189 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui"
+	xmlns:m="urn:import:gwt.material.design.client.ui"
+	xmlns:m.html="urn:import:gwt.material.design.client.ui.html"
+	xmlns:flair="urn:import:com.flair.client.presentation.widgets"
+	xmlns:m.overlay="urn:import:gwt.material.design.addins.client.overlay"
+	xmlns:m.morph="urn:import:gwt.material.design.addins.client.iconmorph">
+	
+	<ui:style>
+	.brand-logo {
+		padding: 1px 1px 1px 1px;
+		height: 200px;
+	}
+	
+	.panel-navSearch {
+		padding-top: 4px;
+	}
+	
+	.panel-defaultPlaceholder {
+		margin-left: auto;
+		margin-right: auto;
+	}
+	
+	.global-animation {
+		transition: 0.4s all;
+		-webkit-transition: 0.4s all;
+		-moz-transition: 0.4s all;
+	}	
+	</ui:style>
+	
+	<m:MaterialPanel ui:field="pnlRootUI" backgroundColor="WHITE" overflow="HIDDEN">		
+		<m:MaterialSplashScreen ui:field="splSplashUI" backgroundColor="WHITE" depth="5000" textAlign="CENTER">
+			<g:HTML ui:field="htmlSplashLogoUI">
+				<img class="{style.brand-logo}" src="img/logo_2.png"/>
+			</g:HTML>
+            <m:MaterialTitle ui:field="lblSplashStatus" title="Loading..." textColor="BLACK"/>
+        </m:MaterialSplashScreen>
+	
+		<m:MaterialHeader depth="996" layoutPosition="FIXED" width="100%">
+			<!-- Main Navbar -->
+			<m:MaterialNavBar ui:field="navMainUI" backgroundColor="ORANGE">
+				<m:MaterialLink ui:field="tglSettingsPaneUI" waves="LIGHT" paddingLeft="10" paddingRight="5">
+					<m.morph:MaterialIconMorph ui:field="icoSettingsMorphUI" iconSize="SMALL" marginBottom="50" marginRight="5">						
+    					<m:MaterialIcon iconType="ARROW_BACK"/>
+    					<m:MaterialIcon iconType="SETTINGS"/>
+					</m.morph:MaterialIconMorph>
+				</m:MaterialLink>
+				<m:MaterialNavBrand ui:field="btnAboutUI" marginLeft="5" href="javascript:void(0)" text="FLAIR"/>
+				
+				<m:MaterialLink ui:field="btnSwitchLangUI" 
+					activates="lang-selector" iconType="LANGUAGE" waves="LIGHT" float="RIGHT" paddingLeft="10"/>
+				<m:MaterialLink ui:field="btnHistoryUI" 
+					iconType="HISTORY" waves="LIGHT" float="RIGHT" paddingLeft="10" marginRight="15" marginLeft="15"/>
+			</m:MaterialNavBar>		
+		</m:MaterialHeader>
+						
+		<!-- UI Language Dropdown -->
+		<m:MaterialDropDown activator="lang-selector" constrainWidth="true" belowOrigin="true">
+			<m:MaterialLink ui:field="btnLangEnUI" waves="DEFAULT" text="English"/>
+			<m:MaterialLink ui:field="btnLangDeUI" waves="DEFAULT" text="German"/>
+		</m:MaterialDropDown>
+		
+		<!-- Main FABs -->
+		<m:MaterialFAB axis="VERTICAL" depth="998" type="CLICK_ONLY" marginBottom="75">
+			<m:MaterialButton ui:field="btnWebSearchUI"
+				type="FLOATING" iconType="SEARCH" size="LARGE" backgroundColor="ORANGE" waves="LIGHT"/>
+		</m:MaterialFAB>		
+		<m:MaterialFAB axis="VERTICAL" depth="998" type="CLICK_ONLY" >
+			<m:MaterialAnchorButton ui:field="btnUploadUI" size="LARGE"
+					type="FLOATING" waves="LIGHT" backgroundColor="BLUE" iconType="FILE_UPLOAD"/>
+		</m:MaterialFAB>
+		
+		<!-- Comparer Modal -->
+		<flair:DocumentComparer ui:field="mdlComparerUI"/>
+				
+		<!-- Web Search Modal -->
+		<flair:WebSearchModal ui:field="mdlWebSearchUI"/>
+		
+		<!-- Corpus Upload Modal-->
+		<flair:CorpusFileUploader ui:field="mdlCorpusUploadUI"/>
+		
+		<!-- Settings Pane -->
+		<flair:RankerSettingsPane ui:field="pnlConstructionsSettingsUI"/>
+		
+		<!-- Results Pane-->
+		<m:MaterialPanel ui:field="pnlResultsContainerUI" backgroundColor="WHITE" layoutPosition="RELATIVE" overflow="HIDDEN"
+			marginBottom="0" grid="l5 m5 s5" padding="20" addStyleNames="{style.global-animation}">
+			
+			<flair:DocumentResultsPane ui:field="pnlDocResultsUI"/>
+		</m:MaterialPanel>
+		
+		<!-- Preview Pane -->
+		<flair:DocumentPreviewPane ui:field="pnlDocPreviewUI"/>
+		
+		<!-- Custom Keywords Editor Modal -->
+		<flair:CustomKeywordsEditor ui:field="mdlCustomKeywordsUI"/>
+		
+		<!-- Visualizer Modal -->
+		<flair:DocumentCollectionVisualizer ui:field="mdlVisualizerUI"/>
+		
+		<!-- Url Exporter Modal -->
+		<flair:SettingsExporter ui:field="mdlExporterUI"/>
+		
+		<!-- History Viewer Modal -->
+		<flair:HistoryViewer ui:field="mdlHistoryUI"/>
+		
+		<!-- Prompt Modal -->
+		<flair:ModalPrompt ui:field="mdlPromptUI"/>
+	
+		<!-- Overlay Modal -->
+		<m.overlay:MaterialOverlay ui:field="mdlOverlayUI"/>
+		
+		<!-- Default Pane -->
+		<m:MaterialRow ui:field="pnlDefaultPlaceholderUI" visible="false" 
+			marginTop="70" padding="20" grid="l12 m12 s12"
+			addStyleNames="{style.panel-defaultPlaceholder}">
+			<m:MaterialRow>
+				<m:MaterialColumn grid="l3 m3" hideOn="HIDE_ON_SMALL_DOWN">
+					<m:MaterialCard/>
+				</m:MaterialColumn>
+				
+				<m:MaterialColumn grid="l6 m6 s12">
+					<m:MaterialCard backgroundColor="ORANGE">
+						<m:MaterialCardContent textColor="WHITE">
+							<m:MaterialCardTitle ui:field="lblDefaultSearchTitleUI" text="Search" iconType="SEARCH"
+								iconPosition="RIGHT" />
+								
+							<m:MaterialLabel ui:field="lblDefaultSearchCaptionUI"
+								text="Click on the Search icon and type in a query. FLAIR will fetch the top results from the Bing Search Engine." />								
+						</m:MaterialCardContent>
+					</m:MaterialCard>
+				</m:MaterialColumn>
+				
+				<m:MaterialColumn grid="l3 m3" hideOn="HIDE_ON_SMALL_DOWN">
+					<m:MaterialCard/>
+				</m:MaterialColumn>
+			</m:MaterialRow>
+
+			<m:MaterialRow>
+				<m:MaterialColumn grid="l3 m3" hideOn="HIDE_ON_SMALL_DOWN">
+					<m:MaterialCard/>
+				</m:MaterialColumn>
+				
+				<m:MaterialColumn grid="l6 m6 s12">
+					<m:MaterialCard backgroundColor="GREEN">
+						<m:MaterialCardContent textColor="WHITE">
+							<m:MaterialCardTitle ui:field="lblDefaultConfigTitleUI" text="Configure" iconType="SETTINGS"
+								iconPosition="RIGHT" />
+								
+							<m:MaterialLabel ui:field="lblDefaultConfigCaptionUI"
+								text="Configure the settings: text (complexity, length) and language (the passive, wh- questions, academic vocabulary, ...). You can export the settings to apply them to all further searches." />
+						</m:MaterialCardContent>
+					</m:MaterialCard>
+				</m:MaterialColumn>
+				
+				<m:MaterialColumn grid="l3 m3" hideOn="HIDE_ON_SMALL_DOWN">
+					<m:MaterialCard/>
+				</m:MaterialColumn>
+			</m:MaterialRow>
+			
+			<m:MaterialRow>
+				<m:MaterialColumn grid="l3 m3" hideOn="HIDE_ON_SMALL_DOWN">
+					<m:MaterialCard/>
+				</m:MaterialColumn>
+				
+				<m:MaterialColumn grid="l6 m6 s12">
+					<m:MaterialCard backgroundColor="BLUE">
+						<m:MaterialCardContent textColor="WHITE">
+							<m:MaterialCardTitle ui:field="lblDefaultUploadTitleUI" text="Upload"
+								iconPosition="RIGHT" iconType="FILE_UPLOAD"/>
+								
+							<m:MaterialLabel ui:field="lblDefaultUploadCaptionUI"
+								text="Upload your documents and have FLAIR analyse them" />
+						</m:MaterialCardContent>
+					</m:MaterialCard>
+				</m:MaterialColumn>
+				
+				<m:MaterialColumn grid="l3 m3" hideOn="HIDE_ON_SMALL_DOWN">
+					<m:MaterialCard/>
+				</m:MaterialColumn>
+			</m:MaterialRow>			
+		</m:MaterialRow>
+
+	    <!-- About Modals -->
+	    <flair:AboutPage ui:field="mdlAboutUI"/>
+	</m:MaterialPanel>
+	  
+</ui:UiBinder> 
