@@ -31,6 +31,13 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
+	
+	<repositories>
+		<repository>
+		    <id>jitpack.io</id>
+		    <url>https://jitpack.io</url>
+		</repository>
+	</repositories>
 
 	<dependencies>
 		<dependency>
@@ -114,10 +121,17 @@
 			<version>1.3.0</version>
 		</dependency>
 		<dependency>
+	    	<groupId>com.github.stanfordnlp</groupId>
+	    	<artifactId>CoreNLP</artifactId>
+	    	<version>master-SNAPSHOT</version>
+		</dependency>
+		<!-- 
+		<dependency>
 			<groupId>edu.stanford.nlp</groupId>
 			<artifactId>stanford-corenlp</artifactId>
 			<version>3.9.2</version>
 		</dependency>
+		 
 		<dependency>
 			<groupId>edu.stanford.nlp</groupId>
 			<artifactId>stanford-corenlp</artifactId>
@@ -130,6 +144,8 @@
 			<version>3.9.2</version>
 			<classifier>models-german</classifier>
 		</dependency>
+		-->
+	
 
 		<!-- Local Dependencies -->
 		<dependency>
