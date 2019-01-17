@@ -21,6 +21,8 @@ modules, beginning with Russian.
 
 FLAIR utilizes a maven build system. In order to compile this project, maven must be installed. For more information on using maven, click here https://maven.apache.org/. Additionally, please make sure you have the correct java version. FLAIR is built using java 8. 
 
+Additionally, FLAIR relies on some local dependencies. [Click here](https://drive.google.com/open?id=1TE2x4iUilulFpGwi0xgZmZmLy2R0Di2c) to get the zip file of the necessary local dependencies. Unzip this file in src/main/webapp/WEB-INF.
+
 ## Using Bing API
 
 FLAIR utlizes the Bing search api. In order to access Bing's services, you must create an account with Microsoft Azure. You can sign up for a free Microsoft account here https://azure.microsoft.com/en-us/services/cognitive-services/bing-web-search-api/. This account will provide you with many service options. For this project you must create a Cognitive Services resource. 
