@@ -22,6 +22,8 @@ class StanfordDocumentParser extends AbstractDocumentParser
 	private static final String	ENGLISH_SR_PARSER_MODEL	= "edu/stanford/nlp/models/srparser/englishSR.ser.gz";
 	private static final String	GERMAN_SR_PARSER_MODEL	= "edu/stanford/nlp/models/srparser/germanSR.ser.gz";
 	private static final String	GERMAN_POS_MODEL		= "edu/stanford/nlp/models/pos-tagger/german/german-hgc.tagger";
+	private static final String RUSSIAN_POS_MODEL       = "edu/stanford/nlp/models/pos-tagger/russian-ud-pos.tagger";
+	private static final String RUSSIAN_DEPPARSE_MODEL  = "edu/stanford/nlp/models/parser/nndep/nndep.rus.model.wiki.txt.gz";
 	
 
 	// It seems like the russian NLP extension does not use a shift-reduce model, but instead uses a mf model. 
@@ -60,6 +62,12 @@ class StanfordDocumentParser extends AbstractDocumentParser
 			pipelineProps.setProperty("pos.model", GERMAN_POS_MODEL);
 			break;
 		case RUSSIAN:
+			pipelineProps.put("annotators", "tokenize, ssplit, pos, depparse");
+			pipelineProps.put("tokenize.language", "en");
+			//pipelineProps.put("depparse.language", "russian");
+			pipelineProps.setProperty("pos.model", RUSSIAN_POS_MODEL);
+			pipelineProps.setProperty("depparse.model", RUSSIAN_DEPPARSE_MODEL);
+			//pipelineProps.setProperty("depparse.language","russian");
 			break;
 		default:
 			throw new IllegalArgumentException("Invalid model language: " + modelLanguage + "");
