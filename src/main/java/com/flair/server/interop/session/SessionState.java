@@ -417,8 +417,9 @@ public class SessionState
 
 	public synchronized void searchCrawlParse(String query, Language lang, int numResults, List<String> keywords)
 	{
+		lang = lang.RUSSIAN;
 		ServerLogger.get().info("Begin search-crawl-parse -> Query: " + query + ", Language: " + lang.toString() + ", Results: " + numResults);
-
+		
 		if (hasOperation())
 		{
 			sendErrorResponse("Another operation still running");
