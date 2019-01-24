@@ -8,6 +8,7 @@ package com.flair.server.parser;
 import java.util.Collection;
 import java.util.List;
 
+import com.flair.server.utilities.ServerLogger;
 import com.flair.shared.grammar.Language;
 
 import edu.stanford.nlp.ling.CoreAnnotations;
@@ -24,9 +25,9 @@ import edu.stanford.nlp.util.CoreMap;
 
 class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserStrategy {
 	private AbstractDocument workingDoc;
-	private int tokenCount, wordCount, characterCount, sentenceCount;
+	private int tokenCount, wordCount, characterCount, sentenceCount, depthCount, dependencyCount;
     
-	private static final String WORD_PATTERN = "[a-z\\u0400-\\u04FF]"; //not sure if this regex is correct for including all number of russian words
+	private static final String WORD_PATTERN = "\\p{IsCyrillic}+"; //not sure if this regex is correct for including all number of russian words
 
     public StanfordDocumentParserRussianStrategy()
     {
@@ -65,7 +66,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
 		usedFound = false;
 		comparativeMoreFound = false;
 		superlativeMostFound = false;*/
-    	wordCount = tokenCount = characterCount = sentenceCount = 0;
+    	wordCount = tokenCount = characterCount = sentenceCount = dependencyCount = depthCount = 0;
 		pipeline = null;
 		workingDoc = null;
 	}
@@ -87,9 +88,10 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
 				{
 					Tree tree = itr.get(TreeCoreAnnotations.TreeAnnotation.class);
 					List<CoreLabel> words = itr.get(CoreAnnotations.TokensAnnotation.class);
-					Collection<TypedDependency> dependencies = itr
+					/*Collection<TypedDependency> dependencies = itr
 							.get(SemanticGraphCoreAnnotations.CollapsedDependenciesAnnotation.class)
 							.typedDependencies();
+							*/
 
 					sentenceCount++;
 					//dependencyCount += dependencies.size();
@@ -99,10 +101,14 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
 					for (CoreLabel cl : words)
 					{
 						tokenCount++;
-						if (cl.tag().toLowerCase().matches(WORD_PATTERN))
+						if (!cl.tag().startsWith("$"))
+						{
+							dependencyCount += 1;
+						}		
+						if (cl.value().toLowerCase().matches(WORD_PATTERN))
 						{
 							wordCount++;
-							characterCount += cl.word().length();
+							characterCount += cl.value().length();
 						}
 					}
 
@@ -112,11 +118,11 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
 			}
 
 			// update doc properties
-			//workingDoc.setAvgSentenceLength((double) wordCount / (double) sentenceCount);
+			workingDoc.setAvgSentenceLength((double) wordCount / (double) sentenceCount);
 			//workingDoc.setAvgTreeDepth((double) depthCount / (double) sentenceCount);
-			//workingDoc.setAvgWordLength((double) characterCount / (double) wordCount);
-			//workingDoc.setLength(wordCount);
-			//workingDoc.setNumDependencies(dependencyCount);
+			workingDoc.setAvgWordLength((double) characterCount / (double) wordCount);
+			workingDoc.setLength(wordCount);
+			workingDoc.setNumDependencies(dependencyCount);
 			workingDoc.setNumWords(wordCount);
 			workingDoc.setNumTokens(tokenCount);
 			workingDoc.setNumSentences(sentenceCount);
