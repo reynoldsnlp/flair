@@ -28,3 +28,21 @@ Additionally, FLAIR relies on some local dependencies. [Click here](https://driv
 FLAIR utlizes the Bing search api. In order to access Bing's services, you must create an account with Microsoft Azure. You can sign up for a free Microsoft account here https://azure.microsoft.com/en-us/services/cognitive-services/bing-web-search-api/. This account will provide you with many service options. For this project you must create a Cognitive Services resource. 
 
 There are multiple ways of storing this api key. FLAIR is expecting the api key to be stored in an environment variable called BING_API. There is also a text file reader in the utilities folder available for use if you wish to store your api key in a text file. 
+
+## Third Party Dependencies 
+
+In order to run our russian extension, you may need to use some third party dependencies which are not supported by maven. Follow this [link](https://stanfordnlp.github.io/CoreNLP/model-zoo.html) to access the necessary russian language models. You will note that the russian models uses the latest code on github. In order to use the latest github code with maven, you will need to create a jar of the most current CoreNLP code. Click [here](https://stanfordnlp.github.io/CoreNLP/download.html) and then read the "Steps to setup from the GitHub HEAD version" section to get a jar file of the current code. After acquiring both the CoreNLP jar and the russian models jar, you will need to install both jars to your local maven repository. Maven provides documentation on how to accomplish this [here](https://maven.apache.org/guides/mini/guide-3rd-party-jars-local.html). You must update the pom to include the correct versions, artifactID's, ect. To line things up with the provided pom.xml file, follow the naming of the dependencies below. 
+
+```
+  <dependency>
+      <groupId>edu.stanford.nlp</groupId>
+      <artifactId>stanford-corenlp</artifactId>
+      <version>master-SNAPSHOT</version>
+   </dependency>
+   <dependency>
+      <groupId>edu.stanford.nlp</groupId>
+      <artifactId>stanford-corenlp-russian-models</artifactId>
+      <version>master-SNAPSHOT</version>
+   </dependency>
+    
+```
