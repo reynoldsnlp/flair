@@ -5,3 +5,6 @@
 .project
 "*.icloud"
 .DS_Store
+.idea
+.metadata
+/war/
