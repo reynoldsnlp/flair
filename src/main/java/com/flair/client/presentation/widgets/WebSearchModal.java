@@ -61,7 +61,7 @@ public class WebSearchModal extends LocalizedComposite implements WebSearchServi
 	@LocalizedCommonField(tag=CommonLocalizationTags.LANGUAGE_ENGLISH, type=LocalizedFieldType.LISTBOX_OPTION)
 	Option										selResultLangItmEnUI;
 	@UiField
-	@LocalizedCommonField(tag=CommonLocalizationTags.LANGUAGE_GERMAN, type=LocalizedFieldType.LISTBOX_OPTION)
+	@LocalizedCommonField(tag=CommonLocalizationTags.LANGUAGE_GERMAN, type=LocalizedFieldType.LISTBOX_OPTION) //setting german to russian
 	Option										selResultLangItmDeUI;
 	@UiField
 	@LocalizedCommonField(tag=CommonLocalizationTags.SEARCH, type=LocalizedFieldType.TEXT_BUTTON)

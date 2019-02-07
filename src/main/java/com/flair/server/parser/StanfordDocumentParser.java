@@ -31,7 +31,7 @@ class StanfordDocumentParser extends AbstractDocumentParser
 
 	private AbstractDocumentSource				docSource;
 	private AbstractDocument					outputDoc;
-	private BasicStanfordDocumentParserStrategy	parsingStrategy;
+	private BasicStanfordDocumentParserStrategy	parsingStrategy;	
 
 	private final StanfordCoreNLP				pipeline;
 	private final Language						modelLanguage;
@@ -88,8 +88,8 @@ class StanfordDocumentParser extends AbstractDocumentParser
 		return docSource != null || outputDoc != null || parsingStrategy != null;
 	}
 
-	private AbstractDocument initializeState(AbstractDocumentSource source, AbstractParsingStrategy strategy)
-	{
+	private AbstractDocument initializeState(AbstractDocumentSource source, AbstractParsingStrategy strategy)		//sets the source doc, output doc and parsing strategy
+	{	
 		if (isBusy())
 		{
 			// this could be the case if the previous task timed-out
@@ -106,7 +106,7 @@ class StanfordDocumentParser extends AbstractDocumentParser
 
 		docSource = source;
 		outputDoc = docFactory.create(source);
-		parsingStrategy = (BasicStanfordDocumentParserStrategy) strategy;
+		parsingStrategy = (BasicStanfordDocumentParserStrategy) strategy;		
 
 		return outputDoc;
 	}
@@ -116,7 +116,7 @@ class StanfordDocumentParser extends AbstractDocumentParser
 	{
 		AbstractDocument result = null;
 		try
-		{
+		{	//here is where we parse a document
 			result = initializeState(source, strategy);
 			parsingStrategy.setPipeline(pipeline);
 			parsingStrategy.apply(outputDoc);

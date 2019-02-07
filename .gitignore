@@ -8,3 +8,6 @@
 .idea
 .metadata
 /war/
+.vscode/
+flair.iml
+pom-stanford.xml

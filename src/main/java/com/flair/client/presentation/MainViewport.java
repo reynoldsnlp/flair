@@ -147,6 +147,8 @@ public class MainViewport extends LocalizedComposite implements AbstractWebRanke
 	@UiField
 	@LocalizedCommonField(tag=CommonLocalizationTags.LANGUAGE_GERMAN, type=LocalizedFieldType.TEXT_BUTTON)
 	MaterialLink								btnLangDeUI;
+	//@LocalizedCommonField(tag=CommonLocalizationTags.LANGUAGE_RUSSIAN, type=LocalizedFieldType.TEXT_BUTTON)
+	//MaterialLink								btnLangRuUI;
 	@UiField
 	WebSearchModal								mdlWebSearchUI;
 	@UiField
@@ -256,9 +258,15 @@ public class MainViewport extends LocalizedComposite implements AbstractWebRanke
 			switchDisplayLanguage(Language.ENGLISH);
 		});
 		
-		btnLangDeUI.addClickHandler(e -> {
+		btnLangDeUI.addClickHandler(e -> { //changes webpage language not search language
 			switchDisplayLanguage(Language.GERMAN);
 		});
+		/*
+		btnLangRuUI.addClickHandler(e -> {
+			switchDisplayLanguage(Language.RUSSIAN);
+		});
+			*/
+	
 		
 		tglSettingsPaneUI.addClickHandler(e -> toggleSettingsPane());
 		

@@ -58,7 +58,8 @@
 		<!-- UI Language Dropdown -->
 		<m:MaterialDropDown activator="lang-selector" constrainWidth="true" belowOrigin="true">
 			<m:MaterialLink ui:field="btnLangEnUI" waves="DEFAULT" text="English"/>
-			<m:MaterialLink ui:field="btnLangDeUI" waves="DEFAULT" text="German"/>
+			<m:MaterialLink ui:field="btnLangDeUI" waves="DEFAULT" text="Russian"/>
+			<!--<m:MaterialLink ui:field="btnLangRuUI" waves="DEFAULT" text="Russian"/>-->
 		</m:MaterialDropDown>
 		
 		<!-- Main FABs -->
@@ -127,7 +128,7 @@
 								iconPosition="RIGHT" />
 								
 							<m:MaterialLabel ui:field="lblDefaultSearchCaptionUI"
-								text="Click on the Search icon and type in a query. FLAIR will fetch the top results from the Bing Search Engine." />								
+								text="Click on the search icon and type in a query. FLAIR will fetch the top results from the Bing Search Engine." />								
 						</m:MaterialCardContent>
 					</m:MaterialCard>
 				</m:MaterialColumn>

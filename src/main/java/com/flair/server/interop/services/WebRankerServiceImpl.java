@@ -3,6 +3,7 @@ package com.flair.server.interop.services;
 import java.util.ArrayList;
 
 import com.flair.server.interop.session.SessionManager;
+import com.flair.server.utilities.ServerLogger;
 import com.flair.shared.grammar.Language;
 import com.flair.shared.interop.AuthToken;
 import com.flair.shared.interop.ServerAuthenticationToken;
@@ -17,8 +18,13 @@ public class WebRankerServiceImpl extends AbstractRemoteService implements WebRa
 							int numResults,
 							ArrayList<String> keywords)
 	{
-		ServerAuthenticationToken authToken = validateToken(token);
-		SessionManager.get().getSessionState(authToken).searchCrawlParse(query, lang, numResults, keywords);
+		try{
+			ServerAuthenticationToken authToken = validateToken(token);
+			SessionManager.get().getSessionState(authToken).searchCrawlParse(query, lang, numResults, keywords);
+		}
+		catch (NullPointerException ex){
+			ServerLogger.get().error(ex, "NullPointerException in beginWebSearch:");
+		}
 	}
 
 	@Override

@@ -12,7 +12,7 @@ import com.flair.shared.grammar.Language;
  * @author shadeMe
  */
 public final class MasterParsingFactoryGenerator
-{
+{	//here we can handle a case for a different parsing strategy
     private MasterParsingFactoryGenerator() {}
     
     public static AbstractDocumentParserFactory createParser(ParserType type, Language lang)

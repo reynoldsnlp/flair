@@ -72,7 +72,8 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
 	}
     
     public boolean	apply(AbstractDocument docToParse){
-    	assert docToParse != null;
+		assert docToParse != null;
+		int attempts = 0; 
 		try
 		{
 			initializeState(docToParse);
@@ -83,6 +84,9 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
 			List<CoreMap> sentences = docAnnotation.get(CoreAnnotations.SentencesAnnotation.class);
 			for (CoreMap itr : sentences)
 			{
+				/*if(attempts % 20 == 0){
+					ServerLogger.get().info("Parsing " + docToParse.getDescription() + "...");
+				}*/
 
 				if (itr.size() > 0)
 				{

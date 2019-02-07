@@ -66,7 +66,7 @@ class DocumentParseTask extends AbstractTask<DocumentParseTaskResult>
 	private final KeywordSearcherInput				keywordSearcherInput;
 	private ExecutorService							parseExecutor;
 
-	final class ParseRunnable implements Callable<AbstractDocument>
+	final class ParseRunnable implements Callable<AbstractDocument>		//checks to see if the document we attempted to parse was parsed
 	{
 		private final AbstractDocumentParser			parser;
 		
@@ -77,7 +77,7 @@ class DocumentParseTask extends AbstractTask<DocumentParseTaskResult>
 		@Override
 		public AbstractDocument call()
 		{
-			AbstractDocument output = parser.parse(input, strategy);
+			AbstractDocument output = parser.parse(input, strategy);		//calls abstract document parser, document gets parsed by the stanford document parser
 			if (output.isParsed() == false)
 				throw new IllegalStateException("Parser didn't set the document's parsed flag");
 
@@ -109,7 +109,7 @@ class DocumentParseTask extends AbstractTask<DocumentParseTaskResult>
 	}
 
 	@Override
-	protected DocumentParseTaskResult performTask()
+	protected DocumentParseTaskResult performTask()		//here is where the document parsing task occurs, seems like here we are queing documents to be parsed
 	{
 		if (parseExecutor == null)
 			throw new IllegalStateException("Auxiliary threadpool not set");
@@ -124,7 +124,7 @@ class DocumentParseTask extends AbstractTask<DocumentParseTaskResult>
 
 		try (SimpleObjectPoolResource<AbstractDocumentParser> parserPoolData = parserPool.get())
 		{
-			FutureTask<AbstractDocument> wrapper = new FutureTask<>(new ParseRunnable(parserPoolData.get()));
+			FutureTask<AbstractDocument> wrapper = new FutureTask<>(new ParseRunnable(parserPoolData.get()));		//parserunnable parses all the documents, the futureTask keeps track of all our documents as they are being parsed
 			startTime = System.currentTimeMillis();
 			parseExecutor.submit(wrapper).get(TIMEOUT_SECONDS, TimeUnit.SECONDS);
 			output = wrapper.get();
