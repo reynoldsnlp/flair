@@ -529,6 +529,9 @@ public class DocumentCollectionVisualizer extends LocalizedComposite implements 
 			case GERMAN:
 				toggles = bdlGermanSlidersUI;
 				break;
+			case RUSSIAN:
+				toggles = bdlEnglishSlidersUI;
+				break;
 			}
 			
 			toggles.setVisible(true);

@@ -58,7 +58,7 @@
 		<!-- UI Language Dropdown -->
 		<m:MaterialDropDown activator="lang-selector" constrainWidth="true" belowOrigin="true">
 			<m:MaterialLink ui:field="btnLangEnUI" waves="DEFAULT" text="English"/>
-			<m:MaterialLink ui:field="btnLangDeUI" waves="DEFAULT" text="Russian"/>
+			<m:MaterialLink ui:field="btnLangDeUI" waves="DEFAULT" text="German"/>
 			<!--<m:MaterialLink ui:field="btnLangRuUI" waves="DEFAULT" text="Russian"/>-->
 		</m:MaterialDropDown>
 		

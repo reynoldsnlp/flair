@@ -211,7 +211,7 @@
 						</goals>
 
 						<configuration>
-							<force>true</force><!-- forces gwt compilation, comment out for faster maven build -->
+							<!--<force>true</force><!- forces gwt compilation, comment out for faster maven build -->
 							<compileReport>true</compileReport>
 							<failOnError>true</failOnError>
 							<printJavaCommandOnError>true</printJavaCommandOnError>
@@ -223,8 +223,8 @@
 				<!-- Plugin configuration. There are many available options, see gwt-maven-plugin
 					documentation at codehaus.org -->
 				<configuration>
-					<!--<superDevMode>true</superDevMode>-->
-					<superDevMode>false</superDevMode>
+					<superDevMode>true</superDevMode>
+					<!--<superDevMode>false</superDevMode>-->
 
 					<runTarget>FLAIR.html</runTarget>
 					<!--<hostedWebapp>${webappDirectory}</hostedWebapp>

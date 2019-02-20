@@ -7,6 +7,7 @@ import com.flair.client.localization.annotations.LocalizedCommonField;
 import com.flair.client.localization.annotations.LocalizedField;
 import com.flair.client.localization.interfaces.LocalizationBinder;
 import com.flair.client.presentation.interfaces.WebSearchService;
+import com.flair.client.utilities.ClientLogger;
 import com.flair.shared.grammar.Language;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.KeyCodes;
@@ -63,6 +64,8 @@ public class WebSearchModal extends LocalizedComposite implements WebSearchServi
 	@UiField
 	@LocalizedCommonField(tag=CommonLocalizationTags.LANGUAGE_GERMAN, type=LocalizedFieldType.LISTBOX_OPTION) //setting german to russian
 	Option										selResultLangItmDeUI;
+	/*@LocalizedCommonField(tag=CommonLocalizationTags.LANGUAGE_RUSSIAN, type=LocalizedFieldType.LISTBOX_OPTION) 
+	Option										selResultLangItmRuUI;*/
 	@UiField
 	@LocalizedCommonField(tag=CommonLocalizationTags.SEARCH, type=LocalizedFieldType.TEXT_BUTTON)
 	MaterialButton								btnSearchUI;
@@ -107,11 +110,23 @@ public class WebSearchModal extends LocalizedComposite implements WebSearchServi
 	{
 		initWidget(uiBinder.createAndBindUi(this));
 		initLocale(localeBinder.bind(this));
-				
+		
+		createRussianButton();
+
 		searchHandler = null;
 		initHandlers();
+
 	}
 
+	public void createRussianButton()
+	{
+		Option russianOption = new Option();
+		russianOption.setText("Russian");
+		russianOption.setValue("RUSSIAN");
+		//russianOption.setField()
+		selResultLangUI.add(russianOption);
+	}
+	
 	@Override
 	public void setLocale(Language lang)
 	{
@@ -125,6 +140,11 @@ public class WebSearchModal extends LocalizedComposite implements WebSearchServi
 			break;
 		case GERMAN:
 			selResultLangUI.setValue(selResultLangItmDeUI.getValue());
+			break;
+		case RUSSIAN:
+			//selResultLangUI.setValue("RUSSIAN");
+			selResultLangUI.setValue(selResultLangItmEnUI.getValue());
+			ClientLogger.get().error("Setting search language to russian");
 			break;
 		}
 		

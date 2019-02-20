@@ -18,7 +18,7 @@
 				<m:MaterialColumn grid="l3 m3 s12">
 					<m:MaterialListBox ui:field="selResultLangUI" multipleSelect="false">
 						<m.html:Option ui:field="selResultLangItmEnUI" text="English" value="ENGLISH" />
-						<m.html:Option ui:field="selResultLangItmDeUI" text="Russian" value="GERMAN" />
+						<m.html:Option ui:field="selResultLangItmDeUI" text="German" value="GERMAN" />
 						<!--<m.html:Option ui:field="selResultLangItmDeUI" text="Russian" value="GERMAN" />-->
 					</m:MaterialListBox>
 				</m:MaterialColumn>
