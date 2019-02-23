@@ -13,8 +13,8 @@ public class SessionManagementServiceImpl extends AbstractRemoteService implemen
 	public AuthToken beginSession() 
 	{
 		// create and init session data
-		HttpSession session = getThreadLocalRequest().getSession(true);
-		return SessionManager.get().addSession(session);
+		HttpSession session = getThreadLocalRequest().getSession(true);		//returns current session associated with HTTPServerletRequest object
+		return SessionManager.get().addSession(session);					//adds request session to session manager
 	}
 
 	@Override

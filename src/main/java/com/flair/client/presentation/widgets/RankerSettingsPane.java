@@ -370,8 +370,8 @@ public class RankerSettingsPane extends LocalizedComposite implements AbstractRa
 	}
 
 	@Override
-	public boolean isDocLevelEnabled(DocumentReadabilityLevel level)
-	{
+	public boolean isDocLevelEnabled(DocumentReadabilityLevel level)	//Checks to see if we are goingo to display a certain doc level
+	{	
 		switch (level)
 		{
 		case LEVEL_A:

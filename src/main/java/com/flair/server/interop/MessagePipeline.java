@@ -42,7 +42,7 @@ public class MessagePipeline
 	 */
 	class PullMessageSender implements AbstractMesageSender, PullMessageQueue
 	{
-		private final Queue<ServerMessage>		messageQueue;
+		private final Queue<ServerMessage>		messageQueue;		//queue of messages sent to server 
 		private boolean							registered;
 		
 		public PullMessageSender() 
@@ -50,12 +50,20 @@ public class MessagePipeline
 			messageQueue = new ArrayDeque<>();
 			registered = false;
 		}
-		
-		private synchronized void doEnqueue(ServerMessage msg) {
+		/**
+		 * Adds a message to the queue of messages on the server
+		 * @param msg ServerMessage object that represents a message from the server to the client
+		 */
+		private synchronized void doEnqueue(ServerMessage msg) {	
 			messageQueue.add(msg);
 		}
-		
-		private synchronized ServerMessage[] doDequeue(int count)
+		/**
+		 * performs a dequeue operation on the message queue for a specified number of messages
+		 * if count is an invalid number, all messages on the queue will be dequeued
+		 * @param count the number of messages to dequeu
+		 * @return returns a ServerMessage array containing all of the messages that were dequeued
+		 */
+		private synchronized ServerMessage[] doDequeue(int count)	
 		{
 			if (count <= 0)
 				count = messageQueue.size();
@@ -68,17 +76,26 @@ public class MessagePipeline
 			
 			return out;
 		}
-		
+		/**
+		 * Gets the size of the server message queue
+		 * @return integer representing the size of the server message queue
+		 */
 		private synchronized int doSize() {
 			return messageQueue.size();
 		}
-		
+		/**
+		 * Associates this PullMessageSender instance with a ServerAuthenticationToken, this PullMessageSender 
+		 * instance is now registered with a token
+		 * @param token Authentication token associated with this instance of the PullMessageSender
+		 */
 		private synchronized void doOpen(ServerAuthenticationToken token)
 		{
 			registerPullMessageSender(token, this);
 			registered = true;
 		}
-		
+		/**
+		 * clears the message queue and deregisters this instance of the PullMessageSender 
+		 */
 		private synchronized void doClose()
 		{
 			if (messageQueue.isEmpty() == false)
@@ -91,20 +108,23 @@ public class MessagePipeline
 			
 			deregisterPullMessageSender(this);
 		}
-		
+		/**
+		 * clears the message queue
+		 */
 		private synchronized void doClear() {
 			messageQueue.clear();
 		}
-		
+		/**
+		 * checks to see if current instance of PullMessageSender is registered
+		 * @return true if registered, false if not
+		 */
 		private synchronized boolean doIsOpen() {
 			return registered;
 		}
-
 		@Override
 		public MessagePipelineType getType() {
 			return MessagePipelineType.PULL;
 		}
-
 		@Override
 		public void send(ServerMessage msg) 
 		{
@@ -113,22 +133,19 @@ public class MessagePipeline
 			
 			doEnqueue(msg);
 		}
-
 		@Override
 		public int getMessageCount() {
 			return doSize();
 		}
-
 		@Override
 		public ServerMessage[] dequeue(int count) {
 			return doDequeue(count);
 		}
-
 		@Override
 		public ServerMessage[] dequeueAll() {
 			return doDequeue(-1);
 		}
-		
+
 		@Override
 		public void open(AuthToken receiverToken) {
 			doOpen((ServerAuthenticationToken)receiverToken);
@@ -157,7 +174,11 @@ public class MessagePipeline
 		token2Pull = new HashMap<>();
 		pull2Token = new HashMap<>();
 	}
-	
+	/**
+	 * Creates a two way association between an Auth Token and a PullMessageSender
+	 * @param token ServerAuthenticationToken object to be associated with the message sender
+	 * @param sender PullMessageSender object to be associated with the ServerAuthenticationToken
+	 */
 	private synchronized void registerPullMessageSender(ServerAuthenticationToken token, PullMessageSender sender) 
 	{
 		if (token2Pull.containsKey(token))
@@ -166,7 +187,10 @@ public class MessagePipeline
 		token2Pull.put(token, sender);
 		pull2Token.put(sender, token);
 	}
-	
+	/**
+	 * Deletes the registered PullMessageSender and its associated token 
+	 * @param sender PullMessageSender object to be deleted 
+	 */
 	private synchronized void deregisterPullMessageSender(PullMessageSender sender)
 	{
 		if (pull2Token.containsKey(sender) == false)
@@ -177,7 +201,10 @@ public class MessagePipeline
 		token2Pull.remove(sender);
 		pull2Token.remove(token);
 	}
-	
+	/**
+	 * Creates a new pull message sender
+	 * @return PullMessageSender object
+	 */
 	public synchronized AbstractMesageSender createSender()
 	{
 		switch (type)
@@ -190,7 +217,11 @@ public class MessagePipeline
 			return null;
 		}
 	}
-	
+	/**
+	 * Pulls all queued messages off of the queue and returns an array of the dequeued messages
+	 * @param token ServerAuthenticationToken needed to get correct PullMessageSender instance
+	 * @return Array of ServerMesssage objects that were removed from teh queue
+	 */
 	public synchronized ServerMessage[] getQueuedMessages(ServerAuthenticationToken token)
 	{
 		PullMessageSender sender = token2Pull.get(token);

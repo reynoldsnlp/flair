@@ -67,6 +67,7 @@ class Document implements AbstractDocument
 
 		/**
 		 * The switch statements below classify the readability threshHolds 
+		 * Readability thresholds are hard coded here 
 		 */
 		switch (source.getLanguage())
 		{
@@ -92,12 +93,12 @@ class Document implements AbstractDocument
 			throw new IllegalArgumentException("Invalid document language");
 		}
 
-		if (numSentences != 0 && numCharacters != 0)
+		if (numSentences != 0 && numCharacters != 0)		//If num sentences && num characters != 0, we use the readability score we calculated
 			readabilityScore = readabilityScoreCalc;
-		else
+		else												//else we use a negative score, this ensures that we either dont use the document or its is ranked as easiest
 			readabilityScore = -10.0;
-
-		if (readabilityScore < readabilityLevelThreshold_A)
+															// Below we detirmine DocumentReadabilityLevel tag for the client
+		if (readabilityScore < readabilityLevelThreshold_A)		
 			readabilityLevel = DocumentReadabilityLevel.LEVEL_A;
 		else if (readabilityLevelThreshold_A <= readabilityScore && readabilityScore <= readabilityLevelThreshold_B)
 			readabilityLevel = DocumentReadabilityLevel.LEVEL_B;

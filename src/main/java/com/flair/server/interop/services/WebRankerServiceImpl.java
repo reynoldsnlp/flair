@@ -11,7 +11,7 @@ import com.flair.shared.interop.services.WebRankerService;
 
 public class WebRankerServiceImpl extends AbstractRemoteService implements WebRankerService
 {
-	@Override
+	@Override		//initiates searchCrawlParse operation
 	public void beginWebSearch(AuthToken token,
 							Language lang,
 							String query,

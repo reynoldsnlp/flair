@@ -32,7 +32,7 @@ public interface AbstractRankerSettingsPane
 	public DocumentLengthConfigPane						getLengthConfig();
 	public KeywordWeightSlider							getKeywordSlider();
 	
-	public boolean										isDocLevelEnabled(DocumentReadabilityLevel level);
+	public boolean										isDocLevelEnabled(DocumentReadabilityLevel level);		//This detirmines whether or not we display the documents with the corresponding doc level
 	
 	public ConstructionSettingsProfile					generateSettingsProfile();
 	public void											applySettingsProfile(ConstructionSettingsProfile profile, boolean fireEvents);

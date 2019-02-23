@@ -176,7 +176,7 @@ public class SessionState
 		endOperation(true);
 	}
 
-	private RankableDocumentImpl generateRankableDocument(AbstractDocument source)
+	private RankableDocumentImpl generateRankableDocument(AbstractDocument source)		//creates a document that the client can rank
 	{
 		RankableDocumentImpl out = new RankableDocumentImpl();
 		final int snippetMaxLen = 100;
@@ -215,8 +215,8 @@ public class SessionState
 
 		out.setText(source.getText());
 
-		for (GrammaticalConstruction itr : source.getSupportedConstructions())
-		{
+		for (GrammaticalConstruction itr : source.getSupportedConstructions())		//seems like this grabs the occurences of grammatical construction frequency 
+		{																			//so the ranker can reorder based on grammaitcal criteria
 			DocumentConstructionData data = source.getConstructionData(itr);
 			if (data.hasConstruction())
 			{
@@ -235,7 +235,7 @@ public class SessionState
 		KeywordSearcherOutput keywordData = source.getKeywordData();
 		if (keywordData != null)
 		{
-			for (String itr : keywordData.getKeywords())
+			for (String itr : keywordData.getKeywords())							//keeps track of key word occurences so client can reorder based on academic key words
 			{
 				List<TextSegment> hits = keywordData.getHits(itr);
 				for (TextSegment hit : hits)

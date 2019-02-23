@@ -11,8 +11,8 @@ public class PullMessageEndpointServiceImpl extends AbstractRemoteService implem
 	@Override
 	public ServerMessage[] dequeueMessages(AuthToken token) 
 	{
-		ServerAuthenticationToken authToken = validateToken(token);
-		return MessagePipeline.get().getQueuedMessages(authToken);
+		ServerAuthenticationToken authToken = validateToken(token);		//calls AbstractRemoteService validateToken method which validates the token associated with a httpRequest Session
+		return MessagePipeline.get().getQueuedMessages(authToken);		//returns all of the queued messages on the message pipeline
 	}
 
 }

@@ -25,7 +25,7 @@ public interface DocumentRankerInput
 		public boolean								isKeywordEnabled();
 		
 		public double								getDocLengthWeight();
-		public boolean								isDocLevelEnabled(DocumentReadabilityLevel level);
+		public boolean								isDocLevelEnabled(DocumentReadabilityLevel level);		//This detirmines whether or not we display the documents with the corresponding doc level
 		
 		public Iterable<RankableDocument>			getDocuments();
 		public boolean								isDocumentFiltered(RankableDocument doc);	// returns true if the document is to be excluded from the result
