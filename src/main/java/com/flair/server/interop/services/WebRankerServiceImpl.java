@@ -9,6 +9,9 @@ import com.flair.shared.interop.AuthToken;
 import com.flair.shared.interop.ServerAuthenticationToken;
 import com.flair.shared.interop.services.WebRankerService;
 
+/**
+ * Implementation of the WebRankerService interface
+ */
 public class WebRankerServiceImpl extends AbstractRemoteService implements WebRankerService
 {
 	@Override		//initiates searchCrawlParse operation

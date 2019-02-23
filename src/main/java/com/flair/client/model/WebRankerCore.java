@@ -75,6 +75,7 @@ import com.google.gwt.user.client.Window;
 
 import gwt.material.design.client.constants.Color;
 
+//this is where most of the client side logic exists
 /*
  * Monolithic controller component for the various widgets and services
  */

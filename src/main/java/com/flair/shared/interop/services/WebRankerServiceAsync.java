@@ -3,6 +3,9 @@ package com.flair.shared.interop.services;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
+/**
+ * Asyncronious WebRankerService interface
+ */
 public interface WebRankerServiceAsync
 {
 

@@ -45,6 +45,9 @@ import com.flair.shared.interop.UploadedDocumentImpl;
  */
 public class SessionState
 {
+	/**
+	 * Represents the state of a pipeline operation
+	 */
 	static final class OperationState
 	{
 		public final PipelineOperationType			type;
@@ -64,7 +67,10 @@ public class SessionState
 			searchCrawlParse = null;
 			customParse = op;
 		}
-
+		/**
+		 * Returns the type of pipeline operation to be executed
+		 * @return AbstractPipelineOperation object representing pipeline operation
+		 */
 		public AbstractPipelineOperation get()
 		{
 			switch (type)
@@ -78,7 +84,10 @@ public class SessionState
 			return null;
 		}
 	}
-
+	
+	/**
+	 * Temporary Cache for uploaded Corpus Document
+	 */
 	static final class TemporaryCache
 	{
 		static final class CustomCorpus

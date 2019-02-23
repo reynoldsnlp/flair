@@ -7,6 +7,9 @@ import com.flair.shared.interop.AuthToken;
 import com.flair.shared.interop.ServerAuthenticationToken;
 import com.flair.shared.interop.services.SessionManagementService;
 
+/**
+ * Implementation of the SessionManagementService interface
+ */
 public class SessionManagementServiceImpl extends AbstractRemoteService implements SessionManagementService
 {
 	@Override

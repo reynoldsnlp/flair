@@ -5,7 +5,7 @@ import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 /*
- * Interface for session management
+ * Interface for session management service 
  */
 @RemoteServiceRelativePath("SessionManagement")
 public interface SessionManagementService extends RemoteService
