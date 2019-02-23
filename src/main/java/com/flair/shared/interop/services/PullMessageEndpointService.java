@@ -11,5 +11,10 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 @RemoteServiceRelativePath("PullMessage")
 public interface PullMessageEndpointService extends RemoteService
 {
+	/**
+	 * removes all messages from the message queue and returns and array of all the removed messages
+	 * @param token AuthToken needed to validate the dequeuing operation
+	 * @return Array of ServerMessage objects that were removed from the queue
+	 */
 	public ServerMessage[]		dequeueMessages(AuthToken token);
 }

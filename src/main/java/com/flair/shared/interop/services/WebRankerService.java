@@ -13,12 +13,25 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 @RemoteServiceRelativePath("WebRanker")
 public interface WebRankerService extends RemoteService
 {
+	/**
+	 * Begins the web search operation 
+	 * @param token Client's AuthToken to validate web serach operation
+	 * @param lang Web search language
+	 * @param query Web seaarch query 
+	 * @param numResults Number of results to be sent to client
+	 * @param keywords List of academic keywords 
+	 */
 	public void			beginWebSearch(AuthToken token,
 									Language lang,
 									String query,
 									int numResults,
 									ArrayList<String> keywords);
-
+	/**
+	 * Begins the corpus upload operation 
+	 * @param token Client's AuthToken to validate web serach operation
+	 * @param lang Language of Corpus to be uploaded
+	 * @param keywords List of academic keywords
+	 */
 	public void			beginCorpusUpload(AuthToken token,
 										Language lang,
 										ArrayList<String> keywords);		// signals the start of the upload operation and caches params

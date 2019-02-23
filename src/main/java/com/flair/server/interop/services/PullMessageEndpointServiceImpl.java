@@ -6,6 +6,9 @@ import com.flair.shared.interop.ServerAuthenticationToken;
 import com.flair.shared.interop.ServerMessage;
 import com.flair.shared.interop.services.PullMessageEndpointService;
 
+/**
+ * Server side implementation of the PullMessageEndpointService class
+ */
 public class PullMessageEndpointServiceImpl extends AbstractRemoteService implements PullMessageEndpointService
 {
 	@Override

@@ -13,6 +13,11 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
  */
 public abstract class AbstractRemoteService extends RemoteServiceServlet
 {
+	/**
+	 * validates AuthToken for current HTTPSession
+	 * @param token AuthToken to be validated
+	 * @return ServerAuthenticationToken to be used to validate server side operations
+	 */
 	protected ServerAuthenticationToken validateToken(AuthToken token)
 	{
 		HttpServletRequest request = this.getThreadLocalRequest();
