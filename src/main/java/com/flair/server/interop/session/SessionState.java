@@ -112,7 +112,9 @@ public class SessionState
 
 		CustomCorpus			corpusData;
 	}
-
+	/**
+	 * Represents an uploaded File Document
+	 */
 	static final class UploadedFileDocumentSource extends StreamDocumentSource
 	{
 		private final int			id;		// arbitrary identifier
@@ -143,6 +145,10 @@ public class SessionState
 		messagePipeline.open(token);
 	}
 
+	/**
+	 * Initiates a state operation
+	 * @param state Pipeline operation to be executed
+	 */
 	private void beginOperation(OperationState state)
 	{
 		if (hasOperation())
@@ -157,7 +163,11 @@ public class SessionState
 		// has to be the tail call as the begin operation can trigger the completion event if there are no queued tasks
 		currentOperation.get().begin();
 	}
-
+	
+	/**
+	 * Either cancels a running operation or clears a finished operation
+	 * @param cancel Specifies whether or not to cancel an operation
+	 */
 	private void endOperation(boolean cancel)
 	{
 		if (hasOperation() == false)
@@ -170,10 +180,17 @@ public class SessionState
 		currentOperation = null;
 	}
 
+	/**
+	 * Checks to see if there is an operation running
+	 * @return Boolean value representing if there is a running operation
+	 */
 	public synchronized boolean hasOperation() {
 		return currentOperation != null;
 	}
 
+	/**
+	 * Cancels current operation
+	 */
 	public synchronized void cancelOperation()
 	{
 		if (hasOperation() == false)
@@ -185,6 +202,11 @@ public class SessionState
 		endOperation(true);
 	}
 
+	/**
+	 * Creates a document that the client can rank
+	 * @param source Object representing a text source to be ranked, Is either a search result or an uploaded document
+	 * @return A rankable object
+	 */
 	private RankableDocumentImpl generateRankableDocument(AbstractDocument source)		//creates a document that the client can rank
 	{
 		RankableDocumentImpl out = new RankableDocumentImpl();
@@ -194,7 +216,7 @@ public class SessionState
 			throw new IllegalStateException("Document not flagged as parsed");
 
 		out.setLanguage(source.getLanguage());
-		if (source.getDocumentSource() instanceof SearchResultDocumentSource)
+		if (source.getDocumentSource() instanceof SearchResultDocumentSource)			//sets properties corresponding with a web search result
 		{
 			SearchResultDocumentSource searchSource = (SearchResultDocumentSource) source.getDocumentSource();
 			SearchResult searchResult = searchSource.getSearchResult();
@@ -206,7 +228,7 @@ public class SessionState
 			out.setRank(searchResult.getRank());
 			out.setIdentifier(searchResult.getRank());		// ranks don't overlap, so we can use them as ids
 		}
-		else if (source.getDocumentSource() instanceof UploadedFileDocumentSource)
+		else if (source.getDocumentSource() instanceof UploadedFileDocumentSource)		//sets properties corresponding with an uploaded document
 		{
 			UploadedFileDocumentSource localSource = (UploadedFileDocumentSource) source.getDocumentSource();
 
@@ -255,6 +277,7 @@ public class SessionState
 			out.setKeywordRelFreq(keywordData.getTotalHitCount() / source.getNumWords());
 		}
 
+		//properties set for every parsed document, regardless of type
 		out.setRawTextLength(source.getText().length());
 		out.setNumWords(source.getNumWords());
 		out.setNumSentences(source.getNumSentences());
@@ -265,6 +288,11 @@ public class SessionState
 		return out;
 	}
 
+	/**
+	 * Converts a generic web search result to a rankable web search result object
+	 * @param sr A web search result 
+	 * @return A rankable web search object
+	 */
 	private RankableWebSearchResultImpl generateRankableWebSearchResult(SearchResult sr)
 	{
 		RankableWebSearchResultImpl out = new RankableWebSearchResultImpl();
@@ -281,6 +309,9 @@ public class SessionState
 		return out;
 	}
 
+	/**
+	 * 
+	 */
 	private ArrayList<UploadedDocument> generateUploadedDocs(Iterable<AbstractDocumentSource> source)
 	{
 		ArrayList<UploadedDocument> out = new ArrayList<>();
