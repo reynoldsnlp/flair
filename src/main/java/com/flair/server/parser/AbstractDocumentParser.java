@@ -21,6 +21,18 @@ public abstract class AbstractDocumentParser
 	docFactory = factory;
     }
     
+    /**
+     * Checks to see if language is supported by the parser
+     * @param lang Language to be checked
+     * @return Boolean value corresponding with the implementation status of a language, true if supported, false otherwise
+     */
     public abstract boolean		    isLanguageSupported(Language lang);
+
+    /**
+     * Parses a source document using a specified strategy
+     * @param source Document source to be parsed
+     * @param strategy Parse strategy to be utilized by the parser
+     * @return Parsed document
+     */
     public abstract AbstractDocument	    parse(AbstractDocumentSource source, AbstractParsingStrategy strategy);
 }

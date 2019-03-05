@@ -11,5 +11,10 @@ package com.flair.server.parser;
  */
 public interface AbstractDocumentFactory
 {
+   /**
+    * Creates an AbstractDocument object
+    * @param source AbstractDocumentSource object
+    * @return AbstractDocument object
+    */
    public AbstractDocument	create(AbstractDocumentSource source);
 }

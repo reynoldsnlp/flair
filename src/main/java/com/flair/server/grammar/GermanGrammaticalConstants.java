@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Stable constants for the English language grammar
+ * Stable constants for the German language grammar
  * @author zweiss
  */
 public class GermanGrammaticalConstants

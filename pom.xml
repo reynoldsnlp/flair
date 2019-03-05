@@ -131,7 +131,6 @@
 			<artifactId>stanford-corenlp-russian-models</artifactId>
 			<version>master-SNAPSHOT</version>
 		</dependency>
-
 		<!--
 		<dependency>
 	    	<groupId>com.github.stanfordnlp</groupId>

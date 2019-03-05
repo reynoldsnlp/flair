@@ -36,6 +36,11 @@ class StanfordDocumentParser extends AbstractDocumentParser
 	private final StanfordCoreNLP				pipeline;
 	private final Language						modelLanguage;
 
+	/**
+	 * Constructor that generates a stanford parser
+	 * @param factory Interface used to create parsed documents
+	 * @param modelLang Parsing model language
+	 */
 	public StanfordDocumentParser(AbstractDocumentFactory factory, Language modelLang)
 	{
 		super(factory);
@@ -77,6 +82,9 @@ class StanfordDocumentParser extends AbstractDocumentParser
 		
 	}
 
+	/**
+	 * Nulls the source document, the output document, and the parsing strategy  
+	 */
 	private void resetState()
 	{
 		docSource = null;
@@ -84,10 +92,20 @@ class StanfordDocumentParser extends AbstractDocumentParser
 		parsingStrategy = null;
 	}
 
+	/**
+	 * Checks to see if the parser is doing something
+	 * @return Boolean value corresponding to the state of the parser, true if busy, false if not
+	 */
 	private boolean isBusy() {
 		return docSource != null || outputDoc != null || parsingStrategy != null;
 	}
 
+	/**
+	 * Initializes the state of the document parser by intializing the working documents and the parsing strategy
+	 * @param source Source document to be parsed
+	 * @param strategy Parse strategy to be used by the parser
+	 * @return Document to eventually be returned by the parser
+	 */
 	private AbstractDocument initializeState(AbstractDocumentSource source, AbstractParsingStrategy strategy)		//sets the source doc, output doc and parsing strategy
 	{	
 		if (isBusy())

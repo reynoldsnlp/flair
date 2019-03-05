@@ -39,7 +39,7 @@ class StanfordDocumentParserGermanStrategy extends BasicStanfordDocumentParserSt
 	private int	depthCount;			// count tree depthCount
 	private int	characterCount;		// count characters in words
 
-	private static final String WORD_PATTERN = "[a-z\\u00e4\\u00f6\\u00fc\\u00df]+";
+	private static final String WORD_PATTERN = "[a-z\\u00e4\\u00f6\\u00fc\\u00df]+";	//identifies if a word is german
 
 	public StanfordDocumentParserGermanStrategy()
 	{
@@ -73,10 +73,16 @@ class StanfordDocumentParserGermanStrategy extends BasicStanfordDocumentParserSt
 		return str.split(Pattern.quote(substr), -1).length - 1;
 	}
 
+	/**
+	 * Counts the number of matches to a specific TregexPattern within a parse tree
+	 * @param pattern TregexPattern to be matched against the Tree
+	 * @param tree Dependency tree
+	 * @return number of matches to the tregex pattern 
+	 */
 	private int countMatches(TregexPattern pattern, Tree tree) {
 		int matches = 0;
 		TregexMatcher matcher = pattern.matcher(tree);
-		while (matcher.findNextMatchingNode())
+		while (matcher.findNextMatchingNode())	//while the matcher can find the next match to the pattern, increment the number of matches
 		{
 			matches++;
 		}
