@@ -115,11 +115,11 @@ SettingsExporter	lblTitleUI	Export Settings
 SettingsExporter	lblTitleUI_Desc	You can use this link to apply your current settings to future searches.
 		
 WebSearchModal	txtSearchBoxUI	Enter a query
+WebSearchModal	selResultCountItm1UI	1 Result
 WebSearchModal	selResultCountItm10UI	10 Results
 WebSearchModal	selResultCountItm20UI	20 Results
 WebSearchModal	selResultCountItm30UI	30 Results
 WebSearchModal	selResultCountItm40UI	40 Results
-WebSearchModal	selResultCountItm50UI	50 Results
 		
 ConstructionSliderBundleEnglish	pnlSentencesUI	Sentences
 ConstructionSliderBundleEnglish	pnlQuestionsUI	Questions

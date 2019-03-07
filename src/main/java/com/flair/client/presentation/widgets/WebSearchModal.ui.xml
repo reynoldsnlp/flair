@@ -25,12 +25,14 @@
 				
 				<m:MaterialColumn grid="l3 m3 s12">
 					<m:MaterialListBox ui:field="selResultCountUI" multipleSelect="false">
-						<!--<m.html:Option ui:field="selResultCountItm1UI" text="1" value="1" />-->
+						<m.html:Option ui:field="selResultCountItm1UI" text="1" value="1" />	
 						<m.html:Option ui:field="selResultCountItm10UI" text="10" value="10" />
 						<m.html:Option ui:field="selResultCountItm20UI" text="20" value="20" />
 						<m.html:Option ui:field="selResultCountItm30UI" text="30" value="30" />
 						<m.html:Option ui:field="selResultCountItm40UI" text="40" value="40" />
+						<!--	removing localized value, when adding this back re add the localized value
 						<m.html:Option ui:field="selResultCountItm50UI" text="50" value="50" />
+						-->
 					</m:MaterialListBox>
 				</m:MaterialColumn>
 			</m:MaterialRow>				

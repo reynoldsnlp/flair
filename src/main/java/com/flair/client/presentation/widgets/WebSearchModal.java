@@ -41,9 +41,9 @@ public class WebSearchModal extends LocalizedComposite implements WebSearchServi
 	MaterialTextBox								txtSearchBoxUI;
 	@UiField
 	MaterialListBox								selResultCountUI;
-	/*@UiField
+	@UiField
 	@LocalizedField(type=LocalizedFieldType.LISTBOX_OPTION)
-	Option										selResultCountItm1UI;*/
+	Option										selResultCountItm1UI;
 	
 	@UiField									
 	@LocalizedField(type=LocalizedFieldType.LISTBOX_OPTION)
@@ -57,9 +57,11 @@ public class WebSearchModal extends LocalizedComposite implements WebSearchServi
 	@UiField
 	@LocalizedField(type=LocalizedFieldType.LISTBOX_OPTION)
 	Option										selResultCountItm40UI;
+	/*
 	@UiField
 	@LocalizedField(type=LocalizedFieldType.LISTBOX_OPTION)
 	Option										selResultCountItm50UI;
+	*/
 	@UiField
 	MaterialListBox								selResultLangUI;
 	@UiField
@@ -164,7 +166,7 @@ public class WebSearchModal extends LocalizedComposite implements WebSearchServi
 		
 		// ### need to do this to force update the strings in the listboxes
 		// the language listbox is taken care of above, so just select the default result count
-		selResultCountUI.setValue(selResultCountItm10UI.getValue());
+		selResultCountUI.setValue(selResultCountItm1UI.getValue());
 	}
 
 	@Override
