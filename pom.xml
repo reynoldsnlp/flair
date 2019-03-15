@@ -115,9 +115,9 @@
 		<dependency>
 			<!--transitive dependency for gwt-d3-api-->
 			<groupId>com.github.gwtd3</groupId>
-            <artifactId>gwt-d3-js</artifactId>
-            <version>3.5.11</version>
-        </dependency>
+            		<artifactId>gwt-d3-js</artifactId>
+            		<version>3.5.11</version>
+        	</dependency>
 		<dependency>
 			<groupId>edu.stanford.nlp</groupId>
 			<artifactId>stanford-corenlp-russian-models</artifactId>
