@@ -31,18 +31,12 @@ There are multiple ways of storing this api key. FLAIR is expecting the api key 
 
 ## Third Party Dependencies 
 
-In order to run our russian extension, you may need to use some third party dependencies which are not supported by maven. Follow this [link](https://stanfordnlp.github.io/CoreNLP/model-zoo.html) to access the necessary russian language models. You will note that the russian models uses the latest code on github. In order to use the latest github code with maven, you will need to create a jar of the most current CoreNLP code. Click [here](https://stanfordnlp.github.io/CoreNLP/download.html) and then read the "Steps to setup from the GitHub HEAD version" section to get a jar file of the current code. After acquiring both the CoreNLP jar and the russian models jar, you will need to install both jars to your local maven repository. Maven provides documentation on how to accomplish this [here](https://maven.apache.org/guides/mini/guide-3rd-party-jars-local.html). You must update the pom to include the correct versions, artifactID's, ect. To line things up with the provided pom.xml file, follow the naming of the dependencies below. 
+In order to run our russian extension, you need to use some third party dependencies which are not supported by maven. Follow this [link](https://stanfordnlp.github.io/CoreNLP/model-zoo.html) and download the jar file corresponding with the Russian CoreNLP. Although the stanford website says that the latest github code is needed to run the russian models, we have found that version 3.9.2 is recent enough. After dowloading the russian language models, you will need to add  Maven provides documentation on how to accomplish this [here](https://maven.apache.org/guides/mini/guide-3rd-party-jars-local.html). You must update the pom to include the correct versions, artifactID's, ect. To line things up with the provided pom.xml file, follow the naming of the dependencies below. 
 
 ```
-  <dependency>
-      <groupId>edu.stanford.nlp</groupId>
-      <artifactId>stanford-corenlp</artifactId>
-      <version>master-SNAPSHOT</version>
-   </dependency>
    <dependency>
       <groupId>edu.stanford.nlp</groupId>
       <artifactId>stanford-corenlp-russian-models</artifactId>
       <version>master-SNAPSHOT</version>
-   </dependency>
-    
+   </dependency> 
 ```
