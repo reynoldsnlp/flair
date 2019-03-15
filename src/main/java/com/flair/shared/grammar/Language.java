@@ -14,6 +14,7 @@ public enum Language
     ENGLISH,
     GERMAN,
     RUSSIAN,
+    ARABIC,
     ;
     
     public static Language fromString(String lang)
@@ -23,7 +24,9 @@ public enum Language
     	else if (lang.equalsIgnoreCase(GERMAN.name()))
             return GERMAN;
         else if (lang.equalsIgnoreCase(RUSSIAN.name()))
-    		return RUSSIAN;
+            return RUSSIAN;
+        else if (lang.equalsIgnoreCase(ARABIC.name()))
+    		return ARABIC;
     	else
     		throw new RuntimeException("Invalid language string " + lang);
     }
