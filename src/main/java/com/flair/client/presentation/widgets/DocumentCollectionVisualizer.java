@@ -531,6 +531,8 @@ public class DocumentCollectionVisualizer extends LocalizedComposite implements 
 				break;
 			case RUSSIAN:
 				toggles = bdlEnglishSlidersUI;
+			case ARABIC:
+				toggles = bdlEnglishSlidersUI;	
 				break;
 			}
 			
