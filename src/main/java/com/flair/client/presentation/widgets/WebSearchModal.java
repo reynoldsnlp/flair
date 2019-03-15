@@ -74,6 +74,11 @@ public class WebSearchModal extends LocalizedComposite implements WebSearchServi
 	@LocalizedCommonField(tag=CommonLocalizationTags.LANGUAGE_RUSSIAN, type=LocalizedFieldType.LISTBOX_OPTION) 
 	Option										selResultLangItmRuUI;
 	@UiField
+	@LocalizedCommonField(tag=CommonLocalizationTags.LANGUAGE_ARABIC, type=LocalizedFieldType.LISTBOX_OPTION) //setting german to russian
+	Option										selResultLangItmArUI;
+	/*@LocalizedCommonField(tag=CommonLocalizationTags.LANGUAGE_RUSSIAN, type=LocalizedFieldType.LISTBOX_OPTION) 
+	Option										selResultLangItmRuUI;*/
+	@UiField
 	@LocalizedCommonField(tag=CommonLocalizationTags.SEARCH, type=LocalizedFieldType.TEXT_BUTTON)
 	MaterialButton								btnSearchUI;
 	@UiField
@@ -161,6 +166,11 @@ public class WebSearchModal extends LocalizedComposite implements WebSearchServi
 			//selResultLangUI.setValue("RUSSIAN");
 			selResultLangUI.setValue(selResultLangItmEnUI.getValue());
 			ClientLogger.get().error("Setting search language to russian");
+			break;
+		case ARABIC:
+			//selResultLangUI.setValue("RUSSIAN");
+			selResultLangUI.setValue(selResultLangItmEnUI.getValue());
+			ClientLogger.get().error("Setting search language to arabic");
 			break;
 		}
 		
