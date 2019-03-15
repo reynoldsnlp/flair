@@ -27,7 +27,7 @@ class Document implements AbstractDocument
 	private int											numSentences;
 	private int											numDependencies;
 	private int											numWords;
-	private int											numTokens;		// no of words essentially (kinda), later substituted with no of words (without punctuation)
+	private int											numTokens;		// number of words essentially (kinda), later substituted with no of words (without punctuation)
 
 	private double										avgWordLength;		// doesn't include punctuation
 	private double										avgSentenceLength;
@@ -290,6 +290,20 @@ class Document implements AbstractDocument
 	@Override
 	public Iterable<GrammaticalConstruction> getSupportedConstructions() {
 		return GrammaticalConstruction.getForLanguage(getLanguage());
+	}
+	@Override 
+	public String toString(){
+		return "Document : " + getDescription() + 
+		"\nAverage Sentence Length : " + getAvgSentenceLength() + 
+		"\nAverage Word Length : " + getAvgWordLength() + 
+		"\nLength : " + getLength() + 
+		"\nNumber of Dependencies : " + getNumDependencies() +
+		"\nNumber of Words : " + getNumWords() + 
+		"\nNumber of Tokens : " + getNumTokens() + 
+		"\nNumber of Sentences : " + getNumSentences() +
+		"\nNumber of Characters : " + getNumCharacters() + 
+		"\nIs Parsed : " + isParsed() + "\n";
+
 	}
 }
 
