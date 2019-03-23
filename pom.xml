@@ -207,10 +207,6 @@
 					documentation at codehaus.org -->
 				<configuration>
 					<superDevMode>true</superDevMode>
-<<<<<<< HEAD
-=======
-
->>>>>>> russian-constructions
 					<runTarget>FLAIR.html</runTarget>
 					<modules>
 						<module>com.flair.FLAIR</module>
