@@ -21,6 +21,7 @@ _common-strings_	RESULT	Ergebnis
 _common-strings_	RESULTS	Ergebnisse
 _common-strings_	LANGUAGE_ENGLISH	Englisch
 _common-strings_	LANGUAGE_GERMAN	Deutsch
+_common-strings_	LANGUAGE_RUSSIAN	Russisch
 _common-strings_	ACADEMIC_VOCAB	Akademisches Vokabular
 _common-strings_	KEYWORDS	Schlüsselwörter
 _common-strings_	CUSTOM_VOCAB	Benutzerdefiniertes Vokabular
@@ -114,11 +115,11 @@ SettingsExporter	lblTitleUI	Einstellungen exportieren
 SettingsExporter	lblTitleUI_Desc	Sie können diesen Link benutzen, um Ihre derzeigen Einstellungen auf zukünftige Suchen anzuwenden.
 		
 WebSearchModal	txtSearchBoxUI	Suchbegriff eingeben
+WebSearchModal	selResultCountItm1UI	1 Ergebnis
 WebSearchModal	selResultCountItm10UI	10 Ergebnisse
 WebSearchModal	selResultCountItm20UI	20 Ergebnisse
 WebSearchModal	selResultCountItm30UI	30 Ergebnisse
 WebSearchModal	selResultCountItm40UI	40 Ergebnisse
-WebSearchModal	selResultCountItm50UI	50 Ergebnisse
 		
 ConstructionSliderBundleEnglish	pnlSentencesUI	Sätze
 ConstructionSliderBundleEnglish	pnlQuestionsUI	Fragen

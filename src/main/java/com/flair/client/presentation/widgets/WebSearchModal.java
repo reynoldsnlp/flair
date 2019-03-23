@@ -43,6 +43,10 @@ public class WebSearchModal extends LocalizedComposite implements WebSearchServi
 	MaterialListBox								selResultCountUI;
 	@UiField
 	@LocalizedField(type=LocalizedFieldType.LISTBOX_OPTION)
+	Option										selResultCountItm1UI;
+	
+	@UiField									
+	@LocalizedField(type=LocalizedFieldType.LISTBOX_OPTION)
 	Option										selResultCountItm10UI;
 	@UiField
 	@LocalizedField(type=LocalizedFieldType.LISTBOX_OPTION)
@@ -53,9 +57,11 @@ public class WebSearchModal extends LocalizedComposite implements WebSearchServi
 	@UiField
 	@LocalizedField(type=LocalizedFieldType.LISTBOX_OPTION)
 	Option										selResultCountItm40UI;
+	/*
 	@UiField
 	@LocalizedField(type=LocalizedFieldType.LISTBOX_OPTION)
 	Option										selResultCountItm50UI;
+	*/
 	@UiField
 	MaterialListBox								selResultLangUI;
 	@UiField
@@ -64,8 +70,9 @@ public class WebSearchModal extends LocalizedComposite implements WebSearchServi
 	@UiField
 	@LocalizedCommonField(tag=CommonLocalizationTags.LANGUAGE_GERMAN, type=LocalizedFieldType.LISTBOX_OPTION) //setting german to russian
 	Option										selResultLangItmDeUI;
-	/*@LocalizedCommonField(tag=CommonLocalizationTags.LANGUAGE_RUSSIAN, type=LocalizedFieldType.LISTBOX_OPTION) 
-	Option										selResultLangItmRuUI;*/
+	@UiField
+	@LocalizedCommonField(tag=CommonLocalizationTags.LANGUAGE_RUSSIAN, type=LocalizedFieldType.LISTBOX_OPTION) 
+	Option										selResultLangItmRuUI;
 	@UiField
 	@LocalizedCommonField(tag=CommonLocalizationTags.SEARCH, type=LocalizedFieldType.TEXT_BUTTON)
 	MaterialButton								btnSearchUI;
@@ -111,7 +118,7 @@ public class WebSearchModal extends LocalizedComposite implements WebSearchServi
 		initWidget(uiBinder.createAndBindUi(this));
 		initLocale(localeBinder.bind(this));
 		
-		createRussianButton();
+		//createRussianButton();
 
 		searchHandler = null;
 		initHandlers();
@@ -125,6 +132,15 @@ public class WebSearchModal extends LocalizedComposite implements WebSearchServi
 		russianOption.setValue("RUSSIAN");
 		//russianOption.setField()
 		selResultLangUI.add(russianOption);
+	}
+
+	public void create1SearchOption()
+	{
+		Option russianOption = new Option();
+		russianOption.setText("Search 1");
+		russianOption.setValue("1");
+		//russianOption.setField()
+		selResultCountUI.add(russianOption);
 	}
 	
 	@Override
@@ -150,7 +166,7 @@ public class WebSearchModal extends LocalizedComposite implements WebSearchServi
 		
 		// ### need to do this to force update the strings in the listboxes
 		// the language listbox is taken care of above, so just select the default result count
-		selResultCountUI.setValue(selResultCountItm10UI.getValue());
+		selResultCountUI.setValue(selResultCountItm1UI.getValue());
 	}
 
 	@Override

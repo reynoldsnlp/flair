@@ -25,9 +25,15 @@ import edu.stanford.nlp.util.CoreMap;
 
 class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserStrategy {
 	private AbstractDocument workingDoc;
-	private int tokenCount, wordCount, characterCount, sentenceCount, depthCount, dependencyCount;
+	private int tokenCount;
+	private int wordCount;
+	private int characterCount;
+	private int sentenceCount;
+	private int depthCount;
+	private int dependencyCount;
+	private int adjCount;
     
-	private static final String WORD_PATTERN = "\\p{IsCyrillic}+"; //not sure if this regex is correct for including all number of russian words
+	private static final String WORD_PATTERN = "\\p{IsCyrillic}+"; // TODO add Ёё and U+0300 and U+0301 and more? TODO test
 
     public StanfordDocumentParserRussianStrategy()
     {
