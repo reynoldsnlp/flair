@@ -10,6 +10,7 @@ import java.util.StringTokenizer;
 import com.flair.shared.grammar.GrammaticalConstruction;
 import com.flair.shared.grammar.Language;
 import com.flair.shared.parser.DocumentReadabilityLevel;
+//import raft.raft.src;
 
 /**
  * Represents a text document that's parsed by the NLP Parser
@@ -89,6 +90,12 @@ class Document implements AbstractDocument
 			readabilityLevelThreshold_A = 10;
 			readabilityLevelThreshold_B = 20;
 			break;	
+		case ARABIC:
+			readabilityScoreCalc = Math
+					.ceil(((double) numCharacters / (double) numTokens) + (numTokens / (double) numSentences));
+			readabilityLevelThreshold_A = 10;
+			readabilityLevelThreshold_B = 20;
+			break;
 		default:
 			throw new IllegalArgumentException("Invalid document language");
 		}
@@ -108,6 +115,10 @@ class Document implements AbstractDocument
 		avgWordLength = avgSentenceLength = avgTreeDepth = fancyDocLength = 0;
 		keywordData = null;
 		parsed = false;
+	}
+
+	public void calculateReadabilityScore(){
+		ScoreText(" ");
 	}
 
 	@Override

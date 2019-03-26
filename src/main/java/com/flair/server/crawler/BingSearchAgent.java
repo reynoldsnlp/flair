@@ -47,7 +47,7 @@ class BingSearchAgent extends CachingSearchAgent
 			break;
 		case ARABIC:	//TODO add note to add this case for a new language
 			qPostfix = " language:ar";
-			market = "ar-AR";
+			market = "ar-SA";
 			break;
 		default:
 			throw new IllegalArgumentException("Unsupported language " + lang);

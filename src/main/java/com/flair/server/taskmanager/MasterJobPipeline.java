@@ -56,6 +56,7 @@ public final class MasterJobPipeline
 	private final AbstractParsingStrategyFactory	stanfordEnglishStrategy;
 	private final AbstractParsingStrategyFactory	stanfordGermanStrategy;
 	private final AbstractParsingStrategyFactory	stanfordRussianStrategy;
+	private final AbstractParsingStrategyFactory	stanfordArabicStrategy;
 
 
 	private final AbstractDocumentKeywordSearcherFactory naiveSubstringSearcher;
@@ -63,6 +64,7 @@ public final class MasterJobPipeline
 	private DocumentParserPool	stanfordParserEnglishPool;
 	private DocumentParserPool	stanfordParserGermanPool;
 	private DocumentParserPool	stanfordParserRussianPool;
+	private DocumentParserPool	stanfordParserArabicPool;
 
 
 	private MasterJobPipeline()
@@ -77,6 +79,8 @@ public final class MasterJobPipeline
 				Language.GERMAN);
 		this.stanfordRussianStrategy = MasterParsingFactoryGenerator.createParsingStrategy(ParserType.STANFORD_CORENLP,
 				Language.RUSSIAN);
+		this.stanfordArabicStrategy = MasterParsingFactoryGenerator.createParsingStrategy(ParserType.STANFORD_CORENLP,
+				Language.ARABIC);
 
 		this.naiveSubstringSearcher = MasterParsingFactoryGenerator
 				.createKeywordSearcher(KeywordSearcherType.NAIVE_SUBSTRING);
@@ -85,6 +89,7 @@ public final class MasterJobPipeline
 		this.stanfordParserGermanPool = null;
 		this.stanfordParserEnglishPool = null;
 		this.stanfordParserRussianPool = null;
+		this.stanfordParserArabicPool = null;
 	}
 
 	private void shutdown()
@@ -108,7 +113,9 @@ public final class MasterJobPipeline
 		case GERMAN:
 			return stanfordGermanStrategy;
 		case RUSSIAN:
-			return stanfordRussianStrategy;	
+			return stanfordRussianStrategy;
+		case ARABIC:
+			return stanfordArabicStrategy;	
 		default:
 			throw new IllegalArgumentException("Language " + lang + " not supported");
 		}
@@ -147,6 +154,14 @@ public final class MasterJobPipeline
 			}
 
 			return stanfordParserRussianPool;	
+		case ARABIC:
+			if (stanfordParserArabicPool == null)
+			{
+				stanfordParserArabicPool = new DocumentParserPool(
+						MasterParsingFactoryGenerator.createParser(ParserType.STANFORD_CORENLP, Language.ARABIC));
+			}	
+
+			return stanfordParserArabicPool;	
 		default:
 			throw new IllegalArgumentException("Language " + lang + " not supported");
 		}
