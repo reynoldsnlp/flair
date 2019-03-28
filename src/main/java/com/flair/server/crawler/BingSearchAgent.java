@@ -15,7 +15,7 @@ import com.flair.shared.grammar.Language;
  */
 class BingSearchAgent extends CachingSearchAgent
 {
-	private static final String		 PROD_API_KEY		= System.getenv("BING_API");		
+	private static final String		 PROD_API_KEY		= System.getenv("BING_API");
 	
 	private static final int		RESULTS_PER_PAGE	= 100;		// larger numbers will reduce the number of search transactions but will increase the response size
 	private static final int		MAX_API_REQUESTS	= 2;
