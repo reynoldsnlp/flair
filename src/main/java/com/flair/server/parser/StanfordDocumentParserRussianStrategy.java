@@ -53,6 +53,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
             ServerLogger.get().error(e, "Russian Strategy could not initialize the HFSTAnalyser");
         }
         //TODO: set up the CG3 (Constraint Grammar)
+    }
 
 
     public void setPipeline(StanfordCoreNLP pipeline) {
@@ -64,6 +65,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
         return true;
         //return (lang == Language.RUSSIAN);
     }
+
     private void initializeState(AbstractDocument doc) {
         if (pipeline == null)
         {
