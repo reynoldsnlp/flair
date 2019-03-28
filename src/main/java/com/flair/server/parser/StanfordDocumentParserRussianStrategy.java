@@ -179,4 +179,20 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
         return true;
     }
 
+	/**
+	 * Counts the number of matches to a specific TregexPattern within a parse tree
+	 * @param pattern TregexPattern to be matched against the Tree
+	 * @param tree Dependency tree
+	 * @return number of matches to the tregex pattern
+	 */
+	private int countMatches(TregexPattern pattern, Tree tree) {
+		int matches = 0;
+		TregexMatcher matcher = pattern.matcher(tree);
+		while (matcher.findNextMatchingNode())	//while the matcher can find the next match to the pattern, increment the number of matches
+		{
+			matches++;
+		}
+		return matches;
+	}
+
 }
