@@ -34,7 +34,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
 	private int depthCount;
 	private int dependencyCount;
 	private int adjCount;
-    
+
 	private static final String WORD_PATTERN = "[\\p{IsCyrillic}\u0300\u0301]+"; //not sure if this regex is correct for including all number of russian words. EDIT: regex has been changed to handle the two accents over letters
 
     public StanfordDocumentParserRussianStrategy()
@@ -134,9 +134,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
 							.typedDependencies();
 							*/
 
-					//**RKE**
-                    inspectSentence(tree, words);
-                    //**RKE**
+					inspectSentence(tree, words);
 
 					sentenceCount++;
 					//dependencyCount += dependencies.size();
