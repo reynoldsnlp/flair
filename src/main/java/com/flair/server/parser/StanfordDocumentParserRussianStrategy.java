@@ -78,7 +78,19 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
 		pipeline = null;
 		workingDoc = null;
 	}
-    
+
+	private void inspectSentence(Tree tree, List<CoreLabel> words) {
+		if(tree == null){
+			ServerLogger.get().info("Received a null tree to inspect sentence in the RussianStrategy");
+			return;
+		}
+		if (words == null || words.isEmpty()) {
+			return;
+		}
+		int numLIs = countMatches(RussianGrammaticalTreePatterns.patternLi, tree);
+		int numConditionals = countMatches(RussianGrammaticalTreePatterns.patternBi, tree);
+	}
+
     public boolean	apply(AbstractDocument docToParse){
 		assert docToParse != null;
 		int attempts = 0; 
