@@ -54,7 +54,6 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
         }
         //TODO: set up the CG3 (Constraint Grammar)
 
-    }
 
     public void setPipeline(StanfordCoreNLP pipeline) {
         assert pipeline != null;
