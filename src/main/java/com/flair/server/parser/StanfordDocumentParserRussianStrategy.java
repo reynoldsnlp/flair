@@ -8,6 +8,7 @@ package com.flair.server.parser;
 import java.util.Collection;
 import java.util.List;
 
+import com.flair.server.grammar.RussianGrammaticalTreePatterns;
 import com.flair.server.utilities.ServerLogger;
 import com.flair.shared.grammar.Language;
 
