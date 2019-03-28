@@ -32,8 +32,8 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
 	private int depthCount;
 	private int dependencyCount;
 	private int adjCount;
-    
-	private static final String WORD_PATTERN = "\\p{IsCyrillic}+"; // TODO add Ёё and U+0300 and U+0301 and more? TODO test
+
+	private static final String WORD_PATTERN = "[\\p{IsCyrillic}\u0300\u0301]+"; //not sure if this regex is correct for including all number of russian words. EDIT: regex has been changed to handle the two accents over letters
 
     public StanfordDocumentParserRussianStrategy()
     {
@@ -102,6 +102,8 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
 							.get(SemanticGraphCoreAnnotations.CollapsedDependenciesAnnotation.class)
 							.typedDependencies();
 							*/
+
+					inspectSentence(tree, words);
 
 					sentenceCount++;
 					//dependencyCount += dependencies.size();
