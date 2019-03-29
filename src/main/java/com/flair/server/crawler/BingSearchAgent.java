@@ -2,7 +2,6 @@ package com.flair.server.crawler;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import com.flair.server.crawler.impl.AbstractSearchAgentImplResult;
 import com.flair.server.crawler.impl.azure.AzureWebSearch;
 import com.flair.server.utilities.ServerLogger;
