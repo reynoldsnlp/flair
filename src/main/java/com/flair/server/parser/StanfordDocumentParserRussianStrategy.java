@@ -117,7 +117,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
 							.get(SemanticGraphCoreAnnotations.CollapsedDependenciesAnnotation.class)
 							.typedDependencies();
 							*/
-
+					
                     inspectSentence(graph, words);
 
                     sentenceCount++;
