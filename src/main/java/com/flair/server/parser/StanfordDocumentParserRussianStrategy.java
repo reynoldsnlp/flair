@@ -11,7 +11,6 @@ import java.util.List;
 import com.flair.server.grammar.RussianGrammaticalTreePatterns;
 import com.flair.server.utilities.ServerLogger;
 import com.flair.shared.grammar.Language;
-
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.pipeline.Annotation;
@@ -35,7 +34,6 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
 	private int depthCount;
 	private int dependencyCount;
 	private int adjCount;
-
 	private static final String WORD_PATTERN = "[\\p{IsCyrillic}\u0300\u0301]+"; //not sure if this regex is correct for including all number of russian words. EDIT: regex has been changed to handle the two accents over letters
 
     public StanfordDocumentParserRussianStrategy()
@@ -52,12 +50,13 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
 
     public boolean	isLanguageSupported(Language lang){
         return true;
+        //return (lang == Language.RUSSIAN);
     }
     private void initializeState(AbstractDocument doc) {
 		if (pipeline == null)
 		{
 			throw new IllegalStateException("Parser not set");
-		} else if (isLanguageSupported(doc.getLanguage()) == false)
+		} else if (!isLanguageSupported(doc.getLanguage()))
 		{
 			throw new IllegalArgumentException("Document language " + doc.getLanguage()
 					+ " not supported (Strategy language: " + Language.RUSSIAN + ")");
@@ -80,19 +79,19 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
 		workingDoc = null;
 	}
 
-	private void inspectSentence(Tree tree, List<CoreLabel> words) {
-		if(tree == null){
-			ServerLogger.get().info("Received a null tree to inspect sentence in the RussianStrategy");
-			return;
-		}
-		if (words == null || words.isEmpty()) {
-			return;
-		}
-		int numLIs = countMatches(RussianGrammaticalTreePatterns.patternLi, tree);
-		int numConditionals = countMatches(RussianGrammaticalTreePatterns.patternBi, tree);
-	}
-
-    public boolean	apply(AbstractDocument docToParse){
+    private void inspectSentence(Tree tree, List<CoreLabel> words) {
+        if(tree == null){
+            ServerLogger.get().info("Received a null tree to inspect sentence in the RussianStrategy");
+            return;
+        }
+        if (words == null || words.isEmpty()) {
+            return;
+        }
+        int numLIs = countMatches(RussianGrammaticalTreePatterns.patternLi, tree);
+        int numConditionals = countMatches(RussianGrammaticalTreePatterns.patternBi, tree);
+    }
+    
+    public boolean	apply(AbstractDocument docToParse){ //TODO: edit this to recognize li and buj/bi sentences
 		assert docToParse != null;
 		int attempts = 0; 
 		try
@@ -119,6 +118,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
 							*/
 
 					inspectSentence(tree, words);
+
 
 					sentenceCount++;
 					//dependencyCount += dependencies.size();

@@ -12,6 +12,7 @@ import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -27,14 +28,14 @@ import com.google.gson.GsonBuilder;
 
 /**
  * Basic web search implementation that uses the Azure Search API
- * 
+ *
  * @author shadeMe
  */
 public class AzureWebSearch implements AbstractSearchAgentImpl
 {
 	private static final String	AZURESEARCH_SCHEME		= "https";
 	private static final String	AZURESEARCH_HOSTNAME	= "api.cognitive.microsoft.com";
-	private static final String	AZURESEARCH_PATH		= "/bing/v5.0/search"; 
+	private static final String	AZURESEARCH_PATH		= "/bing/v5.0/search";
 
 	private static final String	RESPONSE_FILTER		= "Webpages";
 	private static final int	RESULTS_PER_PAGE	= 10;
@@ -157,9 +158,10 @@ public class AzureWebSearch implements AbstractSearchAgentImpl
 	private void loadResults(InputStream stream)
 	{
 		results.clear();
-		String stringFromInputStream = convertStreamToString(stream);
-		AzureWebSearchResponse response = deserializer.fromJson(stringFromInputStream,
+		AzureWebSearchResponse response = deserializer.fromJson(convertStreamToString(stream),
 				AzureWebSearchResponse.class);
+		/*AzureWebSearchResponse response = deserializer.fromJson(new InputStreamReader(stream),
+				AzureWebSearchResponse.class);*/
 		if (response != null)
 		{
 			WebAnswer answer = response.webPages;
