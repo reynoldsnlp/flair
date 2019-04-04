@@ -5,12 +5,20 @@
  */
 package com.flair.server.parser;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.lang.Exception;
 import java.util.StringTokenizer;
 
 import com.flair.shared.grammar.GrammaticalConstruction;
 import com.flair.shared.grammar.Language;
 import com.flair.shared.parser.DocumentReadabilityLevel;
-//import raft.raft.src;
+
+//import org.apache.cxf.common.i18n.Exception;
+import org.jsoup.select.Evaluator.Class;
+
+import com.flair.server.raft.Raft;
 
 /**
  * Represents a text document that's parsed by the NLP Parser
@@ -39,9 +47,13 @@ class Document implements AbstractDocument
 
 	private boolean parsed;
 
+	private Raft raft;
+
 	public Document(AbstractDocumentSource parent)
 	{
 		assert parent != null;
+
+		raft = new Raft();
 
 		source = parent;
 		constructionData = new ConstructionDataCollection(parent.getLanguage(), new DocumentConstructionDataFactory(this));
@@ -91,10 +103,11 @@ class Document implements AbstractDocument
 			readabilityLevelThreshold_B = 20;
 			break;	
 		case ARABIC:
-			readabilityScoreCalc = Math
-					.ceil(((double) numCharacters / (double) numTokens) + (numTokens / (double) numSentences));
-			readabilityLevelThreshold_A = 10;
-			readabilityLevelThreshold_B = 20;
+			readabilityScoreCalc = calculateReadabilityScore(source.getSourceText());
+			//readabilityScoreCalc = 1.0;
+			readabilityLevelThreshold_A = 1.1;
+			readabilityLevelThreshold_B = 2.1;
+			
 			break;
 		default:
 			throw new IllegalArgumentException("Invalid document language");
@@ -117,8 +130,16 @@ class Document implements AbstractDocument
 		parsed = false;
 	}
 
-	public void calculateReadabilityScore(){
-		ScoreText(" ");
+	public double calculateReadabilityScore(String source) { 
+		//throws IOException, FileNotFoundException, ClassNotFoundException, UnsupportedEncodingException, InterruptedException, Exception
+		double readabilityLevel = 0;
+		try{
+			readabilityLevel = raft.ScoreText(source);	//throws a bunch of exceptions so just catch the most general case
+		}
+		catch(Exception ex){
+			return 0;
+		}
+		return readabilityLevel;
 	}
 
 	@Override

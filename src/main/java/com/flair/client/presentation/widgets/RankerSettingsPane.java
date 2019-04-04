@@ -12,6 +12,7 @@ import com.flair.client.model.interfaces.DocumentRankerOutput.Rank;
 import com.flair.client.presentation.interfaces.AbstractRankerSettingsPane;
 import com.flair.client.presentation.widgets.sliderbundles.ConstructionSliderBundleEnglish;
 import com.flair.client.presentation.widgets.sliderbundles.ConstructionSliderBundleGerman;
+import com.flair.client.utilities.ClientLogger;
 import com.flair.shared.grammar.GrammaticalConstruction;
 import com.flair.shared.grammar.Language;
 import com.flair.shared.interop.ConstructionSettingsProfile;
@@ -149,8 +150,22 @@ public class RankerSettingsPane extends LocalizedComposite implements AbstractRa
 		
 		public void resetUI()
 		{
+			ClientLogger.get().info("Calling resetUI");
+			/*switch(sliderLanguage) {
+				case ARABIC:
+					ClientLogger.get().info("Language is Arabic");
+					hideSliderBundles();
+					lblConstructionsUI.setVisible(false);
+					break;
+				default:
+					ClientLogger.get().info("Language is " + sliderLanguage.toString());
+					hideSliderBundles();
+					getSliderBundle().setVisible(true);
+					lblConstructionsUI.setVisible(true);
+			}*/
 			hideSliderBundles();
-			getSliderBundle().setVisible(true);
+			lblConstructionsUI.setVisible(false);
+
 		}
 		
 		public void init(DocumentRankerOutput.Rank rankerData)
@@ -189,7 +204,7 @@ public class RankerSettingsPane extends LocalizedComposite implements AbstractRa
 			hideSliderBundles();
 			sliderLanguage = lang;
 			
-			getSliderBundle().setVisible(true);
+			getSliderBundle().setVisible(false);	//should be true to show out lblsliders
 			getSliderBundle().refreshLocale();
 		}
 		
@@ -270,6 +285,7 @@ public class RankerSettingsPane extends LocalizedComposite implements AbstractRa
 	
 	private void initUI()
 	{
+		ClientLogger.get().info("Calling initUI");
 		pnlSettingsContainerUI.setWidth(PANEL_WIDTH + "px");
 		state.resetUI();
 		hide();
@@ -283,6 +299,8 @@ public class RankerSettingsPane extends LocalizedComposite implements AbstractRa
 		this.state = new State();
 		showhideHandler = null;
 		visible = false;
+
+		ClientLogger.get().info("Constructing RankerSettingsPane");
 
 		initHandlers();
 		initUI();

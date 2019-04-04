@@ -25,7 +25,7 @@ class StanfordDocumentParser extends AbstractDocumentParser
 	private static final String RUSSIAN_POS_MODEL       = "edu/stanford/nlp/models/pos-tagger/russian-ud-pos.tagger";
 	private static final String RUSSIAN_DEPPARSE_MODEL  = "edu/stanford/nlp/models/parser/nndep/nndep.rus.model.wiki.txt.gz";
 	private static final String ARABIC_POS_MODEL		= "edu/stanford/nlp/models/pos-tagger/arabic/arabic.tagger";
-	private static final String ARABIC_PARSE_MODEL		= "edu/stanford/nlp/models/lexparser/arabicFactored.ser.gz";
+	private static final String ARABIC_PARSE_MODEL		= "edu/stanford/nlp/models/srparser/arabicSR.ser.gz";
 	private static final String ARABIC_SEGMENT_MODEL	= "edu/stanford/nlp/models/segmenter/arabic/arabic-segmenter-atb+bn+arztrain.ser.gz";
 
 

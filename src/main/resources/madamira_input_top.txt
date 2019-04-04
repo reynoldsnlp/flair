@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<madamira_input xmlns="urn:edu.columbia.ccls.madamira.configuration:0.1">
+	<madamira_configuration>
+        <preprocessing sentence_ids="false" separate_punct="true" input_encoding="UTF8"/>
+        <overall_vars output_encoding="UTF8" dialect="MSA" output_analyses="TOP" morph_backoff="NONE"/>
+        <requested_output>
+            <req_variable name="PREPROCESSED" value="false" />
+            <req_variable name="STEM" value="false" />
+            <req_variable name="GLOSS" value="false" />
+            <req_variable name="LEMMA" value="true" />
+            <req_variable name="DIAC" value="false" />
+            <req_variable name="ASP" value="false" />
+            <req_variable name="CAS" value="false" />
+            <req_variable name="ENC0" value="false" />
+            <req_variable name="ENC1" value="false" />
+            <req_variable name="ENC2" value="false" />
+            <req_variable name="GEN" value="false" />
+            <req_variable name="MOD" value="false" />
+            <req_variable name="NUM" value="false" />
+            <req_variable name="PER" value="false" />
+            <req_variable name="POS" value="true" />
+            <req_variable name="PRC0" value="false" />
+            <req_variable name="PRC1" value="false" />
+            <req_variable name="PRC2" value="false" />
+            <req_variable name="PRC3" value="false" />
+            <req_variable name="STT" value="false" />
+            <req_variable name="VOX" value="false" />
+            <req_variable name="BW" value="false" />
+            <req_variable name="SOURCE" value="false" />
+			<req_variable name="NER" value="false" />
+			<req_variable name="BPC" value="false" />
+        </requested_output>
+	</madamira_configuration>
+    <in_doc id="ExampleDocument">
+        <in_seg id="BODY">

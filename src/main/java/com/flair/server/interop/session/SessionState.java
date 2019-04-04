@@ -5,6 +5,7 @@
  */
 package com.flair.server.interop.session;
 
+import java.io.File;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -177,7 +178,24 @@ public class SessionState
 			currentOperation.get().cancel();
 
 		ServerLogger.get().info("Pipeline operation " + currentOperation.type + " has ended | Cancelled = " + cancel);
+		cleanRaft();
 		currentOperation = null;
+	}
+
+	public void cleanRaft(){
+		File folder = new File(".");
+		File fList[] = folder.listFiles();
+		// Searchs unlabeled
+		for (int i = 0; i < fList.length; i++) {
+			File file = fList[i];
+			String fileStr = file.toString();
+    		if (fileStr.contains("unlabeled") || fileStr.contains("mada_")) {
+				if(file.delete())
+					ServerLogger.get().info(fileStr + " deleted");
+				else	
+				ServerLogger.get().error(fileStr + " not deleted ");
+    		}
+		}
 	}
 
 	/**
