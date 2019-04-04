@@ -42,14 +42,14 @@ public class Raft {
 		int returnValue = 0;
 		Processor processor = new Processor(webText);
 		String featureData = processor.getResult() + "1.0";
-		String model = "/model.arff";
+		String model = "model.arff";
 		
 		Path currentRelativePath = Paths.get("");
 		String s = this.getClass().getClassLoader().getResource("").getPath();
 		ServerLogger.get().info("Current relative path in Raft is: " + s);
 		ServerLogger.get().info("Model location -> " + model);
 
-		model = s + model;
+		//model = s + model;
 
 		Weka weka = new Weka(model);
 		returnValue =  weka.ScoreFeatures(featureData);

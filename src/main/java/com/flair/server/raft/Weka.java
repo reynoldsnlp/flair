@@ -142,8 +142,9 @@ public class Weka {
 		
 		try{
 			//input = new FileInputStream(inputFile);
-			classLoader = getClass().getClassLoader();
-			input = classLoader.getResourceAsStream("/model.arff");	
+			//classLoader = getClass().getClassLoader();
+			//input = classLoader.getResourceAsStream("/model.arff");	
+			input = new FileInputStream(new File("/Users/michaelbriggs/Desktop/BYU-ODH/flair/src/main/java/com/flair/server/resources/" + trainingDataFileName));
 			//InputStream inputCopy = classLoader.getResourceAsStream(trainingDataFileName);
 			//ServerLogger.get().info("Model.arff contents : " + getStringFromInputStream(inputCopy));
 			reader = new BufferedReader(new InputStreamReader(input, "UTF8"));
