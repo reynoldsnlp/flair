@@ -79,6 +79,10 @@ public class Processor {
 		}
 		return contents;
 	}
+
+	public int getSalt(){
+		return taskSalt;
+	}
 	
 	public static String ReadFileContents(File file) {
 		StringBuilder sb = new StringBuilder();
@@ -149,8 +153,8 @@ public class Processor {
 	private void lemmatizeText() {
 		String xmlTop = readResourceFile("/madamira_input_top.txt");
 		String xmlBottom = readResourceFile("/madamira_input_bottom.txt");
-		input = "mada_input" + taskSalt + ".txt";
-		output = "mada_output" + taskSalt + ".txt";
+		input = "/tmp/mada_input" + taskSalt + ".txt";
+		output = "/tmp/mada_output" + taskSalt + ".txt";
 		try {
 			File fMadaInput = new File(input);
 			Writer writer = new BufferedWriter(new OutputStreamWriter
@@ -159,11 +163,11 @@ public class Processor {
 			writer.close();
 		}
 		catch(UnsupportedEncodingException e) {
-			System.out.println("UNSUPPORTED ENCODING - WRITING MADAMIRA INPUT");
+			ServerLogger.get().error("UNSUPPORTED ENCODING - WRITING MADAMIRA INPUT");
 			e.printStackTrace();
 		}
 		catch(IOException e) {
-			System.out.println("COULD NOT WRITE TO FILE - WRITING MADAMIRA INPUT");
+			ServerLogger.get().error("COULD NOT WRITE TO FILE - WRITING MADAMIRA INPUT");
 			e.printStackTrace();
 		}
 		
@@ -357,7 +361,7 @@ public class Processor {
 		TreeMap<String, Integer> freqListMap = new TreeMap<>();
 		try {
 				ClassLoader classLoader = getClass().getClassLoader();
-				InputStream input = classLoader.getResourceAsStream("freqList.txt");
+				InputStream input = classLoader.getResourceAsStream("/freqList.txt");
 			
 				BufferedReader reader = new BufferedReader(new InputStreamReader(input, "UTF8"));
 			
@@ -463,7 +467,7 @@ public class Processor {
 			sb.append(avgWordLen);
 			sb.append(",");
 		}
-		clearFiles();
+		//clearFiles();
 		//System.out.println(sb.toString());
 		return sb.toString();
 	}

@@ -19,6 +19,7 @@ import com.flair.shared.parser.DocumentReadabilityLevel;
 import org.jsoup.select.Evaluator.Class;
 
 import com.flair.server.raft.Raft;
+import com.flair.server.utilities.ServerLogger;
 
 /**
  * Represents a text document that's parsed by the NLP Parser
@@ -104,10 +105,19 @@ class Document implements AbstractDocument
 			break;	
 		case ARABIC:
 			readabilityScoreCalc = calculateReadabilityScore(source.getSourceText());
+			if(readabilityScoreCalc == 0.0){
+				ServerLogger.get().error("RAFT document analysis failed on " + getDescription() + 
+				", document number " + raft.getSalt() + ", now using default readability score");
+				readabilityScoreCalc = Math
+					.ceil(((double) numCharacters / (double) numTokens) + (numTokens / (double) numSentences));
+				readabilityLevelThreshold_A = 10;
+				readabilityLevelThreshold_B = 20;
+			}
+			else{
+				readabilityLevelThreshold_A = 1.1;
+				readabilityLevelThreshold_B = 2.1;
+			}
 			//readabilityScoreCalc = 1.0;
-			readabilityLevelThreshold_A = 1.1;
-			readabilityLevelThreshold_B = 2.1;
-			
 			break;
 		default:
 			throw new IllegalArgumentException("Invalid document language");
@@ -135,8 +145,10 @@ class Document implements AbstractDocument
 		double readabilityLevel = 0;
 		try{
 			readabilityLevel = raft.ScoreText(source);	//throws a bunch of exceptions so just catch the most general case
+			ServerLogger.get().info("For document " + getDescription() + " number is " + raft.getSalt());
 		}
 		catch(Exception ex){
+			ServerLogger.get().error(ex.getMessage());
 			return 0;
 		}
 		return readabilityLevel;

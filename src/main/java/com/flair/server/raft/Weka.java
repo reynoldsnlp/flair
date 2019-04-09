@@ -53,7 +53,7 @@ public class Weka {
 		this.trainingDataFileName = trainingDataFileName;
 		Random r = new Random();
 		taskSalt = r.nextInt(10000000);		//gives a random number to salt our file names with
-		inputFileName = "unlabeled" + taskSalt + ".arff";
+		inputFileName = "/tmp/unlabeled" + taskSalt + ".arff";
 		try {
 			this.rf = buildRandomForestModel();
 		} catch (Exception e) {
@@ -71,6 +71,14 @@ public class Weka {
 
 	public int getSalt(){
 		return taskSalt;
+	}
+
+	public void setSalt(int salt){
+		taskSalt = salt;
+	}
+
+	public void resetInputFileName(){
+		inputFileName = "/tmp/unlabeled" + taskSalt + ".arff";
 	}
 	
 	public int ScoreFeatures(String featureData) throws IOException, FileNotFoundException, ClassNotFoundException, UnsupportedEncodingException, InterruptedException, Exception {
@@ -132,7 +140,7 @@ public class Weka {
 		//ServletContext servletContextLoader = getServletContext();
 		Path currentRelativePath = Paths.get("");
 		String s = this.getClass().getClassLoader().getResource("").getPath();
-		ServerLogger.get().info("Current relative path in Weka is: " + s);
+		//ServerLogger.get().info("Current relative path in Weka is: " + s);
 
 		ClassLoader classLoader;
 		InputStream input;	

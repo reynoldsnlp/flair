@@ -178,7 +178,7 @@ public class SessionState
 			currentOperation.get().cancel();
 
 		ServerLogger.get().info("Pipeline operation " + currentOperation.type + " has ended | Cancelled = " + cancel);
-		cleanRaft();
+		//cleanRaft();
 		currentOperation = null;
 	}
 

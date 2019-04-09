@@ -18,7 +18,10 @@ import java.nio.file.Paths;
 
 public class Raft {
 
-	public Raft(){}
+	private int wekaSalt;
+	public Raft(){
+		wekaSalt = 0;
+	}
 
 	/*
 	public static void main (String[] args) throws IOException, FileNotFoundException, ClassNotFoundException, UnsupportedEncodingException, InterruptedException, Exception {
@@ -46,16 +49,22 @@ public class Raft {
 		
 		Path currentRelativePath = Paths.get("");
 		String s = this.getClass().getClassLoader().getResource("").getPath();
-		ServerLogger.get().info("Current relative path in Raft is: " + s);
-		ServerLogger.get().info("Model location -> " + model);
+		//ServerLogger.get().info("Current relative path in Raft is: " + s);
+		//ServerLogger.get().info("Model location -> " + model);
 
 		//model = s + model;
 
 		Weka weka = new Weka(model);
-		returnValue =  weka.ScoreFeatures(featureData);
-		weka.clearFiles();
+		weka.setSalt(processor.getSalt());
+		wekaSalt = weka.getSalt();
+		weka.resetInputFileName();
+		returnValue = weka.ScoreFeatures(featureData);
+		//weka.clearFiles();
 		//cleanRaft(weka.getSalt());
 		return returnValue;
+	}
+	public int getSalt(){
+		return wekaSalt;
 	}
 	public void cleanRaft(int salt){
 		File folder = new File("");
