@@ -47,8 +47,8 @@ public class Raft {
 		String featureData = processor.getResult() + "1.0";
 		String model = "model.arff";
 		
-		Path currentRelativePath = Paths.get("");
-		String s = this.getClass().getClassLoader().getResource("").getPath();
+		//Path currentRelativePath = Paths.get("");
+		//String s = this.getClass().getClassLoader().getResource("").getPath();
 		//ServerLogger.get().info("Current relative path in Raft is: " + s);
 		//ServerLogger.get().info("Model location -> " + model);
 

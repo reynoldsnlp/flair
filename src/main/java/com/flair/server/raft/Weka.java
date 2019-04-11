@@ -86,13 +86,14 @@ public class Weka {
 		writeInputFile();
     
         //import the data to predict, this can include multiple sets of data
-		System.out.println(inputFileName);
+		ServerLogger.get().info("inputFileName: " + inputFileName);
 		Instances unlabeled = new Instances(new BufferedReader(new FileReader(inputFileName)));
         unlabeled.setClassIndex(unlabeled.numAttributes() - 1);
         Instances labeled = new Instances(unlabeled);
-        System.out.println(unlabeled.instance(0));
+        ServerLogger.get().info(unlabeled.instance(0).toString());
         
         double prediction = rf.classifyInstance(unlabeled.instance(0));		//this is where we use our random forest model
+	ServerLogger.get().info("Prediction from RF model:" + prediction);
     	labeled.instance(0).setClassValue(prediction);
         //figure out which index we're trying to predict (the last one for us)
         
@@ -107,7 +108,7 @@ public class Weka {
         	score = ((int) prediction + 1);
         }
 		*/
-		//clearFiles();
+		clearFiles();
 		return this.score;
 	}
 	
@@ -150,8 +151,9 @@ public class Weka {
 		
 		try{
 			//input = new FileInputStream(inputFile);
-			classLoader = getClass().getClassLoader();
-			input = classLoader.getResourceAsStream("/model.arff");	
+			//classLoader = getClass().getClassLoader();
+			//input = classLoader.getResourceAsStream("/model.arff");	
+			input = new FileInputStream(new File("/opt/flair/src/main/java/com/flair/server/resources/" + trainingDataFileName));
 			//InputStream inputCopy = classLoader.getResourceAsStream(trainingDataFileName);
 			//ServerLogger.get().info("Model.arff contents : " + getStringFromInputStream(inputCopy));
 			reader = new BufferedReader(new InputStreamReader(input, "UTF8"));
@@ -190,10 +192,12 @@ public class Weka {
 	}
 	
 	private void writeInputFile() throws IOException {
+
 		String wekaTop = GetArffHeader();
 		File fWekaInput = new File(inputFileName);
 		Writer writer = new BufferedWriter(new OutputStreamWriter
 				(new FileOutputStream(fWekaInput)));
+		ServerLogger.get().info("featureData for arff: " + featureData);
 		writer.write(wekaTop + featureData);
 		writer.close();
 	}	

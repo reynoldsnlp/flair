@@ -7,10 +7,13 @@ package com.flair.server.parser;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.StringWriter;
+import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.lang.Exception;
 import java.util.StringTokenizer;
 
+import com.flair.server.utilities.ServerLogger;
 import com.flair.shared.grammar.GrammaticalConstruction;
 import com.flair.shared.grammar.Language;
 import com.flair.shared.parser.DocumentReadabilityLevel;
@@ -148,7 +151,14 @@ class Document implements AbstractDocument
 			ServerLogger.get().info("For document " + getDescription() + " number is " + raft.getSalt());
 		}
 		catch(Exception ex){
+<<<<<<< Updated upstream
 			ServerLogger.get().error(ex.getMessage());
+=======
+			ServerLogger.get().error(ex.toString());
+			StringWriter errors = new StringWriter();
+			ex.printStackTrace(new PrintWriter(errors));
+			ServerLogger.get().error(errors.toString());
+>>>>>>> Stashed changes
 			return 0;
 		}
 		return readabilityLevel;
