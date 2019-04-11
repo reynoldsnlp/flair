@@ -1,14 +1,16 @@
 package com.flair.server.grammar;
 
 import edu.stanford.nlp.trees.tregex.TregexPattern;
+import static java.util.regex.Pattern.CASE_INSENSITIVE;
+import java.util.regex.Pattern;
 
 public class RussianGrammaticalTreePatterns {
 
-    //Tregex for clauses containing 'li' = ли
-    private static final String STR_LI = "/^ли$/";
-    public static TregexPattern patternLi = TregexPattern.compile(STR_LI);
+    //regex for clauses containing 'ли'
+    private static final String STR_LI = "\\bли\\b";
+    public static Pattern patternLi = Pattern.compile(STR_LI, CASE_INSENSITIVE);
 
-    //Tregex for clauses containing 'bi' = бы
-    private static final String STR_BI = "/^бы$/";
-    public static TregexPattern patternBi = TregexPattern.compile(STR_BI);
+    //regex for clauses containing 'бы'
+    private static final String STR_BI = "\\bбы\\b";
+    public static Pattern patternBi = Pattern.compile(STR_BI, CASE_INSENSITIVE);
 }

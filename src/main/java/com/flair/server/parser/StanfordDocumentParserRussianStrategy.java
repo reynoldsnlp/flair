@@ -41,6 +41,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
     private int depthCount;
     private int dependencyCount;
     private int adjCount;
+
     private static final String WORD_PATTERN = "[\\p{IsCyrillic}\u0300\u0301]+";
 
     public StanfordDocumentParserRussianStrategy() {
@@ -235,7 +236,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
         }
         return matches;
     }
-
+    
     /**
      * Counts the number of matches to a specific regex Pattern for individual words
      * @param pattern Pattern to be matched against each word
