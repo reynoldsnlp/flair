@@ -5,11 +5,16 @@
  */
 package com.flair.server.parser;
 
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.PrintWriter;
+import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
+import java.io.Writer;
 import java.lang.Exception;
 import java.util.StringTokenizer;
 
@@ -111,6 +116,21 @@ class Document implements AbstractDocument
 			if(readabilityScoreCalc == 0.0){
 				ServerLogger.get().error("RAFT document analysis failed on " + getDescription() + 
 				", document number " + raft.getSalt() + ", now using default readability score");
+				try {
+					File failedSourceText = new File("/tmp/source" + raft.getSalt() + ".txt");
+					Writer writer = new BufferedWriter(new OutputStreamWriter
+							(new FileOutputStream(failedSourceText), "UTF8"));
+					writer.write(source.getSourceText());
+					writer.close();
+				}
+				catch(UnsupportedEncodingException e) {
+					ServerLogger.get().error("UNSUPPORTED ENCODING - WRITING FAILED SOURCE TEXT");
+					e.printStackTrace();
+				}
+				catch(IOException e) {
+					ServerLogger.get().error("COULD NOT WRITE TO FILE - WRITING FAILED SOURCE TEXT");
+					e.printStackTrace();
+				}
 				readabilityScoreCalc = Math
 					.ceil(((double) numCharacters / (double) numTokens) + (numTokens / (double) numSentences));
 				readabilityLevelThreshold_A = 10;
