@@ -151,14 +151,10 @@ class Document implements AbstractDocument
 			ServerLogger.get().info("For document " + getDescription() + " number is " + raft.getSalt());
 		}
 		catch(Exception ex){
-<<<<<<< Updated upstream
-			ServerLogger.get().error(ex.getMessage());
-=======
 			ServerLogger.get().error(ex.toString());
 			StringWriter errors = new StringWriter();
 			ex.printStackTrace(new PrintWriter(errors));
 			ServerLogger.get().error(errors.toString());
->>>>>>> Stashed changes
 			return 0;
 		}
 		return readabilityLevel;
