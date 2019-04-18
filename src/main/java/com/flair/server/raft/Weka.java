@@ -28,21 +28,22 @@ public class Weka {
 	public static String GetArffHeader() {
 		String arffHeader = "@relation arabicReadingDifficulty\r\n" + 
 				"\r\n" + 
-				//"@attribute word_count NUMERIC\r\n" + 
-				//"@attribute sentence_count NUMERIC\r\n" + 
 				"@attribute sentence_length NUMERIC\r\n" + 
+				"@attribute word_length NUMERIC\r\n" + 
 				"@attribute lexical_diversity NUMERIC\r\n" + 
+				"@attribute lexical_complexity NUMERIC\r\n" + 
+				"@attribute max_lexical_complexity NUMERIC\r\n" + 
 				"@attribute p95 NUMERIC\r\n" + 
 				"@attribute mean NUMERIC\r\n" + 
 				"@attribute median NUMERIC\r\n" + 
 				"@attribute noun NUMERIC\r\n" + 
+				"@attribute pron NUMERIC\r\n" + 
 				"@attribute verb NUMERIC\r\n" + 
 				"@attribute prep NUMERIC\r\n" + 
 				"@attribute part NUMERIC\r\n" + 
 				"@attribute conj NUMERIC\r\n" + 
 				"@attribute adv NUMERIC	\r\n" + 
-				"@attribute adj NUMERIC\r\n"	 + 
-				"@attribute word_length NUMERIC\r\n" + 
+				"@attribute adj NUMERIC\r\n" + 
 				"@attribute difficulty {1.0, 2.0, 3.0, 4.0}\r\n" + 
 				"\r\n" + 
 				"@data \r\n";

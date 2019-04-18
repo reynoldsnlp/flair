@@ -30,8 +30,8 @@ import org.jsoup.select.Elements;
 public class Processor {
 	
 	public Processor(String webText) {
-		Random r = new Random();
-		taskSalt = r.nextInt(10000000);		//gives a random number to salt our file names with
+		webText = webText.trim().replaceAll("&", "+");
+		webText = webText.trim().replaceAll("(\\s)+", "$1");
 		body = webText;
 		lemmatizeText();
 		createLemmaList();
@@ -60,11 +60,51 @@ public class Processor {
 	private int sentCount = 0; //number of sentences in the body
 	private double avgSentLen; //average sentence length
 	private double lexDiv; //lexical diversity (# lemmas/ # of words)
+	private double lemmaComplexity; //lexical complexity (# tokens / # words)
+	private double maxLemmaComplexity; //lexical complexity (# tokens / # words)
 	private int freq95 = 0; //frequency of last word of the 95th percentile
 	private double mean;
 	private double median;
 	private double avgWordLen;
 	private int taskSalt;
+	
+	private String madamiraTop = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n" + 
+			"<madamira_input xmlns=\"urn:edu.columbia.ccls.madamira.configuration:0.1\">\r\n" + 
+			"	<madamira_configuration>\r\n" + 
+			"        <preprocessing sentence_ids=\"false\" separate_punct=\"true\" input_encoding=\"UTF8\"/>\r\n" + 
+			"        <overall_vars output_encoding=\"UTF8\" dialect=\"MSA\" output_analyses=\"TOP\" morph_backoff=\"NONE\"/>\r\n" + 
+			"        <requested_output>\r\n" + 
+			"            <req_variable name=\"PREPROCESSED\" value=\"false\" />\r\n" + 
+			"            <req_variable name=\"STEM\" value=\"false\" />\r\n" + 
+			"            <req_variable name=\"GLOSS\" value=\"false\" />\r\n" + 
+			"            <req_variable name=\"LEMMA\" value=\"true\" />\r\n" + 
+			"            <req_variable name=\"DIAC\" value=\"false\" />\r\n" + 
+			"            <req_variable name=\"ASP\" value=\"false\" />\r\n" + 
+			"            <req_variable name=\"CAS\" value=\"false\" />\r\n" + 
+			"            <req_variable name=\"ENC0\" value=\"false\" />\r\n" + 
+			"            <req_variable name=\"ENC1\" value=\"false\" />\r\n" + 
+			"            <req_variable name=\"ENC2\" value=\"false\" />\r\n" + 
+			"            <req_variable name=\"GEN\" value=\"false\" />\r\n" + 
+			"            <req_variable name=\"MOD\" value=\"false\" />\r\n" + 
+			"            <req_variable name=\"NUM\" value=\"false\" />\r\n" + 
+			"            <req_variable name=\"PER\" value=\"false\" />\r\n" + 
+			"            <req_variable name=\"POS\" value=\"true\" />\r\n" + 
+			"            <req_variable name=\"PRC0\" value=\"false\" />\r\n" + 
+			"            <req_variable name=\"PRC1\" value=\"false\" />\r\n" + 
+			"            <req_variable name=\"PRC2\" value=\"false\" />\r\n" + 
+			"            <req_variable name=\"PRC3\" value=\"false\" />\r\n" + 
+			"            <req_variable name=\"STT\" value=\"false\" />\r\n" + 
+			"            <req_variable name=\"VOX\" value=\"false\" />\r\n" + 
+			"            <req_variable name=\"BW\" value=\"false\" />\r\n" + 
+			"            <req_variable name=\"SOURCE\" value=\"false\" />\r\n" + 
+			"			<req_variable name=\"NER\" value=\"false\" />\r\n" + 
+			"			<req_variable name=\"BPC\" value=\"false\" />\r\n" + 
+			"        </requested_output>\r\n" + 
+			"	</madamira_configuration>\r\n" + 
+			"    <in_doc id=\"ExampleDocument\">";
+	
+	private String madamiraBottom = "</in_doc>\r\n" + 
+			"</madamira_input>";
 	
 	public static String GetTagContents(String text, String tagName) {
 		String contents = "";
@@ -117,57 +157,36 @@ public class Processor {
 		return contents;
 	}
 	
-	private String readResourceFile(String fileName) {
-		StringBuilder sb = new StringBuilder();
-		try {
-			ClassLoader classLoader = getClass().getClassLoader();
-			InputStream input = classLoader.getResourceAsStream(fileName);
-	
-			BufferedReader reader = new BufferedReader(new InputStreamReader(input, "UTF8"));
-		    
-			String str;
-			while((str = reader.readLine()) != null) {
-				sb.append(str + "\n");
-			}
-			
-			reader.close();
-		}
-		catch(UnsupportedEncodingException e) {
-			System.out.println("UNSUPPORTED ENCODING - READING DOCUMENT");
-			e.printStackTrace();
-		}
-		catch(FileNotFoundException e ) {
-			System.out.println("FILE NOT FOUND - READING DOCUMENT");
-			e.printStackTrace();
-		}
-		catch(IOException e) {
-			e.printStackTrace();
-		}
-		return sb.toString();
-	}
 	
 	/*
 	 *Creates XML input string for Madamira out of the body, saves it to madamiraInput, 
 	 *sends it off to be lemmatized and saves output to madamiraOutput.
 	 */
 	private void lemmatizeText() {
-		String xmlTop = readResourceFile("/madamira_input_top.txt");
-		String xmlBottom = readResourceFile("/madamira_input_bottom.txt");
-		input = "/tmp/mada_input" + taskSalt + ".txt";
-		output = "/tmp/mada_output" + taskSalt + ".txt";
+		String input = "mada_input.txt";
+		String output = "mada_output.txt";
 		try {
 			File fMadaInput = new File(input);
 			Writer writer = new BufferedWriter(new OutputStreamWriter
 					(new FileOutputStream(fMadaInput), "UTF8"));
-			writer.write(xmlTop + "\n\n" + body + "\n\n" + xmlBottom);
+
+	        //<in_seg id="BODY">
+			writer.write(madamiraTop + "\n\n");
+			String [] bodyStrings = body.split("\n");
+			int segCount = 0;
+			for (String s:bodyStrings) {
+				writer.write("<in_seg id=\"BODY_"+Integer.toString(segCount)+"\">" + makeArabicOnly(s) + "</in_seg>\n");
+				segCount++;
+			}
+			writer.write("\n\n" + madamiraBottom);
 			writer.close();
 		}
 		catch(UnsupportedEncodingException e) {
-			ServerLogger.get().error("UNSUPPORTED ENCODING - WRITING MADAMIRA INPUT");
+			System.out.println("UNSUPPORTED ENCODING - WRITING MADAMIRA INPUT");
 			e.printStackTrace();
 		}
 		catch(IOException e) {
-			ServerLogger.get().error("COULD NOT WRITE TO FILE - WRITING MADAMIRA INPUT");
+			System.out.println("COULD NOT WRITE TO FILE - WRITING MADAMIRA INPUT");
 			e.printStackTrace();
 		}
 		
@@ -181,53 +200,111 @@ public class Processor {
 	 */
 	private void createLemmaList() {
 		Elements words = madaOutput.getElementsByTag("word");
+		int wCount = 0; //word count (excluding punc, latin, and digit)
+		int tCount = 0; //token count
+		maxLemmaComplexity = 0;
+		boolean includeTokens;
 		for(Element word : words) {
+			includeTokens = false; //default to false, then include this batch of tokens if the corresponding lemma will also be included
 			String l = new String(); // lemma (value)
-			Elements svm_predictions = word.getElementsByTag("svm_prediction");
-			for (Element svm : svm_predictions) {
-				Elements morphs = svm.getElementsByAttribute("lemma");
+			Elements analysis = word.getElementsByTag("analysis");
+			for (Element item : analysis) {
+				Elements morphs = item.getElementsByAttribute("lemma");
 				for(Element morph : morphs) {
 					Attributes morphAttributes = morph.attributes();
 					String pos = morphAttributes.get("pos");
-					l = makeArabicOnly(morphAttributes.get("lemma"));
-					l = normalize(l);
-					addToPOSMap(pos);	
-					addToLemmaFreqListMap(l + ":::" + pos);
+					l = morphAttributes.get("lemma");
+					//l = makeArabicOnly(morphAttributes.get("lemma"));
+					//l = normalize(l);
+					if (!pos.equals("punc") && !pos.equals("latin") && !pos.equals("digit")) {
+						includeTokens = true;
+						wCount++;
+						addToPOSMap(pos);
+						//proper nouns appear to be messing up frequency data for easier texts
+						if (!pos.equals("noun_prop")) {
+							addToLemmaFreqListMap(l + ":::" + pos);
+						}
+					}
+				}
+			}
+			//if we included the lemma, count the number of tokens which make up the lemma
+			if (includeTokens == true) {
+				Elements tokenized = word.getElementsByTag("tokenized");
+				for (Element tokenList : tokenized) {
+					Elements tokens = tokenList.getElementsByAttribute("tok");
+					//set the highest number of tokens in a lemma
+					if (tokens.size() > maxLemmaComplexity) {
+						maxLemmaComplexity = tokens.size();
+					}
+					tCount += tokens.size();
 				}
 			}
 		}
-		wordCount = words.size();
+		wordCount = wCount;
+		tokenCount = tCount;
 		lexDiv = (double) lemmaFreqListMap.size() / (double) wordCount;
+		lemmaComplexity = (double) tokenCount / (double) wordCount;
 	}
 	
 	private TreeMap<String, Integer> createPOSMap() {
 		TreeMap<String, Integer> map = new TreeMap<>();
 		map.put("noun", 0);
+		map.put("noun_num", 0);
+		map.put("noun_quant", 0);
+		map.put("noun_prop", 0);
+		map.put("pron", 0);
+		map.put("pron_dem", 0);
+		map.put("pron_exclam", 0);
+		map.put("pron_interrog", 0);
+		map.put("pron_rel", 0);
 		map.put("verb", 0);
-		map.put("prep", 0);
+		map.put("verb_pseudo", 0);
 		map.put("part", 0);
+		map.put("part_dem", 0);
+		map.put("part_det", 0);
+		map.put("part_focus", 0);
+		map.put("part_fut", 0);
+		map.put("part_interrog", 0);
+		map.put("part_neg", 0);
+		map.put("part_restrict", 0);
+		map.put("part_verb", 0);
+		map.put("part_voc", 0);
+		map.put("prep", 0);
+		map.put("abbrev", 0);
 		map.put("conj", 0);
+		map.put("conj_sub", 0);
+		map.put("interj", 0);
 		map.put("adv", 0);
+		map.put("adv_interrog", 0);
+		map.put("adv_rel", 0);
 		map.put("adj", 0);
+		map.put("adj_comp", 0);
+		map.put("adj_num", 0);
 		
 		return map;
 	}
 	
 	private void addToPOSMap(String key) {
-		if (key.charAt(0) == 'n')
-			POSList.put("noun", POSList.get("noun") + 1);
-		else if (key.charAt(0) == 'v')
-			POSList.put("verb", POSList.get("verb") + 1);
-		else if (key.charAt(0) == 'c')
-			POSList.put("conj", POSList.get("conj") + 1);
-		else if (key.charAt(2) == 'e')
-			POSList.put("prep", POSList.get("prep") + 1);
-		else if (key.charAt(2) == 'v')
+		if (key.substring(0,3).equals("adv"))
 			POSList.put("adv", POSList.get("adv") + 1);
-		else if (key.charAt(2) == 'j')
+		else if (key.substring(0,3).equals("adj"))
 			POSList.put("adj", POSList.get("adj") + 1);
-		else if (key.charAt(3) == 't')
+		else if (key.substring(0,4).equals("noun"))
+			POSList.put("noun", POSList.get("noun") + 1);
+		else if (key.substring(0,4).equals("pron"))
+			POSList.put("pron", POSList.get("pron") + 1);
+		else if (key.substring(0,4).equals("verb"))
+			POSList.put("verb", POSList.get("verb") + 1);
+		else if (key.substring(0,4).equals("conj"))
+			POSList.put("conj", POSList.get("conj") + 1);
+		else if (key.substring(0,4).equals("prep"))
+			POSList.put("prep", POSList.get("prep") + 1);
+		else if (key.substring(0,4).equals("part"))
 			POSList.put("part", POSList.get("part") + 1);
+		else if (key.equals("interj"))
+			POSList.put("interj", POSList.get("interj") + 1);
+		else if (key.equals("abbrev"))
+			POSList.put("abbrev", POSList.get("abbrev") + 1);
 	}
 	
 	//Used to create running totals in FreqListMap
@@ -238,82 +315,13 @@ public class Processor {
 			lemmaFreqListMap.put(key, lemmaFreqListMap.get(key) + 1);
 	}
 	
-	//Strips diacritics from arabic text
-	private String normalize(String input) {
-		//Remove honorific sign
-        input=input.replaceAll("\u0610", "");//ARABIC SIGN SALLALLAHOU ALAYHE WA SALLAM
-        input=input.replaceAll("\u0611", "");//ARABIC SIGN ALAYHE ASSALLAM
-        input=input.replaceAll("\u0612", "");//ARABIC SIGN RAHMATULLAH ALAYHE
-        input=input.replaceAll("\u0613", "");//ARABIC SIGN RADI ALLAHOU ANHU
-        input=input.replaceAll("\u0614", "");//ARABIC SIGN TAKHALLUS
-
-        //Remove koranic anotation
-        input=input.replaceAll("\u0615", "");//ARABIC SMALL HIGH TAH
-        input=input.replaceAll("\u0616", "");//ARABIC SMALL HIGH LIGATURE ALEF WITH LAM WITH YEH
-        input=input.replaceAll("\u0617", "");//ARABIC SMALL HIGH ZAIN
-        input=input.replaceAll("\u0618", "");//ARABIC SMALL FATHA
-        input=input.replaceAll("\u0619", "");//ARABIC SMALL DAMMA
-        input=input.replaceAll("\u061A", "");//ARABIC SMALL KASRA
-        input=input.replaceAll("\u06D6", "");//ARABIC SMALL HIGH LIGATURE SAD WITH LAM WITH ALEF MAKSURA
-        input=input.replaceAll("\u06D7", "");//ARABIC SMALL HIGH LIGATURE QAF WITH LAM WITH ALEF MAKSURA
-        input=input.replaceAll("\u06D8", "");//ARABIC SMALL HIGH MEEM INITIAL FORM
-        input=input.replaceAll("\u06D9", "");//ARABIC SMALL HIGH LAM ALEF
-        input=input.replaceAll("\u06DA", "");//ARABIC SMALL HIGH JEEM
-        input=input.replaceAll("\u06DB", "");//ARABIC SMALL HIGH THREE DOTS
-        input=input.replaceAll("\u06DC", "");//ARABIC SMALL HIGH SEEN
-        input=input.replaceAll("\u06DD", "");//ARABIC END OF AYAH
-        input=input.replaceAll("\u06DE", "");//ARABIC START OF RUB EL HIZB
-        input=input.replaceAll("\u06DF", "");//ARABIC SMALL HIGH ROUNDED ZERO
-        input=input.replaceAll("\u06E0", "");//ARABIC SMALL HIGH UPRIGHT RECTANGULAR ZERO
-        input=input.replaceAll("\u06E1", "");//ARABIC SMALL HIGH DOTLESS HEAD OF KHAH
-        input=input.replaceAll("\u06E2", "");//ARABIC SMALL HIGH MEEM ISOLATED FORM
-        input=input.replaceAll("\u06E3", "");//ARABIC SMALL LOW SEEN
-        input=input.replaceAll("\u06E4", "");//ARABIC SMALL HIGH MADDA
-        input=input.replaceAll("\u06E5", "");//ARABIC SMALL WAW
-        input=input.replaceAll("\u06E6", "");//ARABIC SMALL YEH
-        input=input.replaceAll("\u06E7", "");//ARABIC SMALL HIGH YEH
-        input=input.replaceAll("\u06E8", "");//ARABIC SMALL HIGH NOON
-        input=input.replaceAll("\u06E9", "");//ARABIC PLACE OF SAJDAH
-        input=input.replaceAll("\u06EA", "");//ARABIC EMPTY CENTRE LOW STOP
-        input=input.replaceAll("\u06EB", "");//ARABIC EMPTY CENTRE HIGH STOP
-        input=input.replaceAll("\u06EC", "");//ARABIC ROUNDED HIGH STOP WITH FILLED CENTRE
-        input=input.replaceAll("\u06ED", "");//ARABIC SMALL LOW MEEM
-
-        //Remove tatweel
-        input=input.replaceAll("\u0640", "");
-
-        //Remove tashkeel
-        input=input.replaceAll("\u064B", "");//ARABIC FATHATAN
-        input=input.replaceAll("\u064C", "");//ARABIC DAMMATAN
-        input=input.replaceAll("\u064D", "");//ARABIC KASRATAN
-        input=input.replaceAll("\u064E", "");//ARABIC FATHA
-        input=input.replaceAll("\u064F", "");//ARABIC DAMMA
-        input=input.replaceAll("\u0650", "");//ARABIC KASRA
-        input=input.replaceAll("\u0651", "");//ARABIC SHADDA
-        input=input.replaceAll("\u0652", "");//ARABIC SUKUN
-        input=input.replaceAll("\u0653", "");//ARABIC MADDAH ABOVE
-        input=input.replaceAll("\u0654", "");//ARABIC HAMZA ABOVE
-        input=input.replaceAll("\u0655", "");//ARABIC HAMZA BELOW
-        input=input.replaceAll("\u0656", "");//ARABIC SUBSCRIPT ALEF
-        input=input.replaceAll("\u0657", "");//ARABIC INVERTED DAMMA
-        input=input.replaceAll("\u0658", "");//ARABIC MARK NOON GHUNNA
-        input=input.replaceAll("\u0659", "");//ARABIC ZWARAKAY
-        input=input.replaceAll("\u065A", "");//ARABIC VOWEL SIGN SMALL V ABOVE
-        input=input.replaceAll("\u065B", "");//ARABIC VOWEL SIGN INVERTED SMALL V ABOVE
-        input=input.replaceAll("\u065C", "");//ARABIC VOWEL SIGN DOT BELOW
-        input=input.replaceAll("\u065D", "");//ARABIC REVERSED DAMMA
-        input=input.replaceAll("\u065E", "");//ARABIC FATHA WITH TWO DOTS
-        input=input.replaceAll("\u065F", "");//ARABIC WAVY HAMZA BELOW
-        input=input.replaceAll("\u0670", "");//ARABIC LETTER SUPERSCRIPT ALEF
-
-        return input;
-	}
-	
 	//extracts only the arabic text from the "lemma" given by Madamira
 	private String makeArabicOnly(String word) {
 		StringBuilder sb = new StringBuilder();
 		for(int i = 0; i < word.length(); i++) {
-			if (word.charAt(i) >= 1536 && word.charAt(i) <= 1791) {
+			if (word.charAt(i) == ' ') {
+				sb.append(' ');
+			} else if (word.charAt(i) >= 1536 && word.charAt(i) <= 1791) {
 				sb.append(word.charAt(i));
 			}
 		}
@@ -361,7 +369,7 @@ public class Processor {
 		TreeMap<String, Integer> freqListMap = new TreeMap<>();
 		try {
 				ClassLoader classLoader = getClass().getClassLoader();
-				InputStream input = classLoader.getResourceAsStream("/freqList.txt");
+				InputStream input = classLoader.getResourceAsStream("freqList.txt");
 			
 				BufferedReader reader = new BufferedReader(new InputStreamReader(input, "UTF8"));
 			
@@ -369,7 +377,7 @@ public class Processor {
 				while((str = reader.readLine()) != null) {
 					String regex = ":::";
 					String[] data = str.split(regex);
-					freqListMap.put(data[1] + ":::" + data[2], Integer.parseInt(data[0]));
+					freqListMap.put(data[0] + ":::" + data[1], Integer.parseInt(data[2]));
 			}
 			
 			reader.close();
@@ -442,7 +450,13 @@ public class Processor {
 			//sb.append(",");
 			sb.append(avgSentLen);
 			sb.append(",");
-			sb.append(lexDiv);
+			sb.append(avgWordLen);
+			sb.append(",");
+			sb.append(lexDiv); //type token ratio = sqrt it to get root type token ratio
+			sb.append(",");
+			sb.append(lemmaComplexity); //type token ratio = sqrt it to get root type token ratio
+			sb.append(",");
+			sb.append(maxLemmaComplexity); //type token ratio = sqrt it to get root type token ratio
 			sb.append(",");
 			sb.append(freq95);
 			sb.append(",");
@@ -451,6 +465,8 @@ public class Processor {
 			sb.append(median);
 			sb.append(",");
 			sb.append((double) POSList.get("noun") / (double) wordCount);
+			sb.append(",");
+			sb.append((double) POSList.get("pron") / (double) wordCount);
 			sb.append(",");
 			sb.append((double) POSList.get("verb") / (double) wordCount);
 			sb.append(",");
@@ -464,10 +480,15 @@ public class Processor {
 			sb.append(",");
 			sb.append((double) POSList.get("adj") / (double) wordCount);
 			sb.append(",");
-			sb.append(avgWordLen);
-			sb.append(",");
+//			sb.append((double) POSList.get("interj") / (double) wordCount);
+//			sb.append(",");
+//			sb.append((double) POSList.get("abbrev") / (double) wordCount);
+//			sb.append(",");
+			//which count, false idafa
+			//look at maximums of word length
+			//look at stuff like dialogue indicators to see if there's a lot of dialogue (might be indicitave of lower levels)
 		}
-		//clearFiles();
+		
 		//System.out.println(sb.toString());
 		return sb.toString();
 	}
