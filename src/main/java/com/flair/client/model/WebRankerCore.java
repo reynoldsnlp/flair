@@ -811,6 +811,7 @@ public class WebRankerCore implements AbstractWebRankerCore
 		
 		void rerank()
 		{
+			ClientLogger.get().info("Reranking ...");
 			rankData = ranker.rerank(new RankerInput());
 			
 			// update both panes
@@ -1347,6 +1348,7 @@ public class WebRankerCore implements AbstractWebRankerCore
 			// check for the export sigil
 			if (Window.Location.getParameter(PARAM_SIGIL) != null)
 			{
+				ClientLogger.get().info("export sigin != null");	
 				String ls = Window.Location.getParameter(PARAM_LANGUAGE);
 				if (ls != null)
 				{
@@ -1383,6 +1385,7 @@ public class WebRankerCore implements AbstractWebRankerCore
 						out.setDocLengthWeight(Integer.parseInt(docl));
 					
 					// run through all of the lang's grams
+					ClientLogger.get().info("Settings ranker language " + ls);
 					for (GrammaticalConstruction itr : GrammaticalConstruction.getForLanguage(l))
 					{
 						String g = Window.Location.getParameter(getConstructionTag(itr));
@@ -1390,6 +1393,9 @@ public class WebRankerCore implements AbstractWebRankerCore
 							out.setGramData(itr, isWeightEnabled(g), getWeight(g));
 					}
 				}
+			}
+			else {
+				ClientLogger.get().info("export sigin == null");	
 			}
 			
 			return out;
@@ -1408,6 +1414,7 @@ public class WebRankerCore implements AbstractWebRankerCore
 			// append sigil, language, doc levels and keyword settings
 			buildUrl(sb, PARAM_SIGIL, "1");
 			
+			ClientLogger.get().info("In export settings, language : " + settings.getLanguage().toString());
 			buildUrl(sb, PARAM_LANGUAGE, settings.getLanguage().toString());
 			buildUrl(sb, PARAM_DOCLENGTH, "" + settings.getDocLengthWeight());
 			buildUrl(sb, PARAM_DOCLEVEL_A, "" + settings.isDocLevelEnabled(DocumentReadabilityLevel.LEVEL_A));
@@ -1612,6 +1619,7 @@ public class WebRankerCore implements AbstractWebRankerCore
 		LocalizationEngine.get().addLanguageChangeHandler(l -> rankPreviewModule.refreshLocalization(l.newLang));
 	
 		// reset the settings pane
+		ClientLogger.get().info("reset the settings pane");
 		rankPreviewModule.rerank();
 		
 		searchCooldown.start();
@@ -1627,6 +1635,7 @@ public class WebRankerCore implements AbstractWebRankerCore
 		// the process ought to be on the stack, so just update the ranker
 		ProcessData proc = (ProcessData)p;
 		rankPreviewModule.set(proc);
+		ClientLogger.get().info("in onRestoreProcess");
 		rankPreviewModule.rerank();
 		rankPreviewModule.refreshResults();
 		preview.hide();
@@ -1650,6 +1659,7 @@ public class WebRankerCore implements AbstractWebRankerCore
 		processHistory.push(proc);
 		
 		rankPreviewModule.set(proc);
+		ClientLogger.get().info("in onCompare");
 		rankPreviewModule.rerank();
 		rankPreviewModule.refreshResults();
 		preview.hide();
@@ -1675,6 +1685,7 @@ public class WebRankerCore implements AbstractWebRankerCore
 		if (rerankFlag)
 		{
 			rerankFlag = false;
+			ClientLogger.get().info("in doDeferredReranking");
 			rankPreviewModule.rerank();
 			rankPreviewModule.refreshResults();
 		}
@@ -1684,6 +1695,7 @@ public class WebRankerCore implements AbstractWebRankerCore
 	{
 		// this handler can be spammed under certain circumstances
 		// to prevent the rerank calls from accumulating, defer the execution until the browser event loop returns
+		ClientLogger.get().info("settings have changed, setting rerank flag");
 		rerankFlag = true;
 		Scheduler.get().scheduleDeferred(() -> doDeferredReranking());
 	}
@@ -1707,7 +1719,9 @@ public class WebRankerCore implements AbstractWebRankerCore
 			// apply custom settings, if any, rerank and display
 			if (importedSettings != null)
 				rankPreviewModule.applySettings(importedSettings);
-			
+
+			ClientLogger.get().info("in if clause of onTransientProcessEnd");
+			settings.refresh();
 			rankPreviewModule.rerank();
 			rankPreviewModule.refreshResults();
 		}
@@ -1715,6 +1729,7 @@ public class WebRankerCore implements AbstractWebRankerCore
 		{
 			processHistory.pop();
 			rankPreviewModule.reset();
+			ClientLogger.get().info("in else clause of onTransientProcessEnd");
 			rankPreviewModule.rerank();
 		}
 		
@@ -1752,6 +1767,7 @@ public class WebRankerCore implements AbstractWebRankerCore
 								// refresh the parsed results
 								if (p.parsedDocs.size() != ((WebSearchProcessData)p).numResults)
 								{
+									ClientLogger.get().info("in onWebSearch");
 									rankPreviewModule.rerank();
 									rankPreviewModule.refreshResults();
 								}
@@ -1809,6 +1825,7 @@ public class WebRankerCore implements AbstractWebRankerCore
 						// refresh the parsed results
 						if (p.parsedDocs.size() != numUploaded)
 						{
+							ClientLogger.get().info("in onUploadComplete");
 							rankPreviewModule.rerank();
 							rankPreviewModule.refreshResults();
 						}
@@ -1853,9 +1870,15 @@ public class WebRankerCore implements AbstractWebRankerCore
 		bindToPresenter(this.presenter);
 		
 		// load custom settings from url
+		ClientLogger.get().info("importing settings info");
 		importedSettings = exporter.importSettings();
-		if (importedSettings != null)
+		if (importedSettings != null){
 			notification.notify(getLocalizedString(LocalizationTags.IMPORTED_SETINGS.toString()));
+			ClientLogger.get().info("settings imported successfully");
+		}
+		else {
+			ClientLogger.get().info("imported settings is null");
+		}
 	}
 
 	@Override
