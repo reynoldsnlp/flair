@@ -120,6 +120,7 @@ public class RankerSettingsPane extends LocalizedComposite implements AbstractRa
 		
 		private void onSettingChange()
 		{
+			ClientLogger.get().info("onSettingChange()");
 			if (changeHandler != null)
 				changeHandler.handle();
 		}
@@ -151,7 +152,7 @@ public class RankerSettingsPane extends LocalizedComposite implements AbstractRa
 		public void resetUI()
 		{
 			ClientLogger.get().info("Calling resetUI");
-			/*switch(sliderLanguage) {
+			switch(sliderLanguage) {
 				case ARABIC:
 					ClientLogger.get().info("Language is Arabic");
 					hideSliderBundles();
@@ -162,9 +163,11 @@ public class RankerSettingsPane extends LocalizedComposite implements AbstractRa
 					hideSliderBundles();
 					getSliderBundle().setVisible(true);
 					lblConstructionsUI.setVisible(true);
-			}*/
+			}
+			/*
 			hideSliderBundles();
 			lblConstructionsUI.setVisible(false);
+			*/
 
 		}
 		
@@ -339,6 +342,13 @@ public class RankerSettingsPane extends LocalizedComposite implements AbstractRa
 		
 		if (showhideHandler != null)
 			showhideHandler.handle(visible);
+	}
+
+	@Override
+	public void refresh() 
+	{
+		state.resetUI();
+		state.reloadUI();
 	}
 
 	public void setShowHideEventHandler(ShowHideHandler handler) {
