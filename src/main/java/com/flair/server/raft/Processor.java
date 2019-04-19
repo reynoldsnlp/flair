@@ -33,6 +33,8 @@ public class Processor {
 		webText = webText.trim().replaceAll("&", "+");
 		webText = webText.trim().replaceAll("(\\s)+", "$1");
 		body = webText;
+		Random r = new Random();
+		taskSalt = r.nextInt(10000000);		//gives a random number to salt our file names with
 		lemmatizeText();
 		createLemmaList();
 		if (wordCount > 0) {
@@ -56,7 +58,8 @@ public class Processor {
 	private String input;
 	private String output;
 
-	private int wordCount = 0; //number of tokens in the body
+	private int wordCount = 0; //number of words in the body
+	private int tokenCount = 0; //number of tokens in the body
 	private int sentCount = 0; //number of sentences in the body
 	private double avgSentLen; //average sentence length
 	private double lexDiv; //lexical diversity (# lemmas/ # of words)
@@ -163,8 +166,8 @@ public class Processor {
 	 *sends it off to be lemmatized and saves output to madamiraOutput.
 	 */
 	private void lemmatizeText() {
-		String input = "mada_input.txt";
-		String output = "mada_output.txt";
+		input = "/tmp/mada_input" + taskSalt + ".txt";
+		output = "/tmp/mada_output" + taskSalt + ".txt";
 		try {
 			File fMadaInput = new File(input);
 			Writer writer = new BufferedWriter(new OutputStreamWriter
