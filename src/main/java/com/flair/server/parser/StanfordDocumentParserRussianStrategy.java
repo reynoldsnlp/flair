@@ -5,6 +5,7 @@
  */
 package com.flair.server.parser;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -15,6 +16,7 @@ import com.flair.server.utilities.ServerLogger;
 import com.flair.shared.grammar.Language;
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;
+import edu.stanford.nlp.ling.IndexedWord;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import edu.stanford.nlp.semgraph.SemanticGraph;
@@ -152,14 +154,29 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
         return true;
     }
 
+    private static List<CoreLabel> indexedWordsToCoreLabels(List<IndexedWord> indexedWords){
+        List<CoreLabel> coreLabels = new ArrayList<>(indexedWords.size());
+        for(IndexedWord word : indexedWords){
+            coreLabels.add(word.backingLabel());
+        }
+        return coreLabels;
+    }
+
+    private void inspectVerbs(SemanticGraph graph, List<CoreLabel> words){
+        List<IndexedWord> verbs = graph.getAllNodesByPartOfSpeechPattern("VERB");
+        List<CoreLabel> verbCoreLabels = indexedWordsToCoreLabels(verbs);
+        int numReflexives = countMatches(RussianGrammaticalTreePatterns.patternReflexiveVerb, verbCoreLabels);
+        ServerLogger.get().info("NUMBER OF REFLEXIVES FOUND: " + numReflexives);
+        //TODO
+    }
+
     private void inspectSentence(SemanticGraph graph, List<CoreLabel> words) {
         if (words == null || words.isEmpty()) {
             return;
         }
         int numLIs = countMatches(RussianGrammaticalTreePatterns.patternLi, words);
         int numConditionals = countMatches(RussianGrammaticalTreePatterns.patternBi, words);
-        ServerLogger.get().info("Number of 'ли' words found: " + numLIs);
-        ServerLogger.get().info("Number of 'бы' words found: " + numConditionals);
+        inspectVerbs(graph, words);
         //TODO
     }
 
