@@ -1,11 +1,14 @@
-# FLAIR (Form-focused Linguistically Aware Information Retrieval)
+# FLAIR (Foreign Language Acquisition Information Retrieval)
 
 Forked from [FLAIR project](http://sifnos.sfs.uni-tuebingen.de/FLAIR/), which
 provides web search for language learning. The upstream version of FLAIR has
 English and German modules. We intend to extend FLAIR with other language
-modules, beginning with Russian.
+modules, beginning with Arabic and Russian.
 
-# Relevant citations
+## Citations
+
+Please cite the following to refer to this work, and check back for future
+publications on ongoing work.
 
 ```
 @inproceedings{chinkina2016linguistically,
@@ -19,19 +22,49 @@ modules, beginning with Russian.
 
 ## Installation 
 
-FLAIR utilizes a maven build system. In order to compile this project, maven must be installed. For more information on using maven, click here https://maven.apache.org/. Additionally, please make sure you have the correct java version. FLAIR is built using java 8. 
+Requirements:
 
-Additionally, FLAIR relies on some local dependencies. [Click here](https://drive.google.com/open?id=1TE2x4iUilulFpGwi0xgZmZmLy2R0Di2c) to get the zip file of the necessary local dependencies. Unzip this file in src/main/webapp/WEB-INF.
+* `maven`
+* `java 8`
+* `tomcat`
+
+FLAIR utilizes a maven build system. In order to compile this project, maven
+must be installed. For more information on using maven, click here
+https://maven.apache.org/.
+
+Additionally, FLAIR relies on some local dependencies. [Click
+here](https://drive.google.com/open?id=1TE2x4iUilulFpGwi0xgZmZmLy2R0Di2c) to
+get the zip file of the necessary local dependencies. Unzip this file in
+src/main/webapp/WEB-INF.
 
 ## Using Bing API
 
-FLAIR utlizes the Bing search api. In order to access Bing's services, you must create an account with Microsoft Azure. You can sign up for a free Microsoft account here https://azure.microsoft.com/en-us/services/cognitive-services/bing-web-search-api/. This account will provide you with many service options. For this project you must create a Cognitive Services resource. 
+FLAIR utlizes the Bing search api. In order to access Bing's services, you must
+create an account with Microsoft Azure. You can sign up for a free Microsoft
+account here
+https://azure.microsoft.com/en-us/services/cognitive-services/bing-web-search-api/.
+This account will provide you with many service options. For this project you
+must create a Cognitive Services resource. 
 
-There are multiple ways of storing this api key. FLAIR is expecting the api key to be stored in an environment variable called BING_API. There is also a text file reader in the utilities folder available for use if you wish to store your api key in a text file. 
+There are multiple ways of storing this api key. FLAIR is expecting the api key
+to be stored in an environment variable called `BING_API`. There is also a text
+file reader in the utilities folder available for use if you wish to store your
+api key in a text file. 
 
 ## Third Party Dependencies 
 
-In order to run our russian extension, you need to use some third party dependencies which are not supported by maven. Follow this [link](https://stanfordnlp.github.io/CoreNLP/model-zoo.html) and download the jar file corresponding with the Russian CoreNLP. Although the stanford website says that the latest github code is needed to run the russian models, we have found that version 3.9.2 is recent enough. After dowloading the russian language models, you will need to add  Maven provides documentation on how to accomplish this [here](https://maven.apache.org/guides/mini/guide-3rd-party-jars-local.html). You must update the pom to include the correct versions, artifactID's, ect. To line things up with the provided pom.xml file, follow the naming of the dependencies below. 
+In order to run our Russian extension, you need to use some third party
+dependencies which are not supported by maven. Follow this
+[link](https://stanfordnlp.github.io/CoreNLP/model-zoo.html) and download the
+jar file corresponding with the Russian CoreNLP. Although the stanford website
+says that the latest github code is needed to run the Russian models, we have
+found that version `3.9.2` is recent enough. After dowloading the Russian
+language models, you will need to add them to your local repository. Maven
+provides documentation on how to accomplish this
+[here](https://maven.apache.org/guides/mini/guide-3rd-party-jars-local.html).
+You must update the pom to include the correct versions, artifactID's, etc. To
+line things up with the provided pom.xml file, follow the naming of the
+dependencies below. 
 
 ```
    <dependency>
