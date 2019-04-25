@@ -5,6 +5,10 @@
  */
 package com.flair.server.parser;
 
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -12,6 +16,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.flair.server.grammar.RussianGrammaticalTreePatterns;
+import com.flair.server.resources.ResourceLoader;
+import com.flair.server.utilities.HFSTAnalyser;
+import com.flair.server.utilities.HFSTAnalyser.TransducerStreamException;
 import com.flair.server.utilities.ServerLogger;
 import com.flair.shared.grammar.Language;
 import edu.stanford.nlp.ling.CoreAnnotations;
@@ -31,6 +38,7 @@ import edu.stanford.nlp.util.CoreMap;
 
 
 class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserStrategy {
+    private static final String RUSSIAN_TRANSDUCER_HFSTOL = "analyser-gt-desc.hfstol";
     private AbstractDocument workingDoc;
     private int tokenCount;
     private int wordCount;
@@ -39,11 +47,19 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
     private int depthCount;
     private int dependencyCount;
     private int adjCount;
-    private static final String WORD_PATTERN = "[\\p{IsCyrillic}\u0300\u0301]+"; //not sure if this regex is correct for including all number of russian words. EDIT: regex has been changed to handle the two accents over letters
+    private HFSTAnalyser analyser;
+    private static final String WORD_PATTERN = "[\\p{IsCyrillic}\u0300\u0301]+";
 
     public StanfordDocumentParserRussianStrategy()
     {
-
+        //set up the HFST
+        //TODO: this currently causes a NoClassDefFoundError
+        try {
+            InputStream russianTransducerStream = ResourceLoader.get(RUSSIAN_TRANSDUCER_HFSTOL);
+            analyser = new HFSTAnalyser(russianTransducerStream);
+        } catch (TransducerStreamException e) {
+            ServerLogger.get().error(e, "Russian Strategy could not initialize the HFSTAnalyser");
+        }
         //pipeline = null;
     }
 
@@ -84,7 +100,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
         workingDoc = null;
     }
 
-    public boolean	apply(AbstractDocument docToParse){ //TODO: edit this to recognize li and buj/bi sentences
+    public boolean	apply(AbstractDocument docToParse){ //TODO
         assert docToParse != null;
         int attempts = 0;
         try
@@ -163,8 +179,10 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
     }
 
     private void inspectVerbs(SemanticGraph graph, List<CoreLabel> words){
+        //extract verbs from the graph
         List<IndexedWord> verbs = graph.getAllNodesByPartOfSpeechPattern("VERB");
         List<CoreLabel> verbCoreLabels = indexedWordsToCoreLabels(verbs);
+        //count constructions
         int numReflexives = countMatches(RussianGrammaticalTreePatterns.patternReflexiveVerb, verbCoreLabels);
         ServerLogger.get().info("NUMBER OF REFLEXIVES FOUND: " + numReflexives);
         //TODO
