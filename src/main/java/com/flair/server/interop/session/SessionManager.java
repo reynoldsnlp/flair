@@ -5,6 +5,7 @@
  */
 package com.flair.server.interop.session;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -18,6 +19,8 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import com.flair.server.interop.AuthTokenGenerator;
+import com.flair.server.raft.Raft;
+import com.flair.server.raft.Weka;
 import com.flair.server.utilities.ServerLogger;
 import com.flair.shared.interop.AuthToken;
 import com.flair.shared.interop.InvalidAuthTokenException;
@@ -137,13 +140,25 @@ public class SessionManager
 		ServerAuthenticationToken newTok = AuthTokenGenerator.create();
 		ServerLogger.get().info("New session token generated. ID: " + newTok.getUuid());
 		
+		// build random forest model if need be 
+		Raft raft = new Raft();
+		if(!raft.modelExists("RandomForest.model")){
+			Weka randomForest = new Weka("model.arff");	
+			try {
+				randomForest.setRandomForest(randomForest.buildRandomForestModel());
+				weka.core.SerializationHelper.write("File Path Here /RandomForest.model", randomForest.getRandomForest());
+				ServerLogger.get().info("Wrote RandomForest.model to the server resource folder");
+			} catch (Exception e) {
+				ServerLogger.get().error(e.getMessage() + " Failed to build random forest model");
+			}
+		}
+
 		// bind the token to the session
 		httpSession.setAttribute(newTok.toString(), newTok);
 		activeSessions.put(newTok, new BasicSessionData(newTok, httpSession));
 		
 		return newTok;
 	}
-	
 
 	public synchronized void removeSession(HttpSession oldSession)
 	{

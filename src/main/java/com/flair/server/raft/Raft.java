@@ -37,9 +37,14 @@ public class Raft {
 
 		//model = s + model;
 
-		Weka weka = new Weka(model);
+		Weka weka = new Weka(model);	
 		weka.setSalt(processor.getSalt());
 		wekaSalt = weka.getSalt();
+		try {
+			weka.setRandomForest(weka.loadRandomForest("RandomForest.model"));
+		} catch (Exception e) {
+			ServerLogger.get().error(e.getMessage() + " Failed to set random forest model");
+		}
 		weka.resetInputFileName();
 		returnValue = weka.ScoreFeatures(featureData);
 		//weka.clearFiles();
@@ -64,6 +69,23 @@ public class Raft {
 				ServerLogger.get().error(fileStr + " not deleted ");
     		}
 		}
+	}
+
+	public boolean modelExists(String model) { 
+		File temp;
+		boolean exists = false;
+      	try
+      	{
+        	temp = new File("File Path Here " + model);
+          
+         	exists = temp.exists();
+          
+         	ServerLogger.get().info("Temp file exists : " + exists);
+      	} catch (Exception e)
+      	{
+			ServerLogger.get().error(e.getMessage());
+		}
+		return exists;
 	}
 
 }

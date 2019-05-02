@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.io.BufferedReader;
@@ -23,7 +24,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.lang.NullPointerException;
 
-public class Weka {
+public class Weka implements Serializable {
 
 	public static String GetArffHeader() {
 		String arffHeader = "@relation arabicReadingDifficulty\r\n" + 
@@ -55,11 +56,6 @@ public class Weka {
 		Random r = new Random();
 		taskSalt = r.nextInt(10000000);		//gives a random number to salt our file names with
 		inputFileName = "/tmp/unlabeled" + taskSalt + ".arff";
-		try {
-			this.rf = buildRandomForestModel();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 	
 	private int taskSalt;
@@ -70,6 +66,12 @@ public class Weka {
 	RandomForest rf;
 	Instances trainData;
 
+	public void setRandomForest(RandomForest rf) {
+		this.rf = rf;
+	}
+	public RandomForest getRandomForest() {
+		return this.rf;
+	}
 	public int getSalt(){
 		return taskSalt;
 	}
@@ -137,7 +139,7 @@ public class Weka {
 		}
 	}
 	
-	private RandomForest buildRandomForestModel()  throws IOException, FileNotFoundException, ClassNotFoundException, UnsupportedEncodingException, InterruptedException, Exception {
+	public RandomForest buildRandomForestModel()  throws IOException, FileNotFoundException, ClassNotFoundException, UnsupportedEncodingException, InterruptedException, Exception {
 		//import the training data
 		//ServletContext servletContextLoader = getServletContext();
 		Path currentRelativePath = Paths.get("");
@@ -152,9 +154,10 @@ public class Weka {
 		
 		try{
 			//input = new FileInputStream(inputFile);
-			//classLoader = getClass().getClassLoader();
-			//input = classLoader.getResourceAsStream("/model.arff");	
-			input = new FileInputStream(new File("/opt/flair/src/main/java/com/flair/server/resources/" + trainingDataFileName));
+			ServerLogger.get().info("training data file name " + this.trainingDataFileName);
+			classLoader = getClass().getClassLoader();
+			input = classLoader.getResourceAsStream("/" + this.trainingDataFileName);	
+			//input = new FileInputStream(new File("/opt/flair/src/main/java/com/flair/server/resources/" + trainingDataFileName));
 			//InputStream inputCopy = classLoader.getResourceAsStream(trainingDataFileName);
 			//ServerLogger.get().info("Model.arff contents : " + getStringFromInputStream(inputCopy));
 			reader = new BufferedReader(new InputStreamReader(input, "UTF8"));
@@ -232,12 +235,27 @@ public class Weka {
 
 	}
 
-	public void clearFiles(){
+	public void clearFiles() {
 		File arffFile = new File(inputFileName);
 		if(arffFile.delete())
 			ServerLogger.get().info(inputFileName + " deleted");
 		else	
 			ServerLogger.get().error(inputFileName + " not deleted ");
 
+	}
+
+	public RandomForest loadRandomForest(String model) {
+		try {
+			rf = (RandomForest) weka.core.SerializationHelper.read("File Path Here " + model);
+			ServerLogger.get().info(" weka instance " + taskSalt  + " Successfully read model");
+		} catch (Exception ex) {
+			ServerLogger.get().error(ex.getMessage() + " Failed to load random forest model");
+			try { 
+				rf = buildRandomForestModel();
+			} catch (Exception e) {
+				ServerLogger.get().error(e.getMessage() + "buildRandomForestModel() failed");
+			}
+		}
+		return rf;
 	}
 }
