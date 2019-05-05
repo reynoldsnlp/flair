@@ -41,6 +41,7 @@ class ArabicDocument implements AbstractDocument
 	private final AbstractDocumentSource				source;
 	private final double								readabilityScore;
 	private final DocumentReadabilityLevel				readabilityLevel;	// calculate from the readability score
+	private final ArabicDocumentReadabilityLevel		arabicReadabilityLevel;	// calculate from the readability score
 	private final ConstructionDataCollection			constructionData;
 
 	private int											numCharacters;
@@ -152,6 +153,17 @@ class ArabicDocument implements AbstractDocument
 			readabilityLevel = DocumentReadabilityLevel.LEVEL_B;
 		else
 			readabilityLevel = DocumentReadabilityLevel.LEVEL_C;
+
+		if (readabilityScore < readabilityLevelThreshold_1)		
+			arabicReadabilityLevel = ArabicDocumentReadabilityLevel.LEVEL_1;
+		else if (readabilityLevelThreshold_1 <= readabilityScore && readabilityScore <= readabilityLevelThreshold_2)		
+		arabicReadabilityLevel = ArabicDocumentReadabilityLevel.LEVEL_2;
+		else if (readabilityLevelThreshold_2 <= readabilityScore && readabilityScore <= readabilityLevelThreshold_3)
+		arabicReadabilityLevel = ArabicDocumentReadabilityLevel.LEVEL_3;
+		else 
+			arabicReadabilityLevel = ArabicDocumentReadabilityLevel.LEVEL_4;
+		
+		ServerLogger.get().info("arabicReadabilityLevel = " + arabicReadabilityLevel.toString());
 
 		avgWordLength = avgSentenceLength = avgTreeDepth = fancyDocLength = 0;
 		keywordData = null;
