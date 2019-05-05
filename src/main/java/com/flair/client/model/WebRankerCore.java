@@ -63,6 +63,7 @@ import com.flair.shared.interop.RankableWebSearchResult;
 import com.flair.shared.interop.ServerMessage;
 import com.flair.shared.interop.UploadedDocument;
 import com.flair.shared.interop.services.WebRankerServiceAsync;
+import com.flair.shared.parser.ArabicDocumentReadabilityLevel;
 import com.flair.shared.parser.DocumentReadabilityLevel;
 import com.flair.shared.utilities.GenericEventSource;
 import com.flair.shared.utilities.GenericEventSource.EventHandler;
@@ -313,6 +314,11 @@ public class WebRankerCore implements AbstractWebRankerCore
 			@Override
 			public DocumentReadabilityLevel getReadabilityLevel() {
 				return doc.getReadabilityLevel();
+			}
+
+			@Override
+			public ArabicDocumentReadabilityLevel getArabicReadabilityLevel() {
+				return doc.getArabicReadabilityLevel();
 			}
 
 			@Override
