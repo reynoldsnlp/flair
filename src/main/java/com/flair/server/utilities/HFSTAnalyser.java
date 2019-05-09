@@ -1,10 +1,7 @@
 package com.flair.server.utilities;
 
 import com.drew.lang.annotations.NotNull;
-import fi.seco.hfst.Transducer;
-import fi.seco.hfst.TransducerAlphabet;
-import fi.seco.hfst.TransducerHeader;
-import fi.seco.hfst.UnweightedTransducer;
+import fi.seco.hfst.*;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,15 +19,20 @@ public class HFSTAnalyser {
      * @throws TransducerStreamException the provided InputStream could not be used to construct a Transducer
      */
     public HFSTAnalyser(@NotNull InputStream iStream) throws TransducerStreamException{
-        //TODO: fix the construction of the TransducerHeader
-        /*try {
+        try {
             DataInputStream dataStream = new DataInputStream(iStream);
-            TransducerHeader transducerHeader = new TransducerHeader(dataStream);
-            this.transducer = new UnweightedTransducer(dataStream, transducerHeader, new TransducerAlphabet(dataStream, transducerHeader.getSymbolCount()));
+            TransducerHeader transducerHeader = new TransducerHeader(dataStream); //TODO: this line causes a NullPointerException
+            TransducerAlphabet transducerAlphabet = new TransducerAlphabet(dataStream, transducerHeader.getSymbolCount());
+            if(transducerHeader.isWeighted()){
+                transducer = new WeightedTransducer(dataStream, transducerHeader, transducerAlphabet);
+            }
+            else{
+                transducer = new UnweightedTransducer(dataStream, transducerHeader, transducerAlphabet);
+            }
         } catch (IOException e) {
             ServerLogger.get().error(e, "InputStream could not be used to construct a Transducer");
             throw new TransducerStreamException("HFSTAnalyser not able to construct Transducer from InputStream");
-        }*/
+        }
     }
 
     /**
