@@ -6,15 +6,10 @@
 package com.flair.server.parser;
 
 import java.io.*;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.FileSystems;
-import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import com.flair.server.grammar.RussianGrammaticalTreePatterns;
 import com.flair.server.resources.ResourceLoader;
 import com.flair.server.utilities.HFSTAnalyser;
@@ -28,11 +23,8 @@ import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import edu.stanford.nlp.semgraph.SemanticGraph;
 import edu.stanford.nlp.semgraph.SemanticGraphCoreAnnotations;
-import edu.stanford.nlp.trees.Tree;
-import edu.stanford.nlp.trees.TreeCoreAnnotations;
-import edu.stanford.nlp.trees.TypedDependency;
-import edu.stanford.nlp.trees.tregex.TregexMatcher;
-import edu.stanford.nlp.trees.tregex.TregexPattern;
+import edu.stanford.nlp.semgraph.semgrex.SemgrexMatcher;
+import edu.stanford.nlp.semgraph.semgrex.SemgrexPattern;
 import edu.stanford.nlp.util.CoreMap;
 
 
@@ -53,13 +45,17 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
     public StanfordDocumentParserRussianStrategy()
     {
         //set up the HFST
-        //TODO: this currently causes a NoClassDefFoundError
-        try {
+        //*****
+        /*try {
             InputStream russianTransducerStream = ResourceLoader.get(RUSSIAN_TRANSDUCER_HFSTOL);
             analyser = new HFSTAnalyser(russianTransducerStream);
         } catch (TransducerStreamException e) {
             ServerLogger.get().error(e, "Russian Strategy could not initialize the HFSTAnalyser");
-        }
+        }*/
+        //*****
+
+
+        //TODO: set up the CG3
         //pipeline = null;
     }
 
@@ -199,15 +195,17 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
     }
 
     /**
-     * Counts the number of matches to a specific regex Pattern within a parse graph
-     * @param pattern Pattern to be matched against the graph
+     * Counts the number of matches to a specific SemgrexPattern within a parse graph
+     * @param pattern SemgrexPattern to be matched against the graph
      * @param graph Dependency graph
-     * @return number of matches to the regex pattern
+     * @return number of matches to the SemgrexPattern
      */
-    private int countMatches(Pattern pattern, SemanticGraph graph) {
+    private int countMatches(SemgrexPattern pattern, SemanticGraph graph) {
         int matches = 0;
-        //graph.getAllNodesByWordPattern()
-        //TODO
+        SemgrexMatcher m = pattern.matcher(graph);
+        while(m.find()){
+            matches++;
+        }
         return matches;
     }
 
