@@ -86,16 +86,28 @@ public class DocumentConstructionData extends AbstractConstructionData
 	}
 }
 
+/**
+ * Now this factory creates both arabic and regualr documents
+ */
 class DocumentConstructionDataFactory extends AbstractConstructionDataFactory
 {
 	private final Document parent;
+	private final ArabicDocument arabicParent;
 
 	public DocumentConstructionDataFactory(Document parent) {
 		this.parent = parent;
+		arabicParent = null;
+	}
+	public DocumentConstructionDataFactory(ArabicDocument arabicParent) {
+		this.arabicParent = arabicParent;
+		parent = null;
 	}
 
 	@Override
 	public AbstractConstructionData create(GrammaticalConstruction type) {
-		return new DocumentConstructionData(type, parent);
+		if(arabicParent == null)
+			return new DocumentConstructionData(type, parent);
+		else 
+			return new DocumentConstructionData(type, arabicParent);
 	}
 }

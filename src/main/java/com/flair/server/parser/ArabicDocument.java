@@ -32,7 +32,7 @@ import com.flair.server.raft.Raft;
 import com.flair.server.utilities.ServerLogger;
 
 /**
- * Represents an arabic text document that's parsed by the NLP Parser and is ranked by RAFT
+ * Represents an arabic text document that's parsed by the Stanford Parser and is ranked by RAFT
  * 
  * @author mjbriggs
  */
@@ -233,6 +233,11 @@ class ArabicDocument implements AbstractDocument
 	@Override
 	public DocumentReadabilityLevel getReadabilityLevel() {
 		return readabilityLevel;
+	}
+
+	@Override
+	public ArabicDocumentReadabilityLevel getArabicReadabilityLevel() {
+		return arabicReadabilityLevel;
 	}
 
 	@Override

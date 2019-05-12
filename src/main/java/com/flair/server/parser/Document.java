@@ -21,6 +21,7 @@ import java.util.StringTokenizer;
 import com.flair.server.utilities.ServerLogger;
 import com.flair.shared.grammar.GrammaticalConstruction;
 import com.flair.shared.grammar.Language;
+import com.flair.shared.parser.ArabicDocumentReadabilityLevel;
 import com.flair.shared.parser.DocumentReadabilityLevel;
 
 //import org.apache.cxf.common.i18n.Exception;
@@ -60,6 +61,7 @@ class Document implements AbstractDocument
 
 	public Document(AbstractDocumentSource parent)
 	{
+		ServerLogger.get().info("Creating document");
 		assert parent != null;
 
 		raft = new Raft();
@@ -229,6 +231,12 @@ class Document implements AbstractDocument
 	}
 
 	@Override
+	public ArabicDocumentReadabilityLevel getArabicReadabilityLevel() {
+		ServerLogger.get().info("Arabic readability not supported by this class");
+		return null;
+	}
+
+	@Override
 	public int getNumCharacters() {
 		return numCharacters;
 	}
@@ -381,6 +389,8 @@ class DocumentFactory implements AbstractDocumentFactory
 {
 	@Override
 	public AbstractDocument create(AbstractDocumentSource source) {
+		//this is called after crawl step
+		ServerLogger.get().info("DocumentFactory.create()");
 		return new Document(source);
 	}
 }

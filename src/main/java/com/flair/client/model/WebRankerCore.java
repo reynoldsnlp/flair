@@ -103,9 +103,9 @@ public class WebRankerCore implements AbstractWebRankerCore
 	private abstract class ProcessData implements WebRankerAnalysis
 	{
 		final OperationType				type;
-		final Language					lang;
 		final List<RankableDocument>	parsedDocs;
 		List<String>					keywords;
+		Language						lang;
 		boolean							complete;		// flagged after completion
 		boolean							invalid;		// set if cancelled or if there weren't any usable results
 		
@@ -131,6 +131,10 @@ public class WebRankerCore implements AbstractWebRankerCore
 		@Override
 		public Language getLanguage() {
 			return lang;
+		}
+
+		public void updateLanguage(Language lang) {
+			this.lang = lang;
 		}
 		
 		@Override
@@ -313,11 +317,13 @@ public class WebRankerCore implements AbstractWebRankerCore
 
 			@Override
 			public DocumentReadabilityLevel getReadabilityLevel() {
+				ClientLogger.get().info("doc.getReadabilityLevel()");
 				return doc.getReadabilityLevel();
 			}
 
 			@Override
 			public ArabicDocumentReadabilityLevel getArabicReadabilityLevel() {
+				ClientLogger.get().info("doc.getArabicReadabilityLevel()");
 				return doc.getArabicReadabilityLevel();
 			}
 
@@ -590,6 +596,11 @@ public class WebRankerCore implements AbstractWebRankerCore
 			}
 
 			@Override
+			public boolean isArabicDocLevelEnabled(ArabicDocumentReadabilityLevel level) {
+				return settings.isArabicDocLevelEnabled(level);
+			}
+
+			@Override
 			public Iterable<RankableDocument> getDocuments() {
 				return data.parsedDocs;
 			}
@@ -821,6 +832,7 @@ public class WebRankerCore implements AbstractWebRankerCore
 			rankData = ranker.rerank(new RankerInput());
 			
 			// update both panes
+			data.updateLanguage(rankData.getLanguage());
 			settings.updateSettings(rankData);
 			if (lastSelection != null && preview.isVisible())
 				preview(lastSelection);

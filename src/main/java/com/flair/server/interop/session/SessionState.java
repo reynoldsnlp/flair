@@ -300,7 +300,16 @@ public class SessionState
 		out.setNumWords(source.getNumWords());
 		out.setNumSentences(source.getNumSentences());
 		out.setNumDependencies(source.getNumDependencies());
-		out.setReadabilityLevel(source.getReadabilityLevel());
+		if(source.getLanguage().toString().equals("ARABIC")) 
+		{
+			ServerLogger.get().info("Source is arabic, setting arabic readability level to be sent to client");
+			out.setArabicReadabilityLevel(source.getArabicReadabilityLevel());
+			ServerLogger.get().info("Arabic readability level is " + out.getArabicReadabilityLevel().toString());
+		}
+		else 
+		{
+			out.setReadabilityLevel(source.getReadabilityLevel());
+		}
 		out.setReadabilityScore(source.getReadabilityScore());
 
 		return out;
@@ -489,6 +498,7 @@ public class SessionState
 		else
 			k = new KeywordSearcherInput(keywords);
 
+		ServerLogger.get().info("Creating search crawl parse operation");
 		SearchCrawlParseOperation op = MasterJobPipeline.get().doSearchCrawlParse(lang, query, numResults, k);
 		op.setCrawlCompleteHandler(e -> {
 			handleCrawlComplete(e);
@@ -500,6 +510,7 @@ public class SessionState
 			handleJobComplete(ServerMessage.Type.SEARCH_CRAWL_PARSE, e);
 		});
 
+		ServerLogger.get().info("Calling beginOperation()");
 		beginOperation(new OperationState(op));
 	}
 

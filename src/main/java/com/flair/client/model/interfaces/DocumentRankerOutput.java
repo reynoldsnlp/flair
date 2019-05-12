@@ -6,6 +6,8 @@ import com.flair.shared.grammar.GrammaticalConstruction;
 import com.flair.shared.grammar.Language;
 import com.flair.shared.interop.RankableDocument;
 import com.flair.shared.parser.DocumentReadabilityLevel;
+import com.flair.shared.parser.ArabicDocumentReadabilityLevel;
+
 
 /*
  * Output data of the RankerLogic class
@@ -20,6 +22,7 @@ public interface DocumentRankerOutput
 		public int							getNumFilteredDocuments();
 		
 		public double						getDocLevelDf(DocumentReadabilityLevel level);
+		public double						getArabicDocLevelDf(ArabicDocumentReadabilityLevel level);
 		public double						getConstructionDf(GrammaticalConstruction gram);
 		
 		public boolean						isConstructionWeighted(GrammaticalConstruction gram);
