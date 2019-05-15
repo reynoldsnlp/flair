@@ -25,7 +25,8 @@ public abstract class WebSearchAgent
 	    BLACKLISTED_URLS.add("facebook.com");
 	    BLACKLISTED_URLS.add("buzzfeed.com");
 	    BLACKLISTED_URLS.add("youtube.com");
-	    BLACKLISTED_URLS.add("twitter.com");
+		BLACKLISTED_URLS.add("twitter.com");
+		BLACKLISTED_URLS.add("pdf");
 	}
     }
     
