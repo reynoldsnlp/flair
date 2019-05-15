@@ -76,15 +76,17 @@ public class Raft {
 		boolean exists = false;
       	try
       	{
-        	temp = new File("File Path Here " + model);
+			String pathToResources = this.getClass().getClassLoader().getResource("").getPath();
+			ServerLogger.get().info("Checking that " + pathToResources + model + " exists");
+        	temp = new File(pathToResources + model);
           
          	exists = temp.exists();
           
-         	ServerLogger.get().info("Temp file exists : " + exists);
       	} catch (Exception e)
       	{
 			ServerLogger.get().error(e.getMessage());
 		}
+		ServerLogger.get().info(model + " exists : " + exists);
 		return exists;
 	}
 

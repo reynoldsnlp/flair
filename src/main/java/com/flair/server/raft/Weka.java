@@ -142,8 +142,8 @@ public class Weka implements Serializable {
 	public RandomForest buildRandomForestModel()  throws IOException, FileNotFoundException, ClassNotFoundException, UnsupportedEncodingException, InterruptedException, Exception {
 		//import the training data
 		//ServletContext servletContextLoader = getServletContext();
-		Path currentRelativePath = Paths.get("");
-		String s = this.getClass().getClassLoader().getResource("").getPath();
+		//Path currentRelativePath = Paths.get("");
+		String path = this.getClass().getClassLoader().getResource("").getPath();
 		//ServerLogger.get().info("Current relative path in Weka is: " + s);
 
 		ClassLoader classLoader;
@@ -155,9 +155,9 @@ public class Weka implements Serializable {
 		try{
 			//input = new FileInputStream(inputFile);
 			ServerLogger.get().info("training data file name " + this.trainingDataFileName);
-			classLoader = getClass().getClassLoader();
-			input = classLoader.getResourceAsStream("/" + this.trainingDataFileName);	
-			//input = new FileInputStream(new File("/opt/flair/src/main/java/com/flair/server/resources/" + trainingDataFileName));
+			//classLoader = getClass().getClassLoader();
+			//input = classLoader.getResourceAsStream("/" + this.trainingDataFileName);	
+			input = new FileInputStream(new File(path + trainingDataFileName));
 			//InputStream inputCopy = classLoader.getResourceAsStream(trainingDataFileName);
 			//ServerLogger.get().info("Model.arff contents : " + getStringFromInputStream(inputCopy));
 			reader = new BufferedReader(new InputStreamReader(input, "UTF8"));
@@ -246,10 +246,11 @@ public class Weka implements Serializable {
 
 	public RandomForest loadRandomForest(String model) {
 		try {
-			rf = (RandomForest) weka.core.SerializationHelper.read("File Path Here " + model);
+			String pathToResources = this.getClass().getClassLoader().getResource("").getPath();
+			rf = (RandomForest) weka.core.SerializationHelper.read(pathToResources + model);
 			ServerLogger.get().info(" weka instance " + taskSalt  + " Successfully read model");
 		} catch (Exception ex) {
-			ServerLogger.get().error(ex.getMessage() + " Failed to load random forest model");
+			ServerLogger.get().error(ex.getMessage() + " Failed to load random forest model, building random forest model");
 			try { 
 				rf = buildRandomForestModel();
 			} catch (Exception e) {

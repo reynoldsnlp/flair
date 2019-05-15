@@ -5,7 +5,6 @@
  */
 package com.flair.server.interop.session;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -140,13 +139,16 @@ public class SessionManager
 		ServerAuthenticationToken newTok = AuthTokenGenerator.create();
 		ServerLogger.get().info("New session token generated. ID: " + newTok.getUuid());
 		
+		String pathToResources = this.getClass().getClassLoader().getResource("").getPath();
+		ServerLogger.get().info("Current relative path in Session Manager is: " + pathToResources);
+
 		// build random forest model if need be 
 		Raft raft = new Raft();
 		if(!raft.modelExists("RandomForest.model")){
 			Weka randomForest = new Weka("model.arff");	
 			try {
 				randomForest.setRandomForest(randomForest.buildRandomForestModel());
-				weka.core.SerializationHelper.write("File Path Here /RandomForest.model", randomForest.getRandomForest());
+				weka.core.SerializationHelper.write(pathToResources + "RandomForest.model", randomForest.getRandomForest());
 				ServerLogger.get().info("Wrote RandomForest.model to the server resource folder");
 			} catch (Exception e) {
 				ServerLogger.get().error(e.getMessage() + " Failed to build random forest model");
