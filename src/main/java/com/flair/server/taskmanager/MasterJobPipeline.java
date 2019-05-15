@@ -14,6 +14,7 @@ import com.flair.server.parser.KeywordSearcherInput;
 import com.flair.server.parser.KeywordSearcherType;
 import com.flair.server.parser.MasterParsingFactoryGenerator;
 import com.flair.server.parser.ParserType;
+import com.flair.server.utilities.ServerLogger;
 import com.flair.shared.grammar.Language;
 
 /**
@@ -69,6 +70,7 @@ public final class MasterJobPipeline
 
 	private MasterJobPipeline()
 	{
+		ServerLogger.get().info("Initializing MasterJobPipeline");
 		this.webSearchExecutor = WebSearchTask.getExecutor();
 		this.webCrawlExecutor = WebCrawlTask.getExecutor();
 		this.docParseExecutor = DocumentParseTask.getExecutor();
@@ -106,6 +108,7 @@ public final class MasterJobPipeline
  	*/
 	private AbstractParsingStrategyFactory getStrategyForLanguage(Language lang)
 	{
+		ServerLogger.get().info("getStrategyForLanguage()");
 		switch (lang)
 		{
 		case ENGLISH:
@@ -128,6 +131,7 @@ public final class MasterJobPipeline
 	 */
 	private DocumentParserPool getParserPoolForLanguage(Language lang)
 	{
+		ServerLogger.get().info("getParserPoolForLanguage()");
 		switch (lang)
 		{
 		case ENGLISH:
@@ -172,6 +176,7 @@ public final class MasterJobPipeline
 													int numResults,
 													KeywordSearcherInput keywords)
 	{
+		ServerLogger.get().info("doSearchCrawlParse()");
 		SearchCrawlParseJobInput jobParams = new SearchCrawlParseJobInput(lang,
 																query,
 																numResults,

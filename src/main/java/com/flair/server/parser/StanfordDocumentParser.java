@@ -47,6 +47,7 @@ class StanfordDocumentParser extends AbstractDocumentParser
 	public StanfordDocumentParser(AbstractDocumentFactory factory, Language modelLang)
 	{
 		super(factory);
+		ServerLogger.get().info("After super(factory)");
 
 		docSource = null;
 		outputDoc = null;
@@ -147,9 +148,17 @@ class StanfordDocumentParser extends AbstractDocumentParser
 		AbstractDocument result = null;
 		try
 		{	//here is where we parse a document
+			ServerLogger.get().info("trying to parse document");
+
 			result = initializeState(source, strategy);
+			ServerLogger.get().info("state initialized");
+
 			parsingStrategy.setPipeline(pipeline);
+			ServerLogger.get().info("pipeline set");
+
 			parsingStrategy.apply(outputDoc);
+			ServerLogger.get().info("applying analysis to document");
+
 		} catch (Throwable e) {
 			throw e;
 		} finally {
@@ -177,6 +186,7 @@ class StanfordDocumentParserFactory implements AbstractDocumentParserFactory
 
 	public StanfordDocumentParserFactory(AbstractDocumentFactory factory, Language lang)
 	{
+		ServerLogger.get().info("Creating StanfordDocumentParserFactory, docfactory is " + factory.toString());
 		docFactory = factory;
 		language = lang;
 	}

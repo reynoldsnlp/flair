@@ -80,7 +80,7 @@ import gwt.material.design.client.constants.Color;
 /*
  * Monolithic controller component for the various widgets and services
  */
-public class WebRankerCore implements AbstractWebRankerCore
+public class WebRankerCore implements AbstractWebRankerCore, Window.ClosingHandler
 {
 	static enum LocalizationTags
 	{
@@ -100,6 +100,11 @@ public class WebRankerCore implements AbstractWebRankerCore
 		SERVER_PING_TIMEOUT,
 	}
 	
+	@Override
+	public void onWindowClosing(Window.ClosingEvent event) {
+		event.setMessage("Are you sure you want to leave?");
+	}
+
 	private abstract class ProcessData implements WebRankerAnalysis
 	{
 		final OperationType				type;
@@ -1541,6 +1546,7 @@ public class WebRankerCore implements AbstractWebRankerCore
 
 	public WebRankerCore(AbstractDocumentRanker r, AbstractDocumentAnnotator a, AbstractMessageReceiver m)
 	{
+		ClientLogger.get().info("Constructing web ranker core");
 		token = null;
 		presenter = null;
 
@@ -1578,6 +1584,7 @@ public class WebRankerCore implements AbstractWebRankerCore
 
 	private void bindToPresenter(AbstractWebRankerPresenter presenter)
 	{
+		ClientLogger.get().info("binding to presenter");
 		settings = presenter.getRankerSettingsPane();
 		results = presenter.getDocumentResultsPane();
 		preview = presenter.getDocumentPreviewPane();

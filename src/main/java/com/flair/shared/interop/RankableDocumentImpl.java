@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.HashSet;
 
+import com.flair.client.utilities.ClientLogger;
 import com.flair.shared.grammar.GrammaticalConstruction;
 import com.flair.shared.grammar.Language;
 import com.flair.shared.parser.ArabicDocumentReadabilityLevel;
@@ -329,10 +330,12 @@ public final class RankableDocumentImpl implements RankableDocument
 	}
 
 	public void setReadabilityLevel(DocumentReadabilityLevel readabilityLevel) {
+		ClientLogger.get().info("setReadabilityLevel()");
 		this.readabilityLevel = readabilityLevel;
 	}
 
 	public void setArabicReadabilityLevel(ArabicDocumentReadabilityLevel arabicReadabilityLevel) {
+		ClientLogger.get().info("setArabicReadabilityLevel()");
 		this.arabicReadabilityLevel = arabicReadabilityLevel;
 	}
 
