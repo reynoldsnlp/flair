@@ -200,6 +200,12 @@ public class RankerSettingsPane extends LocalizedComposite implements AbstractRa
 					hideSliderBundles();
 					lblConstructionsUI.setVisible(false);
 					break;
+				case RUSSIAN:
+					ClientLogger.get().info("Language is Russian");
+					showDefaultLevels();
+					hideSliderBundles();
+					lblConstructionsUI.setVisible(false);
+					break;
 				default:
 					ClientLogger.get().info("Language is " + sliderLanguage.toString());
 					showDefaultLevels();
