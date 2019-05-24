@@ -15,6 +15,7 @@ import com.flair.shared.interop.AbstractMessageReceiver;
 import com.flair.shared.interop.AuthToken;
 import com.flair.shared.interop.services.SessionManagementServiceAsync;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.Window.ClosingEvent;
 import com.google.gwt.user.client.ui.RootPanel;
 
 /*
@@ -66,6 +67,10 @@ public class ClientEndPoint
 				case VALID:
 					ClientLogger.get().info("Session token assigned. ID: " + clientToken);
 					viewport.showSplash(false);
+
+					Window.addWindowClosingHandler(e -> {
+						e.setMessage("Are you sure you want to leave?");
+					});
 					
 					Window.addCloseHandler(e -> {
 						deinit();
