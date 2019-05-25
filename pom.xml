@@ -32,19 +32,16 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
-<<<<<<< HEAD
-
+	<!--
 	<repositories>
-		<!--
+		
 		<repository>
 			<id>jitpack.io</id>
 			<url>https://jitpack.io</url>
 		</repository>
-		-->
+		
 	</repositories>
-
-=======
->>>>>>> 30b10797ce2f3cacb1fb6654268f57414afb7ec8
+	-->
 	<dependencies>
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
@@ -114,12 +111,12 @@
 		<dependency>
 			<groupId>org.apache.tika</groupId>
 			<artifactId>tika-core</artifactId>
-			<version>1.14</version>
+			<version>1.21</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.tika</groupId>
 			<artifactId>tika-parsers</artifactId>
-			<version>1.14</version>
+			<version>1.21</version>
 		</dependency>
 		<dependency>
 			<groupId>com.github.gwtd3</groupId>
@@ -127,37 +124,21 @@
 			<version>1.3.0</version>
 		</dependency>
 		<dependency>
-<<<<<<< HEAD
 			<groupId>com.github.gwtd3</groupId>
 			<artifactId>gwt-d3-js</artifactId>
 			<version>3.5.14</version>
 		</dependency>
 
-=======
-			<!--transitive dependency for gwt-d3-api-->
-			<groupId>com.github.gwtd3</groupId>
-            		<artifactId>gwt-d3-js</artifactId>
-            		<version>3.5.11</version>
-        	</dependency>
->>>>>>> 30b10797ce2f3cacb1fb6654268f57414afb7ec8
 		<dependency>
 			<groupId>edu.stanford.nlp</groupId>
 			<artifactId>stanford-corenlp-russian-models</artifactId>
 			<version>master-SNAPSHOT</version>
 		</dependency>
-<<<<<<< HEAD
-
-=======
->>>>>>> 30b10797ce2f3cacb1fb6654268f57414afb7ec8
 		<dependency>
 			<groupId>edu.stanford.nlp</groupId>
 			<artifactId>stanford-corenlp</artifactId>
 			<version>3.9.2</version>
 		</dependency>
-<<<<<<< HEAD
-
-=======
->>>>>>> 30b10797ce2f3cacb1fb6654268f57414afb7ec8
 		<dependency>
 			<groupId>edu.stanford.nlp</groupId>
 			<artifactId>stanford-corenlp</artifactId>
