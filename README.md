@@ -32,10 +32,9 @@ FLAIR utilizes a maven build system. In order to compile this project, maven
 must be installed. For more information on using maven, click here
 https://maven.apache.org/.
 
-Additionally, FLAIR relies on some local dependencies. [Click
-here](https://drive.google.com/open?id=1TE2x4iUilulFpGwi0xgZmZmLy2R0Di2c) to
-get the zip file of the necessary local dependencies. Unzip this file in
-src/main/webapp/WEB-INF.
+Additionally, FLAIR relies on an older stanford tregex object. [Click
+here](https://drive.google.com/open?id=1q7kWl3It5JAtk4f9dui64xY1vjYRL5rh) to
+get the necessary dependencies. Place these files in the src/main/webapp/WEB-INF/lib/ folder.
 
 ## Using Bing API
 
