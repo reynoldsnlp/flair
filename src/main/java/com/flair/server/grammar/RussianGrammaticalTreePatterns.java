@@ -1,6 +1,5 @@
 package com.flair.server.grammar;
 
-import edu.stanford.nlp.trees.tregex.TregexPattern;
 import static java.util.regex.Pattern.CASE_INSENSITIVE;
 import java.util.regex.Pattern;
 
@@ -28,5 +27,8 @@ public class RussianGrammaticalTreePatterns {
     //regex for reflexive verbs
     private static final String STR_REFLEXIVE_VERB = "(ся|сь)\\b";
     public static Pattern patternReflexiveVerb = Pattern.compile(STR_REFLEXIVE_VERB, CASE_INSENSITIVE);
+
+
+    //SENTENCE STRUCTURES
 
 }

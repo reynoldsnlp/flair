@@ -19,19 +19,32 @@ public class HFSTAnalyser {
      * @throws TransducerStreamException the provided InputStream could not be used to construct a Transducer
      */
     public HFSTAnalyser(@NotNull InputStream iStream) throws TransducerStreamException{
-        try {
-            DataInputStream dataStream = new DataInputStream(iStream);
-            TransducerHeader transducerHeader = new TransducerHeader(dataStream); //TODO: this line causes a NullPointerException
-            TransducerAlphabet transducerAlphabet = new TransducerAlphabet(dataStream, transducerHeader.getSymbolCount());
-            if(transducerHeader.isWeighted()){
-                transducer = new WeightedTransducer(dataStream, transducerHeader, transducerAlphabet);
+        if(iStream == null){
+            throw new TransducerStreamException("No data provided for Transducer construction");
+        }
+        try (DataInputStream transducerDataStream = new DataInputStream(iStream)) {
+            TransducerHeader transducerHeader = new TransducerHeader(transducerDataStream);
+            TransducerAlphabet transducerAlphabet = new TransducerAlphabet(
+                    transducerDataStream,
+                    transducerHeader.getSymbolCount());
+
+            final Transducer transducer;
+            if (transducerHeader.isWeighted()) { // analyser and normal generator
+                transducer = new WeightedTransducer(
+                        transducerDataStream,
+                        transducerHeader,
+                        transducerAlphabet);
+            } else { // stress generator
+                transducer = new UnweightedTransducer(
+                        transducerDataStream,
+                        transducerHeader,
+                        transducerAlphabet);
             }
-            else{
-                transducer = new UnweightedTransducer(dataStream, transducerHeader, transducerAlphabet);
-            }
+            this.transducer = transducer;
+            ServerLogger.get().info("HFSTAnalyser constructed transducer!");
         } catch (IOException e) {
-            ServerLogger.get().error(e, "InputStream could not be used to construct a Transducer");
-            throw new TransducerStreamException("HFSTAnalyser not able to construct Transducer from InputStream");
+            ServerLogger.get().error(e, "HFSTAnalyser failed to construct transducer");
+            throw new TransducerStreamException(e);
         }
     }
 

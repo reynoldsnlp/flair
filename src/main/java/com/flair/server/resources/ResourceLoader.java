@@ -3,6 +3,7 @@
  */
 package com.flair.server.resources;
 
+import java.io.File;
 import java.io.InputStream;
 import java.nio.file.Paths;
 
@@ -15,9 +16,12 @@ import com.flair.server.utilities.ServerLogger;
  */
 public final class ResourceLoader
 {
+	private static final String SEPARATOR = File.separator;
 	public static InputStream get(String fileName) {
 		//update file path as necessary
-		String pathToResources = ResourceLoader.class.getClassLoader().getResource("").getPath();
-		return ResourceLoader.class.getResourceAsStream(pathToResources + fileName);
+		//return ResourceLoader.class.getResourceAsStream("/com/flair/server/resources/" + fileName);
+		final String filePath = SEPARATOR + "com" + SEPARATOR + "flair" +
+				SEPARATOR + "server" + SEPARATOR + "resources" + SEPARATOR + fileName;
+		return ResourceLoader.class.getResourceAsStream(filePath);
 	}
 }
