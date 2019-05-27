@@ -46,12 +46,12 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
     {
         //set up the HFST
         //*****
-        /*try {
+        try {
             InputStream russianTransducerStream = ResourceLoader.get(RUSSIAN_TRANSDUCER_HFSTOL);
             analyser = new HFSTAnalyser(russianTransducerStream);
         } catch (TransducerStreamException e) {
             ServerLogger.get().error(e, "Russian Strategy could not initialize the HFSTAnalyser");
-        }*/
+        }
         //*****
 
 
