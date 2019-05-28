@@ -1,13 +1,14 @@
 package com.flair.server.raft;
 
-
 import java.io.File;
 import java.io.Writer;
 import java.io.BufferedWriter;
+import java.io.ByteArrayInputStream;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
+import java.io.StringWriter;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.io.IOException;
@@ -161,29 +162,34 @@ public class Processor {
 	}
 	
 	
-	/*
+	/** 
 	 *Creates XML input string for Madamira out of the body, saves it to madamiraInput, 
 	 *sends it off to be lemmatized and saves output to madamiraOutput.
 	 */
 	private void lemmatizeText() {
 		input = "/tmp/mada_input" + taskSalt + ".txt";
 		output = "/tmp/mada_output" + taskSalt + ".txt";
-		try {
+		InputStream inputStream;
+		StringBuilder inputBuilder = new StringBuilder();
+		//try {
 			File fMadaInput = new File(input);
-			Writer writer = new BufferedWriter(new OutputStreamWriter
-					(new FileOutputStream(fMadaInput), "UTF8"));
-
-	        //<in_seg id="BODY">
-			writer.write(madamiraTop + "\n\n");
+			//Writer writer = new BufferedWriter(new OutputStreamWriter
+			//		(new FileOutputStream(fMadaInput), "UTF8"));
+					//<in_seg id="BODY">
+			inputBuilder.append(madamiraTop + "\n\n");
+			//writer.write(madamiraTop + "\n\n");
 			String [] bodyStrings = body.split("\n");
 			int segCount = 0;
 			for (String s:bodyStrings) {
-				writer.write("<in_seg id=\"BODY_"+Integer.toString(segCount)+"\">" + makeArabicOnly(s) + "</in_seg>\n");
+			//writer.write("<in_seg id=\"BODY_"+Integer.toString(segCount)+"\">" + makeArabicOnly(s) + "</in_seg>\n");
+				inputBuilder.append("<in_seg id=\"BODY_"+Integer.toString(segCount)+"\">" + makeArabicOnly(s) + "</in_seg>\n");
 				segCount++;
 			}
-			writer.write("\n\n" + madamiraBottom);
-			writer.close();
-		}
+		//	writer.write("\n\n" + madamiraBottom);
+			inputBuilder.append("\n\n" + madamiraBottom);
+			//writer.close();
+	//	}
+	/*
 		catch(UnsupportedEncodingException e) {
 			System.out.println("UNSUPPORTED ENCODING - WRITING MADAMIRA INPUT");
 			e.printStackTrace();
@@ -192,12 +198,15 @@ public class Processor {
 			System.out.println("COULD NOT WRITE TO FILE - WRITING MADAMIRA INPUT");
 			e.printStackTrace();
 		}
+		*/
 		
-		Madamira.lemmatize(8223, "http://localhost:", input, output);
+		//Madamira.lemmatize(8223, "http://localhost:", input, output);
+		inputStream = new ByteArrayInputStream(inputBuilder.toString().getBytes());
+		Madamira.lemmatize(8223, "http://localhost:", inputStream, output); //now this file returns a string 
 		madaOutput = Jsoup.parse(ReadFile(output));
 	}
 	
-	/*
+	/**
 	 * Uses JSOUP to to extract words, lemmas and pos tags from the Madamira output and then
 	 * assembles TreeMap lemmas and TreeMap lemmaFreqListMap. Calculates wordCount and lexDiv.
 	 */
@@ -364,7 +373,7 @@ public class Processor {
 		frequencies.sort(null);
 	}
 	
-	/*
+	/**
 	 * helper for createFrequencies()
 	 * reads freqList in from file and returns it
 	 */
@@ -400,7 +409,7 @@ public class Processor {
 		return freqListMap;
 	}
 	
-	/*
+	/**
 	 * Sorts the entries in the lemmaFreqListMap into a sorted List to find the 95th percentile,
 	 * Then finds that lemma's frequency in the freqList
 	 */

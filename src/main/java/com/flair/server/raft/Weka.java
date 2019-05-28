@@ -96,7 +96,7 @@ public class Weka implements Serializable {
         ServerLogger.get().info(unlabeled.instance(0).toString());
         
         double prediction = rf.classifyInstance(unlabeled.instance(0));		//this is where we use our random forest model
-	ServerLogger.get().info("Prediction from RF model:" + prediction);
+		ServerLogger.get().info("Prediction from RF model:" + prediction);
     	labeled.instance(0).setClassValue(prediction);
         //figure out which index we're trying to predict (the last one for us)
         
@@ -197,6 +197,7 @@ public class Weka implements Serializable {
 	
 	private void writeInputFile() throws IOException {
 
+		ServerLogger.get().info("Writing " + inputFileName);
 		String wekaTop = GetArffHeader();
 		File fWekaInput = new File(inputFileName);
 		Writer writer = new BufferedWriter(new OutputStreamWriter
