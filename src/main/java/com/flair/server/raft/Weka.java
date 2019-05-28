@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.Serializable;
+import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.io.BufferedReader;
@@ -86,11 +87,10 @@ public class Weka implements Serializable {
 	
 	public int ScoreFeatures(String featureData) throws IOException, FileNotFoundException, ClassNotFoundException, UnsupportedEncodingException, InterruptedException, Exception {
 		this.featureData = featureData;
-		writeInputFile();
     
         //import the data to predict, this can include multiple sets of data
 		ServerLogger.get().info("inputFileName: " + inputFileName);
-		Instances unlabeled = new Instances(new BufferedReader(new FileReader(inputFileName)));
+		Instances unlabeled = new Instances(new BufferedReader(new StringReader(GetArffHeader() + featureData)));
         unlabeled.setClassIndex(unlabeled.numAttributes() - 1);
         Instances labeled = new Instances(unlabeled);
         ServerLogger.get().info(unlabeled.instance(0).toString());
@@ -101,17 +101,6 @@ public class Weka implements Serializable {
         //figure out which index we're trying to predict (the last one for us)
         
         this.score = ((int) prediction + 1);
-        //go through each set of data in the file (currently just one) and predict it
-        /*
-        double prediction = 0.0;
-        for (int i = 0; i < unlabeled.numInstances(); i++) {
-        	prediction = rf.classifyInstance(unlabeled.instance(i));
-        	labeled.instance(i).setClassValue(prediction);
-        	//System.out.println(labeled.classAttribute().value((int) prediction));
-        	score = ((int) prediction + 1);
-        }
-		*/
-		clearFiles();
 		return this.score;
 	}
 	
@@ -140,26 +129,15 @@ public class Weka implements Serializable {
 	}
 	
 	public RandomForest buildRandomForestModel()  throws IOException, FileNotFoundException, ClassNotFoundException, UnsupportedEncodingException, InterruptedException, Exception {
-		//import the training data
-		//ServletContext servletContextLoader = getServletContext();
-		//Path currentRelativePath = Paths.get("");
 		String path = this.getClass().getClassLoader().getResource("").getPath();
-		//ServerLogger.get().info("Current relative path in Weka is: " + s);
-
-		ClassLoader classLoader;
 		InputStream input;	
 		BufferedReader reader;
 
 
 		
 		try{
-			//input = new FileInputStream(inputFile);
 			ServerLogger.get().info("training data file name " + this.trainingDataFileName);
-			//classLoader = getClass().getClassLoader();
-			//input = classLoader.getResourceAsStream("/" + this.trainingDataFileName);	
 			input = new FileInputStream(new File(path + trainingDataFileName));
-			//InputStream inputCopy = classLoader.getResourceAsStream(trainingDataFileName);
-			//ServerLogger.get().info("Model.arff contents : " + getStringFromInputStream(inputCopy));
 			reader = new BufferedReader(new InputStreamReader(input, "UTF8"));
 		}
 		catch(NullPointerException ex){
@@ -192,7 +170,6 @@ public class Weka implements Serializable {
         rf.buildClassifier(trainData);
 		return rf;
 		
-		//return null;
 	}
 	
 	private void writeInputFile() throws IOException {
