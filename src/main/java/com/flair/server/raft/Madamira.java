@@ -99,7 +99,6 @@ public class Madamira {
 				// immediate deallocation of all system resources
 				httpclient.getConnectionManager().shutdown();
 			}
-			//System.out.println("Connected");
 			return null;
 		}
 		else {
@@ -164,59 +163,4 @@ public class Madamira {
 				new Madamira(port, url, inputStreamIn, new File(fileOut));
 		return 	client.run();
 	}
-	/*
-    public static void lemmatize(String INPUT_FILE, String OUTPUT_FILE) {
-    	
-        final MADAMIRAWrapper wrapper = new MADAMIRAWrapper();
-        JAXBContext jc = null;
-
-        try {
-            jc = JAXBContext.newInstance(MADAMIRA_NS);
-            Unmarshaller unmarshaller = jc.createUnmarshaller();
-
-            // The structure of the MadamiraInput object is exactly similar to the
-            // madamira_input element in the XML
-            final MadamiraInput input = (MadamiraInput)unmarshaller.unmarshal(
-                    new File( INPUT_FILE ) );
-
-            {
-                int numSents = input.getInDoc().getInSeg().size();
-                String outputAnalysis = input.getMadamiraConfiguration().
-                        getOverallVars().getOutputAnalyses();
-                String outputEncoding = input.getMadamiraConfiguration().
-                        getOverallVars().getOutputEncoding();
-
-                System.out.println("processing " + numSents +
-                        " sentences for analysis type = " + outputAnalysis +
-                        " and output encoding = " + outputEncoding);
-            }
-
-            // The structure of the MadamiraOutput object is exactly similar to the
-            // madamira_output element in the XML
-            final MadamiraOutput output = wrapper.processString(input);
-
-            {
-                int numSents = output.getOutDoc().getOutSeg().size();
-
-                System.out.println("processed output contains "+numSents+" sentences...");
-            }
-
-
-            jc.createMarshaller().marshal(output, new File(OUTPUT_FILE));
-
-
-        } catch (JAXBException ex) {
-            System.out.println("Error marshalling or unmarshalling data: "
-                    + ex.getMessage());
-        } catch (InterruptedException ex) {
-            System.out.println("MADAMIRA thread interrupted: "
-                    +ex.getMessage());
-        } catch (ExecutionException ex) {
-            System.out.println("Unable to retrieve result of task. " +
-                    "MADAMIRA task may have been aborted: "+ex.getCause());
-        }
-
-        wrapper.shutdown();
-    }
-    */
 }
