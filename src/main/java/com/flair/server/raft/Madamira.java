@@ -133,16 +133,11 @@ public class Madamira {
 					InputStream responseBody = response.getEntity().getContent();
 					BufferedReader reader = new BufferedReader(
 							new InputStreamReader(responseBody, "utf8"));
-					BufferedWriter writer = new BufferedWriter(
-							new OutputStreamWriter(new FileOutputStream(oFile), "utf8"));
 					String line = null;
 					while ((line = reader.readLine()) != null) {
 						sbr.append(line+"\n");
 					}
 					reader.close();
-					writer.write(sbr.toString());
-					writer.flush();
-					writer.close();
 				}
 				EntityUtils.consume(resEntity);
 			} catch(IOException ioe) {

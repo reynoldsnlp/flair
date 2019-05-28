@@ -2,6 +2,7 @@ package com.flair.server.raft;
 
 import java.io.File;
 import java.io.Writer;
+import java.nio.charset.StandardCharsets;
 import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
 import java.io.BufferedReader;
@@ -171,39 +172,17 @@ public class Processor {
 		output = "/tmp/mada_output" + taskSalt + ".txt";
 		InputStream inputStream;
 		StringBuilder inputBuilder = new StringBuilder();
-		//try {
-			File fMadaInput = new File(input);
-			//Writer writer = new BufferedWriter(new OutputStreamWriter
-			//		(new FileOutputStream(fMadaInput), "UTF8"));
-					//<in_seg id="BODY">
-			inputBuilder.append(madamiraTop + "\n\n");
-			//writer.write(madamiraTop + "\n\n");
-			String [] bodyStrings = body.split("\n");
-			int segCount = 0;
-			for (String s:bodyStrings) {
-			//writer.write("<in_seg id=\"BODY_"+Integer.toString(segCount)+"\">" + makeArabicOnly(s) + "</in_seg>\n");
-				inputBuilder.append("<in_seg id=\"BODY_"+Integer.toString(segCount)+"\">" + makeArabicOnly(s) + "</in_seg>\n");
-				segCount++;
-			}
-		//	writer.write("\n\n" + madamiraBottom);
-			inputBuilder.append("\n\n" + madamiraBottom);
-			//writer.close();
-	//	}
-	/*
-		catch(UnsupportedEncodingException e) {
-			System.out.println("UNSUPPORTED ENCODING - WRITING MADAMIRA INPUT");
-			e.printStackTrace();
+		inputBuilder.append(madamiraTop + "\n\n");
+		String [] bodyStrings = body.split("\n");
+		int segCount = 0;
+		for (String s:bodyStrings) {
+			inputBuilder.append("<in_seg id=\"BODY_"+Integer.toString(segCount)+"\">" + makeArabicOnly(s) + "</in_seg>\n");
+			segCount++;
 		}
-		catch(IOException e) {
-			System.out.println("COULD NOT WRITE TO FILE - WRITING MADAMIRA INPUT");
-			e.printStackTrace();
-		}
-		*/
-		
-		//Madamira.lemmatize(8223, "http://localhost:", input, output);
-		inputStream = new ByteArrayInputStream(inputBuilder.toString().getBytes());
-		Madamira.lemmatize(8223, "http://localhost:", inputStream, output); //now this file returns a string 
-		madaOutput = Jsoup.parse(ReadFile(output));
+		inputBuilder.append("\n\n" + madamiraBottom);
+		inputStream = new ByteArrayInputStream(inputBuilder.toString().getBytes(StandardCharsets.UTF_8));
+		String outputString = Madamira.lemmatize(8223, "http://localhost:", inputStream, output); //now this file returns a string 
+		madaOutput = Jsoup.parse(outputString);
 	}
 	
 	/**
