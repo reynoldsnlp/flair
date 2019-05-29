@@ -7,6 +7,7 @@ package com.flair.server.parser;
 
 import com.flair.shared.grammar.GrammaticalConstruction;
 import com.flair.shared.grammar.Language;
+import com.flair.shared.parser.ArabicDocumentReadabilityLevel;
 import com.flair.shared.parser.DocumentReadabilityLevel;
 
 /**
@@ -24,6 +25,7 @@ public interface AbstractDocument extends Comparable<AbstractDocument>
     
     public double					getReadabilityScore();
     public DocumentReadabilityLevel	getReadabilityLevel();
+    public ArabicDocumentReadabilityLevel	getArabicReadabilityLevel();
     
     public int						getNumCharacters();
     public int						getNumSentences();

@@ -6,6 +6,7 @@ import com.flair.client.presentation.widgets.KeywordWeightSlider;
 import com.flair.client.presentation.widgets.LanguageSpecificConstructionSliderBundle;
 import com.flair.shared.grammar.Language;
 import com.flair.shared.interop.ConstructionSettingsProfile;
+import com.flair.shared.parser.ArabicDocumentReadabilityLevel;
 import com.flair.shared.parser.DocumentReadabilityLevel;
 
 /*
@@ -22,6 +23,7 @@ public interface AbstractRankerSettingsPane
 	
 	public void											show();
 	public void											hide();
+	public void 										refresh();
 	
 	public void											setSettingsChangedHandler(EventHandler handler);
 	public void											setVisualizeHandler(EventHandler handler);
@@ -33,7 +35,8 @@ public interface AbstractRankerSettingsPane
 	public KeywordWeightSlider							getKeywordSlider();
 	
 	public boolean										isDocLevelEnabled(DocumentReadabilityLevel level);		//This detirmines whether or not we display the documents with the corresponding doc level
-	
+	public boolean										isArabicDocLevelEnabled(ArabicDocumentReadabilityLevel level);		//This detirmines whether or not we display the documents with the corresponding doc level
+
 	public ConstructionSettingsProfile					generateSettingsProfile();
 	public void											applySettingsProfile(ConstructionSettingsProfile profile, boolean fireEvents);
 	

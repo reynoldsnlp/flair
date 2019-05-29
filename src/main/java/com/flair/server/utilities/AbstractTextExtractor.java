@@ -49,7 +49,12 @@ public abstract class AbstractTextExtractor
 		case RUSSIAN:
 			langStr = "ru-RU,ru;q=0.8";
 			break;	
-		}
+		case ARABIC:
+			langStr = "ar-SA,ar;q=0.8";
+			break;	
+		default:
+			throw new IllegalArgumentException("Language " + lang + " not supported");
+	}
 		
 		URI uri = new URI(url);
 		HttpGet get = new HttpGet(uri);

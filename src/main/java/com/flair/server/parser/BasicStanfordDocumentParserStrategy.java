@@ -49,6 +49,8 @@ class StanfordDocumentParserStrategyFactory implements AbstractParsingStrategyFa
             return new StanfordDocumentParserGermanStrategy();
         case RUSSIAN:
             return new StanfordDocumentParserRussianStrategy();
+        case ARABIC:
+            return new StanfordDocumentParserArabicStrategy();
 	    default:
 		throw new IllegalArgumentException("Language unsupported: " + lang);
 	}

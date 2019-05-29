@@ -55,17 +55,26 @@
 						
 						<m:MaterialRow marginBottom="5" padding="5">
 							<m:MaterialColumn>
-								<m:MaterialCheckBox ui:field="chkTextLevelAUI" value="true" text="A1-A2"/>
-								<m:MaterialCheckBox ui:field="chkTextLevelBUI" value="true" text="B1-B2"/>
-								<m:MaterialCheckBox ui:field="chkTextLevelCUI" value="true" text="C1-C2"/>
+							
+								<m:MaterialCheckBox ui:field="chkTextLevelAor1UI" value="true" text="A1-A2"/>
+								<m:MaterialCheckBox ui:field="chkTextLevelBor2UI" value="true" text="B1-B2"/>
+								<m:MaterialCheckBox ui:field="chkTextLevelCor3UI" value="true" text="C1-C2"/>
+								<m:MaterialCheckBox ui:field="chkTextLevel4UI" value="true" text="Level 4"/>
+								<!--
+								<m:MaterialCheckBox ui:field="chkTextLevel2" value="true" text="Level 2"/>
+								<m:MaterialCheckBox ui:field="chkTextLevel3" value="true" text="Level 3"/>
+								<m:MaterialCheckBox ui:field="chkTextLevel4" value="true" text="Level 4"/>
+								-->
 							</m:MaterialColumn>				
 							
 							<m:MaterialColumn paddingTop="5">
-								<m:MaterialBadge ui:field="bdgTextLevelACountUI" text="50/50"/>
+								<m:MaterialBadge ui:field="bdgTextLevelAor1CountUI" text="50/50"/>
 								<m.html:Br/>
-								<m:MaterialBadge ui:field="bdgTextLevelBCountUI" text="50/50"/>
+								<m:MaterialBadge ui:field="bdgTextLevelBor2CountUI" text="50/50"/>
 								<m.html:Br/>
-								<m:MaterialBadge ui:field="bdgTextLevelCCountUI" text="50/50"/>
+								<m:MaterialBadge ui:field="bdgTextLevelCor3CountUI" text="50/50"/>
+								<m.html:Br/>
+								<m:MaterialBadge ui:field="bdgTextLevel4CountUI" text="50/50"/>								
 							</m:MaterialColumn>					
 						</m:MaterialRow>
 					</m:MaterialRow>

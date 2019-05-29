@@ -65,7 +65,7 @@ import gwt.material.design.client.ui.MaterialToast;
 import gwt.material.design.client.ui.animate.MaterialAnimation;
 import gwt.material.design.client.ui.animate.Transition;
 
-public class MainViewport extends LocalizedComposite implements AbstractWebRankerPresenter
+public class MainViewport extends LocalizedComposite implements AbstractWebRankerPresenter 
 {
 	static final class ToastNotifications implements NotificationService
 	{

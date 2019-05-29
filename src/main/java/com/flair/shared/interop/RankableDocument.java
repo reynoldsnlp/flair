@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 import com.flair.shared.grammar.GrammaticalConstruction;
+import com.flair.shared.parser.ArabicDocumentReadabilityLevel;
 import com.flair.shared.parser.DocumentReadabilityLevel;
 
 /*
@@ -46,5 +47,6 @@ public interface RankableDocument extends BasicDocumentTransferObject
     public double								getNumSentences();
     public double								getNumDependencies();
     public DocumentReadabilityLevel				getReadabilityLevel();
+    public ArabicDocumentReadabilityLevel getArabicReadabilityLevel();
     public double								getReadablilityScore();
 }

@@ -7,6 +7,9 @@ package com.flair.server.utilities;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,10 +48,12 @@ public final class ServerLogger extends AbstractDebugLogger
 	@Override
 	protected void print(Channel channel, String message)
 	{
+		String timeStamp = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new Date());
 		StringBuilder builder = new StringBuilder();
 		for (int i = 0; i < indentLevel; i++)
 			builder.append("\t");
 
+		builder.append(timeStamp + " ");
 		builder.append(prettyPrintCaller());
 		builder.append(" ");
 		builder.append(message);

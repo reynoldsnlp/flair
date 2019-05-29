@@ -14,6 +14,7 @@ import com.flair.server.parser.KeywordSearcherInput;
 import com.flair.server.parser.KeywordSearcherType;
 import com.flair.server.parser.MasterParsingFactoryGenerator;
 import com.flair.server.parser.ParserType;
+import com.flair.server.utilities.ServerLogger;
 import com.flair.shared.grammar.Language;
 
 /**
@@ -56,6 +57,7 @@ public final class MasterJobPipeline
 	private final AbstractParsingStrategyFactory	stanfordEnglishStrategy;
 	private final AbstractParsingStrategyFactory	stanfordGermanStrategy;
 	private final AbstractParsingStrategyFactory	stanfordRussianStrategy;
+	private final AbstractParsingStrategyFactory	stanfordArabicStrategy;
 
 
 	private final AbstractDocumentKeywordSearcherFactory naiveSubstringSearcher;
@@ -63,10 +65,12 @@ public final class MasterJobPipeline
 	private DocumentParserPool	stanfordParserEnglishPool;
 	private DocumentParserPool	stanfordParserGermanPool;
 	private DocumentParserPool	stanfordParserRussianPool;
+	private DocumentParserPool	stanfordParserArabicPool;
 
 
 	private MasterJobPipeline()
 	{
+		ServerLogger.get().info("Initializing MasterJobPipeline");
 		this.webSearchExecutor = WebSearchTask.getExecutor();
 		this.webCrawlExecutor = WebCrawlTask.getExecutor();
 		this.docParseExecutor = DocumentParseTask.getExecutor();
@@ -77,6 +81,8 @@ public final class MasterJobPipeline
 				Language.GERMAN);
 		this.stanfordRussianStrategy = MasterParsingFactoryGenerator.createParsingStrategy(ParserType.STANFORD_CORENLP,
 				Language.RUSSIAN);
+		this.stanfordArabicStrategy = MasterParsingFactoryGenerator.createParsingStrategy(ParserType.STANFORD_CORENLP,
+				Language.ARABIC);
 
 		this.naiveSubstringSearcher = MasterParsingFactoryGenerator
 				.createKeywordSearcher(KeywordSearcherType.NAIVE_SUBSTRING);
@@ -85,6 +91,7 @@ public final class MasterJobPipeline
 		this.stanfordParserGermanPool = null;
 		this.stanfordParserEnglishPool = null;
 		this.stanfordParserRussianPool = null;
+		this.stanfordParserArabicPool = null;
 	}
 
 	private void shutdown()
@@ -101,6 +108,7 @@ public final class MasterJobPipeline
  	*/
 	private AbstractParsingStrategyFactory getStrategyForLanguage(Language lang)
 	{
+		ServerLogger.get().info("getStrategyForLanguage()");
 		switch (lang)
 		{
 		case ENGLISH:
@@ -108,7 +116,9 @@ public final class MasterJobPipeline
 		case GERMAN:
 			return stanfordGermanStrategy;
 		case RUSSIAN:
-			return stanfordRussianStrategy;	
+			return stanfordRussianStrategy;
+		case ARABIC:
+			return stanfordArabicStrategy;	
 		default:
 			throw new IllegalArgumentException("Language " + lang + " not supported");
 		}
@@ -121,6 +131,7 @@ public final class MasterJobPipeline
 	 */
 	private DocumentParserPool getParserPoolForLanguage(Language lang)
 	{
+		ServerLogger.get().info("getParserPoolForLanguage()");
 		switch (lang)
 		{
 		case ENGLISH:
@@ -147,6 +158,14 @@ public final class MasterJobPipeline
 			}
 
 			return stanfordParserRussianPool;	
+		case ARABIC:
+			if (stanfordParserArabicPool == null)
+			{
+				stanfordParserArabicPool = new DocumentParserPool(
+						MasterParsingFactoryGenerator.createParser(ParserType.STANFORD_CORENLP, Language.ARABIC));
+			}	
+
+			return stanfordParserArabicPool;	
 		default:
 			throw new IllegalArgumentException("Language " + lang + " not supported");
 		}
@@ -157,6 +176,7 @@ public final class MasterJobPipeline
 													int numResults,
 													KeywordSearcherInput keywords)
 	{
+		ServerLogger.get().info("doSearchCrawlParse()");
 		SearchCrawlParseJobInput jobParams = new SearchCrawlParseJobInput(lang,
 																query,
 																numResults,

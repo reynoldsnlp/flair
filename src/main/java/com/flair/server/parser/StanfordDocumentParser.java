@@ -24,7 +24,10 @@ class StanfordDocumentParser extends AbstractDocumentParser
 	private static final String	GERMAN_POS_MODEL		= "edu/stanford/nlp/models/pos-tagger/german/german-hgc.tagger";
 	private static final String RUSSIAN_POS_MODEL       = "edu/stanford/nlp/models/pos-tagger/russian-ud-pos.tagger";
 	private static final String RUSSIAN_DEPPARSE_MODEL  = "edu/stanford/nlp/models/parser/nndep/nndep.rus.model.wiki.txt.gz";
-	
+	private static final String ARABIC_POS_MODEL		= "edu/stanford/nlp/models/pos-tagger/arabic/arabic.tagger";
+	private static final String ARABIC_PARSE_MODEL		= "edu/stanford/nlp/models/srparser/arabicSR.ser.gz";
+	private static final String ARABIC_SEGMENT_MODEL	= "edu/stanford/nlp/models/segmenter/arabic/arabic-segmenter-atb+bn+arztrain.ser.gz";
+
 
 	// It seems like the russian NLP extension does not use a shift-reduce model, but instead uses a mf model. 
 	// I don't if that is a meaningful difference nor do I know if that means we will have to do more work to extend the parser to russian. 
@@ -44,6 +47,7 @@ class StanfordDocumentParser extends AbstractDocumentParser
 	public StanfordDocumentParser(AbstractDocumentFactory factory, Language modelLang)
 	{
 		super(factory);
+		ServerLogger.get().info("After super(factory)");
 
 		docSource = null;
 		outputDoc = null;
@@ -74,6 +78,15 @@ class StanfordDocumentParser extends AbstractDocumentParser
 			pipelineProps.setProperty("depparse.model", RUSSIAN_DEPPARSE_MODEL);
 			//pipelineProps.setProperty("depparse.language","russian");
 			break;
+		case ARABIC:
+			pipelineProps.put("annotators", "tokenize, ssplit, pos, parse");
+			pipelineProps.put("tokenize.language", "ar");
+			pipelineProps.setProperty("ssplit.boundaryTokenRegex", "[.]|[!?]+|[!\\u061F]+");
+			pipelineProps.setProperty("pos.model", ARABIC_POS_MODEL);
+			pipelineProps.setProperty("parse.model", ARABIC_PARSE_MODEL);
+			pipelineProps.setProperty("segment.model", ARABIC_SEGMENT_MODEL);
+			break;
+		//break;
 		default:
 			throw new IllegalArgumentException("Invalid model language: " + modelLanguage + "");
 		}
@@ -135,9 +148,17 @@ class StanfordDocumentParser extends AbstractDocumentParser
 		AbstractDocument result = null;
 		try
 		{	//here is where we parse a document
+			ServerLogger.get().info("trying to parse document");
+
 			result = initializeState(source, strategy);
+			ServerLogger.get().info("state initialized");
+
 			parsingStrategy.setPipeline(pipeline);
+			ServerLogger.get().info("pipeline set");
+
 			parsingStrategy.apply(outputDoc);
+			ServerLogger.get().info("applying analysis to document");
+
 		} catch (Throwable e) {
 			throw e;
 		} finally {
@@ -165,6 +186,7 @@ class StanfordDocumentParserFactory implements AbstractDocumentParserFactory
 
 	public StanfordDocumentParserFactory(AbstractDocumentFactory factory, Language lang)
 	{
+		ServerLogger.get().info("Creating StanfordDocumentParserFactory, docfactory is " + factory.toString());
 		docFactory = factory;
 		language = lang;
 	}

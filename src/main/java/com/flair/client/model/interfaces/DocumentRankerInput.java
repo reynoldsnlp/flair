@@ -3,6 +3,7 @@ package com.flair.client.model.interfaces;
 import com.flair.shared.grammar.GrammaticalConstruction;
 import com.flair.shared.grammar.Language;
 import com.flair.shared.interop.RankableDocument;
+import com.flair.shared.parser.ArabicDocumentReadabilityLevel;
 import com.flair.shared.parser.DocumentReadabilityLevel;
 
 /*
@@ -26,7 +27,8 @@ public interface DocumentRankerInput
 		
 		public double								getDocLengthWeight();
 		public boolean								isDocLevelEnabled(DocumentReadabilityLevel level);		//This detirmines whether or not we display the documents with the corresponding doc level
-		
+		public boolean								isArabicDocLevelEnabled(ArabicDocumentReadabilityLevel level);		//This detirmines whether or not we display the documents with the corresponding doc level
+
 		public Iterable<RankableDocument>			getDocuments();
 		public boolean								isDocumentFiltered(RankableDocument doc);	// returns true if the document is to be excluded from the result
 	}

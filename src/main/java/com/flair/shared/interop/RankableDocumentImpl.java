@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.HashSet;
 
+import com.flair.client.utilities.ClientLogger;
 import com.flair.shared.grammar.GrammaticalConstruction;
 import com.flair.shared.grammar.Language;
+import com.flair.shared.parser.ArabicDocumentReadabilityLevel;
 import com.flair.shared.parser.DocumentReadabilityLevel;
 import com.google.gwt.user.client.rpc.IsSerializable;
 
@@ -131,6 +133,7 @@ public final class RankableDocumentImpl implements RankableDocument
 	double							numSentences;
 	double							numDependencies;
 	DocumentReadabilityLevel 		readabilityLevel;
+	ArabicDocumentReadabilityLevel  arabicReadabilityLevel;
 	double							readabilityScore;
 	
 	public RankableDocumentImpl()
@@ -152,6 +155,7 @@ public final class RankableDocumentImpl implements RankableDocument
 		rawTextLength = 0;
 		numWords = numSentences = numDependencies = 0;
 		readabilityLevel = null;
+		arabicReadabilityLevel = null;
 		readabilityScore = 0;
 	}
 
@@ -320,8 +324,19 @@ public final class RankableDocumentImpl implements RankableDocument
 		return readabilityLevel;
 	}
 
+	@Override 
+	public ArabicDocumentReadabilityLevel getArabicReadabilityLevel() {
+		return arabicReadabilityLevel;
+	}
+
 	public void setReadabilityLevel(DocumentReadabilityLevel readabilityLevel) {
+		ClientLogger.get().info("setReadabilityLevel()");
 		this.readabilityLevel = readabilityLevel;
+	}
+
+	public void setArabicReadabilityLevel(ArabicDocumentReadabilityLevel arabicReadabilityLevel) {
+		ClientLogger.get().info("setArabicReadabilityLevel()");
+		this.arabicReadabilityLevel = arabicReadabilityLevel;
 	}
 
 	@Override

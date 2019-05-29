@@ -19,9 +19,12 @@ public final class MasterParsingFactoryGenerator
     {
 	switch (type)
 	{
-	    case STANFORD_CORENLP:
-		return new StanfordDocumentParserFactory(new DocumentFactory(), lang);
-	    default:
+		case STANFORD_CORENLP:
+			if(lang.toString().equals("ARABIC"))
+				return new StanfordDocumentParserFactory(new ArabicDocumentFactory(), lang);
+			else 
+				return new StanfordDocumentParserFactory(new DocumentFactory(), lang);
+			default:
 		throw new IllegalArgumentException("Couldn't create parser of type " + type);
 	}
     }

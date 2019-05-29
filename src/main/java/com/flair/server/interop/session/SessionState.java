@@ -5,6 +5,7 @@
  */
 package com.flair.server.interop.session;
 
+import java.io.File;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -177,7 +178,24 @@ public class SessionState
 			currentOperation.get().cancel();
 
 		ServerLogger.get().info("Pipeline operation " + currentOperation.type + " has ended | Cancelled = " + cancel);
+		//cleanRaft();
 		currentOperation = null;
+	}
+
+	public void cleanRaft(){
+		File folder = new File(".");
+		File fList[] = folder.listFiles();
+		// Searchs unlabeled
+		for (int i = 0; i < fList.length; i++) {
+			File file = fList[i];
+			String fileStr = file.toString();
+    		if (fileStr.contains("unlabeled") || fileStr.contains("mada_")) {
+				if(file.delete())
+					ServerLogger.get().info(fileStr + " deleted");
+				else	
+				ServerLogger.get().error(fileStr + " not deleted ");
+    		}
+		}
 	}
 
 	/**
@@ -282,7 +300,16 @@ public class SessionState
 		out.setNumWords(source.getNumWords());
 		out.setNumSentences(source.getNumSentences());
 		out.setNumDependencies(source.getNumDependencies());
-		out.setReadabilityLevel(source.getReadabilityLevel());
+		if(source.getLanguage().toString().equals("ARABIC")) 
+		{
+			ServerLogger.get().info("Source is arabic, setting arabic readability level to be sent to client");
+			out.setArabicReadabilityLevel(source.getArabicReadabilityLevel());
+			ServerLogger.get().info("Arabic readability level is " + out.getArabicReadabilityLevel().toString());
+		}
+		else 
+		{
+			out.setReadabilityLevel(source.getReadabilityLevel());
+		}
 		out.setReadabilityScore(source.getReadabilityScore());
 
 		return out;
@@ -471,6 +498,7 @@ public class SessionState
 		else
 			k = new KeywordSearcherInput(keywords);
 
+		ServerLogger.get().info("Creating search crawl parse operation");
 		SearchCrawlParseOperation op = MasterJobPipeline.get().doSearchCrawlParse(lang, query, numResults, k);
 		op.setCrawlCompleteHandler(e -> {
 			handleCrawlComplete(e);
@@ -482,6 +510,7 @@ public class SessionState
 			handleJobComplete(ServerMessage.Type.SEARCH_CRAWL_PARSE, e);
 		});
 
+		ServerLogger.get().info("Calling beginOperation()");
 		beginOperation(new OperationState(op));
 	}
 

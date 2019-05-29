@@ -27,6 +27,9 @@ public class DefaultVocabularyList
 		case RUSSIAN:
 			// ### TODO add one for russian
 			return new ArrayList<>();
+		case ARABIC:
+			// ### TODO add one for russian
+			return new ArrayList<>();
 		default:
 			throw new IllegalArgumentException("Invalid language " + lang);
 		}

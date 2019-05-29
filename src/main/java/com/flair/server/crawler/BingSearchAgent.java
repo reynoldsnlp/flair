@@ -21,7 +21,7 @@ class BingSearchAgent extends CachingSearchAgent
 	private static final int		MAX_API_REQUESTS	= 2;
 
 	private final AzureWebSearch pipeline;
-
+	
 	public BingSearchAgent(Language lang, String query)
 	{
 		super(lang, query, MAX_API_REQUESTS);
@@ -44,6 +44,10 @@ class BingSearchAgent extends CachingSearchAgent
 		case RUSSIAN:
 			qPostfix = " language:ru";
 			market = "ru-RU";
+			break;
+		case ARABIC:	//TODO add note to add this case for a new language
+			qPostfix = " language:ar";
+			market = "ar-SA";
 			break;
 		default:
 			throw new IllegalArgumentException("Unsupported language " + lang);
