@@ -30,7 +30,7 @@ import edu.stanford.nlp.util.CoreMap;
 
 
 class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserStrategy {
-    private static final String RUSSIAN_TRANSDUCER_HFSTOL = "analyser-gt-desc.hfstol";
+    private static final String RUSSIAN_TRANSDUCER_HFSTOL = "/analyser-gt-desc.hfstol";
     private AbstractDocument workingDoc;
     private int tokenCount;
     private int wordCount;
@@ -47,7 +47,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
         //set up the HFST
         //*****
         try {
-            InputStream russianTransducerStream = ResourceLoader.get(RUSSIAN_TRANSDUCER_HFSTOL);
+            InputStream russianTransducerStream = this.getClass().getResourceAsStream(RUSSIAN_TRANSDUCER_HFSTOL);
             analyser = new HFSTAnalyser(russianTransducerStream);
         } catch (TransducerStreamException e) {
             ServerLogger.get().error(e, "Russian Strategy could not initialize the HFSTAnalyser");
