@@ -41,7 +41,6 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
     private int depthCount;
     private int dependencyCount;
     private int adjCount;
-
     private static final String WORD_PATTERN = "[\\p{IsCyrillic}\u0300\u0301]+";
 
     public StanfordDocumentParserRussianStrategy() {
