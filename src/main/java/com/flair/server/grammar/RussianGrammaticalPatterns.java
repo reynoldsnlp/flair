@@ -3,7 +3,7 @@ package com.flair.server.grammar;
 import static java.util.regex.Pattern.CASE_INSENSITIVE;
 import java.util.regex.Pattern;
 
-public class RussianGrammaticalTreePatterns {
+public class RussianGrammaticalPatterns {
 
     //PARTICLES
 
