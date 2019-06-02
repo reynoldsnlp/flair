@@ -10,8 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import com.flair.server.grammar.RussianGrammaticalTreePatterns;
-import com.flair.server.resources.ResourceLoader;
+import com.flair.server.grammar.RussianGrammaticalPatterns;
 import com.flair.server.utilities.HFSTAnalyser;
 import com.flair.server.utilities.HFSTAnalyser.TransducerStreamException;
 import com.flair.server.utilities.ServerLogger;
@@ -27,10 +26,9 @@ import edu.stanford.nlp.semgraph.semgrex.SemgrexMatcher;
 import edu.stanford.nlp.semgraph.semgrex.SemgrexPattern;
 import edu.stanford.nlp.util.CoreMap;
 
-
-
 class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserStrategy {
     private static final String RUSSIAN_TRANSDUCER_HFSTOL = "/analyser-gt-desc.hfstol";
+    private static HFSTAnalyser analyser;
     private AbstractDocument workingDoc;
     private int tokenCount;
     private int wordCount;
@@ -39,28 +37,22 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
     private int depthCount;
     private int dependencyCount;
     private int adjCount;
-    private HFSTAnalyser analyser;
     private static final String WORD_PATTERN = "[\\p{IsCyrillic}\u0300\u0301]+";
 
-    public StanfordDocumentParserRussianStrategy()
-    {
+    public StanfordDocumentParserRussianStrategy() {
+        //pipeline = null;
         //set up the HFST
-        //*****
         try {
             InputStream russianTransducerStream = this.getClass().getResourceAsStream(RUSSIAN_TRANSDUCER_HFSTOL);
             analyser = new HFSTAnalyser(russianTransducerStream);
         } catch (TransducerStreamException e) {
             ServerLogger.get().error(e, "Russian Strategy could not initialize the HFSTAnalyser");
         }
-        //*****
+        //TODO: set up the CG3 (Constraint Grammar)
 
-
-        //TODO: set up the CG3
-        //pipeline = null;
     }
 
-    public void setPipeline(StanfordCoreNLP pipeline)
-    {
+    public void setPipeline(StanfordCoreNLP pipeline) {
         assert pipeline != null;
         this.pipeline = pipeline;
     }
@@ -174,12 +166,20 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
         return coreLabels;
     }
 
+    private static List<String> indexedWordsToStrings(List<CoreLabel> coreLabels){
+        List<String> strings = new ArrayList<>(coreLabels.size());
+        for(CoreLabel label : coreLabels){
+            strings.add(label.word());
+        }
+        return strings;
+    }
+
     private void inspectVerbs(SemanticGraph graph, List<CoreLabel> words){
         //extract verbs from the graph
         List<IndexedWord> verbs = graph.getAllNodesByPartOfSpeechPattern("VERB");
         List<CoreLabel> verbCoreLabels = indexedWordsToCoreLabels(verbs);
         //count constructions
-        int numReflexives = countMatches(RussianGrammaticalTreePatterns.patternReflexiveVerb, verbCoreLabels);
+        int numReflexives = countMatches(RussianGrammaticalPatterns.patternReflexiveVerb, verbCoreLabels);
         ServerLogger.get().info("NUMBER OF REFLEXIVES FOUND: " + numReflexives);
         //TODO
     }
@@ -188,10 +188,14 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
         if (words == null || words.isEmpty()) {
             return;
         }
-        int numLIs = countMatches(RussianGrammaticalTreePatterns.patternLi, words);
-        int numConditionals = countMatches(RussianGrammaticalTreePatterns.patternBi, words);
+        String wordsWithLemmas = analyser.runTransducer(indexedWordsToStrings(words));
+        ServerLogger.get().info("Transducer results:\n" + wordsWithLemmas);
+        //TODO: put wordsWithLemmas into the constraint grammar
+
+        int numLIs = countMatches(RussianGrammaticalPatterns.patternLi, words);
+        int numConditionals = countMatches(RussianGrammaticalPatterns.patternBi, words);
         inspectVerbs(graph, words);
-        //TODO
+        //TODO: save data to the document
     }
 
     /**
