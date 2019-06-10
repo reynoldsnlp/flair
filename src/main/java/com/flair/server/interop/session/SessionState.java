@@ -500,6 +500,8 @@ public class SessionState
 
 		ServerLogger.get().info("Creating search crawl parse operation");
 		SearchCrawlParseOperation op = MasterJobPipeline.get().doSearchCrawlParse(lang, query, numResults, k);
+		//do we ever get past here?
+		ServerLogger.get().info("finished creating search crawl parse operation");
 		op.setCrawlCompleteHandler(e -> {
 			handleCrawlComplete(e);
 		});
@@ -509,7 +511,7 @@ public class SessionState
 		op.setJobCompleteHandler(e -> {
 			handleJobComplete(ServerMessage.Type.SEARCH_CRAWL_PARSE, e);
 		});
-
+		//according to the logs we never get to here
 		ServerLogger.get().info("Calling beginOperation()");
 		beginOperation(new OperationState(op));
 	}
