@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import com.flair.server.grammar.RussianGrammaticalPatterns;
+import com.flair.server.utilities.CgConv;
 import com.flair.server.utilities.HFSTAnalyser;
 import com.flair.server.utilities.HFSTAnalyser.TransducerStreamException;
 import com.flair.server.utilities.ServerLogger;
@@ -190,7 +191,14 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
         }
         String wordsWithLemmas = analyser.runTransducer(indexedWordsToStrings(words));
         ServerLogger.get().info("Transducer results:\n" + wordsWithLemmas);
+        try {
+            String cgForm = CgConv.hfstToCg(wordsWithLemmas);
+            System.out.println("cgGorm: " + cgForm);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         //TODO: put wordsWithLemmas into the constraint grammar
+
 
         int numLIs = countMatches(RussianGrammaticalPatterns.patternLi, words);
         int numConditionals = countMatches(RussianGrammaticalPatterns.patternBi, words);
