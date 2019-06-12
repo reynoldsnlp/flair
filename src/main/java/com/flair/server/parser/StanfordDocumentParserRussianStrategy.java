@@ -190,14 +190,16 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
             return;
         }
         String wordsWithLemmas = analyser.runTransducer(indexedWordsToStrings(words));
-        ServerLogger.get().info("Transducer results:\n" + wordsWithLemmas);
+        ServerLogger.get().info("Transducer results received");
+        String cgForm;
         try {
-            String cgForm = CgConv.hfstToCg(wordsWithLemmas);
-            System.out.println("cgGorm: " + cgForm);
+            cgForm = CgConv.hfstToCg(wordsWithLemmas);
+            ServerLogger.get().info("Transducer results converted to cg3 format");
+            System.out.println("cgGorm:\n" + cgForm);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        //TODO: put wordsWithLemmas into the constraint grammar
+        //TODO: put cgForm into the constraint grammar
 
 
         int numLIs = countMatches(RussianGrammaticalPatterns.patternLi, words);
