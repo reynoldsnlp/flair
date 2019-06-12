@@ -151,6 +151,12 @@
 			<version>3.9.2</version>
 			<classifier>models-german</classifier>
 		</dependency>
+		<dependency>
+			<groupId>edu.stanford.nlp</groupId>
+			<artifactId>stanford-corenlp</artifactId>
+			<version>3.9.2</version>
+			<classifier>models-arabic</classifier>
+		</dependency>
 		<!--RAFT dependencies-->
 		<dependency>
 			<groupId>nz.ac.waikato.cms.weka</groupId>

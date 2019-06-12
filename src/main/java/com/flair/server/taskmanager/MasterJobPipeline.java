@@ -183,17 +183,24 @@ public final class MasterJobPipeline
 													KeywordSearcherInput keywords)
 	{
 		ServerLogger.get().info("Start of doSearchCrawlParse()");
-		SearchCrawlParseJobInput jobParams = new SearchCrawlParseJobInput(lang,
-																query,
-																numResults,
-																webSearchExecutor,
-																webCrawlExecutor,
-																docParseExecutor,
-																getParserPoolForLanguage(lang),
-																getStrategyForLanguage(lang),
-																naiveSubstringSearcher,
-																keywords);
-		SearchCrawlParseOperationImpl newOp = new SearchCrawlParseOperationImpl(jobParams);
+		SearchCrawlParseOperationImpl newOp = null;
+		try{
+			SearchCrawlParseJobInput jobParams = new SearchCrawlParseJobInput(lang,
+			query,
+			numResults,
+			webSearchExecutor,
+			webCrawlExecutor,
+			docParseExecutor,
+			getParserPoolForLanguage(lang),
+			getStrategyForLanguage(lang),
+			naiveSubstringSearcher,
+			keywords);
+			newOp = new SearchCrawlParseOperationImpl(jobParams);	
+		} catch(Exception ex) {
+			ServerLogger.get().info("Failed in doSearchCrawlParse on exception " + ex.getMessage());
+			return newOp;
+		}
+		
 		ServerLogger.get().info("End of doSearchCrawlParse()");
 		return newOp;
 	}
