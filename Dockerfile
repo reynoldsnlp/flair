@@ -2,7 +2,7 @@ FROM ubuntu:latest
 
 # run --rm -it -p 8080:8080 --name=flair-2.0_App -e BING_API=$BING_API flair-2.0image
 # docker system prune --all --force --volumes
-# docker build --build-arg -t flair-2.0image .
+# docker build -t flair-2.0image .
 
 #ARG local_api
 #ENV BING_API=$local_api
