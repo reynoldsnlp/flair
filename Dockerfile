@@ -1,6 +1,10 @@
-#FROM ubuntu:16.04
+# run --rm -it -p 8080:8080 --name=flair-2.0_App -e BING_API=$BING_API reynoldsnlp/flair-2.0
+FROM maven:3-jdk-8 as flair-builder
 
-# run --rm -it -p 8080:8080 --name=flair-2.0_App -e BING_API=$BING_API flair-2.0image
+COPY . /opt/flair
+WORKDIR /opt/flair
+
+
 # docker system prune --all --force --volumes
 # docker build -t flair-2.0image .
 
