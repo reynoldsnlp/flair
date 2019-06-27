@@ -1,8 +1,9 @@
-# run --rm -it -p 8080:8080 --name=flair-2.0_App -e BING_API=$BING_API reynoldsnlp/flair-2.0
+# run --rm -it -p 8080:8080 -e BING_API=$BING_API --name=reynoldsnlp/flair-2.0
 FROM maven:3-jdk-8 as flair-builder
 
 COPY . /opt/flair
 WORKDIR /opt/flair
+RUN mvn install
 
 
 # docker system prune --all --force --volumes
@@ -30,7 +31,7 @@ WORKDIR /opt/flair
 # tomcat stuff, make sure to remove target folder from dockerignore file before running this
 FROM tomcat:8.5.41-jdk8
 
-COPY target/flair-2.0 /usr/local/tomcat/webapps/flair-2.0
+COPY --from=flair-builder /opt/flair/target/flair-2.0 /usr/local/tomcat/webapps/flair-2.0
 
 CMD ["catalina.sh", "run"]
 # docker run -it --rm -p 8080:8080 -e BING_API=$BING_API flair-2.0image
