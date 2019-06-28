@@ -181,7 +181,7 @@ public class Processor {
 		}
 		inputBuilder.append("\n\n" + madamiraBottom);
 		inputStream = new ByteArrayInputStream(inputBuilder.toString().getBytes(StandardCharsets.UTF_8));
-		String outputString = Madamira.lemmatize(8223, "http://localhost:", inputStream, output); //now this file returns a string 
+		String outputString = Madamira.lemmatize(8223, "http://mada_image:", inputStream, output); //now this file returns a string 
 		madaOutput = Jsoup.parse(outputString);
 	}
 	
