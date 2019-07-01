@@ -40,7 +40,6 @@ class ArabicDocument implements AbstractDocument
 {
 	private final AbstractDocumentSource				source;
 	private final double								readabilityScore;
-	private final DocumentReadabilityLevel				readabilityLevel;	// calculate from the readability score
 	private final ArabicDocumentReadabilityLevel		arabicReadabilityLevel;	// calculate from the readability score
 	private final ConstructionDataCollection			constructionData;
 
@@ -88,8 +87,6 @@ class ArabicDocument implements AbstractDocument
 		numDependencies = 0;
 
 		double readabilityScoreCalc = 0;
-		double readabilityLevelThreshold_A = 0;
-		double readabilityLevelThreshold_B = 0;
 
 		double readabilityLevelThreshold_1 = 0;
 		double readabilityLevelThreshold_2 = 0;
@@ -114,29 +111,20 @@ class ArabicDocument implements AbstractDocument
 					writer.close();
 				}
 				catch(UnsupportedEncodingException e) {
-					ServerLogger.get().error("UNSUPPORTED ENCODING - WRITING FAILED SOURCE TEXT");
+					ServerLogger.get().error(e, "UNSUPPORTED ENCODING - WRITING FAILED SOURCE TEXT");
 					e.printStackTrace();
 				}
 				catch(IOException e) {
-					ServerLogger.get().error("COULD NOT WRITE TO FILE - WRITING FAILED SOURCE TEXT");
+					ServerLogger.get().error(e, "COULD NOT WRITE TO FILE - WRITING FAILED SOURCE TEXT");
 					e.printStackTrace();
 				}
 				readabilityScoreCalc = Math
 					.ceil(((double) numCharacters / (double) numTokens) + (numTokens / (double) numSentences));
-				readabilityLevelThreshold_A = 10;
-				readabilityLevelThreshold_B = 20;
-
-				readabilityLevelThreshold_1 = 10;
-				readabilityLevelThreshold_2 = 20;
+				readabilityScoreCalc /= 10;
 			}
-			else{
-				readabilityLevelThreshold_A = 1.1;
-				readabilityLevelThreshold_B = 2.1;
-
-				readabilityLevelThreshold_1 = 1.1;
-				readabilityLevelThreshold_2 = 2.1;
-				readabilityLevelThreshold_3 = 3.1;
-			}
+			readabilityLevelThreshold_1 = 1.1;
+			readabilityLevelThreshold_2 = 2.1;
+			readabilityLevelThreshold_3 = 3.1;
 			break;
 		default:
 			throw new IllegalArgumentException("Invalid document language, tried to use a non arabic language with an arabic document object");
@@ -147,13 +135,7 @@ class ArabicDocument implements AbstractDocument
 		else												//else we use a negative score, this ensures that we either dont use the document or its is ranked as easiest
 			readabilityScore = -10.0;
 															// Below we detirmine DocumentReadabilityLevel tag for the client
-		if (readabilityScore < readabilityLevelThreshold_A)		
-			readabilityLevel = DocumentReadabilityLevel.LEVEL_A;
-		else if (readabilityLevelThreshold_A <= readabilityScore && readabilityScore <= readabilityLevelThreshold_B)
-			readabilityLevel = DocumentReadabilityLevel.LEVEL_B;
-		else
-			readabilityLevel = DocumentReadabilityLevel.LEVEL_C;
-
+		
 		if (readabilityScore < readabilityLevelThreshold_1)		
 			arabicReadabilityLevel = ArabicDocumentReadabilityLevel.LEVEL_1;
 		else if (readabilityLevelThreshold_1 <= readabilityScore && readabilityScore <= readabilityLevelThreshold_2)		
@@ -172,7 +154,8 @@ class ArabicDocument implements AbstractDocument
 
 	public double calculateReadabilityScore(String source) { 
 		//throws IOException, FileNotFoundException, ClassNotFoundException, UnsupportedEncodingException, InterruptedException, Exception
-		double readabilityLevel = 0;
+		double readabilityLevel;
+		readabilityLevel = 0;
 		try{
 			readabilityLevel = raft.ScoreText(source);	//throws a bunch of exceptions so just catch the most general case
 			ServerLogger.get().info("For document " + getDescription() + " number is " + raft.getSalt());
@@ -232,7 +215,7 @@ class ArabicDocument implements AbstractDocument
 
 	@Override
 	public DocumentReadabilityLevel getReadabilityLevel() {
-		return readabilityLevel;
+		return null;
 	}
 
 	@Override
