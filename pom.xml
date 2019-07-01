@@ -32,16 +32,13 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
-	<!--
 	<repositories>
-		
 		<repository>
-			<id>jitpack.io</id>
-			<url>https://jitpack.io</url>
-		</repository>
-		
+			<id>org.wso2.maven</id>
+			<name>WSO2 3rdParty Repository</name>
+			<url>https://maven.wso2.org/nexus/content/repositories/thirdparty/</url>
+		  </repository>
 	</repositories>
-	-->
 	<dependencies>
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
@@ -165,13 +162,13 @@
 		</dependency>
 
 		<!-- Local Dependencies -->
+		<!-- https://mvnrepository.com/artifact/edu.stanford.nlp/stanford-tregex -->
 		<dependency>
-			<groupId>edu.stanford.nlp</groupId>
-			<artifactId>stanford-tregex</artifactId>
-			<version>3.6.0</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/stanford-tregex-3.6.0.jar</systemPath>
+    		<groupId>edu.stanford.nlp</groupId>
+    		<artifactId>stanford-tregex</artifactId>
+    		<version>3.6.0</version>
 		</dependency>
+
 	</dependencies>
 
 	<build>
