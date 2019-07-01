@@ -14,3 +14,7 @@ pom-stanford.xml
 gwt-unitCache/
 /bin/
 *.sh
+/localDeps
+.mvn
+mvnw*
+
