@@ -15,6 +15,7 @@ import com.flair.server.utilities.CgConv;
 import com.flair.server.utilities.HFSTAnalyser;
 import com.flair.server.utilities.HFSTAnalyser.TransducerStreamException;
 import com.flair.server.utilities.ServerLogger;
+import com.flair.server.utilities.VislCg3;
 import com.flair.shared.grammar.Language;
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;
@@ -196,10 +197,17 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
             cgForm = CgConv.hfstToCg(wordsWithLemmas);
             ServerLogger.get().info("Transducer results converted to cg3 format");
             System.out.println("cgGorm:\n" + cgForm);
+            String finalReadings = VislCg3.runVislCg3(cgForm);
+            if(!finalReadings.isEmpty()) {
+                ServerLogger.get().info("Readings have been reduced by the constraint grammar");
+                System.out.println("readings:\n" + finalReadings);
+            }
+            else {
+                ServerLogger.get().info("There was an error using the constraint grammar");
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        //TODO: put cgForm into the constraint grammar
 
 
         int numLIs = countMatches(RussianGrammaticalPatterns.patternLi, words);
