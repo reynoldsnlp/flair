@@ -32,13 +32,6 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
-	<repositories>
-		<repository>
-			<id>org.wso2.maven</id>
-			<name>WSO2 3rdParty Repository</name>
-			<url>https://maven.wso2.org/nexus/content/repositories/thirdparty/</url>
-		  </repository>
-	</repositories>
 	<dependencies>
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
@@ -160,15 +153,6 @@
 			<artifactId>weka-stable</artifactId>
 			<version>3.6.10</version>
 		</dependency>
-
-		<!-- Local Dependencies -->
-		<!-- https://mvnrepository.com/artifact/edu.stanford.nlp/stanford-tregex -->
-		<dependency>
-    		<groupId>edu.stanford.nlp</groupId>
-    		<artifactId>stanford-tregex</artifactId>
-    		<version>3.6.0</version>
-		</dependency>
-
 	</dependencies>
 
 	<build>
