@@ -215,7 +215,6 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
         }
 
 
-
         int numLIs = countMatches(RussianGrammaticalPatterns.patternLi, words);
         int numConditionals = countMatches(RussianGrammaticalPatterns.patternBi, words);
         inspectVerbs(graph, words);
