@@ -1,9 +1,8 @@
 package com.flair.server.utilities;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 
 /**
  * Class to convert HFST output to CG input
@@ -30,7 +29,7 @@ public class CgConv {
             BufferedInputStream converterOutput = new BufferedInputStream(process.getInputStream());
             BufferedInputStream errorOutput = new BufferedInputStream(process.getErrorStream());
             //put data in
-            converterInput.write(hfstString.getBytes());
+            converterInput.write(hfstString.getBytes(StandardCharsets.UTF_8));
             converterInput.flush();
             converterInput.close();
             process.waitFor();
