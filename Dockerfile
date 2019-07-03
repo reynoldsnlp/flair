@@ -4,10 +4,7 @@ RUN apt-get update && apt-get install -y maven
 WORKDIR /usr/local/tomcat/
 COPY . flair
 WORKDIR flair
-RUN ls
-COPY localDeps/stanford-russian-corenlp-models-master-SNAPSHOT.jar .
-RUN mv localDeps/*.jar src/main/webapp/WEB-INF/lib/
-RUN mvn install:install-file -Dfile=src/main/webapp/WEB-INF/lib/stanford-russian-corenlp-models-master-SNAPSHOT.jar -DgroupId=edu.stanford.nlp -DartifactId=stanford-corenlp-russian-models -Dversion=master-SNAPSHOT -Dpackaging=jar && mvn install
+RUN mvn install:install-file -Dfile=localDeps/stanford-russian-corenlp-models-master-SNAPSHOT.jar -DgroupId=edu.stanford.nlp -DartifactId=stanford-corenlp-russian-models -Dversion=master-SNAPSHOT -Dpackaging=jar && mvn install
 RUN mv target/flair-2.0 /usr/local/tomcat/webapps/
 WORKDIR /usr/local/tomcat
 RUN ls webapps
