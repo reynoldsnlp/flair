@@ -196,7 +196,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
         try {
             cgForm = CgConv.hfstToCg(wordsWithLemmas);
             ServerLogger.get().info("Transducer results converted to cg3 format");
-            System.out.println("cgGorm:\n" + cgForm);
+            //System.out.println("cgGorm:\n" + cgForm);
             String finalReadings = VislCg3.runVislCg3(cgForm);
             if(!finalReadings.isEmpty()) {
                 ServerLogger.get().info("Readings have been reduced by the constraint grammar");

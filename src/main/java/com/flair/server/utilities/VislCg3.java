@@ -2,6 +2,7 @@ package com.flair.server.utilities;
 
 import java.io.*;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 
 public class VislCg3 {
     //constants
@@ -12,26 +13,6 @@ public class VislCg3 {
     //functions
 
     public static String runVislCg3(String cgReadings) throws IOException {
-        /*cgReadings = "\"<Материал>\"\n" +
-                "        \"материал\" N Msc Inan Sg Nom\n" +
-                "        \"материал\" N Msc Inan Sg Acc\n" +
-                "\"<из>\"\n" +
-                "        \"из\" Pr\n" +
-                "\"<Википедии>\"\n" +
-                "\"<-->\"\n" +
-                "        \"--\" PUNCT\n" +
-                "\"<свободной>\"\n" +
-                "        \"свободный\" A Fem AnIn Sg Gen\n" +
-                "        \"свободный\" A Fem AnIn Sg Loc\n" +
-                "        \"свободный\" A Fem AnIn Sg Dat\n" +
-                "        \"свободный\" A Fem AnIn Sg Ins\n" +
-                "\"<энциклопедии>\"\n" +
-                "        \"энциклопедия\" N Fem Inan Sg Gen\n" +
-                "        \"энциклопедия\" N Fem Inan Sg Loc\n" +
-                "        \"энциклопедия\" N Fem Inan Sg Dat\n" +
-                "        \"энциклопедия\" N Fem Inan Pl Nom\n" +
-                "        \"энциклопедия\" N Fem Inan Pl Acc\n" +
-                "\n";*/
         if(VISLCG3 == null) {
             throw new IOException("vislcg3.exe not found.");
         }
@@ -46,7 +27,7 @@ public class VislCg3 {
             BufferedInputStream grammarOutput = new BufferedInputStream(process.getInputStream());
             BufferedInputStream errorOutput = new BufferedInputStream(process.getErrorStream());
             //put data in
-            grammarInput.write(cgReadings.getBytes());
+            grammarInput.write(cgReadings.getBytes(StandardCharsets.UTF_8));
             grammarInput.flush();
             grammarInput.close();
             process.waitFor();
