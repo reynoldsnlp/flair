@@ -118,12 +118,6 @@
 			<artifactId>gwt-d3-js</artifactId>
 			<version>3.5.14</version>
 		</dependency>
-
-		<dependency>
-			<groupId>edu.stanford.nlp</groupId>
-			<artifactId>stanford-corenlp-russian-models</artifactId>
-			<version>master-SNAPSHOT</version>
-		</dependency>
 		<dependency>
 			<groupId>edu.stanford.nlp</groupId>
 			<artifactId>stanford-corenlp</artifactId>
@@ -146,6 +140,11 @@
 			<artifactId>stanford-corenlp</artifactId>
 			<version>3.9.2</version>
 			<classifier>models-arabic</classifier>
+		</dependency>
+		<dependency>
+			<groupId>edu.stanford.nlp</groupId>
+			<artifactId>stanford-corenlp-russian-models</artifactId>
+			<version>master-SNAPSHOT</version>
 		</dependency>
 		<!--RAFT dependencies-->
 		<dependency>
