@@ -3,7 +3,7 @@ FROM tomcat:8.5.41-jdk8
 RUN apt-get update && apt-get install -y maven
 WORKDIR /usr/local/tomcat/
 COPY . flair
-WORKDIR flair
+WORKDIR /usr/local/tomcat/flair
 RUN mvn install:install-file -Dfile=localDeps/stanford-russian-corenlp-models-master-SNAPSHOT.jar -DgroupId=edu.stanford.nlp -DartifactId=stanford-corenlp-russian-models -Dversion=master-SNAPSHOT -Dpackaging=jar && mvn install
 RUN mv target/flair-2.0 /usr/local/tomcat/webapps/
 WORKDIR /usr/local/tomcat
