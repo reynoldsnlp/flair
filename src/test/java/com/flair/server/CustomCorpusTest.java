@@ -15,6 +15,8 @@ import com.flair.server.taskmanager.CustomParseOperation;
 import com.flair.server.taskmanager.MasterJobPipeline;
 import com.flair.shared.grammar.Language;
 
+import org.junit.Test;
+
 /*
  * Runs a simple custom corpus operation. Refer to WebSearchTest for more information
  */
@@ -26,13 +28,14 @@ public class CustomCorpusTest
 		}
 	}
 
-	public static void main(String[] args)
+	@Test
+	public void main()
 	{
 		/*
 		 * Can be any document file, e.g: pdf, doc, html, etc.
 		 * FLAIR will attempt to automatically detect the file type and extract its contents
 		 */
-		String textFilePath = "C:\\Users\\shadeMe\\Documents\\calling_conventions.pdf";
+		String textFilePath = "README.md";
 		Language lang = Language.ENGLISH;
 		String[] keywords = new String[] {
 			"keywords", "to", "highlight"
