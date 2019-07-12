@@ -36,7 +36,7 @@ import com.flair.server.utilities.ServerLogger;
  * 
  * @author mjbriggs
  */
-class ArabicDocument implements AbstractDocument
+public class ArabicDocument implements AbstractDocument
 {
 	private final AbstractDocumentSource				source;
 	private final double								readabilityScore;
@@ -56,9 +56,9 @@ class ArabicDocument implements AbstractDocument
 	private double										fancyDocLength;	// ### TODO better name needed, formerly "docLenTfIdf"
 	private KeywordSearcherOutput						keywordData;
 
-	private boolean parsed;
+	private boolean 									parsed;
 
-	private Raft raft;
+	private Raft 										raft;
 
 	public ArabicDocument(AbstractDocumentSource parent)
 	{
@@ -112,11 +112,9 @@ class ArabicDocument implements AbstractDocument
 				}
 				catch(UnsupportedEncodingException e) {
 					ServerLogger.get().error(e, "UNSUPPORTED ENCODING - WRITING FAILED SOURCE TEXT");
-					e.printStackTrace();
 				}
 				catch(IOException e) {
 					ServerLogger.get().error(e, "COULD NOT WRITE TO FILE - WRITING FAILED SOURCE TEXT");
-					e.printStackTrace();
 				}
 				readabilityScoreCalc = Math
 					.ceil(((double) numCharacters / (double) numTokens) + (numTokens / (double) numSentences));

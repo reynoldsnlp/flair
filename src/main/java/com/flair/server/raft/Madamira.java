@@ -10,6 +10,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 
+
 import com.flair.server.utilities.ServerLogger;
 
 import org.apache.http.HttpEntity;
@@ -70,7 +71,7 @@ public class Madamira {
 						response = httpclient.execute(httppost);
 						resEntity = response.getEntity();
 				} catch(HttpHostConnectException ex) {
-					System.out.println(ex.getMessage());
+					ServerLogger.get().error(ex, "Caught connection exception " + ex.getMessage() + " now returing null");
 					return null;
 				}
 				System.out.println(response.getStatusLine());
@@ -92,7 +93,9 @@ public class Madamira {
 				}
 				EntityUtils.consume(resEntity);
 			} catch(IOException ioe) {
-				ioe.printStackTrace();
+				ServerLogger.get().error(ioe, "caught exception " + ioe.getMessage() + " returning null");
+				httpclient.getConnectionManager().shutdown();
+				return null;
 			} finally {
 				// When HttpClient instance is no longer needed,
 				// shut down the connection manager to ensure
@@ -124,7 +127,7 @@ public class Madamira {
 						response = httpclient.execute(httppost);
 						resEntity = response.getEntity();
 				} catch(HttpHostConnectException ex) {
-					System.out.println(ex.getMessage());
+					ServerLogger.get().error(ex, "Caught connection exception " + ex.getMessage() + " now returing null");
 					return null;
 				}
 				System.out.println(response.getStatusLine());
@@ -140,7 +143,9 @@ public class Madamira {
 				}
 				EntityUtils.consume(resEntity);
 			} catch(IOException ioe) {
-				ioe.printStackTrace();
+				ServerLogger.get().error(ioe, "caught exception " + ioe.getMessage() + " returning null");
+				httpclient.getConnectionManager().shutdown();
+				return null;
 			} finally {
 				// When HttpClient instance is no longer needed,
 				// shut down the connection manager to ensure

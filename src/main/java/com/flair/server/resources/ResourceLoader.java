@@ -17,6 +17,7 @@ public final class ResourceLoader
 {
 	public static InputStream get(String fileName) {
 		//update file path as necessary
-		return ResourceLoader.class.getResourceAsStream("/com/flair/server/resources/" + fileName);
+		String pathToResources = ResourceLoader.class.getClassLoader().getResource("").getPath();
+		return ResourceLoader.class.getResourceAsStream(pathToResources + fileName);
 	}
 }

@@ -2,6 +2,7 @@ package com.flair.server.raft;
 
 import java.io.File;
 import java.io.Writer;
+import java.net.UnknownHostException;
 import java.nio.charset.StandardCharsets;
 import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
@@ -142,15 +143,13 @@ public class Processor {
 			reader.close();
 			}
 		catch(UnsupportedEncodingException e) {
-			System.out.println("UNSUPPORTED ENCODING - READING DOCUMENT");
-			e.printStackTrace();
+			ServerLogger.get().error(e, "UNSUPPORTED ENCODING - READING DOCUMENT");
 		}
 		catch(FileNotFoundException e ) {
-			System.out.println("FILE NOT FOUND - READING DOCUMENT");
-			e.printStackTrace();
+			ServerLogger.get().error(e, "FILE NOT FOUND - READING DOCUMENT");
 		}
 		catch(IOException e) {
-			e.printStackTrace();
+			ServerLogger.get().error(e,"");
 		}
 		return sb.toString();
 		
@@ -181,7 +180,13 @@ public class Processor {
 		}
 		inputBuilder.append("\n\n" + madamiraBottom);
 		inputStream = new ByteArrayInputStream(inputBuilder.toString().getBytes(StandardCharsets.UTF_8));
-		String outputString = Madamira.lemmatize(8223, "http://mada_image:", inputStream, output); //now this file returns a string 
+		String outputString;
+		outputString = Madamira.lemmatize(8223, "http://mada_image:", inputStream, output); //now this file returns a string 
+		if(outputString == null) {
+			ServerLogger.get().error("failed to connect to mada_image, now trying to connect on localhost");
+			outputString = Madamira.lemmatize(8223, "http://localhost:", inputStream, output); //now this file returns a string 
+		}
+		
 		madaOutput = Jsoup.parse(outputString);
 	}
 	
@@ -374,15 +379,13 @@ public class Processor {
 			reader.close();
 		}
 		catch(UnsupportedEncodingException e) {
-			System.out.println("UNSUPPORTED ENCODING - READING DOCUMENT");
-			e.printStackTrace();
+			ServerLogger.get().error(e, "UNSUPPORTED ENCODING - READING DOCUMENT");
 		}
 		catch(FileNotFoundException e ) {
-			System.out.println("FILE NOT FOUND - READING DOCUMENT");
-			e.printStackTrace();
+			ServerLogger.get().error(e, "FILE NOT FOUND - READING DOCUMENT");
 		}
 		catch(IOException e) {
-			e.printStackTrace();
+			ServerLogger.get().error(e,"");
 		}
 		
 		return freqListMap;

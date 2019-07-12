@@ -5,15 +5,10 @@ import java.io.Writer;
 
 import com.flair.server.utilities.ServerLogger;
 
-import java.io.FileOutputStream;
-import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.io.IOException;
 import java.io.FileNotFoundException;
-import java.io.BufferedWriter;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 
 public class Raft {
@@ -47,28 +42,10 @@ public class Raft {
 		}
 		weka.resetInputFileName();
 		returnValue = weka.ScoreFeatures(featureData);
-		//weka.clearFiles();
-		//cleanRaft(weka.getSalt());
 		return returnValue;
 	}
 	public int getSalt(){
 		return wekaSalt;
-	}
-	public void cleanRaft(int salt){
-		File folder = new File("");
-		File fList[] = folder.listFiles();
-		// Searchs .lck
-		for (int i = 0; i < fList.length; i++) {
-			File file = fList[i];
-			String fileStr = file.toString();
-    		if (fileStr.contains("" + salt)) {
-				File f = new File(fileStr);
-				if(file.delete())
-					ServerLogger.get().info(fileStr + " deleted");
-				else	
-				ServerLogger.get().error(fileStr + " not deleted ");
-    		}
-		}
 	}
 
 	public boolean modelExists(String model) { 
@@ -84,7 +61,7 @@ public class Raft {
           
       	} catch (Exception e)
       	{
-			ServerLogger.get().error(e.getMessage());
+			ServerLogger.get().error(e, e.getMessage());
 		}
 		ServerLogger.get().info(model + " exists : " + exists);
 		return exists;
