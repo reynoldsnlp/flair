@@ -139,11 +139,10 @@ public class SessionManager
 		ServerAuthenticationToken newTok = AuthTokenGenerator.create();
 		ServerLogger.get().info("New session token generated. ID: " + newTok.getUuid());
 		
-		String pathToResources = this.getClass().getClassLoader().getResource("").getPath();
-		ServerLogger.get().info("Current relative path in Session Manager is: " + pathToResources);
-
 		// build random forest model if need be 
 		Raft raft = new Raft();
+		raft.buildModel("RandomForest.model");
+		/*
 		if(!raft.modelExists("RandomForest.model")){
 			Weka randomForest = new Weka("model.arff");	
 			try {
@@ -154,6 +153,7 @@ public class SessionManager
 				ServerLogger.get().error(e.getMessage() + " Failed to build random forest model");
 			}
 		}
+		*/
 
 		// bind the token to the session
 		httpSession.setAttribute(newTok.toString(), newTok);

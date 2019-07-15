@@ -24,6 +24,7 @@ public class Raft {
 		Processor processor = new Processor(webText);
 		String featureData = processor.getResult() + "1.0";
 		String model = "model.arff";
+		ServerLogger.get().info("featureData : \n " + featureData);
 		
 		//Path currentRelativePath = Paths.get("");
 		//String s = this.getClass().getClassLoader().getResource("").getPath();
@@ -65,6 +66,22 @@ public class Raft {
 		}
 		ServerLogger.get().info(model + " exists : " + exists);
 		return exists;
+	}
+
+	public void buildModel(String modelName) 
+	{
+		String pathToResources = this.getClass().getClassLoader().getResource("").getPath();
+
+		if(!this.modelExists(modelName)){
+			Weka randomForest = new Weka("model.arff");	
+			try {
+				randomForest.setRandomForest(randomForest.buildRandomForestModel());
+				weka.core.SerializationHelper.write(pathToResources + modelName, randomForest.getRandomForest());
+				ServerLogger.get().info("Wrote " +  modelName + "   to the server resource folder");
+			} catch (Exception e) {
+				ServerLogger.get().error(e.getMessage() + " Failed to build random forest model");
+			}
+		}
 	}
 
 }
