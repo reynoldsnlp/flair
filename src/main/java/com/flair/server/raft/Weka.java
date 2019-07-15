@@ -142,16 +142,14 @@ public class Weka implements Serializable {
 		}
 		catch(NullPointerException ex){
 			ServerLogger.get().error("Caught NullPointerException");
-			ex.printStackTrace();
-			ServerLogger.get().error(ex.getMessage());
+			ServerLogger.get().error(ex, ex.getMessage());
 			RandomForest rf = new RandomForest();
         	rf.setNumTrees(100);
 			return rf;
 		}
 		catch(Exception ex){
 			ServerLogger.get().error("Caught Exception");
-			ex.printStackTrace();
-			ServerLogger.get().error(ex.getMessage());
+			ServerLogger.get().error(ex, ex.getMessage());
 			RandomForest rf = new RandomForest();
         	rf.setNumTrees(100);
 			return rf;
