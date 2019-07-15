@@ -32,23 +32,41 @@ import org.jsoup.select.Elements;
 
 public class Processor {
 	
-	public Processor(String webText) {
-		webText = webText.trim().replaceAll("&", "+");
-		webText = webText.trim().replaceAll("(\\s)+", "$1");
-		body = webText;
+	public Processor(String webText) 
+	{
+		try 
+		{
+			webText = webText.trim().replaceAll("&", "+");
+			webText = webText.trim().replaceAll("(\\s)+", "$1");
+			body = webText;
+		}
+		catch (NullPointerException e) 
+		{
+			ServerLogger.get().error(e, e.getMessage());
+			body = null;
+		}
 		Random r = new Random();
 		taskSalt = r.nextInt(10000000);		//gives a random number to salt our file names with
-		lemmatizeText();
-		createLemmaList();
-		if (wordCount > 0) {
-			countSentences();
-			createFrequencies();
-			if (frequencies.size() > 0) {
-				calcFreq95();
-				calcMean();
-				calcMedian();
-				calcAvgWordLen();
+		if(body != null && webText.length() > 0)
+		{
+			lemmatizeText();
+			createLemmaList();
+			if (wordCount > 0) 
+			{
+				countSentences();
+				createFrequencies();
+				if (frequencies.size() > 0) 
+				{
+					calcFreq95();
+					calcMean();
+					calcMedian();
+					calcAvgWordLen();
+				}
 			}
+		}
+		else if (body != null)
+		{
+			body = null;
 		}
 	}
 	
@@ -112,7 +130,7 @@ public class Processor {
 	private String madamiraBottom = "</in_doc>\r\n" + 
 			"</madamira_input>";
 	
-	public static String GetTagContents(String text, String tagName) {
+	/* public static String GetTagContents(String text, String tagName) {
 		String contents = "";
 		Document processedText;
 		processedText = Jsoup.parse(text, "UTF-8");
@@ -124,7 +142,7 @@ public class Processor {
 			contents = "";
 		}
 		return contents;
-	}
+	} */
 
 	public int getSalt(){
 		return taskSalt;
