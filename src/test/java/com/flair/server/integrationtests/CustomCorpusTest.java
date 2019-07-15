@@ -1,4 +1,4 @@
-package com.flair.server;
+package com.flair.server.integrationtests;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -16,10 +16,14 @@ import com.flair.server.taskmanager.MasterJobPipeline;
 import com.flair.shared.grammar.Language;
 
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
+
+import type.IntegrationTest;
 
 /*
  * Runs a simple custom corpus operation. Refer to WebSearchTest for more information
  */
+@Category(IntegrationTest.class)
 public class CustomCorpusTest
 {
 	public static void processParsedDocs(DocumentCollection dc) {
@@ -28,7 +32,7 @@ public class CustomCorpusTest
 		}
 	}
 
-	@Test
+	@Test(timeout = 90000)
 	public void main()
 	{
 		/*

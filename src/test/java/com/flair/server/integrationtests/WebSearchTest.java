@@ -1,4 +1,4 @@
-package com.flair.server;
+package com.flair.server.integrationtests;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -10,19 +10,22 @@ import com.flair.server.parser.DocumentCollection;
 import com.flair.server.parser.KeywordSearcherInput;
 import com.flair.server.raft.Raft;
 import com.flair.server.raft.Weka;
-import com.flair.server.parser.ArabicDocument;
 import com.flair.server.taskmanager.MasterJobPipeline;
 import com.flair.server.taskmanager.SearchCrawlParseOperation;
 import com.flair.shared.grammar.Language;
+import type.IntegrationTest;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 /*
  * Runs a simple web search operation
  */
+@Category(IntegrationTest.class)
 public class WebSearchTest
 {
+	
 	public static void processParsedDocs(DocumentCollection dc) {
 		// iterate through the document collection like you would a list
 		for (AbstractDocument doc : dc) {
@@ -48,7 +51,7 @@ public class WebSearchTest
 		}
 	}
 
-	@Test
+	@Test(timeout = 90000)
 	public void englishSearch()
 	{
 		String query = "Blue Oyster Cult";
@@ -106,7 +109,7 @@ public class WebSearchTest
 		System.out.println("Operation Complete");
 	}
 
-	@Test
+	@Test(timeout = 90000)
 	public void arabicSearch()
 	{
 		String query = "جماعة المحار الازرق";
