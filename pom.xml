@@ -247,6 +247,8 @@
         			<enableAssertions>true</enableAssertions>
 					<parallel>methods</parallel>
          			<threadCount>2</threadCount>
+					 <!--comment line below to include integration tests-->
+					<excludedGroups>type.IntegrationTest</excludedGroups>
     			</configuration>
         	</plugin>
 		</plugins>
