@@ -22,6 +22,21 @@ public class Raft {
 	public int ScoreText(String webText) throws IOException, FileNotFoundException, ClassNotFoundException, UnsupportedEncodingException, InterruptedException, Exception {
 		int returnValue = 0;
 		Processor processor = new Processor(webText);
+		processor.createPOSMap();
+		processor.lemmatizeText();
+		processor.createLemmaList();
+		if (processor.getWordCount() > 0) 
+		{
+			processor.countSentences();
+			processor.createFrequencies();
+			if (processor.getFrequencies().size() > 0) 
+			{
+				processor.calcFreq95();
+				processor.calcMean();
+				processor.calcMedian();
+				processor.calcAvgWordLen();
+			}
+		}
 		String featureData = processor.getResult() + "1.0";
 		String model = "model.arff";
 		ServerLogger.get().info("featureData : \n " + featureData);
