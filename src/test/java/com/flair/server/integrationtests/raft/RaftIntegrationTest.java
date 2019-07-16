@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
 import com.flair.server.raft.Raft;
+import com.flair.shared.utilities.CustomFileReader;
 import com.ibm.icu.impl.Assert;
 
 import org.junit.Before;
@@ -25,39 +26,18 @@ public class RaftIntegrationTest
     private String path;
     private String textSource;
     private String sourceName;
+    private CustomFileReader fileReader;
 
-
-    public static String readFileToString(String path, String fileName) throws IOException 
-    {
-		String filePath = path + fileName;
- 
-		StringBuilder fileData = new StringBuilder(1000);//Constructs a string buffer with no characters in it and the specified initial capacity
-		BufferedReader reader = new BufferedReader(new FileReader(filePath));
- 
-		char[] buf = new char[1024];
-		int numRead = 0;
-        while ((numRead = reader.read(buf)) != -1) 
-        {
-			String readData = String.valueOf(buf, 0, numRead);
-			fileData.append(readData);
-			buf = new char[1024];
-		}
- 
-		reader.close();
- 
-		String returnStr = fileData.toString();
-		System.out.println(returnStr);
-		return returnStr;
-	}
     @Before
     public void setUp() 
     {
-        path = this.getClass().getClassLoader().getResource("").getPath();
         raft = new Raft();
         sourceName = "testFiles/Arabic.pdf";
+        fileReader = new CustomFileReader();
+        path = fileReader.getRelativePath();
         try
         { 
-            textSource = readFileToString(path, sourceName);
+            textSource = fileReader.readFileToString(path, sourceName);
         }
         catch(IOException ex) 
         {
