@@ -47,46 +47,31 @@ public class Processor {
 		}
 		Random r = new Random();
 		taskSalt = r.nextInt(10000000);		//gives a random number to salt our file names with
-		if(body != null && webText.length() > 0)
-		{
-			lemmatizeText();
-			createLemmaList();
-			if (wordCount > 0) 
-			{
-				countSentences();
-				createFrequencies();
-				if (frequencies.size() > 0) 
-				{
-					calcFreq95();
-					calcMean();
-					calcMedian();
-					calcAvgWordLen();
-				}
-			}
-		}
-		else if (body != null)
-		{
-			body = null;
-		}
+		lemmaFreqListMap = new TreeMap<>();
+		frequencies = new ArrayList<>();
+		wordCount = 0;
+		tokenCount = 0;
+		sentCount = 0;
+		freq95 = 0;
 	}
 	
 	private Document madaOutput;
 	private String body;
-	private TreeMap<String, Integer> lemmaFreqListMap = new TreeMap<>(); // maps a string "LEMMA:::POS" to its frequency within the text
-	private TreeMap<String, Integer> POSList = createPOSMap(); //keeps a count for each POS tag
+	private TreeMap<String, Integer> lemmaFreqListMap; // maps a string "LEMMA:::POS" to its frequency within the text
+	private TreeMap<String, Integer> POSList; //keeps a count for each POS tag
 	private TreeMap<String, Integer> freqListMap; // Arabic frequency list
-	private ArrayList<Integer> frequencies = new ArrayList<>();
+	private ArrayList<Integer> frequencies;
 	private String input;
 	private String output;
 
-	private int wordCount = 0; //number of words in the body
-	private int tokenCount = 0; //number of tokens in the body
-	private int sentCount = 0; //number of sentences in the body
+	private int wordCount; //number of words in the body
+	private int tokenCount; //number of tokens in the body
+	private int sentCount; //number of sentences in the body
 	private double avgSentLen; //average sentence length
 	private double lexDiv; //lexical diversity (# lemmas/ # of words)
 	private double lemmaComplexity; //lexical complexity (# tokens / # words)
 	private double maxLemmaComplexity; //lexical complexity (# tokens / # words)
-	private int freq95 = 0; //frequency of last word of the 95th percentile
+	private int freq95; //frequency of last word of the 95th percentile
 	private double mean;
 	private double median;
 	private double avgWordLen;
@@ -129,90 +114,68 @@ public class Processor {
 	
 	private String madamiraBottom = "</in_doc>\r\n" + 
 			"</madamira_input>";
-	
-	/* public static String GetTagContents(String text, String tagName) {
-		String contents = "";
-		Document processedText;
-		processedText = Jsoup.parse(text, "UTF-8");
-		try {
-			Element contentsElement = processedText.select(tagName).first();
-			contents = contentsElement.ownText();
-		} 
-		catch(Exception e) {
-			contents = "";
-		}
-		return contents;
-	} */
 
 	public int getSalt(){
 		return taskSalt;
 	}
 	
-	public static String ReadFileContents(File file) {
-		StringBuilder sb = new StringBuilder();
-		try {
-			BufferedReader reader = new BufferedReader(new InputStreamReader(
-					new FileInputStream(file), "UTF8"));
-		    
-			String str;
-			while((str = reader.readLine()) != null) {
-					sb.append(str + " ");				}
-			
-			reader.close();
-			}
-		catch(UnsupportedEncodingException e) {
-			ServerLogger.get().error(e, "UNSUPPORTED ENCODING - READING DOCUMENT");
-		}
-		catch(FileNotFoundException e ) {
-			ServerLogger.get().error(e, "FILE NOT FOUND - READING DOCUMENT");
-		}
-		catch(IOException e) {
-			ServerLogger.get().error(e,"");
-		}
-		return sb.toString();
-		
-	}
-	
-	public static String ReadFile(String fileName) {
-		File file = new File(fileName);
-		String contents = ReadFileContents(file);
-		return contents;
-	}
-	
-	
 	/** 
 	 *Creates XML input string for Madamira out of the body, saves it to madamiraInput, 
 	 *sends it off to be lemmatized and saves output to madamiraOutput.
 	 */
-	private void lemmatizeText() {
-		input = "/tmp/mada_input" + taskSalt + ".txt";
-		output = "/tmp/mada_output" + taskSalt + ".txt";
-		InputStream inputStream;
-		StringBuilder inputBuilder = new StringBuilder();
-		inputBuilder.append(madamiraTop + "\n\n");
-		String [] bodyStrings = body.split("\n");
-		int segCount = 0;
-		for (String s:bodyStrings) {
-			inputBuilder.append("<in_seg id=\"BODY_"+Integer.toString(segCount)+"\">" + makeArabicOnly(s) + "</in_seg>\n");
-			segCount++;
+	public void lemmatizeText() 
+	{
+		if(body != null)
+		{
+			input = "/tmp/mada_input" + taskSalt + ".txt";
+			output = "/tmp/mada_output" + taskSalt + ".txt";
+			InputStream inputStream;
+			StringBuilder inputBuilder = new StringBuilder();
+			inputBuilder.append(madamiraTop + "\n\n");
+			String [] bodyStrings = body.split("\n");
+			int segCount = 0;
+			for (String s:bodyStrings) 
+			{
+				inputBuilder.append("<in_seg id=\"BODY_"+Integer.toString(segCount)+"\">" + makeArabicOnly(s) + "</in_seg>\n");
+				segCount++;
+			}
+			inputBuilder.append("\n\n" + madamiraBottom);
+			inputStream = new ByteArrayInputStream(inputBuilder.toString().getBytes(StandardCharsets.UTF_8));
+			String outputString;
+			outputString = Madamira.lemmatize(8223, "http://mada_image:", inputStream, output); //now this file returns a string 
+			if(outputString == null) 
+			{
+				ServerLogger.get().error("failed to connect to mada_image, now trying to connect on localhost");
+				outputString = Madamira.lemmatize(8223, "http://localhost:", inputStream, output); //now this file returns a string 
+			}
+			if(outputString == null)
+			{
+				ServerLogger.get().error("failed to connect to localhost, make sure that madamira server is running");
+				madaOutput = new Document("");		//creates a new empty document
+			}		
+			else 
+			{
+				//ServerLogger.get().info("outputString : \n" + outputString);
+				madaOutput = Jsoup.parse(outputString);
+			}
 		}
-		inputBuilder.append("\n\n" + madamiraBottom);
-		inputStream = new ByteArrayInputStream(inputBuilder.toString().getBytes(StandardCharsets.UTF_8));
-		String outputString;
-		outputString = Madamira.lemmatize(8223, "http://mada_image:", inputStream, output); //now this file returns a string 
-		if(outputString == null) {
-			ServerLogger.get().error("failed to connect to mada_image, now trying to connect on localhost");
-			outputString = Madamira.lemmatize(8223, "http://localhost:", inputStream, output); //now this file returns a string 
+		else 
+		{
+			ServerLogger.get().error("Body is null, creating new empy document");
+			madaOutput = new Document("");		//creates a new empty document
 		}
-		
-		madaOutput = Jsoup.parse(outputString);
 	}
 	
 	/**
 	 * Uses JSOUP to to extract words, lemmas and pos tags from the Madamira output and then
 	 * assembles TreeMap lemmas and TreeMap lemmaFreqListMap. Calculates wordCount and lexDiv.
 	 */
-	private void createLemmaList() {
+	public void createLemmaList() {
+		if(madaOutput == null)
+		{
+			ServerLogger.get().error("madaOutput is null");
+			return;
+		}
 		Elements words = madaOutput.getElementsByTag("word");
 		int wCount = 0; //word count (excluding punc, latin, and digit)
 		int tCount = 0; //token count
@@ -260,7 +223,7 @@ public class Processor {
 		lemmaComplexity = (double) tokenCount / (double) wordCount;
 	}
 	
-	private TreeMap<String, Integer> createPOSMap() {
+	public void createPOSMap() {
 		TreeMap<String, Integer> map = new TreeMap<>();
 		map.put("noun", 0);
 		map.put("noun_num", 0);
@@ -294,11 +257,16 @@ public class Processor {
 		map.put("adj", 0);
 		map.put("adj_comp", 0);
 		map.put("adj_num", 0);
-		
-		return map;
+
+		POSList = map;
 	}
 	
-	private void addToPOSMap(String key) {
+	public void addToPOSMap(String key) {
+		if(POSList == null)
+		{
+			createPOSMap();
+			addToPOSMap(key);
+		}
 		if (key.substring(0,3).equals("adv"))
 			POSList.put("adv", POSList.get("adv") + 1);
 		else if (key.substring(0,3).equals("adj"))
@@ -322,7 +290,7 @@ public class Processor {
 	}
 	
 	//Used to create running totals in FreqListMap
-	private void addToLemmaFreqListMap(String key) {
+	public void addToLemmaFreqListMap(String key) {
 		if(!lemmaFreqListMap.containsKey(key)) 
 			lemmaFreqListMap.put(key, 1);
 		else 
@@ -330,7 +298,7 @@ public class Processor {
 	}
 	
 	//extracts only the arabic text from the "lemma" given by Madamira
-	private String makeArabicOnly(String word) {
+	public String makeArabicOnly(String word) {
 		StringBuilder sb = new StringBuilder();
 		for(int i = 0; i < word.length(); i++) {
 			if (word.charAt(i) == ' ') {
@@ -343,7 +311,7 @@ public class Processor {
 	}
 	
 	//calculates the number of sentences and the average sentence length
-	private void countSentences() {
+	public void countSentences() {
 		//Counts a sentence at new lines and after punctuation
 		for(int i = 1; i < body.length(); i++) {
 			char c = body.charAt(i);
@@ -357,13 +325,13 @@ public class Processor {
 		avgSentLen = (double) wordCount / (double) sentCount;
 	}
 	
-	private boolean isEndPunct(char c) {
+	public boolean isEndPunct(char c) {
 		if(c == '.' || c == '!' || c == '\u061f') 
 			return true;
 		return false;
 	}
 	
-	private void createFrequencies() {
+	public void createFrequencies() {
 		freqListMap = readFreqList();
 		for (Map.Entry<String, Integer> entry : lemmaFreqListMap.entrySet()) {
 			for (int i = 0; i < entry.getValue(); i++) {
@@ -379,7 +347,7 @@ public class Processor {
 	 * helper for createFrequencies()
 	 * reads freqList in from file and returns it
 	 */
-	private TreeMap<String, Integer> readFreqList() {
+	public TreeMap<String, Integer> readFreqList() {
 		TreeMap<String, Integer> freqListMap = new TreeMap<>();
 		try {
 				ClassLoader classLoader = getClass().getClassLoader();
@@ -413,7 +381,7 @@ public class Processor {
 	 * Sorts the entries in the lemmaFreqListMap into a sorted List to find the 95th percentile,
 	 * Then finds that lemma's frequency in the freqList
 	 */
-	private void calcFreq95() {
+	public void calcFreq95() {
 		int index95 = (int) (frequencies.size() * .95);
 		if (index95 > 0) {
 			freq95 = frequencies.get(index95);
@@ -423,7 +391,7 @@ public class Processor {
 	}
 	
 	// calculates the mean frequency
-	private void calcMean() {
+	public void calcMean() {
 		int total = 0;
 		for (int frequency : frequencies)
 			total += frequency;
@@ -431,7 +399,7 @@ public class Processor {
 	}
 	
 	// calculates the median frequency
-	private void calcMedian( ) {
+	public void calcMedian( ) {
 		if (frequencies.size() % 2 == 0) {
 			int middleRight = frequencies.size() / 2;
 			int middleLeft = middleRight - 1;
@@ -443,7 +411,7 @@ public class Processor {
 		}
 	}
 	
-	private void calcAvgWordLen() {
+	public void calcAvgWordLen() {
 		int chars = 0;
 		for (int i = 0; i < body.length(); i++) {
 			if (!Character.isWhitespace(body.charAt(i)))
@@ -518,5 +486,32 @@ public class Processor {
 		else	
 			ServerLogger.get().error(output + " not deleted ");
 	}
-	
+
+	public ArrayList<Integer> getFrequencies() {
+		return frequencies;
+	}
+
+	public int getWordCount() {
+		return wordCount;
+	}
+
+	public Document getMadaOutput() {
+		return madaOutput;
+	}
+
+	public void setMadaOutput(Document madaOutput) {
+		this.madaOutput = madaOutput;
+	}
+
+	public int getTokenCount() {
+		return tokenCount;
+	}
+
+	public TreeMap<String, Integer> getPOSList() {
+		return POSList;
+	}
+
+	public void setPOSList(TreeMap<String, Integer> pOSList) {
+		POSList = pOSList;
+	}
 }
