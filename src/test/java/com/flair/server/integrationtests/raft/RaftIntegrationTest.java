@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
 import com.flair.server.raft.Raft;
-import com.flair.shared.utilities.CustomFileReader;
+import com.flair.server.utilities.CustomFileReader;
 import com.ibm.icu.impl.Assert;
 
 import org.junit.Before;
