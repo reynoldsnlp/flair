@@ -1,4 +1,4 @@
-package com.flair.shared.utilities;
+package com.flair.server.utilities;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
