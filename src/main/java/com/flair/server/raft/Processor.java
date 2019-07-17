@@ -53,6 +53,17 @@ public class Processor {
 		tokenCount = 0;
 		sentCount = 0;
 		freq95 = 0;
+		validConstructions = new String[10];
+		validConstructions[0] = "adv";
+		validConstructions[1] = "adj";
+		validConstructions[2] = "noun";
+		validConstructions[3] = "pron";
+		validConstructions[4] = "verb";
+		validConstructions[5] = "conj";
+		validConstructions[6] = "prep";
+		validConstructions[7] = "part";
+		validConstructions[8] = "interj";
+		validConstructions[9] = "abbrev";
 	}
 	
 	private Document madaOutput;
@@ -61,6 +72,7 @@ public class Processor {
 	private TreeMap<String, Integer> POSList; //keeps a count for each POS tag
 	private TreeMap<String, Integer> freqListMap; // Arabic frequency list
 	private ArrayList<Integer> frequencies;
+	private String validConstructions [];
 	private String input;
 	private String output;
 
@@ -261,36 +273,49 @@ public class Processor {
 		POSList = map;
 	}
 	
-	public void addToPOSMap(String key) {
+	public void addToPOSMap(String key) 
+	{
+		if(key == null)
+			return;
+
 		if(POSList == null)
 		{
 			createPOSMap();
 			addToPOSMap(key);
+			return;
 		}
-		if (key.substring(0,3).equals("adv"))
-			POSList.put("adv", POSList.get("adv") + 1);
-		else if (key.substring(0,3).equals("adj"))
-			POSList.put("adj", POSList.get("adj") + 1);
-		else if (key.substring(0,4).equals("noun"))
-			POSList.put("noun", POSList.get("noun") + 1);
-		else if (key.substring(0,4).equals("pron"))
-			POSList.put("pron", POSList.get("pron") + 1);
-		else if (key.substring(0,4).equals("verb"))
-			POSList.put("verb", POSList.get("verb") + 1);
-		else if (key.substring(0,4).equals("conj"))
-			POSList.put("conj", POSList.get("conj") + 1);
-		else if (key.substring(0,4).equals("prep"))
-			POSList.put("prep", POSList.get("prep") + 1);
-		else if (key.substring(0,4).equals("part"))
-			POSList.put("part", POSList.get("part") + 1);
-		else if (key.equals("interj"))
-			POSList.put("interj", POSList.get("interj") + 1);
-		else if (key.equals("abbrev"))
-			POSList.put("abbrev", POSList.get("abbrev") + 1);
+		int count = 0; 
+		int len = validConstructions.length;
+		boolean valueAdded = false;
+		while(count < len && valueAdded == false)
+		{
+			if(validConstructions[count].equals(key))
+			{
+				addKey(key);
+				valueAdded = true;
+			}
+			count++;
+		}
+	}
+
+	public void addKey(String key)
+	{
+		if(POSList == null || key == null)
+			return;
+
+		if(!POSList.containsKey(key))
+		{
+			POSList.put(key, 0);
+		}
+		POSList.put(key, POSList.get(key) + 1);
 	}
 	
 	//Used to create running totals in FreqListMap
-	public void addToLemmaFreqListMap(String key) {
+	public void addToLemmaFreqListMap(String key) 
+	{
+		if(key == null)
+			return;
+
 		if(!lemmaFreqListMap.containsKey(key)) 
 			lemmaFreqListMap.put(key, 1);
 		else 
@@ -298,20 +323,34 @@ public class Processor {
 	}
 	
 	//extracts only the arabic text from the "lemma" given by Madamira
-	public String makeArabicOnly(String word) {
+	public String makeArabicOnly(String word) 
+	{
+		if(word == null)
+			return "";
+
 		StringBuilder sb = new StringBuilder();
-		for(int i = 0; i < word.length(); i++) {
-			if (word.charAt(i) == ' ') {
+		for(int i = 0; i < word.length(); i++) 
+		{
+			if (word.charAt(i) == ' ') 
+			{
 				sb.append(' ');
-			} else if (word.charAt(i) >= 1536 && word.charAt(i) <= 1791) {
+			} 
+			else if (word.charAt(i) >= 1536 && word.charAt(i) <= 1791) 
+			{
 				sb.append(word.charAt(i));
 			}
+			else if (word.charAt(i) == 46)
+			{
+				sb.append(word.charAt(i));	//keeps periods
+			}
+
 		}
 		return sb.toString();
 	}
 	
 	//calculates the number of sentences and the average sentence length
-	public void countSentences() {
+	public void countSentences() 
+	{
 		//Counts a sentence at new lines and after punctuation
 		for(int i = 1; i < body.length(); i++) {
 			char c = body.charAt(i);
@@ -513,5 +552,13 @@ public class Processor {
 
 	public void setPOSList(TreeMap<String, Integer> pOSList) {
 		POSList = pOSList;
+	}
+
+	public TreeMap<String, Integer> getLemmaFreqListMap() {
+		return lemmaFreqListMap;
+	}
+
+	public void setLemmaFreqListMap(TreeMap<String, Integer> lemmaFreqListMap) {
+		this.lemmaFreqListMap = lemmaFreqListMap;
 	}
 }
