@@ -53,6 +53,10 @@ import java.lang.StringBuilder;
         }
         return stringBuilder.toString();
     }
+    public String getRelativePath()
+	{
+		return this.getClass().getClassLoader().getResource("").getPath();
+	}
  }
 
 
