@@ -1,10 +1,11 @@
 package com.flair.server.unittests.raft;
 
+import static org.junit.Assert.assertTrue;
+
 import java.io.IOException;
 import java.util.TreeMap;
 
 import com.flair.server.raft.Processor;
-import com.flair.server.utilities.FileReader;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -12,7 +13,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import com.flair.shared.utilities.CustomFileReader;
+import com.flair.server.utilities.CustomFileReader;
 
 import type.UnitTest;
 
@@ -129,22 +130,110 @@ public class ProcessorUnitTest
     @Test 
     public void testNullCreatePosList()
     {
-        nullProcessor.setPOSList(null);
-        nullProcessor.createPOSMap();
-        Assert.assertTrue(nullProcessor.getPOSList() != null);
-        Assert.assertTrue(nullProcessor.getPOSList().size() == 32);
+        normalProcessor.setPOSList(null);
+        normalProcessor.createPOSMap();
+        Assert.assertTrue(normalProcessor.getPOSList() != null);
+        Assert.assertTrue(normalProcessor.getPOSList().size() == 32);
     }
     @Test 
     public void testOverwriteCreatePosList()
     {
-        nullProcessor.setPOSList(new TreeMap<String, Integer>());
-        nullProcessor.createPOSMap();
-        Assert.assertTrue(nullProcessor.getPOSList().size() == 32);
+        normalProcessor.setPOSList(new TreeMap<String, Integer>());
+        normalProcessor.createPOSMap();
+        Assert.assertTrue(normalProcessor.getPOSList().size() == 32);
     }
-    /* @Test
-    public void testGetTagContents()
+    @Test
+    public void testAddKeyExistingMap()
     {
+        normalProcessor.createPOSMap();
+        normalProcessor.addKey("adv");
+        normalProcessor.addKey("new");
+        Assert.assertTrue("POSList size is " + normalProcessor.getPOSList().size(), normalProcessor.getPOSList().size() == 33);
+        Assert.assertTrue(normalProcessor.getPOSList().get("adv") == 1);
 
-    } */
+    }
+    @Test
+    public void testAddKeyEmptyMap()
+    {
+        normalProcessor.setPOSList(new TreeMap<String, Integer>());
+        normalProcessor.addKey("adv");
+        Assert.assertTrue("POSList size is " + normalProcessor.getPOSList().size(), normalProcessor.getPOSList().size() == 1);
+        Assert.assertTrue(normalProcessor.getPOSList().get("adv") == 1);
+
+    }
+    @Test
+    public void testAddKeyNullKey()
+    {
+        normalProcessor.setPOSList(new TreeMap<String, Integer>());
+        normalProcessor.addKey(null);
+        Assert.assertTrue("POSList size is " + normalProcessor.getPOSList().size(), normalProcessor.getPOSList().size() == 0);
+    }
+    @Test
+    public void testAddKeyNullMap()
+    {
+        normalProcessor.setPOSList(null);
+        normalProcessor.addKey("adv");
+        Assert.assertTrue(normalProcessor.getPOSList() == null);
+
+    }
+    @Test
+    public void testEmptyAddToPosMap()
+    {
+        normalProcessor.setPOSList(new TreeMap<String, Integer>());
+        normalProcessor.addToPOSMap("adv");
+        normalProcessor.addToPOSMap("conj");
+        normalProcessor.addToPOSMap("abbrev");
+        normalProcessor.addToPOSMap("bad");
+        Assert.assertTrue(normalProcessor.getPOSList().size() == 3);
+    }
+    @Test
+    public void testNullListAddToPosMap()
+    {
+        normalProcessor.setPOSList(null);
+        normalProcessor.addToPOSMap("adv");
+        normalProcessor.addToPOSMap("bad");
+        Assert.assertTrue("POSList size is " + normalProcessor.getPOSList().size(), normalProcessor.getPOSList().size() == 32);
+        Assert.assertTrue(normalProcessor.getPOSList().get("adv") == 1);
+        Assert.assertFalse(normalProcessor.getPOSList().containsKey("bad"));
+    }
+    @Test
+    public void testNullKeyAddToPosMap()
+    {
+        normalProcessor.setPOSList(new TreeMap<String, Integer>());
+        normalProcessor.addToPOSMap(null);
+        Assert.assertTrue(normalProcessor.getPOSList().size() == 0);
+    }
+    @Test
+    public void testNullAddToLemmaFreqListMap()
+    {
+        normalProcessor.addToLemmaFreqListMap(null);
+        assertTrue(normalProcessor.getLemmaFreqListMap().size() == 0);
+    }
+    @Test
+    public void testAddNewToLemmaFreqListMap()
+    {
+        TreeMap<String, Integer> testLemmaFreqListMap = new TreeMap<>();
+        normalProcessor.setLemmaFreqListMap(testLemmaFreqListMap);
+        normalProcessor.addToLemmaFreqListMap("lemma1");
+        Assert.assertEquals(normalProcessor.getLemmaFreqListMap().size(), 1);
+        Assert.assertEquals(normalProcessor.getLemmaFreqListMap().get("lemma1"), (Integer) 1);
+    }
+    @Test
+    public void testAddExistingToLemmaFreqListMap()
+    {
+        TreeMap<String, Integer> testLemmaFreqListMap = new TreeMap<>();
+        testLemmaFreqListMap.put("lemma1", 0);
+        normalProcessor.setLemmaFreqListMap(testLemmaFreqListMap);
+        normalProcessor.addToLemmaFreqListMap("lemma1");
+        normalProcessor.addToLemmaFreqListMap("lemma1");
+        Assert.assertEquals(normalProcessor.getLemmaFreqListMap().size(), 1);
+        Assert.assertEquals(normalProcessor.getLemmaFreqListMap().get("lemma1"), (Integer) 2);
+    }
+    @Test
+    public void testArabicMakeArabicOnly()
+    {
+        Assert.assertEquals(goodText, normalProcessor.makeArabicOnly(goodText));
+    }
+
 
 }
