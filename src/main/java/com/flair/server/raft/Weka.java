@@ -100,7 +100,8 @@ public class Weka implements Serializable {
     	labeled.instance(0).setClassValue(prediction);
         //figure out which index we're trying to predict (the last one for us)
         
-        this.score = ((int) prediction + 1);
+		this.score = ((int) prediction + 1);
+		ServerLogger.get().info("Actual score from weka is " + this.score);
 		return this.score;
 	}
 	
