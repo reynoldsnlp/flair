@@ -234,6 +234,55 @@ public class ProcessorUnitTest
     {
         Assert.assertEquals(goodText, normalProcessor.makeArabicOnly(goodText));
     }
+    @Test
+    public void testEnglishMakeArabicOnly()
+    {
+        Assert.assertEquals("     ", normalProcessor.makeArabicOnly("none of this should be accepted")); //function keeps whitespace
+    }
+    @Test
+    public void testMixedTextMakeArabicOnly()
+    {
+        Assert.assertEquals(goodText + "     " + goodText, normalProcessor.makeArabicOnly(goodText + "none of this should be accepted" + goodText)); //function keeps whitespace
+    }
+    @Test
+    public void testIsEndPunct()
+    {
+        Assert.assertTrue(normalProcessor.isEndPunct('.'));
+        Assert.assertTrue(normalProcessor.isEndPunct('!'));
+        Assert.assertTrue(normalProcessor.isEndPunct('\u061f'));    //arabic question mark
+        Assert.assertFalse(normalProcessor.isEndPunct('l'));
+        Assert.assertFalse(normalProcessor.isEndPunct(','));
+    }
+    @Test
+    public void testNormalCountSentences()
+    {
+        normalProcessor.countSentences();
+        Assert.assertEquals(normalProcessor.getSentCount(), 2);
+    }
+    @Test
+    public void testBadCountSentences()
+    {
+        badProcessor.countSentences();
+        Assert.assertEquals(badProcessor.getSentCount(), 4);
+    }
+    @Test
+    public void testEmptyCountSentences()
+    {
+        emptyProcessor.countSentences();
+        Assert.assertEquals(badProcessor.getSentCount(), 0);
+    }
+    @Test 
+    public void testReadFreqList()
+    {
+        Assert.assertEquals(normalProcessor.readFreqList("freqList.txt").size(), 174777);
+    }
+    @Test 
+    public void testEmptyReadFreqList()
+    {
+        //aAssert.assertEquals(normalProcessor.readFreqList("").size(), 0);
+    }
+
+
 
 
 }
