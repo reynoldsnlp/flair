@@ -31,22 +31,18 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 public class Processor {
-	
-	public Processor(String webText) 
-	{
-		try 
-		{
+
+	public Processor(String webText) {
+		try {
 			webText = webText.trim().replaceAll("&", "+");
 			webText = webText.trim().replaceAll("(\\s)+", "$1");
 			body = webText;
-		}
-		catch (NullPointerException e) 
-		{
+		} catch (NullPointerException e) {
 			ServerLogger.get().error(e, e.getMessage());
 			body = null;
 		}
 		Random r = new Random();
-		taskSalt = r.nextInt(10000000);		//gives a random number to salt our file names with
+		taskSalt = r.nextInt(10000000); // gives a random number to salt our file names with
 		lemmaFreqListMap = new TreeMap<>();
 		frequencies = new ArrayList<>();
 		wordCount = 0;
@@ -65,163 +61,156 @@ public class Processor {
 		validConstructions[8] = "interj";
 		validConstructions[9] = "abbrev";
 	}
-	
+
 	private Document madaOutput;
 	private String body;
 	private TreeMap<String, Integer> lemmaFreqListMap; // maps a string "LEMMA:::POS" to its frequency within the text
-	private TreeMap<String, Integer> POSList; //keeps a count for each POS tag
+	private TreeMap<String, Integer> POSList; // keeps a count for each POS tag
 	private TreeMap<String, Integer> freqListMap; // Arabic frequency list
 	private ArrayList<Integer> frequencies;
-	private String validConstructions [];
+	private String validConstructions[];
 	private String input;
 	private String output;
 
-	private int wordCount; //number of words in the body
-	private int tokenCount; //number of tokens in the body
-	private int sentCount; //number of sentences in the body
-	private double avgSentLen; //average sentence length
-	private double lexDiv; //lexical diversity (# lemmas/ # of words)
-	private double lemmaComplexity; //lexical complexity (# tokens / # words)
-	private double maxLemmaComplexity; //lexical complexity (# tokens / # words)
-	private int freq95; //frequency of last word of the 95th percentile
+	private int wordCount; // number of words in the body
+	private int tokenCount; // number of tokens in the body
+	private int sentCount; // number of sentences in the body
+	private double avgSentLen; // average sentence length
+	private double lexDiv; // lexical diversity (# lemmas/ # of words)
+	private double lemmaComplexity; // lexical complexity (# tokens / # words)
+	private double maxLemmaComplexity; // lexical complexity (# tokens / # words)
+	private int freq95; // frequency of last word of the 95th percentile
 	private double mean;
 	private double median;
 	private double avgWordLen;
 	private int taskSalt;
-	
-	private String madamiraTop = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n" + 
-			"<madamira_input xmlns=\"urn:edu.columbia.ccls.madamira.configuration:0.1\">\r\n" + 
-			"	<madamira_configuration>\r\n" + 
-			"        <preprocessing sentence_ids=\"false\" separate_punct=\"true\" input_encoding=\"UTF8\"/>\r\n" + 
-			"        <overall_vars output_encoding=\"UTF8\" dialect=\"MSA\" output_analyses=\"TOP\" morph_backoff=\"NONE\"/>\r\n" + 
-			"        <requested_output>\r\n" + 
-			"            <req_variable name=\"PREPROCESSED\" value=\"false\" />\r\n" + 
-			"            <req_variable name=\"STEM\" value=\"false\" />\r\n" + 
-			"            <req_variable name=\"GLOSS\" value=\"false\" />\r\n" + 
-			"            <req_variable name=\"LEMMA\" value=\"true\" />\r\n" + 
-			"            <req_variable name=\"DIAC\" value=\"false\" />\r\n" + 
-			"            <req_variable name=\"ASP\" value=\"false\" />\r\n" + 
-			"            <req_variable name=\"CAS\" value=\"false\" />\r\n" + 
-			"            <req_variable name=\"ENC0\" value=\"false\" />\r\n" + 
-			"            <req_variable name=\"ENC1\" value=\"false\" />\r\n" + 
-			"            <req_variable name=\"ENC2\" value=\"false\" />\r\n" + 
-			"            <req_variable name=\"GEN\" value=\"false\" />\r\n" + 
-			"            <req_variable name=\"MOD\" value=\"false\" />\r\n" + 
-			"            <req_variable name=\"NUM\" value=\"false\" />\r\n" + 
-			"            <req_variable name=\"PER\" value=\"false\" />\r\n" + 
-			"            <req_variable name=\"POS\" value=\"true\" />\r\n" + 
-			"            <req_variable name=\"PRC0\" value=\"false\" />\r\n" + 
-			"            <req_variable name=\"PRC1\" value=\"false\" />\r\n" + 
-			"            <req_variable name=\"PRC2\" value=\"false\" />\r\n" + 
-			"            <req_variable name=\"PRC3\" value=\"false\" />\r\n" + 
-			"            <req_variable name=\"STT\" value=\"false\" />\r\n" + 
-			"            <req_variable name=\"VOX\" value=\"false\" />\r\n" + 
-			"            <req_variable name=\"BW\" value=\"false\" />\r\n" + 
-			"            <req_variable name=\"SOURCE\" value=\"false\" />\r\n" + 
-			"			<req_variable name=\"NER\" value=\"false\" />\r\n" + 
-			"			<req_variable name=\"BPC\" value=\"false\" />\r\n" + 
-			"        </requested_output>\r\n" + 
-			"	</madamira_configuration>\r\n" + 
-			"    <in_doc id=\"ExampleDocument\">";
-	
-	private String madamiraBottom = "</in_doc>\r\n" + 
-			"</madamira_input>";
 
-	public int getSalt(){
+	private String madamiraTop = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n"
+			+ "<madamira_input xmlns=\"urn:edu.columbia.ccls.madamira.configuration:0.1\">\r\n"
+			+ "	<madamira_configuration>\r\n"
+			+ "        <preprocessing sentence_ids=\"false\" separate_punct=\"true\" input_encoding=\"UTF8\"/>\r\n"
+			+ "        <overall_vars output_encoding=\"UTF8\" dialect=\"MSA\" output_analyses=\"TOP\" morph_backoff=\"NONE\"/>\r\n"
+			+ "        <requested_output>\r\n"
+			+ "            <req_variable name=\"PREPROCESSED\" value=\"false\" />\r\n"
+			+ "            <req_variable name=\"STEM\" value=\"false\" />\r\n"
+			+ "            <req_variable name=\"GLOSS\" value=\"false\" />\r\n"
+			+ "            <req_variable name=\"LEMMA\" value=\"true\" />\r\n"
+			+ "            <req_variable name=\"DIAC\" value=\"false\" />\r\n"
+			+ "            <req_variable name=\"ASP\" value=\"false\" />\r\n"
+			+ "            <req_variable name=\"CAS\" value=\"false\" />\r\n"
+			+ "            <req_variable name=\"ENC0\" value=\"false\" />\r\n"
+			+ "            <req_variable name=\"ENC1\" value=\"false\" />\r\n"
+			+ "            <req_variable name=\"ENC2\" value=\"false\" />\r\n"
+			+ "            <req_variable name=\"GEN\" value=\"false\" />\r\n"
+			+ "            <req_variable name=\"MOD\" value=\"false\" />\r\n"
+			+ "            <req_variable name=\"NUM\" value=\"false\" />\r\n"
+			+ "            <req_variable name=\"PER\" value=\"false\" />\r\n"
+			+ "            <req_variable name=\"POS\" value=\"true\" />\r\n"
+			+ "            <req_variable name=\"PRC0\" value=\"false\" />\r\n"
+			+ "            <req_variable name=\"PRC1\" value=\"false\" />\r\n"
+			+ "            <req_variable name=\"PRC2\" value=\"false\" />\r\n"
+			+ "            <req_variable name=\"PRC3\" value=\"false\" />\r\n"
+			+ "            <req_variable name=\"STT\" value=\"false\" />\r\n"
+			+ "            <req_variable name=\"VOX\" value=\"false\" />\r\n"
+			+ "            <req_variable name=\"BW\" value=\"false\" />\r\n"
+			+ "            <req_variable name=\"SOURCE\" value=\"false\" />\r\n"
+			+ "			<req_variable name=\"NER\" value=\"false\" />\r\n"
+			+ "			<req_variable name=\"BPC\" value=\"false\" />\r\n" + "        </requested_output>\r\n"
+			+ "	</madamira_configuration>\r\n" + "    <in_doc id=\"ExampleDocument\">";
+
+	private String madamiraBottom = "</in_doc>\r\n" + "</madamira_input>";
+
+	public int getSalt() {
 		return taskSalt;
 	}
-	
-	/** 
-	 *Creates XML input string for Madamira out of the body, saves it to madamiraInput, 
-	 *sends it off to be lemmatized and saves output to madamiraOutput.
+
+	/**
+	 * Creates XML input string for Madamira out of the body, saves it to
+	 * madamiraInput, sends it off to be lemmatized and saves output to
+	 * madamiraOutput.
 	 */
-	public void lemmatizeText() 
-	{
-		if(body != null)
-		{
+	public void lemmatizeText() {
+		if (body != null) {
 			input = "/tmp/mada_input" + taskSalt + ".txt";
 			output = "/tmp/mada_output" + taskSalt + ".txt";
 			InputStream inputStream;
 			StringBuilder inputBuilder = new StringBuilder();
 			inputBuilder.append(madamiraTop + "\n\n");
-			String [] bodyStrings = body.split("\n");
+			String[] bodyStrings = body.split("\n");
 			int segCount = 0;
-			for (String s:bodyStrings) 
-			{
-				inputBuilder.append("<in_seg id=\"BODY_"+Integer.toString(segCount)+"\">" + makeArabicOnly(s) + "</in_seg>\n");
+			for (String s : bodyStrings) {
+				inputBuilder.append(
+						"<in_seg id=\"BODY_" + Integer.toString(segCount) + "\">" + makeArabicOnly(s) + "</in_seg>\n");
 				segCount++;
 			}
 			inputBuilder.append("\n\n" + madamiraBottom);
 			inputStream = new ByteArrayInputStream(inputBuilder.toString().getBytes(StandardCharsets.UTF_8));
 			String outputString;
-			outputString = Madamira.lemmatize(8223, "http://mada_image:", inputStream, output); //now this file returns a string 
-			if(outputString == null) 
-			{
+			outputString = Madamira.lemmatize(8223, "http://mada_image:", inputStream, output); // now this file returns
+																								// a string
+			if (outputString == null) {
 				ServerLogger.get().error("failed to connect to mada_image, now trying to connect on localhost");
-				outputString = Madamira.lemmatize(8223, "http://localhost:", inputStream, output); //now this file returns a string 
+				outputString = Madamira.lemmatize(8223, "http://localhost:", inputStream, output); // now this file
+																									// returns a string
 			}
-			if(outputString == null)
-			{
+			if (outputString == null) {
 				ServerLogger.get().error("failed to connect to localhost, make sure that madamira server is running");
-				madaOutput = new Document("");		//creates a new empty document
-			}		
-			else 
-			{
-				//ServerLogger.get().info("outputString : \n" + outputString);
+				madaOutput = new Document(""); // creates a new empty document
+			} else {
+				// ServerLogger.get().info("outputString : \n" + outputString);
 				madaOutput = Jsoup.parse(outputString);
 			}
-		}
-		else 
-		{
+		} else {
 			ServerLogger.get().error("Body is null, creating new empy document");
-			madaOutput = new Document("");		//creates a new empty document
+			madaOutput = new Document(""); // creates a new empty document
 		}
 	}
-	
+
 	/**
-	 * Uses JSOUP to to extract words, lemmas and pos tags from the Madamira output and then
-	 * assembles TreeMap lemmas and TreeMap lemmaFreqListMap. Calculates wordCount and lexDiv.
+	 * Uses JSOUP to to extract words, lemmas and pos tags from the Madamira output
+	 * and then assembles TreeMap lemmas and TreeMap lemmaFreqListMap. Calculates
+	 * wordCount and lexDiv.
 	 */
 	public void createLemmaList() {
-		if(madaOutput == null)
-		{
+		if (madaOutput == null) {
 			ServerLogger.get().error("madaOutput is null");
 			return;
 		}
 		Elements words = madaOutput.getElementsByTag("word");
-		int wCount = 0; //word count (excluding punc, latin, and digit)
-		int tCount = 0; //token count
+		int wCount = 0; // word count (excluding punc, latin, and digit)
+		int tCount = 0; // token count
 		maxLemmaComplexity = 0;
 		boolean includeTokens;
-		for(Element word : words) {
-			includeTokens = false; //default to false, then include this batch of tokens if the corresponding lemma will also be included
+		for (Element word : words) {
+			includeTokens = false; // default to false, then include this batch of tokens if the corresponding
+									// lemma will also be included
 			String l = new String(); // lemma (value)
 			Elements analysis = word.getElementsByTag("analysis");
 			for (Element item : analysis) {
 				Elements morphs = item.getElementsByAttribute("lemma");
-				for(Element morph : morphs) {
+				for (Element morph : morphs) {
 					Attributes morphAttributes = morph.attributes();
 					String pos = morphAttributes.get("pos");
 					l = morphAttributes.get("lemma");
-					//l = makeArabicOnly(morphAttributes.get("lemma"));
-					//l = normalize(l);
+					// l = makeArabicOnly(morphAttributes.get("lemma"));
+					// l = normalize(l);
 					if (!pos.equals("punc") && !pos.equals("latin") && !pos.equals("digit")) {
 						includeTokens = true;
 						wCount++;
 						addToPOSMap(pos);
-						//proper nouns appear to be messing up frequency data for easier texts
+						// proper nouns appear to be messing up frequency data for easier texts
 						if (!pos.equals("noun_prop")) {
 							addToLemmaFreqListMap(l + ":::" + pos);
 						}
 					}
 				}
 			}
-			//if we included the lemma, count the number of tokens which make up the lemma
+			// if we included the lemma, count the number of tokens which make up the lemma
 			if (includeTokens == true) {
 				Elements tokenized = word.getElementsByTag("tokenized");
 				for (Element tokenList : tokenized) {
 					Elements tokens = tokenList.getElementsByAttribute("tok");
-					//set the highest number of tokens in a lemma
+					// set the highest number of tokens in a lemma
 					if (tokens.size() > maxLemmaComplexity) {
 						maxLemmaComplexity = tokens.size();
 					}
@@ -234,7 +223,7 @@ public class Processor {
 		lexDiv = (double) lemmaFreqListMap.size() / (double) wordCount;
 		lemmaComplexity = (double) tokenCount / (double) wordCount;
 	}
-	
+
 	public void createPOSMap() {
 		TreeMap<String, Integer> map = new TreeMap<>();
 		map.put("noun", 0);
@@ -272,25 +261,21 @@ public class Processor {
 
 		POSList = map;
 	}
-	
-	public void addToPOSMap(String key) 
-	{
-		if(key == null)
+
+	public void addToPOSMap(String key) {
+		if (key == null)
 			return;
 
-		if(POSList == null)
-		{
+		if (POSList == null) {
 			createPOSMap();
 			addToPOSMap(key);
 			return;
 		}
-		int count = 0; 
+		int count = 0;
 		int len = validConstructions.length;
 		boolean valueAdded = false;
-		while(count < len && valueAdded == false)
-		{
-			if(validConstructions[count].equals(key))
-			{
+		while (count < len && valueAdded == false) {
+			if (validConstructions[count].equals(key)) {
 				addKey(key);
 				valueAdded = true;
 			}
@@ -298,127 +283,123 @@ public class Processor {
 		}
 	}
 
-	public void addKey(String key)
-	{
-		if(POSList == null || key == null)
+	public void addKey(String key) {
+		if (POSList == null || key == null)
 			return;
 
-		if(!POSList.containsKey(key))
-		{
+		if (!POSList.containsKey(key)) {
 			POSList.put(key, 0);
 		}
 		POSList.put(key, POSList.get(key) + 1);
 	}
-	
-	//Used to create running totals in FreqListMap
-	public void addToLemmaFreqListMap(String key) 
-	{
-		if(key == null)
+
+	// Used to create running totals in FreqListMap
+	public void addToLemmaFreqListMap(String key) {
+		if (key == null)
 			return;
 
-		if(!lemmaFreqListMap.containsKey(key)) 
+		if (!lemmaFreqListMap.containsKey(key))
 			lemmaFreqListMap.put(key, 1);
-		else 
+		else
 			lemmaFreqListMap.put(key, lemmaFreqListMap.get(key) + 1);
 	}
-	
-	//extracts only the arabic text from the "lemma" given by Madamira
-	public String makeArabicOnly(String word) 
-	{
-		if(word == null)
+
+	// extracts only the arabic text from the "lemma" given by Madamira
+	public String makeArabicOnly(String word) {
+		if (word == null)
 			return "";
 
 		StringBuilder sb = new StringBuilder();
-		for(int i = 0; i < word.length(); i++) 
-		{
-			if (word.charAt(i) == ' ') 
-			{
+		for (int i = 0; i < word.length(); i++) {
+			if (word.charAt(i) == ' ') {
 				sb.append(' ');
-			} 
-			else if (word.charAt(i) >= 1536 && word.charAt(i) <= 1791) 
-			{
+			} else if (word.charAt(i) >= 1536 && word.charAt(i) <= 1791) {
 				sb.append(word.charAt(i));
-			}
-			else if (word.charAt(i) == 46)
-			{
-				sb.append(word.charAt(i));	//keeps periods
+			} else if (word.charAt(i) == 46) {
+				sb.append(word.charAt(i)); // keeps periods
 			}
 
 		}
 		return sb.toString();
 	}
-	
-	//calculates the number of sentences and the average sentence length
-	public void countSentences() 
-	{
-		//Counts a sentence at new lines and after punctuation
-		for(int i = 1; i < body.length(); i++) {
+
+	// calculates the number of sentences and the average sentence length
+	public void countSentences() {
+		// Counts a sentence at new lines and after punctuation
+		for (int i = 1; i < body.length(); i++) {
 			char c = body.charAt(i);
 			char p = body.charAt(i - 1);
-			if(isEndPunct(c) && !isEndPunct(p) || 
-				c == '\n' && p != '\n' && !isEndPunct(p) || 
-				i == body.length() - 1 && p != '\n' && !isEndPunct(p))
-					sentCount++;
+			if (isEndPunct(c) && !isEndPunct(p) || c == '\n' && p != '\n' && !isEndPunct(p)
+					|| i == body.length() - 1 && p != '\n' && !isEndPunct(p))
+				sentCount++;
 		}
-			
+
 		avgSentLen = (double) wordCount / (double) sentCount;
 	}
-	
+
 	public boolean isEndPunct(char c) {
-		if(c == '.' || c == '!' || c == '\u061f') 
+		if (c == '.' || c == '!' || c == '\u061f')
 			return true;
 		return false;
 	}
-	
+
 	public void createFrequencies() {
-		freqListMap = readFreqList();
+		freqListMap = readFreqList("freqList.txt");
 		for (Map.Entry<String, Integer> entry : lemmaFreqListMap.entrySet()) {
 			for (int i = 0; i < entry.getValue(); i++) {
 				if (freqListMap.get(entry.getKey()) != null)
 					frequencies.add(freqListMap.get(entry.getKey()));
 			}
 		}
-		
+
 		frequencies.sort(null);
 	}
-	
+
 	/**
-	 * helper for createFrequencies()
-	 * reads freqList in from file and returns it
+	 * helper for createFrequencies() reads freqList in from file and returns it
 	 */
-	public TreeMap<String, Integer> readFreqList() {
+	public TreeMap<String, Integer> readFreqList(String freqList) 
+	{
 		TreeMap<String, Integer> freqListMap = new TreeMap<>();
-		try {
-				ClassLoader classLoader = getClass().getClassLoader();
-				InputStream input = classLoader.getResourceAsStream("freqList.txt");
-			
-				BufferedReader reader = new BufferedReader(new InputStreamReader(input, "UTF8"));
-			
-				String str;
-				while((str = reader.readLine()) != null) {
-					String regex = ":::";
-					String[] data = str.split(regex);
-					freqListMap.put(data[0] + ":::" + data[1], Integer.parseInt(data[2]));
+		try 
+		{
+			ClassLoader classLoader = getClass().getClassLoader();
+			InputStream input = classLoader.getResourceAsStream(freqList);
+
+			BufferedReader reader = new BufferedReader(new InputStreamReader(input, "UTF8"));
+
+			String str;
+			while ((str = reader.readLine()) != null) 
+			{
+				String regex = ":::";
+				String[] data = str.split(regex);
+				freqListMap.put(data[0] + ":::" + data[1], Integer.parseInt(data[2]));
 			}
-			
+
 			reader.close();
-		}
-		catch(UnsupportedEncodingException e) {
+		} 
+		catch (UnsupportedEncodingException e) 
+		{
 			ServerLogger.get().error(e, "UNSUPPORTED ENCODING - READING DOCUMENT");
-		}
-		catch(FileNotFoundException e ) {
+			return new TreeMap<>();
+		} 
+		catch (FileNotFoundException e) 
+		{
 			ServerLogger.get().error(e, "FILE NOT FOUND - READING DOCUMENT");
+			return new TreeMap<>();
+		} 
+		catch (IOException e) 
+		{
+			ServerLogger.get().error(e, "");
+			return new TreeMap<>();
 		}
-		catch(IOException e) {
-			ServerLogger.get().error(e,"");
-		}
-		
+
 		return freqListMap;
 	}
-	
+
 	/**
-	 * Sorts the entries in the lemmaFreqListMap into a sorted List to find the 95th percentile,
-	 * Then finds that lemma's frequency in the freqList
+	 * Sorts the entries in the lemmaFreqListMap into a sorted List to find the 95th
+	 * percentile, Then finds that lemma's frequency in the freqList
 	 */
 	public void calcFreq95() {
 		int index95 = (int) (frequencies.size() * .95);
@@ -428,7 +409,7 @@ public class Processor {
 			freq95 = 0;
 		}
 	}
-	
+
 	// calculates the mean frequency
 	public void calcMean() {
 		int total = 0;
@@ -436,20 +417,19 @@ public class Processor {
 			total += frequency;
 		mean = (double) total / (double) frequencies.size();
 	}
-	
+
 	// calculates the median frequency
-	public void calcMedian( ) {
+	public void calcMedian() {
 		if (frequencies.size() % 2 == 0) {
 			int middleRight = frequencies.size() / 2;
 			int middleLeft = middleRight - 1;
 			median = (frequencies.get(middleRight) + frequencies.get(middleLeft)) / 2;
-		}
-		else {
+		} else {
 			int middle = frequencies.size() / 2;
 			median = Math.floor(frequencies.get(middle));
 		}
 	}
-	
+
 	public void calcAvgWordLen() {
 		int chars = 0;
 		for (int i = 0; i < body.length(); i++) {
@@ -458,24 +438,24 @@ public class Processor {
 		}
 		avgWordLen = (double) chars / (double) wordCount;
 	}
-	
-	//returns a string result of all the desired stats
+
+	// returns a string result of all the desired stats
 	public String getResult() {
 		StringBuilder sb = new StringBuilder();
 		if (wordCount > 0 && frequencies.size() > 0) {
-			//sb.append((double) wordCount);
-			//sb.append(",");
-			//sb.append((double) sentCount);
-			//sb.append(",");
+			// sb.append((double) wordCount);
+			// sb.append(",");
+			// sb.append((double) sentCount);
+			// sb.append(",");
 			sb.append(avgSentLen);
 			sb.append(",");
 			sb.append(avgWordLen);
 			sb.append(",");
-			sb.append(lexDiv); //type token ratio = sqrt it to get root type token ratio
+			sb.append(lexDiv); // type token ratio = sqrt it to get root type token ratio
 			sb.append(",");
-			sb.append(lemmaComplexity); //type token ratio = sqrt it to get root type token ratio
+			sb.append(lemmaComplexity); // type token ratio = sqrt it to get root type token ratio
 			sb.append(",");
-			sb.append(maxLemmaComplexity); //type token ratio = sqrt it to get root type token ratio
+			sb.append(maxLemmaComplexity); // type token ratio = sqrt it to get root type token ratio
 			sb.append(",");
 			sb.append(freq95);
 			sb.append(",");
@@ -491,7 +471,7 @@ public class Processor {
 			sb.append(",");
 			sb.append((double) POSList.get("prep") / (double) wordCount);
 			sb.append(",");
-			sb.append((double) POSList.get("part") / (double) wordCount); 
+			sb.append((double) POSList.get("part") / (double) wordCount);
 			sb.append(",");
 			sb.append((double) POSList.get("conj") / (double) wordCount);
 			sb.append(",");
@@ -499,30 +479,31 @@ public class Processor {
 			sb.append(",");
 			sb.append((double) POSList.get("adj") / (double) wordCount);
 			sb.append(",");
-//			sb.append((double) POSList.get("interj") / (double) wordCount);
-//			sb.append(",");
-//			sb.append((double) POSList.get("abbrev") / (double) wordCount);
-//			sb.append(",");
-			//which count, false idafa
-			//look at maximums of word length
-			//look at stuff like dialogue indicators to see if there's a lot of dialogue (might be indicitave of lower levels)
+			// sb.append((double) POSList.get("interj") / (double) wordCount);
+			// sb.append(",");
+			// sb.append((double) POSList.get("abbrev") / (double) wordCount);
+			// sb.append(",");
+			// which count, false idafa
+			// look at maximums of word length
+			// look at stuff like dialogue indicators to see if there's a lot of dialogue
+			// (might be indicitave of lower levels)
 		}
-		
-		//System.out.println(sb.toString());
+
+		// System.out.println(sb.toString());
 		return sb.toString();
 	}
 
-	public void clearFiles(){
+	public void clearFiles() {
 		File inputFile = new File(input);
 		File outputFile = new File(output);
-		if(inputFile.delete())
+		if (inputFile.delete())
 			ServerLogger.get().info(input + " deleted");
-		else	
+		else
 			ServerLogger.get().error(input + " not deleted ");
 
-		if(outputFile.delete())
+		if (outputFile.delete())
 			ServerLogger.get().info(output + " deleted");
-		else	
+		else
 			ServerLogger.get().error(output + " not deleted ");
 	}
 
@@ -560,5 +541,9 @@ public class Processor {
 
 	public void setLemmaFreqListMap(TreeMap<String, Integer> lemmaFreqListMap) {
 		this.lemmaFreqListMap = lemmaFreqListMap;
+	}
+
+	public int getSentCount() {
+		return sentCount;
 	}
 }
