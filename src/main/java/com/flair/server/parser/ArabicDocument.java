@@ -143,7 +143,7 @@ public class ArabicDocument implements AbstractDocument
 		else 
 			arabicReadabilityLevel = ArabicDocumentReadabilityLevel.LEVEL_4;
 		
-		ServerLogger.get().info("arabicReadabilityLevel = " + arabicReadabilityLevel.toString());
+		ServerLogger.get().info("arabicReadabilityLevel = " + arabicReadabilityLevel.toString() + " for readability score " + readabilityScore);
 
 		avgWordLength = avgSentenceLength = avgTreeDepth = fancyDocLength = 0;
 		keywordData = null;
