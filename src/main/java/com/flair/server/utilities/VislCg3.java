@@ -8,7 +8,9 @@ public class VislCg3 {
     //constants
     private static final String VISLCG3_EXE = "/cg3/bin/vislcg3.exe";
     private static final URL VISLCG3 = VislCg3.class.getClassLoader().getResource(VISLCG3_EXE);
-    private static final String DISAMBIGUATOR_CG3 = "disambiguator-ru.cg3";
+    //TODO: make this work WITHOUT an absolute path!
+    //private static final String DISAMBIGUATOR_CG3 = "disambiguator-ru.cg3";
+    private static final String DISAMBIGUATOR_CG3 = "C:\\Users\\Ryan\\Documents\\BYU_Winter_2019\\NLP\\flair\\src\\main\\resources\\cg3\\bin\\disambiguator-ru.cg3";
 
     //functions
 
