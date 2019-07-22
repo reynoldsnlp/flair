@@ -25,6 +25,7 @@ class CgTokenizer {
             this.value = value;
             this.lineNumber = lineNumber;
         }
+
         //functions
         int length() {
             return value.length();
@@ -50,6 +51,7 @@ class CgTokenizer {
                     value.substring(0, 1).equals("\"") &&
                     value.substring(len-1, len).equals("\""));
         }
+        
         //generated
         @Override
         public String toString() {
