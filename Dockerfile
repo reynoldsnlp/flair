@@ -14,6 +14,6 @@ CMD ["catalina.sh", "run"]
 # to run on user defined network
 # docker run -it --rm -p 8080:8080 -e BING_API=$BING_API --network flair-net --name flair-2.0image flair-2.0image
 # to build
-# docker build -t flair-2.0image .
+# docker build --network flair-net -t flair-2.0image .
 # to create network
 # docker network create flair-net
