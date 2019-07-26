@@ -60,6 +60,8 @@ public class Processor {
 		validConstructions[7] = "part";
 		validConstructions[8] = "interj";
 		validConstructions[9] = "abbrev";
+
+		exceptionCaught = false;
 	}
 
 	private Document madaOutput;
@@ -84,6 +86,7 @@ public class Processor {
 	private double median;
 	private double avgWordLen;
 	private int taskSalt;
+	private boolean exceptionCaught;
 
 	private String madamiraTop = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n"
 			+ "<madamira_input xmlns=\"urn:edu.columbia.ccls.madamira.configuration:0.1\">\r\n"
@@ -360,37 +363,44 @@ public class Processor {
 	 */
 	public TreeMap<String, Integer> readFreqList(String freqList) 
 	{
+		exceptionCaught = false;
 		TreeMap<String, Integer> freqListMap = new TreeMap<>();
+		String charSet = "UTF8";
 		try 
 		{
 			ClassLoader classLoader = getClass().getClassLoader();
 			InputStream input = classLoader.getResourceAsStream(freqList);
-
-			BufferedReader reader = new BufferedReader(new InputStreamReader(input, "UTF8"));
+			
+			BufferedReader reader = new BufferedReader(new InputStreamReader(input, charSet));
 
 			String str;
 			while ((str = reader.readLine()) != null) 
 			{
 				String regex = ":::";
 				String[] data = str.split(regex);
-				freqListMap.put(data[0] + ":::" + data[1], Integer.parseInt(data[2]));
+				if(data.length > 2)
+					freqListMap.put(data[0] + ":::" + data[1], Integer.parseInt(data[2]));
 			}
 
 			reader.close();
 		} 
 		catch (UnsupportedEncodingException e) 
 		{
-			ServerLogger.get().error(e, "UNSUPPORTED ENCODING - READING DOCUMENT");
+			//We will only get here if we specify an unsupported encoding to the InpusStreamReader
+			ServerLogger.get().error(e, "Unsupported encoding : " + charSet + " while reading " + freqList);
+			exceptionCaught = true;
 			return new TreeMap<>();
 		} 
-		catch (FileNotFoundException e) 
+		catch (NullPointerException e) 
 		{
-			ServerLogger.get().error(e, "FILE NOT FOUND - READING DOCUMENT");
+			ServerLogger.get().error(e, "File : " + freqList + " does not exist");
+			exceptionCaught = true;
 			return new TreeMap<>();
 		} 
 		catch (IOException e) 
 		{
 			ServerLogger.get().error(e, "");
+			exceptionCaught = true;
 			return new TreeMap<>();
 		}
 
@@ -545,5 +555,13 @@ public class Processor {
 
 	public int getSentCount() {
 		return sentCount;
+	}
+
+	public boolean isExceptionCaught() {
+		return exceptionCaught;
+	}
+
+	public void setExceptionCaught(boolean exceptionCaught) {
+		this.exceptionCaught = exceptionCaught;
 	}
 }

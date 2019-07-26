@@ -14,7 +14,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import com.flair.server.utilities.CustomFileReader;
-
 import type.UnitTest;
 
 @Category(UnitTest.class)
@@ -279,8 +278,25 @@ public class ProcessorUnitTest
     @Test 
     public void testEmptyReadFreqList()
     {
-        //aAssert.assertEquals(normalProcessor.readFreqList("").size(), 0);
+        Assert.assertEquals(normalProcessor.readFreqList("").size(), 0);
     }
+    @Test
+    public void testBadFormatReadFreqList()
+    {
+        Assert.assertEquals(normalProcessor.readFreqList("badFreqList.txt").size(), 0);
+    }
+    @Test
+    public void testBadFileNameReadFreqList()
+    {
+        Assert.assertEquals(normalProcessor.readFreqList("This is not a real file name").size(), 0);
+        Assert.assertTrue(normalProcessor.isExceptionCaught());
+    }
+    @Test
+    public void testIOExceptionReadFreqList() 
+    {
+        Assert.assertEquals(normalProcessor.readFreqList("/").size(), 0);
+        Assert.assertTrue(normalProcessor.isExceptionCaught());
+    } 
 
 
 
