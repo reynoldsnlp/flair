@@ -446,7 +446,10 @@ public class Processor {
 			if (!Character.isWhitespace(body.charAt(i)))
 				chars++;
 		}
-		avgWordLen = (double) chars / (double) wordCount;
+		if(wordCount > 0)
+			avgWordLen = (double) chars / (double) wordCount;
+		else 
+			avgWordLen = 0;
 	}
 
 	// returns a string result of all the desired stats
@@ -503,65 +506,127 @@ public class Processor {
 		return sb.toString();
 	}
 
-	public void clearFiles() {
-		File inputFile = new File(input);
-		File outputFile = new File(output);
-		if (inputFile.delete())
-			ServerLogger.get().info(input + " deleted");
-		else
-			ServerLogger.get().error(input + " not deleted ");
-
-		if (outputFile.delete())
-			ServerLogger.get().info(output + " deleted");
-		else
-			ServerLogger.get().error(output + " not deleted ");
-	}
-
-	public ArrayList<Integer> getFrequencies() {
+	public ArrayList<Integer> getFrequencies() 
+	{
 		return frequencies;
 	}
 
-	public int getWordCount() {
+	public void setFrequencies(ArrayList<Integer> frequencies)
+	{
+		this.frequencies = frequencies;
+	}
+	public void setWordCount(int wordCount) 
+	{
+		this.wordCount = wordCount;
+	}
+	public int getWordCount() 
+	{
 		return wordCount;
 	}
 
-	public Document getMadaOutput() {
+	public Document getMadaOutput() 
+	{
 		return madaOutput;
 	}
 
-	public void setMadaOutput(Document madaOutput) {
+	public void setMadaOutput(Document madaOutput) 
+	{
 		this.madaOutput = madaOutput;
 	}
 
-	public int getTokenCount() {
+	public int getTokenCount() 
+	{
 		return tokenCount;
 	}
 
-	public TreeMap<String, Integer> getPOSList() {
+	public TreeMap<String, Integer> getPOSList() 
+	{
 		return POSList;
 	}
 
-	public void setPOSList(TreeMap<String, Integer> pOSList) {
+	public void setPOSList(TreeMap<String, Integer> pOSList) 
+	{
 		POSList = pOSList;
 	}
 
-	public TreeMap<String, Integer> getLemmaFreqListMap() {
+	public TreeMap<String, Integer> getLemmaFreqListMap() 
+	{
 		return lemmaFreqListMap;
 	}
 
-	public void setLemmaFreqListMap(TreeMap<String, Integer> lemmaFreqListMap) {
+	public void setLemmaFreqListMap(TreeMap<String, Integer> lemmaFreqListMap) 
+	{
 		this.lemmaFreqListMap = lemmaFreqListMap;
 	}
 
-	public int getSentCount() {
+	public int getSentCount() 
+	{
 		return sentCount;
 	}
 
-	public boolean isExceptionCaught() {
+	public boolean isExceptionCaught() 
+	{
 		return exceptionCaught;
 	}
 
-	public void setExceptionCaught(boolean exceptionCaught) {
+	public void setExceptionCaught(boolean exceptionCaught) 
+	{
 		this.exceptionCaught = exceptionCaught;
+	}
+
+	public int getFreq95() 
+	{
+		return freq95;
+	}
+
+	public void setFreq95(int freq95) 
+	{
+		this.freq95 = freq95;
+	}
+
+	public double getMean() 
+	{
+		return mean;
+	}
+
+	public void setMean(double mean) 
+	{
+		this.mean = mean;
+	}
+
+	public double getMedian() 
+	{
+		return median;
+	}
+
+	public void setMedian(double median) 
+	{
+		this.median = median;
+	}
+
+	public double getAvgWordLen() 
+	{
+		return avgWordLen;
+	}
+
+	public void setAvgWordLen(double avgWordLen) 
+	{
+		this.avgWordLen = avgWordLen;
+	}
+
+	public double getAvgSentLen() {
+		return avgSentLen;
+	}
+
+	public void setAvgSentLen(double avgSentLen) {
+		this.avgSentLen = avgSentLen;
+	}
+
+	public double getLexDiv() {
+		return lexDiv;
+	}
+
+	public void setLexDiv(double lexDiv) {
+		this.lexDiv = lexDiv;
 	}
 }
