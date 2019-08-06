@@ -1,34 +1,40 @@
 package com.flair.server.raft;
 
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.io.Serializable;
 import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
-import java.io.Writer;
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileReader;
 import weka.core.Instances;
-import weka.classifiers.Evaluation;
-import java.util.Random;
 import weka.classifiers.trees.RandomForest;
 
 import com.flair.server.utilities.ServerLogger;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.lang.NullPointerException;
 
 public class Weka implements Serializable {
 
-	public static String GetArffHeader() {
-		String arffHeader = "@relation arabicReadingDifficulty\r\n" + 
+	private static final long serialVersionUID = 1L;
+	private String inputFileName;
+	private String trainingDataFileName;
+	private int score;
+	private RandomForest rf;
+	private Instances trainData;
+	private static String arffHeader;
+	
+	public Weka(String trainingDataFileName) {
+		this.trainingDataFileName = trainingDataFileName;
+		score = 0;
+		constructArffHeader();
+	}
+
+	private void constructArffHeader()
+	{
+		arffHeader = "@relation arabicReadingDifficulty\r\n" + 
 				"\r\n" + 
 				"@attribute sentence_length NUMERIC\r\n" + 
 				"@attribute word_length NUMERIC\r\n" + 
@@ -49,106 +55,73 @@ public class Weka implements Serializable {
 				"@attribute difficulty {1.0, 2.0, 3.0, 4.0}\r\n" + 
 				"\r\n" + 
 				"@data \r\n";
+	}
+
+	public static String getArffHeader() 
+	{
 		return arffHeader;
 	}
-	
-	public Weka(String trainingDataFileName) {
-		this.trainingDataFileName = trainingDataFileName;
-		Random r = new Random();
-		taskSalt = r.nextInt(10000000);		//gives a random number to salt our file names with
-		inputFileName = "/tmp/unlabeled" + taskSalt + ".arff";
-	}
-	
-	private int taskSalt;
-	String featureData;
-	String inputFileName;
-	String trainingDataFileName;
-	int score = 0;
-	RandomForest rf;
-	Instances trainData;
-
-	public void setRandomForest(RandomForest rf) {
+	public void setRandomForest(RandomForest rf) 
+	{
 		this.rf = rf;
 	}
-	public RandomForest getRandomForest() {
+	public RandomForest getRandomForest() 
+	{
 		return this.rf;
 	}
-	public int getSalt(){
-		return taskSalt;
-	}
 
-	public void setSalt(int salt){
-		taskSalt = salt;
-	}
+	public int ScoreFeatures(String featureData) 
+	{
+		try
+		{
+			//import the data to predict, this can include multiple sets of data
+			ServerLogger.get().info("inputFileName: " + inputFileName);
+			Instances unlabeled = new Instances(new BufferedReader(new StringReader(getArffHeader() + featureData)));
+			unlabeled.setClassIndex(unlabeled.numAttributes() - 1);
+			Instances labeled = new Instances(unlabeled);
+			ServerLogger.get().info(unlabeled.instance(0).toString());
 
-	public void resetInputFileName(){
-		inputFileName = "/tmp/unlabeled" + taskSalt + ".arff";
-	}
-	
-	public int ScoreFeatures(String featureData) throws IOException, FileNotFoundException, ClassNotFoundException, UnsupportedEncodingException, InterruptedException, Exception {
-		this.featureData = featureData;
-    
-        //import the data to predict, this can include multiple sets of data
-		ServerLogger.get().info("inputFileName: " + inputFileName);
-		Instances unlabeled = new Instances(new BufferedReader(new StringReader(GetArffHeader() + featureData)));
-        unlabeled.setClassIndex(unlabeled.numAttributes() - 1);
-        Instances labeled = new Instances(unlabeled);
-        ServerLogger.get().info(unlabeled.instance(0).toString());
-        
-        double prediction = rf.classifyInstance(unlabeled.instance(0));		//this is where we use our random forest model
-		ServerLogger.get().info("Prediction from RF model:" + prediction);
-    	labeled.instance(0).setClassValue(prediction);
-        //figure out which index we're trying to predict (the last one for us)
-        
-		this.score = ((int) prediction + 1);
-		ServerLogger.get().info("Actual score from weka is " + this.score);
+			double prediction = rf.classifyInstance(unlabeled.instance(0));		//this is where we use our random forest model
+			ServerLogger.get().info("Prediction from RF model:" + prediction);
+			labeled.instance(0).setClassValue(prediction);
+			//figure out which index we're trying to predict (the last one for us)
+
+ 			this.score = ((int) prediction + 1);
+			ServerLogger.get().info("Actual score from weka is " + this.score);
+		}
+		catch(IOException e)
+		{
+			ServerLogger.get().error(e, "In Weka.java, caught IOException " + e.getMessage());
+		}
+		catch(Exception e)
+		{
+			ServerLogger.get().error(e, "In Weka.java, caught Exception " + e.getMessage());
+		}
 		return this.score;
 	}
 	
-	public void TestModel() {
-        Evaluation evaluation;
-		try {
-			evaluation = new Evaluation(trainData);
-	        int numFolds = 10;
-	        evaluation.crossValidateModel(rf, trainData, numFolds, new Random(1));
-	          
-	         
-	        System.out.println(evaluation.toSummaryString("\nResults\n======\n", true));
-	        System.out.println(evaluation.toClassDetailsString());
-	        System.out.println("Results For Class -1- ");
-	        System.out.println("Precision=  " + evaluation.precision(0));
-	        System.out.println("Recall=  " + evaluation.recall(0));
-	        System.out.println("F-measure=  " + evaluation.fMeasure(0));
-	        System.out.println("Results For Class -2- ");
-	        System.out.println("Precision=  " + evaluation.precision(1));
-	        System.out.println("Recall=  " + evaluation.recall(1));
-	        System.out.println("F-measure=  " + evaluation.fMeasure(1));
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			System.out.println("ERROR CROSS VALIDATING");
-		}
-	}
-	
-	public RandomForest buildRandomForestModel()  throws IOException, FileNotFoundException, ClassNotFoundException, UnsupportedEncodingException, InterruptedException, Exception {
+	public RandomForest buildRandomForestModel()  throws IOException, FileNotFoundException, ClassNotFoundException, UnsupportedEncodingException, InterruptedException, Exception 
+	{
 		String path = this.getClass().getClassLoader().getResource("").getPath();
 		InputStream input;	
 		BufferedReader reader;
-
-
 		
-		try{
+		try
+		{
 			ServerLogger.get().info("training data file name " + this.trainingDataFileName);
 			input = new FileInputStream(new File(path + trainingDataFileName));
 			reader = new BufferedReader(new InputStreamReader(input, "UTF8"));
 		}
-		catch(NullPointerException ex){
+		catch(NullPointerException ex)
+		{
 			ServerLogger.get().error("Caught NullPointerException");
 			ServerLogger.get().error(ex, ex.getMessage());
 			RandomForest rf = new RandomForest();
         	rf.setNumTrees(100);
 			return rf;
 		}
-		catch(Exception ex){
+		catch(Exception ex)
+		{
 			ServerLogger.get().error("Caught Exception");
 			ServerLogger.get().error(ex, ex.getMessage());
 			RandomForest rf = new RandomForest();
@@ -171,66 +144,22 @@ public class Weka implements Serializable {
 		
 	}
 	
-	private void writeInputFile() throws IOException {
-
-		ServerLogger.get().info("Writing " + inputFileName);
-		String wekaTop = GetArffHeader();
-		File fWekaInput = new File(inputFileName);
-		Writer writer = new BufferedWriter(new OutputStreamWriter
-				(new FileOutputStream(fWekaInput)));
-		ServerLogger.get().info("featureData for arff: " + featureData);
-		writer.write(wekaTop + featureData);
-		writer.close();
-	}	
-	// convert InputStream to String
-	private  String getStringFromInputStream(InputStream is) {	
-
-		BufferedReader br = null;
-		StringBuilder sb = new StringBuilder();
-
-		String line;
-		try {
-
-			br = new BufferedReader(new InputStreamReader(is));
-			while ((line = br.readLine()) != null) {
-				sb.append(line);
-			}
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			if (br != null) {
-				try {
-					br.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-
-		return sb.toString();
-
-	}
-
-	public void clearFiles() {
-		File arffFile = new File(inputFileName);
-		if(arffFile.delete())
-			ServerLogger.get().info(inputFileName + " deleted");
-		else	
-			ServerLogger.get().error(inputFileName + " not deleted ");
-
-	}
-
-	public RandomForest loadRandomForest(String model) {
-		try {
+	public RandomForest loadRandomForest(String model) 
+	{
+		try 
+		{
 			String pathToResources = this.getClass().getClassLoader().getResource("").getPath();
 			rf = (RandomForest) weka.core.SerializationHelper.read(pathToResources + model);
-			ServerLogger.get().info(" weka instance " + taskSalt  + " Successfully read model");
-		} catch (Exception ex) {
+		} 
+		catch (Exception ex) 
+		{
 			ServerLogger.get().error(ex.getMessage() + " Failed to load random forest model, building random forest model");
-			try { 
+			try 
+			{ 
 				rf = buildRandomForestModel();
-			} catch (Exception e) {
+			} 
+			catch (Exception e) 
+			{
 				ServerLogger.get().error(e.getMessage() + "buildRandomForestModel() failed");
 			}
 		}
