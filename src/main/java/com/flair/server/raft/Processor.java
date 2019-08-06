@@ -149,12 +149,10 @@ public class Processor {
 			inputBuilder.append("\n\n" + madamiraBottom);
 			inputStream = new ByteArrayInputStream(inputBuilder.toString().getBytes(StandardCharsets.UTF_8));
 			String outputString;
-			outputString = Madamira.lemmatize(8223, "http://mada_image:", inputStream, output); // now this file returns
-																								// a string
+			outputString = Madamira.lemmatize(8223, "http://mada_image:", inputStream);
 			if (outputString == null) {
 				ServerLogger.get().error("failed to connect to mada_image, now trying to connect on localhost");
-				outputString = Madamira.lemmatize(8223, "http://localhost:", inputStream, output); // now this file
-																									// returns a string
+				outputString = Madamira.lemmatize(8223, "http://localhost:", inputStream);
 			}
 			if (outputString == null) {
 				ServerLogger.get().error("failed to connect to localhost, make sure that madamira server is running");
