@@ -152,6 +152,12 @@
 			<artifactId>weka-stable</artifactId>
 			<version>3.6.10</version>
 		</dependency>
+		<dependency>
+    		<groupId>com.sun.net.httpserver</groupId>
+   			<artifactId>http</artifactId>
+    		<version>20070405</version>
+    		<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -249,6 +255,7 @@
          			<!--<threadCount>2</threadCount>-->
 					<!--comment line below to include integration tests-->
 					<excludedGroups>type.IntegrationTest</excludedGroups>
+					
     			</configuration>
         	</plugin>
 		</plugins>
