@@ -123,7 +123,8 @@ public class Processor {
 
 	private String madamiraBottom = "</in_doc>\r\n" + "</madamira_input>";
 
-	public int getSalt() {
+	public int getSalt() 
+	{
 		return taskSalt;
 	}
 
@@ -132,8 +133,10 @@ public class Processor {
 	 * madamiraInput, sends it off to be lemmatized and saves output to
 	 * madamiraOutput.
 	 */
-	public void lemmatizeText() {
-		if (body != null) {
+	public void lemmatizeText()
+	{
+		if (body != null) 
+		{
 			input = "/tmp/mada_input" + taskSalt + ".txt";
 			output = "/tmp/mada_output" + taskSalt + ".txt";
 			InputStream inputStream;
@@ -141,7 +144,8 @@ public class Processor {
 			inputBuilder.append(madamiraTop + "\n\n");
 			String[] bodyStrings = body.split("\n");
 			int segCount = 0;
-			for (String s : bodyStrings) {
+			for (String s : bodyStrings) 
+			{
 				inputBuilder.append(
 						"<in_seg id=\"BODY_" + Integer.toString(segCount) + "\">" + makeArabicOnly(s) + "</in_seg>\n");
 				segCount++;
@@ -150,18 +154,26 @@ public class Processor {
 			inputStream = new ByteArrayInputStream(inputBuilder.toString().getBytes(StandardCharsets.UTF_8));
 			String outputString;
 			outputString = Madamira.lemmatize(8223, "http://mada_image:", inputStream);
-			if (outputString == null) {
+			if (outputString == null) 
+			{
 				ServerLogger.get().error("failed to connect to mada_image, now trying to connect on localhost");
 				outputString = Madamira.lemmatize(8223, "http://localhost:", inputStream);
 			}
-			if (outputString == null) {
+			
+			//checks if localhost result is null as well, if so a blank document is created
+			if (outputString == null) 
+			{
 				ServerLogger.get().error("failed to connect to localhost, make sure that madamira server is running");
 				madaOutput = new Document(""); // creates a new empty document
-			} else {
+			} 
+			else 
+			{
 				// ServerLogger.get().info("outputString : \n" + outputString);
 				madaOutput = Jsoup.parse(outputString);
-			}
-		} else {
+			}		
+		} 
+		else 
+		{
 			ServerLogger.get().error("Body is null, creating new empy document");
 			madaOutput = new Document(""); // creates a new empty document
 		}
@@ -172,8 +184,10 @@ public class Processor {
 	 * and then assembles TreeMap lemmas and TreeMap lemmaFreqListMap. Calculates
 	 * wordCount and lexDiv.
 	 */
-	public void createLemmaList() {
-		if (madaOutput == null) {
+	public void createLemmaList() 
+	{
+		if (madaOutput == null) 
+		{
 			ServerLogger.get().error("madaOutput is null");
 			return;
 		}
@@ -182,37 +196,45 @@ public class Processor {
 		int tCount = 0; // token count
 		maxLemmaComplexity = 0;
 		boolean includeTokens;
-		for (Element word : words) {
+		for (Element word : words) 
+		{
 			includeTokens = false; // default to false, then include this batch of tokens if the corresponding
 									// lemma will also be included
 			String l = new String(); // lemma (value)
 			Elements analysis = word.getElementsByTag("analysis");
-			for (Element item : analysis) {
+			for (Element item : analysis) 
+			{
 				Elements morphs = item.getElementsByAttribute("lemma");
-				for (Element morph : morphs) {
+				for (Element morph : morphs) 
+				{
 					Attributes morphAttributes = morph.attributes();
 					String pos = morphAttributes.get("pos");
 					l = morphAttributes.get("lemma");
 					// l = makeArabicOnly(morphAttributes.get("lemma"));
 					// l = normalize(l);
-					if (!pos.equals("punc") && !pos.equals("latin") && !pos.equals("digit")) {
+					if (!pos.equals("punc") && !pos.equals("latin") && !pos.equals("digit")) 
+					{
 						includeTokens = true;
 						wCount++;
 						addToPOSMap(pos);
 						// proper nouns appear to be messing up frequency data for easier texts
-						if (!pos.equals("noun_prop")) {
+						if (!pos.equals("noun_prop")) 
+						{
 							addToLemmaFreqListMap(l + ":::" + pos);
 						}
 					}
 				}
 			}
 			// if we included the lemma, count the number of tokens which make up the lemma
-			if (includeTokens == true) {
+			if (includeTokens == true) 
+			{
 				Elements tokenized = word.getElementsByTag("tokenized");
-				for (Element tokenList : tokenized) {
+				for (Element tokenList : tokenized) 
+				{
 					Elements tokens = tokenList.getElementsByAttribute("tok");
 					// set the highest number of tokens in a lemma
-					if (tokens.size() > maxLemmaComplexity) {
+					if (tokens.size() > maxLemmaComplexity) 
+					{
 						maxLemmaComplexity = tokens.size();
 					}
 					tCount += tokens.size();
@@ -225,7 +247,8 @@ public class Processor {
 		lemmaComplexity = (double) tokenCount / (double) wordCount;
 	}
 
-	public void createPOSMap() {
+	public void createPOSMap() 
+	{
 		TreeMap<String, Integer> map = new TreeMap<>();
 		map.put("noun", 0);
 		map.put("noun_num", 0);
@@ -263,11 +286,13 @@ public class Processor {
 		POSList = map;
 	}
 
-	public void addToPOSMap(String key) {
+	public void addToPOSMap(String key) 
+	{
 		if (key == null)
 			return;
 
-		if (POSList == null) {
+		if (POSList == null) 
+		{
 			createPOSMap();
 			addToPOSMap(key);
 			return;
@@ -275,8 +300,10 @@ public class Processor {
 		int count = 0;
 		int len = validConstructions.length;
 		boolean valueAdded = false;
-		while (count < len && valueAdded == false) {
-			if (validConstructions[count].equals(key)) {
+		while (count < len && valueAdded == false) 
+		{
+			if (validConstructions[count].equals(key)) 
+			{
 				addKey(key);
 				valueAdded = true;
 			}
@@ -284,18 +311,21 @@ public class Processor {
 		}
 	}
 
-	public void addKey(String key) {
+	public void addKey(String key) 
+	{
 		if (POSList == null || key == null)
 			return;
 
-		if (!POSList.containsKey(key)) {
+		if (!POSList.containsKey(key)) 
+		{
 			POSList.put(key, 0);
 		}
 		POSList.put(key, POSList.get(key) + 1);
 	}
 
 	// Used to create running totals in FreqListMap
-	public void addToLemmaFreqListMap(String key) {
+	public void addToLemmaFreqListMap(String key) 
+	{
 		if (key == null)
 			return;
 
@@ -306,17 +336,23 @@ public class Processor {
 	}
 
 	// extracts only the arabic text from the "lemma" given by Madamira
-	public String makeArabicOnly(String word) {
+	public String makeArabicOnly(String word) 
+	{
 		if (word == null)
 			return "";
 
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < word.length(); i++) {
-			if (word.charAt(i) == ' ') {
+			if (word.charAt(i) == ' ') 
+			{
 				sb.append(' ');
-			} else if (word.charAt(i) >= 1536 && word.charAt(i) <= 1791) {
+			} 
+			else if (word.charAt(i) >= 1536 && word.charAt(i) <= 1791) 
+			{
 				sb.append(word.charAt(i));
-			} else if (word.charAt(i) == 46) {
+			} 
+			else if (word.charAt(i) == 46) 
+			{
 				sb.append(word.charAt(i)); // keeps periods
 			}
 
@@ -325,9 +361,11 @@ public class Processor {
 	}
 
 	// calculates the number of sentences and the average sentence length
-	public void countSentences() {
+	public void countSentences() 
+	{
 		// Counts a sentence at new lines and after punctuation
-		for (int i = 1; i < body.length(); i++) {
+		for (int i = 1; i < body.length(); i++) 
+		{
 			char c = body.charAt(i);
 			char p = body.charAt(i - 1);
 			if (isEndPunct(c) && !isEndPunct(p) || c == '\n' && p != '\n' && !isEndPunct(p)
@@ -338,13 +376,15 @@ public class Processor {
 		avgSentLen = (double) wordCount / (double) sentCount;
 	}
 
-	public boolean isEndPunct(char c) {
+	public boolean isEndPunct(char c) 
+	{
 		if (c == '.' || c == '!' || c == '\u061f')
 			return true;
 		return false;
 	}
 
-	public void createFrequencies() {
+	public void createFrequencies() 
+	{
 		freqListMap = readFreqList("freqList.txt");
 		for (Map.Entry<String, Integer> entry : lemmaFreqListMap.entrySet()) {
 			for (int i = 0; i < entry.getValue(); i++) {
@@ -409,17 +449,22 @@ public class Processor {
 	 * Sorts the entries in the lemmaFreqListMap into a sorted List to find the 95th
 	 * percentile, Then finds that lemma's frequency in the freqList
 	 */
-	public void calcFreq95() {
+	public void calcFreq95() 
+	{
 		int index95 = (int) (frequencies.size() * .95);
-		if (index95 > 0) {
+		if (index95 > 0) 
+		{
 			freq95 = frequencies.get(index95);
-		} else {
+		} 
+		else 
+		{
 			freq95 = 0;
 		}
 	}
 
 	// calculates the mean frequency
-	public void calcMean() {
+	public void calcMean() 
+	{
 		int total = 0;
 		for (int frequency : frequencies)
 			total += frequency;
@@ -427,18 +472,23 @@ public class Processor {
 	}
 
 	// calculates the median frequency
-	public void calcMedian() {
-		if (frequencies.size() % 2 == 0) {
+	public void calcMedian() 
+	{
+		if (frequencies.size() % 2 == 0) 
+		{
 			int middleRight = frequencies.size() / 2;
 			int middleLeft = middleRight - 1;
 			median = (frequencies.get(middleRight) + frequencies.get(middleLeft)) / 2;
-		} else {
+		} 
+		else 
+		{
 			int middle = frequencies.size() / 2;
 			median = Math.floor(frequencies.get(middle));
 		}
 	}
 
-	public void calcAvgWordLen() {
+	public void calcAvgWordLen() 
+	{
 		int chars = 0;
 		for (int i = 0; i < body.length(); i++) {
 			if (!Character.isWhitespace(body.charAt(i)))
@@ -451,9 +501,11 @@ public class Processor {
 	}
 
 	// returns a string result of all the desired stats
-	public String getResult() {
+	public String getResult()
+	{
 		StringBuilder sb = new StringBuilder();
-		if (wordCount > 0 && frequencies.size() > 0) {
+		if (wordCount > 0 && frequencies.size() > 0) 
+		{
 			// sb.append((double) wordCount);
 			// sb.append(",");
 			// sb.append((double) sentCount);
