@@ -34,9 +34,7 @@ public class DocumentConstructionData extends AbstractConstructionData
 	public DocumentConstructionData(GrammaticalConstruction type, AbstractDocument parent)
 	{
 		super(type);
-
-		ServerLogger.get().info("DocumentConstructionData(GrammaticalConstruction type, AbstractDocument parent)");
-
+		
 		assert parent != null;
 		parentDocument = parent;
 		occurrences = new ArrayList<>();
@@ -107,7 +105,6 @@ class DocumentConstructionDataFactory extends AbstractConstructionDataFactory
 
 	@Override
 	public AbstractConstructionData create(GrammaticalConstruction type) {
-		ServerLogger.get().info("DocumentConstructionData.DocumentConstructionDataFactory create");
 		if(arabicParent == null)
 			return new DocumentConstructionData(type, parent);
 		else 
