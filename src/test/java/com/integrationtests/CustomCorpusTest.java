@@ -1,4 +1,4 @@
-package com.flair.server.integrationtests;
+package com.integrationtests;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

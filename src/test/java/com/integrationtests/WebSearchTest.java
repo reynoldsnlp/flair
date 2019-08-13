@@ -1,4 +1,4 @@
-package com.flair.server.integrationtests;
+package com.integrationtests;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;

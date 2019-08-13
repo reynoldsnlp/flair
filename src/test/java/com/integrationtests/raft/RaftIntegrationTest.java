@@ -1,4 +1,4 @@
-package com.flair.server.integrationtests.raft;
+package com.integrationtests.raft;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -28,6 +28,46 @@ public class RaftIntegrationTest
     private String sourceName;
     private CustomFileReader fileReader;
 
+    private void testDocument(Raft raft, String documentText, int testScore)
+    {
+        try
+        {
+            int documentScore = raft.ScoreText(documentText);
+            System.out.println("text score == " + documentScore);
+            System.out.flush();
+            assertTrue("Make sure that MADAMIRA server is running", documentScore == testScore);
+        }
+        catch(FileNotFoundException e)
+        {
+            System.out.println("Caught FileNotFoundException on " + e.getMessage() + " for level " + testScore + " test");
+            Assert.fail(e);
+        }
+        catch(UnsupportedEncodingException e)
+        {
+            System.out.println("Caught UnsupportedEncodingException on " + e.getMessage() + " for level " + testScore + " test");
+            Assert.fail(e);
+        }
+        catch(IOException e)
+        {
+            System.out.println("Caught IOException on " + e.getMessage() + " for level " + testScore + " test");
+            Assert.fail(e);
+        }
+        catch(ClassNotFoundException e)
+        {
+            System.out.println("Caught ClassNotFoundException on " + e.getMessage() + " for level " + testScore + " test");
+            Assert.fail(e);
+        }
+        catch(InterruptedException e)
+        {
+            System.out.println("Caught InterruptedException on " + e.getMessage() + " for level " + testScore + " test");
+            Assert.fail(e);
+        }
+        catch(Exception e)
+        {
+            System.out.println("Caught Exception on " + e.getMessage() + " for level " + testScore + " test");
+            Assert.fail(e);
+        }
+    }
     @Before
     public void setUp() 
     {
@@ -86,5 +126,20 @@ public class RaftIntegrationTest
         System.out.println("text score == " + score);
         System.out.flush();
         assertTrue("Make sure that MADAMIRA server is running", score > 0);
+    }
+    //@Test
+    public void testLevel1Text() 
+    {
+        sourceName = "testFiles/arabicLevel1.txt";
+        try
+        { 
+            textSource = fileReader.readFileToString(path, sourceName);
+        }
+        catch(IOException ex) 
+        {
+            System.out.println("Caught IOException on " + ex.getMessage() + ", setting a default arabic text");
+            textSource = "";
+        }
+        testDocument(raft, textSource, 1);
     }
 }

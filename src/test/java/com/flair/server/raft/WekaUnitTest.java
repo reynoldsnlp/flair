@@ -1,4 +1,4 @@
-package com.flair.server.unittests.raft;
+package com.flair.server.raft;
 
 import java.io.BufferedReader;
 import java.io.File;

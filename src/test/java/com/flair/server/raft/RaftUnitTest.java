@@ -1,4 +1,4 @@
-package com.flair.server.unittests.raft;
+package com.flair.server.raft;
 
 import org.junit.Assert;
 import org.junit.Before;

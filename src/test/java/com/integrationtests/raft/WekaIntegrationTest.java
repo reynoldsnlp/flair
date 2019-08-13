@@ -1,4 +1,4 @@
-package com.flair.server.integrationtests.raft;
+package com.integrationtests.raft;
 
 import com.flair.server.raft.Weka;
 
