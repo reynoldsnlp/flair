@@ -24,7 +24,9 @@ class ConstructionDataCollection
 		dataStore = new EnumMap<>(GrammaticalConstruction.class);
 
 		for (GrammaticalConstruction itr : GrammaticalConstruction.getForLanguage(lang))
+		{
 			dataStore.put(itr, prototypeFactory.create(itr));
+		}
 	}
 
 	public AbstractConstructionData getData(GrammaticalConstruction type) {
