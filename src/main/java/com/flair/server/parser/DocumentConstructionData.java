@@ -35,6 +35,8 @@ public class DocumentConstructionData extends AbstractConstructionData
 	{
 		super(type);
 
+		ServerLogger.get().info("DocumentConstructionData(GrammaticalConstruction type, AbstractDocument parent)");
+
 		assert parent != null;
 		parentDocument = parent;
 		occurrences = new ArrayList<>();
@@ -87,7 +89,7 @@ public class DocumentConstructionData extends AbstractConstructionData
 }
 
 /**
- * Now this factory creates both arabic and regualr documents
+ * Now this factory creates both arabic and regular documents
  */
 class DocumentConstructionDataFactory extends AbstractConstructionDataFactory
 {
@@ -105,6 +107,7 @@ class DocumentConstructionDataFactory extends AbstractConstructionDataFactory
 
 	@Override
 	public AbstractConstructionData create(GrammaticalConstruction type) {
+		ServerLogger.get().info("DocumentConstructionData.DocumentConstructionDataFactory create");
 		if(arabicParent == null)
 			return new DocumentConstructionData(type, parent);
 		else 
