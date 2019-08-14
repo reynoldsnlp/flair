@@ -29,31 +29,26 @@ public class ArabicDocumentTest
     private ArabicDocumentReadabilityLevel arabicReadabilityLevel;
     private ConstructionDataCollection constructionData;
     private SimpleDocumentSource source; 
-    @Mock
     private SimpleDocumentSource defaultConstructorSource; 
+    private SimpleDocumentSource emptySource;
+    private SimpleDocumentSource notArabicSource;
     @Mock
     private Raft raft;
     private ArabicDocument arabicDocument;
-    private ArabicDocument defaultConstructorDocument;
+    private ArabicDocument defaultConstructorDocument;		//used for constructor logic tests
     
     @Before
     public void setUp()
     {
         MockitoAnnotations.initMocks(this);
         source = new SimpleDocumentSource(sourceText, Language.ARABIC);
+        defaultConstructorSource = new SimpleDocumentSource(sourceText + "!" + sourceText, Language.ARABIC);
+        emptySource = new SimpleDocumentSource(" ", Language.ARABIC);
+
+        notArabicSource = new SimpleDocumentSource("This is not arabic text", Language.ENGLISH);
         arabicReadabilityLevel = ArabicDocumentReadabilityLevel.LEVEL_1;
         readabilityScore = 3;
         arabicDocument = spy(new ArabicDocument(source, readabilityScore, arabicReadabilityLevel, constructionData, raft));
-        try 
-        {
-			when(raft.ScoreText(source.getSourceText())).thenReturn(1);
-		} 
-        catch (Exception e) 
-        {
-        	ServerLogger.get().error(e, "");
-        }
-
-        //arabicDocument = new ArabicDocument(source, readabilityScore, arabicReadabilityLevel, constructionData);
     }
     
     @Test
@@ -61,8 +56,7 @@ public class ArabicDocumentTest
     {
         try
         {
-            ServerLogger.get().info(arabicDocument.getDocumentSource().getSourceText());
-            ServerLogger.get().info("arabicDocument.calculateReadabilityScore(sourceText) == " + arabicDocument.calculateReadabilityScore(source.getSourceText()));
+			when(raft.ScoreText(source.getSourceText())).thenReturn(1);
             Assert.assertEquals(1.0, arabicDocument.calculateReadabilityScore(source.getSourceText()));
         }
         catch (Exception e)
@@ -95,21 +89,62 @@ public class ArabicDocumentTest
         Assert.assertEquals(0.0, doc.getFancyLength());
     }
     
-    @Test 
-    public void testArabicConstructor()
+    private void testArabicConstructor(int level, SimpleDocumentSource source)
     {
     	try
-    	{
-            defaultConstructorSource = new SimpleDocumentSource(sourceText, Language.ARABIC);
-    		when(raft.ScoreText(defaultConstructorSource.getSourceText())).thenReturn(5);
-            defaultConstructorDocument = spy(new ArabicDocument(defaultConstructorSource, raft));
-            //when(defaultConstructorDocument.calculateReadabilityScore(defaultConstructorSource.getSourceText())).thenReturn((double) 5);
-            Assert.assertEquals(5.0, defaultConstructorDocument.getReadabilityScore());
+    	{	
+    		when(raft.ScoreText(source.getSourceText())).thenReturn(level);
+            defaultConstructorDocument = spy(new ArabicDocument(source, raft));
+            Assert.assertEquals((double) level, defaultConstructorDocument.getReadabilityScore());
     	}
     	catch(Exception e)
     	{
     		ServerLogger.get().error(e, "");
     		Assert.fail();
     	}
+    }
+    
+    @Test 
+    public void testArabicConstructorLevel4()
+    {
+    	testArabicConstructor(4, defaultConstructorSource);
+    }
+    
+    @Test 
+    public void testArabicConstructorLevel3()
+    {
+    	testArabicConstructor(3, defaultConstructorSource);
+    }
+    
+    @Test 
+    public void testArabicConstructorLevel2()
+    {
+    	testArabicConstructor(2, defaultConstructorSource);
+    }
+    
+    @Test 
+    public void testArabicConstructorLevel1()
+    {
+    	testArabicConstructor(1, defaultConstructorSource);
+    }
+    
+    @Test
+    public void testEmptyTextArabicConstructor()
+    {
+    	testArabicConstructor(-10, emptySource);
+    }
+    @Test
+    public void testEnglishTextArabicConstructor()
+    {
+    	boolean caughtException = false;
+    	try
+    	{
+    		defaultConstructorDocument = new ArabicDocument(notArabicSource);
+    	}
+    	catch(IllegalArgumentException e)
+    	{
+    		caughtException = true;
+    	}
+    	Assert.assertTrue(caughtException);
     }
 }
