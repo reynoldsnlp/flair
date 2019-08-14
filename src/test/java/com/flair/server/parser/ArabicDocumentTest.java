@@ -1,6 +1,5 @@
 package com.flair.server.parser;
 
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.spy;
 
@@ -14,36 +13,29 @@ import com.flair.server.parser.ConstructionDataCollection;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
-import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.MockitoAnnotations;
 
 import junit.framework.Assert;
 
-//@RunWith(MockitoJUnitRunner.StrictStubs.class)
 public class ArabicDocumentTest
 {
 
 
 
     private String sourceText = " موقعها الجغرافي.";
-    //@Mock
     private double readabilityScore;
-    @Mock
     private ArabicDocumentReadabilityLevel arabicReadabilityLevel;
-    @Mock
     private ConstructionDataCollection constructionData;
+    private SimpleDocumentSource source; 
     @Mock
-    private SimpleDocumentSource source; // = new SimpleDocumentSource(sourceText, Language.ARABIC);
+    private SimpleDocumentSource defaultConstructorSource; 
     @Mock
-    private Raft raft;// = new Raft();
-
-    //@InjectMocks
-    private ArabicDocument arabicDocument;// = new ArabicDocument(source, readabilityScore, arabicReadabilityLevel, constructionData);
-
+    private Raft raft;
+    private ArabicDocument arabicDocument;
+    private ArabicDocument defaultConstructorDocument;
+    
     @Before
     public void setUp()
     {
@@ -52,24 +44,33 @@ public class ArabicDocumentTest
         arabicReadabilityLevel = ArabicDocumentReadabilityLevel.LEVEL_1;
         readabilityScore = 3;
         arabicDocument = spy(new ArabicDocument(source, readabilityScore, arabicReadabilityLevel, constructionData, raft));
+        try 
+        {
+			when(raft.ScoreText(source.getSourceText())).thenReturn(1);
+		} 
+        catch (Exception e) 
+        {
+        	ServerLogger.get().error(e, "");
+        }
 
         //arabicDocument = new ArabicDocument(source, readabilityScore, arabicReadabilityLevel, constructionData);
     }
+    
     @Test
     public void testCalculateReadabilityScore()
     {
         try
         {
             ServerLogger.get().info(arabicDocument.getDocumentSource().getSourceText());
-            when(raft.ScoreText(sourceText)).thenReturn(1);
-            ServerLogger.get().info("arabicDocument.calculateReadabilityScore(sourceText) == " + arabicDocument.calculateReadabilityScore(sourceText));
-            Assert.assertEquals(1.0, arabicDocument.calculateReadabilityScore(sourceText));
+            ServerLogger.get().info("arabicDocument.calculateReadabilityScore(sourceText) == " + arabicDocument.calculateReadabilityScore(source.getSourceText()));
+            Assert.assertEquals(1.0, arabicDocument.calculateReadabilityScore(source.getSourceText()));
         }
         catch (Exception e)
         {
             ServerLogger.get().error(e, "Caught " + e.getMessage() + " in testCalculateReadabilityScore");
         }
     }
+    
     @Test
     public void testExceptionCalculateReadabilityScore()
     {
@@ -83,6 +84,7 @@ public class ArabicDocumentTest
             ServerLogger.get().error(e, "Caught exception " + e.getMessage() + " in ArabicDocumentTest");
         }
     }
+    
     @Test 
     public void testCalculateFancyDocLength()
     {
@@ -91,5 +93,23 @@ public class ArabicDocumentTest
         ArabicDocument doc = new ArabicDocument(source, readabilityScore, arabicReadabilityLevel, constructionData, new Raft());
         doc.calculateFancyDocLength();
         Assert.assertEquals(0.0, doc.getFancyLength());
+    }
+    
+    @Test 
+    public void testArabicConstructor()
+    {
+    	try
+    	{
+            defaultConstructorSource = new SimpleDocumentSource(sourceText, Language.ARABIC);
+    		when(raft.ScoreText(defaultConstructorSource.getSourceText())).thenReturn(5);
+            defaultConstructorDocument = spy(new ArabicDocument(defaultConstructorSource, raft));
+            //when(defaultConstructorDocument.calculateReadabilityScore(defaultConstructorSource.getSourceText())).thenReturn((double) 5);
+            Assert.assertEquals(5.0, defaultConstructorDocument.getReadabilityScore());
+    	}
+    	catch(Exception e)
+    	{
+    		ServerLogger.get().error(e, "");
+    		Assert.fail();
+    	}
     }
 }
