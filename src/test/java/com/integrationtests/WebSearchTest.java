@@ -225,7 +225,7 @@ public class WebSearchTest
 		System.out.println("Operation Complete");
 	}
 
-	@Test(timeout = 90000)
+	@Test(timeout = 120000)
 	public void russianSearch()
 	{
 		String query = "Культ Синей Устрицы";
