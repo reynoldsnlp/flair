@@ -93,7 +93,7 @@ public class ArabicDocument implements AbstractDocument
 		int whitespaceCount = 0;
 		for (int i = 0; i < pageText.length(); i++)
 		{
-			if (pageText.charAt(i) == ' ')
+			if (Character.isWhitespace(pageText.charAt(i)))
 				whitespaceCount++;
 		}
 		numCharacters = pageText.length() - whitespaceCount;
@@ -118,24 +118,7 @@ public class ArabicDocument implements AbstractDocument
 			readabilityScoreCalc = calculateReadabilityScore(source.getSourceText());
 			if(readabilityScoreCalc == 0.0)
 			{
-				ServerLogger.get().error("RAFT document analysis failed on " + getDescription() + 
-				", document number " + raft.getSalt() + ", now using default readability score");
-				try 
-				{
-					File failedSourceText = new File("/tmp/source" + raft.getSalt() + ".txt");
-					Writer writer = new BufferedWriter(new OutputStreamWriter
-							(new FileOutputStream(failedSourceText), "UTF8"));
-					writer.write(source.getSourceText());
-					writer.close();
-				}
-				catch(UnsupportedEncodingException e) 
-				{
-					ServerLogger.get().error(e, "UNSUPPORTED ENCODING - WRITING FAILED SOURCE TEXT");
-				}
-				catch(IOException e) 
-				{
-					ServerLogger.get().error(e, "COULD NOT WRITE TO FILE - WRITING FAILED SOURCE TEXT");
-				}
+				ServerLogger.get().error("RAFT document analysis failed on " + getDescription() + ", now using default readability score");
 				readabilityScoreCalc = Math
 					.ceil(((double) numCharacters / (double) numTokens) + (numTokens / (double) numSentences));
 				readabilityScoreCalc /= 10;
@@ -150,9 +133,9 @@ public class ArabicDocument implements AbstractDocument
 
 		if (numSentences != 0 && numCharacters != 0)		//If num sentences && num characters != 0, we use the readability score we calculated
 			readabilityScore = readabilityScoreCalc;
-		else												//else we use a negative score, this ensures that we either dont use the document or its is ranked as easiest
+		else												//else we use a negative score, this ensures that we either don't use the document or its is ranked as easiest
 			readabilityScore = -10.0;
-															// Below we detirmine DocumentReadabilityLevel tag for the client
+															// Below we determine DocumentReadabilityLevel tag for the client
 		
 		if (readabilityScore < readabilityLevelThreshold_1)		
 			arabicReadabilityLevel = ArabicDocumentReadabilityLevel.LEVEL_1;
