@@ -204,6 +204,8 @@ public class ArabicDocument implements AbstractDocument
 		return (DocumentConstructionData) constructionData.getData(type);
 	}
 
+	//consider getting rid of this function all together, it isn't used for Arabic since 
+	//we do not use grammatical constructions for our arabic functionality 
 	public void calculateFancyDocLength()
 	{
 		double sumOfPowers = 0.0;
