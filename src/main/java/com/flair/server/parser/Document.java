@@ -52,7 +52,7 @@ class Document implements AbstractDocument
 	private double										avgSentenceLength;
 	private double										avgTreeDepth;
 
-	private double										fancyDocLength;	// ### TODO better name needed, formerly "docLenTfIdf"
+	private double										fancyDocLength;	
 	private KeywordSearcherOutput						keywordData;
 
 	private boolean parsed;
@@ -77,7 +77,7 @@ class Document implements AbstractDocument
 		int whitespaceCount = 0;
 		for (int i = 0; i < pageText.length(); i++)
 		{
-			if (pageText.charAt(i) == ' ')
+			if (Character.isWhitespace(pageText.charAt(i)))
 				whitespaceCount++;
 		}
 		numCharacters = pageText.length() - whitespaceCount;
@@ -118,18 +118,21 @@ class Document implements AbstractDocument
 			if(readabilityScoreCalc == 0.0){
 				ServerLogger.get().error("RAFT document analysis failed on " + getDescription() + 
 				", document number " + raft.getSalt() + ", now using default readability score");
-				try {
+				try 
+				{
 					File failedSourceText = new File("/tmp/source" + raft.getSalt() + ".txt");
 					Writer writer = new BufferedWriter(new OutputStreamWriter
 							(new FileOutputStream(failedSourceText), "UTF8"));
 					writer.write(source.getSourceText());
 					writer.close();
 				}
-				catch(UnsupportedEncodingException e) {
+				catch(UnsupportedEncodingException e) 
+				{
 					ServerLogger.get().error("UNSUPPORTED ENCODING - WRITING FAILED SOURCE TEXT");
 					e.printStackTrace();
 				}
-				catch(IOException e) {
+				catch(IOException e) 
+				{
 					ServerLogger.get().error("COULD NOT WRITE TO FILE - WRITING FAILED SOURCE TEXT");
 					e.printStackTrace();
 				}
@@ -138,7 +141,8 @@ class Document implements AbstractDocument
 				readabilityLevelThreshold_A = 10;
 				readabilityLevelThreshold_B = 20;
 			}
-			else{
+			else
+			{
 				readabilityLevelThreshold_A = 1.1;
 				readabilityLevelThreshold_B = 2.1;
 			}
@@ -204,20 +208,26 @@ class Document implements AbstractDocument
 
 	public void calculateFancyDocLength()
 	{
+		//ServerLogger.get().info("Document.calculateFancyDocLength()");
 		double sumOfPowers = 0.0;
 		double squareRoot = 0.0;
 		// iterate through the construction data set and calc
 		for (GrammaticalConstruction itr : getSupportedConstructions())
 		{
+			//ServerLogger.get().info("itr ==  " + itr.toString());
 			DocumentConstructionData data = getConstructionData(itr);
 			if (data.hasConstruction())
+			{
 				sumOfPowers += Math.pow(data.getWeightedFrequency(), 2);
+				//ServerLogger.get().info("data.getWeightedFrequency() == " + data.getWeightedFrequency());
+			}
 		}
 
 		if (sumOfPowers > 0)
 			squareRoot = Math.sqrt(sumOfPowers);
 
 		fancyDocLength = squareRoot;
+		//ServerLogger.get().info("Document.fancyDocLength == " + fancyDocLength);
 	}
 
 	@Override
