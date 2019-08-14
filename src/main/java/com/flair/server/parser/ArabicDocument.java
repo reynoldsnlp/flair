@@ -69,14 +69,19 @@ public class ArabicDocument implements AbstractDocument
 		this.constructionData = constructionData;
 		this.raft = raft;
 	} 
-
+	
 	public ArabicDocument(AbstractDocumentSource parent)
+	{
+		this(parent, new Raft());
+	}
+	
+	public ArabicDocument(AbstractDocumentSource parent, Raft raft)
 	{
         ServerLogger.get().info("Creating arabic document");
 		assert parent != null;
 
-		raft = new Raft();
-
+		this.raft = raft;
+        
 		source = parent;
 		constructionData = new ConstructionDataCollection(parent.getLanguage(), new DocumentConstructionDataFactory(this));
 
@@ -95,6 +100,7 @@ public class ArabicDocument implements AbstractDocument
 		tokenizer = new StringTokenizer(pageText, "[.!?]");
 		numSentences = tokenizer.countTokens();
 		numDependencies = 0;
+		
 
 		double readabilityScoreCalc = 0;
 
