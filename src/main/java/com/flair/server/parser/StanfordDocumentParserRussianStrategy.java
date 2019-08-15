@@ -17,7 +17,7 @@ import com.flair.server.utilities.HFSTAnalyser.TransducerStreamException;
 import com.flair.server.utilities.ServerLogger;
 import com.flair.server.utilities.VislCg3;
 import com.flair.server.utilities.cg3parser.Cg3Parser;
-import com.flair.server.utilities.cg3parser.WordWithReadings;
+import com.flair.server.utilities.cg3parser.model.WordWithReadings;
 import com.flair.shared.grammar.Language;
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;
