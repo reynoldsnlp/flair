@@ -1,4 +1,4 @@
-package com.flair.server.utilities.cg3parser;
+package com.flair.server.utilities.cg3parser.model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,15 +10,15 @@ public class WordWithReadings {
     private List<CgReading> readings = new ArrayList<>();
 
     //constructor
-    WordWithReadings(String surfaceForm) {
+    public WordWithReadings(String surfaceForm) {
         this.surfaceForm = surfaceForm;
     }
 
     //functions
-    void addStaticTag(String tag) {
+    public void addStaticTag(String tag) {
         staticTags.add(tag);
     }
-    void addReading(CgReading reading) {
+    public void addReading(CgReading reading) {
         readings.add(reading);
     }
 

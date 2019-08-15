@@ -1,4 +1,4 @@
-package com.flair.server.utilities.cg3parser;
+package com.flair.server.utilities.cg3parser.model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,16 +11,16 @@ public class CgReading {
     private List<CgReading> subReadings = new ArrayList<>();
 
     //constructor
-    CgReading(String baseForm, int indentationLevel) {
+    public CgReading(String baseForm, int indentationLevel) {
         this.baseForm = baseForm;
         this.indentationLevel = indentationLevel;
     }
 
     //functions
-    void addTag(String tag) {
+    public void addTag(String tag) {
         tags.add(tag);
     }
-    void addSubReading(CgReading subReading) {
+    public void addSubReading(CgReading subReading) {
         subReadings.add(subReading);
     }
 

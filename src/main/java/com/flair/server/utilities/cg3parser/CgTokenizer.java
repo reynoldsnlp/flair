@@ -25,6 +25,31 @@ class CgTokenizer {
             this.value = value;
             this.lineNumber = lineNumber;
         }
+        //functions
+        int length() {
+            return value.length();
+        }
+        boolean isWhitespace() {
+            for(int i = 0; i < value.length(); i++) {
+                char c = value.charAt(i);
+                if(!Character.isWhitespace(c)) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        boolean isSurfaceForm() {
+            int len = value.length();
+            return (len >= 4 &&
+                    value.substring(0, 2).equals("\"<") &&
+                    value.substring(len-2, len).equals(">\""));
+        }
+        public boolean isDictionaryForm() {
+            int len = value.length();
+            return (len >= 2 &&
+                    value.substring(0, 1).equals("\"") &&
+                    value.substring(len-1, len).equals("\""));
+        }
         //generated
         @Override
         public String toString() {
