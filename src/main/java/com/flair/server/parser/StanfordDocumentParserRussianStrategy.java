@@ -202,10 +202,9 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
             String finalReadings = VislCg3.runVislCg3(cgForm);
             if(!finalReadings.isEmpty()) {
                 ServerLogger.get().info("Readings have been reduced by the constraint grammar");
-                System.out.println("readings:\n" + finalReadings);
+                //System.out.println("readings:\n" + finalReadings);
                 Cg3Parser parser = new Cg3Parser(finalReadings);
-                List<WordWithReadings> readingsList = parser.parse();
-                //TODO: use the readings
+                List<WordWithReadings> readingsList = parser.parse(); //TODO: use these
             }
             else {
                 ServerLogger.get().info("There was an error using the constraint grammar");
