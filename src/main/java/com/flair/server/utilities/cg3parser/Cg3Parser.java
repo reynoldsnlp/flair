@@ -5,7 +5,7 @@ import com.flair.server.utilities.ServerLogger;
 import com.flair.server.utilities.cg3parser.model.CgReading;
 import com.flair.server.utilities.cg3parser.model.SurfaceFormLine;
 import com.flair.server.utilities.cg3parser.model.WordWithReadings;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Cg3Parser {
@@ -41,7 +41,6 @@ public class Cg3Parser {
             parsed = true;
             return null;
         }
-        System.out.println("Token list created (section in progress)");
         //get and save our result
         try {
             allReadings = parseWordWithReadingsList();
@@ -62,7 +61,7 @@ public class Cg3Parser {
     //RECURSIVE DESCENT PARSER FUNCTIONS
 
     private List<WordWithReadings> parseWordWithReadingsList() throws CgSyntaxError {
-        if(!checkTokenIndex(false)) return new ArrayList<>();
+        if(!checkTokenIndex(false)) return new LinkedList<>();
         CgTokenizer.CgToken nextToken = tokenList.get(tokenIndex);
         if(nextToken.isSurfaceForm()) {
             //found a surface form
@@ -72,7 +71,7 @@ public class Cg3Parser {
             return readingsList;
         }
         else { //lambda
-            return new ArrayList<>();
+            return new LinkedList<>();
         }
     }
 
@@ -102,7 +101,7 @@ public class Cg3Parser {
     }
 
     private List<CgReading> parseCgReadingList() throws CgSyntaxError {
-        if(!checkTokenIndex(false)) return new ArrayList<>();
+        if(!checkTokenIndex(false)) return new LinkedList<>();
         CgTokenizer.CgToken nextToken = tokenList.get(tokenIndex);
         if(nextToken.isWhitespace()) {
             CgReading reading = parseCgReading();
@@ -123,12 +122,12 @@ public class Cg3Parser {
                 }
             }
             //if we get here, it was either not whitespace or the wrong length
-            List<CgReading> toReturn = new ArrayList<>(1);
+            List<CgReading> toReturn = new LinkedList<>();
             toReturn.add(reading);
             return toReturn;
         }
         else { //lambda
-            return new ArrayList<>();
+            return new LinkedList<>();
         }
     }
 
@@ -148,7 +147,7 @@ public class Cg3Parser {
         }
         String dictionaryForm = nextToken.getValue();
         //string list
-        List<String> tags = parseStringList(); //TODO: FIX
+        List<String> tags = parseStringList();
         //construct the CgReading
         CgReading toReturn = new CgReading(dictionaryForm, indentationLevel);
         for(String tag: tags) {
@@ -172,10 +171,13 @@ public class Cg3Parser {
     }
 
     private List<String> parseStringList() throws CgSyntaxError {
-        if(!checkTokenIndex(false)) return new ArrayList<>();
+        if(!checkTokenIndex(false)) return new LinkedList<>(); //no token
         CgTokenizer.CgToken nextToken = tokenList.get(tokenIndex);
-        if(nextToken.isWhitespace() || nextToken.isDictionaryForm()) return new ArrayList<>();
-        //TODO: this doesn't handle the spaces vs tabs correctly
+        if(nextToken.getValue().equals(" ")) {
+            tokenIndex++; //skip the space
+            return parseStringList();
+        }
+        if(nextToken.isWhitespace() || nextToken.isDictionaryForm()) return new LinkedList<>();
         //we have a proper word to use
         tokenIndex++;
         List<String> stringList = parseStringList();
