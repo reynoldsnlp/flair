@@ -95,7 +95,7 @@ public class ArabicDocumentTest
     	{	
     		when(raft.ScoreText(source.getSourceText())).thenReturn(level);
             defaultConstructorDocument = spy(new ArabicDocument(source, raft));
-            Assert.assertEquals((double) level, defaultConstructorDocument.getReadabilityScore());
+            Assert.assertEquals((double) level, defaultConstructorDocument.getReadabilityScore(), .1);
             
             if (level > 3)
             {
