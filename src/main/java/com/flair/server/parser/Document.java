@@ -5,17 +5,6 @@
  */
 package com.flair.server.parser;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.StringWriter;
-import java.io.PrintWriter;
-import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
-import java.io.Writer;
-import java.lang.Exception;
 import java.util.StringTokenizer;
 
 import com.flair.server.utilities.ServerLogger;
@@ -23,12 +12,6 @@ import com.flair.shared.grammar.GrammaticalConstruction;
 import com.flair.shared.grammar.Language;
 import com.flair.shared.parser.ArabicDocumentReadabilityLevel;
 import com.flair.shared.parser.DocumentReadabilityLevel;
-
-//import org.apache.cxf.common.i18n.Exception;
-import org.jsoup.select.Evaluator.Class;
-
-import com.flair.server.raft.Raft;
-import com.flair.server.utilities.ServerLogger;
 
 /**
  * Represents a text document that's parsed by the NLP Parser
@@ -57,14 +40,18 @@ class Document implements AbstractDocument
 
 	private boolean parsed;
 
-	private Raft raft;
-
+	public Document(AbstractDocumentSource source, double readabilityScore, 
+			DocumentReadabilityLevel readabilityLevel)
+	{
+		this.source = source;
+		this.readabilityScore = readabilityScore;
+		this.readabilityLevel = readabilityLevel;
+		this.constructionData = new ConstructionDataCollection(this.source.getLanguage(), new DocumentConstructionDataFactory(this));
+	}
 	public Document(AbstractDocumentSource parent)
 	{
 		ServerLogger.get().info("Creating document");
 		assert parent != null;
-
-		raft = new Raft();
 
 		source = parent;
 		constructionData = new ConstructionDataCollection(parent.getLanguage(), new DocumentConstructionDataFactory(this));
@@ -114,40 +101,7 @@ class Document implements AbstractDocument
 			readabilityLevelThreshold_B = 20;
 			break;	
 		case ARABIC:
-			readabilityScoreCalc = calculateReadabilityScore(source.getSourceText());
-			if(readabilityScoreCalc == 0.0){
-				ServerLogger.get().error("RAFT document analysis failed on " + getDescription() + 
-				", document number " + raft.getSalt() + ", now using default readability score");
-				try 
-				{
-					File failedSourceText = new File("/tmp/source" + raft.getSalt() + ".txt");
-					Writer writer = new BufferedWriter(new OutputStreamWriter
-							(new FileOutputStream(failedSourceText), "UTF8"));
-					writer.write(source.getSourceText());
-					writer.close();
-				}
-				catch(UnsupportedEncodingException e) 
-				{
-					ServerLogger.get().error("UNSUPPORTED ENCODING - WRITING FAILED SOURCE TEXT");
-					e.printStackTrace();
-				}
-				catch(IOException e) 
-				{
-					ServerLogger.get().error("COULD NOT WRITE TO FILE - WRITING FAILED SOURCE TEXT");
-					e.printStackTrace();
-				}
-				readabilityScoreCalc = Math
-					.ceil(((double) numCharacters / (double) numTokens) + (numTokens / (double) numSentences));
-				readabilityLevelThreshold_A = 10;
-				readabilityLevelThreshold_B = 20;
-			}
-			else
-			{
-				readabilityLevelThreshold_A = 1.1;
-				readabilityLevelThreshold_B = 2.1;
-			}
-			//readabilityScoreCalc = 1.0;
-			break;
+			throw new IllegalArgumentException("Invalid document language, use the ArabicDocument object for arabic text");
 		default:
 			throw new IllegalArgumentException("Invalid document language");
 		}
@@ -156,7 +110,7 @@ class Document implements AbstractDocument
 			readabilityScore = readabilityScoreCalc;
 		else												//else we use a negative score, this ensures that we either dont use the document or its is ranked as easiest
 			readabilityScore = -10.0;
-															// Below we detirmine DocumentReadabilityLevel tag for the client
+															// Below we determine DocumentReadabilityLevel tag for the client
 		if (readabilityScore < readabilityLevelThreshold_A)		
 			readabilityLevel = DocumentReadabilityLevel.LEVEL_A;
 		else if (readabilityLevelThreshold_A <= readabilityScore && readabilityScore <= readabilityLevelThreshold_B)
@@ -168,24 +122,7 @@ class Document implements AbstractDocument
 		keywordData = null;
 		parsed = false;
 	}
-
-	public double calculateReadabilityScore(String source) { 
-		//throws IOException, FileNotFoundException, ClassNotFoundException, UnsupportedEncodingException, InterruptedException, Exception
-		double readabilityLevel = 0;
-		try{
-			readabilityLevel = raft.ScoreText(source);	//throws a bunch of exceptions so just catch the most general case
-			ServerLogger.get().info("For document " + getDescription() + " number is " + raft.getSalt());
-		}
-		catch(Exception ex){
-			ServerLogger.get().error(ex.toString());
-			StringWriter errors = new StringWriter();
-			ex.printStackTrace(new PrintWriter(errors));
-			ServerLogger.get().error(errors.toString());
-			return 0;
-		}
-		return readabilityLevel;
-	}
-
+	
 	@Override
 	public Language getLanguage() {
 		return source.getLanguage();
@@ -208,18 +145,15 @@ class Document implements AbstractDocument
 
 	public void calculateFancyDocLength()
 	{
-		//ServerLogger.get().info("Document.calculateFancyDocLength()");
 		double sumOfPowers = 0.0;
 		double squareRoot = 0.0;
 		// iterate through the construction data set and calc
 		for (GrammaticalConstruction itr : getSupportedConstructions())
 		{
-			//ServerLogger.get().info("itr ==  " + itr.toString());
 			DocumentConstructionData data = getConstructionData(itr);
 			if (data.hasConstruction())
 			{
 				sumOfPowers += Math.pow(data.getWeightedFrequency(), 2);
-				//ServerLogger.get().info("data.getWeightedFrequency() == " + data.getWeightedFrequency());
 			}
 		}
 
@@ -227,7 +161,6 @@ class Document implements AbstractDocument
 			squareRoot = Math.sqrt(sumOfPowers);
 
 		fancyDocLength = squareRoot;
-		//ServerLogger.get().info("Document.fancyDocLength == " + fancyDocLength);
 	}
 
 	@Override
