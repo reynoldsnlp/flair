@@ -29,7 +29,8 @@ class ConstructionDataCollection
 		}
 	}
 
-	public AbstractConstructionData getData(GrammaticalConstruction type) {
+	public AbstractConstructionData getData(GrammaticalConstruction type) 
+	{
 		return dataStore.get(type);
 	}
 }
