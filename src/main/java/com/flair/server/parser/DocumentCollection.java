@@ -34,7 +34,6 @@ public class DocumentCollection implements Iterable<AbstractDocument>
 
 	private void refreshConstructionData()
 	{
-		ServerLogger.get().info("refreshConstructionData()");
 		for (GrammaticalConstruction itr : GrammaticalConstruction.getForLanguage(language))
 		{
 			DocumentCollectionConstructionData data = (DocumentCollectionConstructionData) constructionData
@@ -43,7 +42,6 @@ public class DocumentCollection implements Iterable<AbstractDocument>
 
 			for (AbstractDocument doc : dataStore)
 			{
-				//ServerLogger.get().info(doc.getDescription());
 				DocumentConstructionData docData = doc.getConstructionData(itr);
 				if (docData.hasConstruction())
 				{
