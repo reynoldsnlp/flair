@@ -1,6 +1,5 @@
 package com.flair.server.parser;
 
-import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,13 +7,10 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 
 public class KeywordSearcherOutputTest
 {
 	private KeywordSearcherOutput keywordSearcherOutput;
-	@Mock
 	private KeywordSearcherInput keywordSearcherInput;
 	private List<String> keywords;	
 	private String keyword;
@@ -69,12 +65,11 @@ public class KeywordSearcherOutputTest
 	@Before
 	public void setUp()
 	{
-		MockitoAnnotations.initMocks(this);
 		keywords = new ArrayList<String>();
 		keywords.add("word1");
 		keywords.add("word2");
 		keywords.add("word3");
-		when(keywordSearcherInput.iterator()).thenReturn(keywords.iterator());
+		keywordSearcherInput = new KeywordSearcherInput(keywords);
 		keywordSearcherOutput = new KeywordSearcherOutput(keywordSearcherInput);
 		start = 0;
 		end = 2;
