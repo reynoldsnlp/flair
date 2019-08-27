@@ -5,6 +5,7 @@
  */
 package com.flair.server.parser;
 
+import com.flair.server.utilities.ServerLogger;
 import com.flair.shared.grammar.Language;
 
 /**
@@ -26,7 +27,7 @@ public class SimpleDocumentSource extends AbstractDocumentSource
     
     @Override
     public String getSourceText() {
-	return sourceString;
+    	return sourceString;
     }
 
     @Override
@@ -46,6 +47,6 @@ public class SimpleDocumentSource extends AbstractDocumentSource
 	SimpleDocumentSource rhs = (SimpleDocumentSource)t;
 	
 	// compare source strings
-	return sourceString.compareTo(rhs.sourceString);
+	return sourceString.compareTo(rhs.getSourceText());
     }
 }
