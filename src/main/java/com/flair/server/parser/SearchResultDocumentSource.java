@@ -26,6 +26,11 @@ public class SearchResultDocumentSource extends AbstractDocumentSource
 		pageText = preprocessText(parent.getPageText());
 	}
 
+	public int getParentRank()
+	{
+		return parentSearchResult.getRank();
+	}
+	
 	public SearchResult getSearchResult()
 	{
 		return parentSearchResult;
@@ -50,9 +55,9 @@ public class SearchResultDocumentSource extends AbstractDocumentSource
 			throw new IllegalArgumentException("Incompatible source type");
 
 		SearchResultDocumentSource rhs = (SearchResultDocumentSource) t;
-		if (parentSearchResult.getRank() < rhs.parentSearchResult.getRank())
+		if (getParentRank() < rhs.getParentRank())
 			return -1;
-		else if (parentSearchResult.getRank() > rhs.parentSearchResult.getRank())
+		else if (getParentRank() > rhs.getParentRank())
 			return 1;
 		else
 			return 0;
