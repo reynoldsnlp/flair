@@ -11,6 +11,7 @@ public class CgConv {
     //constants
     private static final String CG_CONV_EXE = "/cg3/bin/cg-conv.exe";
     private static final URL CG_CONV = CgConv.class.getClassLoader().getResource(CG_CONV_EXE);
+    private static final int TIMEOUT_MS = 10*1000;
 
     //functions
 
@@ -18,6 +19,10 @@ public class CgConv {
         if(CG_CONV == null) {
             throw new IOException("cg-conv.exe not found.");
         }
+
+        /*System.out.println("hfstString:");
+        System.out.println(hfstString);*/
+
         //set up arguments
         ProcessBuilder pb = new ProcessBuilder(CG_CONV.getPath(), "-f");
         Process process;
@@ -29,10 +34,18 @@ public class CgConv {
             BufferedInputStream converterOutput = new BufferedInputStream(process.getInputStream());
             BufferedInputStream errorOutput = new BufferedInputStream(process.getErrorStream());
             //put data in
-            converterInput.write(hfstString.getBytes(StandardCharsets.UTF_8));
+            byte[] stringBytes = hfstString.getBytes(StandardCharsets.UTF_8);
+            System.out.println("stringBytes.length = " + stringBytes.length);
+            converterInput.write(stringBytes);
             converterInput.flush();
             converterInput.close();
-            process.waitFor();
+            //set timeout
+            ProcessWithTimeout processWithTimeout = new ProcessWithTimeout(process);
+            int exitCode = processWithTimeout.waitForProcess(TIMEOUT_MS);
+            if(exitCode == Integer.MIN_VALUE) { //timeout!
+                process.destroyForcibly();
+                throw new InterruptedException("cg-conv timed out after " + TIMEOUT_MS + " milliseconds");
+            }
             //forward output data
             String outputString = StreamToString.convertStreamToString(converterOutput);
             converterOutput.close();
