@@ -28,14 +28,18 @@ import com.google.gson.GsonBuilder;
 
 /**
  * Basic web search implementation that uses the Azure Search API
+<<<<<<< HEAD
  * 
+=======
+ *
+>>>>>>> b2f428ecb1233f7581f3014726951beed513cb24
  * @author shadeMe
  */
 public class AzureWebSearch implements AbstractSearchAgentImpl
 {
 	private static final String	AZURESEARCH_SCHEME		= "https";
 	private static final String	AZURESEARCH_HOSTNAME	= "api.cognitive.microsoft.com";
-	private static final String	AZURESEARCH_PATH		= "/bing/v5.0/search"; 
+	private static final String	AZURESEARCH_PATH		= "/bing/v5.0/search";
 
 	private static final String	RESPONSE_FILTER		= "Webpages";
 	private static final int	RESULTS_PER_PAGE	= 10;
