@@ -6,8 +6,7 @@
 package com.flair.server.parser;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import com.flair.server.grammar.RussianGrammaticalPatterns;
@@ -17,6 +16,7 @@ import com.flair.server.utilities.HFSTAnalyser.TransducerStreamException;
 import com.flair.server.utilities.ServerLogger;
 import com.flair.server.utilities.VislCg3;
 import com.flair.server.utilities.cg3parser.Cg3Parser;
+import com.flair.server.utilities.cg3parser.model.CgReading;
 import com.flair.server.utilities.cg3parser.model.WordWithReadings;
 import com.flair.shared.grammar.Language;
 import edu.stanford.nlp.ling.CoreAnnotations;
@@ -42,6 +42,12 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
     private int dependencyCount;
     private int adjCount;
     private static final String WORD_PATTERN = "[\\p{IsCyrillic}\u0300\u0301]+";
+    private enum Attribute {
+        N_NOMINATIVE, N_ACCUSATIVE, N_GENITIVE, N_PREPOSITIONAL, N_DATIVE, N_INSTRUMENTAL, //noun cases
+        A_NOMINATIVE, A_ACCUSATIVE, A_GENITIVE, A_PREPOSITIONAL, A_DATIVE, A_INSTRUMENTAL, //adjective cases
+        V_PAST, V_PRESENT, V_FUTURE, V_INFINITIVE,//verb forms
+        P_PRESENT_ACTIVE, P_PRESENT_PASSIVE, P_PAST_ACTIVE, P_PAST_PASSIVE, //participles
+    }
 
     public StanfordDocumentParserRussianStrategy() {
         //pipeline = null;
@@ -52,8 +58,6 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
         } catch (TransducerStreamException e) {
             ServerLogger.get().error(e, "Russian Strategy could not initialize the HFSTAnalyser");
         }
-        //TODO: set up the CG3 (Constraint Grammar)
-
     }
 
     public void setPipeline(StanfordCoreNLP pipeline) {
@@ -92,7 +96,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
         workingDoc = null;
     }
 
-    public boolean	apply(AbstractDocument docToParse){ //TODO
+    public boolean apply(AbstractDocument docToParse){ //TODO
         assert docToParse != null;
         int attempts = 0;
         try
@@ -204,7 +208,9 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                 ServerLogger.get().info("Readings have been reduced by the constraint grammar");
                 //System.out.println("readings:\n" + finalReadings);
                 Cg3Parser parser = new Cg3Parser(finalReadings);
-                List<WordWithReadings> readingsList = parser.parse(); //TODO: use these
+                List<WordWithReadings> readingsList = parser.parse();
+                Map<Attribute, Integer> attributeToCountMap = countAttributes(readingsList); //TODO: use these
+                System.out.println("break"); //TODO: remove this
             }
             else {
                 ServerLogger.get().info("There was an error using the constraint grammar");
@@ -215,9 +221,121 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
 
 
         int numLIs = countMatches(RussianGrammaticalPatterns.patternLi, words);
+        ServerLogger.get().info("NUMBER OF YES/NO Qs FOUND: " + numLIs);
         int numConditionals = countMatches(RussianGrammaticalPatterns.patternBi, words);
+        ServerLogger.get().info("NUMBER OF CONDITIONALS FOUND: " + numLIs);
         inspectVerbs(graph, words);
         //TODO: save data to the document
+    }
+
+    private Map<Attribute, Integer> countAttributes(List<WordWithReadings> wordsWithReadings){
+        final String NOUN_TAG = "N";
+        final String ADJECTIVE_TAG = "A";
+        final String VERB_TAG = "V";
+        final String PRONOUN_TAG = "Pron";
+        final String PAST_TAG = "Pst";
+        final String PRESENT_TAG = "Prs";
+        final String FUTURE_TAG = "Fut";
+        final String INFINITIVE_TAG = "Inf";
+        final String P_PRESENT_ACTIVE_TAG = "PrsAct";
+        final String P_PRESENT_PASSIVE_TAG = "PrsPss";
+        final String P_PAST_ACTIVE_TAG = "PstAct";
+        final String P_PAST_PASSIVE_TAG = "PstPss";
+        final String NOMINATIVE_TAG = "Nom";
+        final String ACCUSATIVE_TAG = "Acc";
+        final String GENITIVE_TAG = "Gen";
+        final String PREPOSITIONAL_TAG = "Loc"; //represents 'locative'
+        final String DATIVE_TAG = "Dat";
+        final String INSTRUMENTAL_TAG = "Ins";
+
+        Map<Attribute, Integer> attributeCountMap = new HashMap<>();
+        for(WordWithReadings word: wordsWithReadings){
+            Map<Attribute, Boolean> attributesToCount = new HashMap<>();
+
+            //recognize which tags are present in this word's readings
+            for(CgReading reading: word.getReadings()){
+                boolean isNoun = false;
+                boolean isAdjective = false;
+                boolean isVerb = false;
+                boolean isPast = false;
+                boolean isPresent = false;
+                boolean isFuture = false;
+                boolean isInfinitive = false;
+                boolean isPresentActive = false;
+                boolean isPresentPassive = false;
+                boolean isPastActive = false;
+                boolean isPastPassive = false;
+                boolean isNominative = false;
+                boolean isAccusative = false;
+                boolean isGenitive = false;
+                boolean isPrepositional = false;
+                boolean isDative = false;
+                boolean isInstrumental = false;
+
+                Set<String> tags = new HashSet<>(reading.getTags());
+                //part of speech
+                if(tags.contains(NOUN_TAG)) isNoun = true;
+                if(tags.contains(ADJECTIVE_TAG)) isAdjective = true;
+                if(tags.contains(VERB_TAG)) isVerb = true;
+                //tense
+                if(tags.contains(PAST_TAG)) isPast = true;
+                if(tags.contains(PRESENT_TAG)) isPresent = true;
+                if(tags.contains(FUTURE_TAG)) isFuture = true;
+                if(tags.contains(INFINITIVE_TAG)) isInfinitive = true;
+                //participles
+                if(tags.contains(P_PRESENT_ACTIVE_TAG)) isPresentActive = true;
+                if(tags.contains(P_PRESENT_PASSIVE_TAG)) isPresentPassive = true;
+                if(tags.contains(P_PAST_ACTIVE_TAG)) isPastActive = true;
+                if(tags.contains(P_PAST_PASSIVE_TAG)) isPastPassive = true;
+                //case
+                if(tags.contains(NOMINATIVE_TAG)) isNominative = true;
+                if(tags.contains(ACCUSATIVE_TAG)) isAccusative = true;
+                if(tags.contains(GENITIVE_TAG)) isGenitive = true;
+                if(tags.contains(PREPOSITIONAL_TAG)) isPrepositional = true;
+                if(tags.contains(DATIVE_TAG)) isDative = true;
+                if(tags.contains(INSTRUMENTAL_TAG)) isInstrumental = true;
+
+                if(isNoun){
+                    if(isNominative) attributesToCount.put(Attribute.N_NOMINATIVE, true);
+                    if(isAccusative) attributesToCount.put(Attribute.N_ACCUSATIVE, true);
+                    if(isGenitive) attributesToCount.put(Attribute.N_GENITIVE, true);
+                    if(isDative) attributesToCount.put(Attribute.N_DATIVE, true);
+                    if(isPrepositional) attributesToCount.put(Attribute.N_PREPOSITIONAL, true);
+                    if(isInstrumental) attributesToCount.put(Attribute.N_INSTRUMENTAL, true);
+                }
+                if(isAdjective){
+                    if(isNominative) attributesToCount.put(Attribute.A_NOMINATIVE, true);
+                    if(isAccusative) attributesToCount.put(Attribute.A_ACCUSATIVE, true);
+                    if(isGenitive) attributesToCount.put(Attribute.A_GENITIVE, true);
+                    if(isDative) attributesToCount.put(Attribute.A_DATIVE, true);
+                    if(isPrepositional) attributesToCount.put(Attribute.A_PREPOSITIONAL, true);
+                    if(isInstrumental) attributesToCount.put(Attribute.A_INSTRUMENTAL, true);
+                }
+                if(isVerb){
+                    if(isPast) attributesToCount.put(Attribute.V_PAST, true);
+                    if(isPresent) attributesToCount.put(Attribute.V_PRESENT, true);
+                    if(isFuture) attributesToCount.put(Attribute.V_FUTURE, true);
+                    if(isInfinitive) attributesToCount.put(Attribute.V_INFINITIVE, true);
+                    if(isPresentActive) attributesToCount.put(Attribute.P_PRESENT_ACTIVE, true);
+                    if(isPresentPassive) attributesToCount.put(Attribute.P_PRESENT_PASSIVE, true);
+                    if(isPastActive) attributesToCount.put(Attribute.P_PAST_ACTIVE, true);
+                    if(isPastPassive) attributesToCount.put(Attribute.P_PAST_ACTIVE, true);
+                }
+            }
+
+            //count this word towards the appropriate attributes
+            for(Attribute attr: attributesToCount.keySet()){
+                if(attributesToCount.get(attr)){
+                    addAttributeCount(attributeCountMap, attr);
+                }
+            }
+        }
+        return attributeCountMap;
+    }
+
+    private static void addAttributeCount(Map<Attribute, Integer> countMap, Attribute attr){
+        int count = countMap.getOrDefault(attr, 0);
+        countMap.put(attr, count + 1);
     }
 
     /**
