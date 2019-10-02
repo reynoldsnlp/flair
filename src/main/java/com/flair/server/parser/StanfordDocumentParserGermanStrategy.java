@@ -151,7 +151,7 @@ class StanfordDocumentParserGermanStrategy extends BasicStanfordDocumentParserSt
 				int numDassClauses = countMatches(GermanGrammaticalTreePatterns.patternDassClauses, tree);
 				for (int i = 0; i < numDassClauses; i++)
 				{
-					addConstructionOccurrence(GrammaticalConstruction.CLAUSE_DASS, startInd, endInd, treeStr); // highlight the whole sentence
+					addConstructionOccurrence(GrammaticalConstruction.CLAUSE_THAT, startInd, endInd, treeStr); // highlight the whole sentence
 				}
 
 				// general subordinate clauses, i.e. relative clauses and adverbial clauses + 'dass'/'ob' clauses
