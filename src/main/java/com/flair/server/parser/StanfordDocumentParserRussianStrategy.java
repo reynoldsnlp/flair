@@ -26,9 +26,12 @@ import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import edu.stanford.nlp.semgraph.SemanticGraph;
 import edu.stanford.nlp.semgraph.SemanticGraphCoreAnnotations;
+import edu.stanford.nlp.semgraph.SemanticGraphEdge;
 import edu.stanford.nlp.semgraph.semgrex.SemgrexMatcher;
 import edu.stanford.nlp.semgraph.semgrex.SemgrexPattern;
+import edu.stanford.nlp.trees.GrammaticalRelation;
 import edu.stanford.nlp.util.CoreMap;
+import edu.stanford.nlp.util.Pair;
 
 class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserStrategy {
     private static final String RUSSIAN_TRANSDUCER_HFSTOL = "/analyser-gt-desc.hfstol";
@@ -47,7 +50,26 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
         A_NOMINATIVE, A_ACCUSATIVE, A_GENITIVE, A_PREPOSITIONAL, A_DATIVE, A_INSTRUMENTAL, //adjective cases
         V_PAST, V_PRESENT, V_FUTURE, V_INFINITIVE,//verb forms
         P_PRESENT_ACTIVE, P_PRESENT_PASSIVE, P_PAST_ACTIVE, P_PAST_PASSIVE, //participles
+        PR_NOMINATIVE, PR_ACCUSATIVE, PR_GENITIVE, PR_PREPOSITIONAL, PR_DATIVE, PR_INSTRUMENTAL, //preposition cases
     }
+    private final String NOUN_TAG = "N";
+    private final String ADJECTIVE_TAG = "A";
+    private final String VERB_TAG = "V";
+    private final String PRONOUN_TAG = "Pron";
+    private final String PAST_TAG = "Pst";
+    private final String PRESENT_TAG = "Prs";
+    private final String FUTURE_TAG = "Fut";
+    private final String INFINITIVE_TAG = "Inf";
+    private final String P_PRESENT_ACTIVE_TAG = "PrsAct";
+    private final String P_PRESENT_PASSIVE_TAG = "PrsPss";
+    private final String P_PAST_ACTIVE_TAG = "PstAct";
+    private final String P_PAST_PASSIVE_TAG = "PstPss";
+    private final String NOMINATIVE_TAG = "Nom";
+    private final String ACCUSATIVE_TAG = "Acc";
+    private final String GENITIVE_TAG = "Gen";
+    private final String PREPOSITIONAL_TAG = "Loc"; //represents 'locative'
+    private final String DATIVE_TAG = "Dat";
+    private final String INSTRUMENTAL_TAG = "Ins";
 
     public StanfordDocumentParserRussianStrategy() {
         //pipeline = null;
@@ -211,7 +233,9 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                 //System.out.println("readings:\n" + finalReadings);
                 Cg3Parser parser = new Cg3Parser(finalReadings);
                 List<WordWithReadings> readingsList = parser.parse();
-                Map<Attribute, Integer> attributeToCountMap = countAttributes(readingsList); //TODO: use these
+                Map<Attribute, Integer> attributeCounts = countAttributes(readingsList);
+                Map<Attribute, Integer> prepositionAttributeCounts = countPrepositionAttributes(readingsList, graph);
+                attributeCounts.putAll(prepositionAttributeCounts); //TODO: use this
                 System.out.println("break"); //TODO: remove this
             }
             else {
@@ -225,31 +249,12 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
         int numLIs = countMatches(RussianGrammaticalPatterns.patternLi, words);
         ServerLogger.get().info("NUMBER OF YES/NO Qs FOUND: " + numLIs);
         int numConditionals = countMatches(RussianGrammaticalPatterns.patternBi, words);
-        ServerLogger.get().info("NUMBER OF CONDITIONALS FOUND: " + numLIs);
+        ServerLogger.get().info("NUMBER OF CONDITIONALS FOUND: " + numConditionals);
         inspectVerbs(graph, words);
         //TODO: save data to the document
     }
 
     private Map<Attribute, Integer> countAttributes(List<WordWithReadings> wordsWithReadings){
-        final String NOUN_TAG = "N";
-        final String ADJECTIVE_TAG = "A";
-        final String VERB_TAG = "V";
-        final String PRONOUN_TAG = "Pron";
-        final String PAST_TAG = "Pst";
-        final String PRESENT_TAG = "Prs";
-        final String FUTURE_TAG = "Fut";
-        final String INFINITIVE_TAG = "Inf";
-        final String P_PRESENT_ACTIVE_TAG = "PrsAct";
-        final String P_PRESENT_PASSIVE_TAG = "PrsPss";
-        final String P_PAST_ACTIVE_TAG = "PstAct";
-        final String P_PAST_PASSIVE_TAG = "PstPss";
-        final String NOMINATIVE_TAG = "Nom";
-        final String ACCUSATIVE_TAG = "Acc";
-        final String GENITIVE_TAG = "Gen";
-        final String PREPOSITIONAL_TAG = "Loc"; //represents 'locative'
-        final String DATIVE_TAG = "Dat";
-        final String INSTRUMENTAL_TAG = "Ins";
-
         Map<Attribute, Integer> attributeCountMap = new HashMap<>();
         for(WordWithReadings word: wordsWithReadings){
             Map<Attribute, Boolean> attributesToCount = new HashMap<>();
@@ -273,7 +278,6 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                 boolean isPrepositional = false;
                 boolean isDative = false;
                 boolean isInstrumental = false;
-
                 Set<String> tags = new HashSet<>(reading.getTags());
                 //part of speech
                 if(tags.contains(NOUN_TAG)) isNoun = true;
@@ -297,6 +301,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                 if(tags.contains(DATIVE_TAG)) isDative = true;
                 if(tags.contains(INSTRUMENTAL_TAG)) isInstrumental = true;
 
+                //recognize tag combinations
                 if(isNoun){
                     if(isNominative) attributesToCount.put(Attribute.N_NOMINATIVE, true);
                     if(isAccusative) attributesToCount.put(Attribute.N_ACCUSATIVE, true);
@@ -329,6 +334,41 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
             for(Attribute attr: attributesToCount.keySet()){
                 if(attributesToCount.get(attr)){
                     addAttributeCount(attributeCountMap, attr);
+                }
+            }
+        }
+        return attributeCountMap;
+    }
+
+    private Map<Attribute, Integer> countPrepositionAttributes(List<WordWithReadings> wordsWithReadings, SemanticGraph graph){
+        Map<Attribute, Integer> attributeCountMap = new HashMap<>();
+        //find all prepositions
+        List<IndexedWord> prepositions = graph.getAllNodesByPartOfSpeechPattern("ADP");
+        for(IndexedWord preposition: prepositions){
+            List<SemanticGraphEdge> edqes = graph.getIncomingEdgesSorted(preposition);
+            for(SemanticGraphEdge edge: edqes){
+                //get the object of the preposition
+                IndexedWord objectOfPreposition = edge.getSource();
+                int index = objectOfPreposition.get(CoreAnnotations.IndexAnnotation.class) - 1;
+                WordWithReadings objectWithReadings = wordsWithReadings.get(index);
+
+                //recognize which tags are present in this word's readings
+                Map<Attribute, Boolean> attributesToCount = new HashMap<>();
+                for(CgReading reading: objectWithReadings.getReadings()) {
+                    Set<String> tags = new HashSet<>(reading.getTags());
+                    if(tags.contains(NOMINATIVE_TAG)) attributesToCount.put(Attribute.PR_NOMINATIVE, true);
+                    if(tags.contains(ACCUSATIVE_TAG)) attributesToCount.put(Attribute.PR_ACCUSATIVE, true);
+                    if(tags.contains(GENITIVE_TAG)) attributesToCount.put(Attribute.PR_GENITIVE, true);
+                    if(tags.contains(PREPOSITIONAL_TAG)) attributesToCount.put(Attribute.PR_PREPOSITIONAL, true);
+                    if(tags.contains(DATIVE_TAG)) attributesToCount.put(Attribute.PR_DATIVE, true);
+                    if(tags.contains(INSTRUMENTAL_TAG)) attributesToCount.put(Attribute.PR_INSTRUMENTAL, true);
+                }
+
+                //count this word towards the appropriate attributes
+                for(Attribute attr: attributesToCount.keySet()){
+                    if(attributesToCount.get(attr)){
+                        addAttributeCount(attributeCountMap, attr);
+                    }
                 }
             }
         }
