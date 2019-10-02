@@ -18,6 +18,7 @@ import com.flair.server.utilities.VislCg3;
 import com.flair.server.utilities.cg3parser.Cg3Parser;
 import com.flair.server.utilities.cg3parser.model.CgReading;
 import com.flair.server.utilities.cg3parser.model.WordWithReadings;
+import com.flair.shared.grammar.GrammaticalConstruction;
 import com.flair.shared.grammar.Language;
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;
@@ -29,9 +30,7 @@ import edu.stanford.nlp.semgraph.SemanticGraphCoreAnnotations;
 import edu.stanford.nlp.semgraph.SemanticGraphEdge;
 import edu.stanford.nlp.semgraph.semgrex.SemgrexMatcher;
 import edu.stanford.nlp.semgraph.semgrex.SemgrexPattern;
-import edu.stanford.nlp.trees.GrammaticalRelation;
 import edu.stanford.nlp.util.CoreMap;
-import edu.stanford.nlp.util.Pair;
 
 class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserStrategy {
     private static final String RUSSIAN_TRANSDUCER_HFSTOL = "/analyser-gt-desc.hfstol";
@@ -45,17 +44,21 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
     private int dependencyCount;
     private int adjCount;
     private static final String WORD_PATTERN = "[\\p{IsCyrillic}\u0300\u0301]+";
+
     private enum Attribute {
         N_NOMINATIVE, N_ACCUSATIVE, N_GENITIVE, N_PREPOSITIONAL, N_DATIVE, N_INSTRUMENTAL, //noun cases
         A_NOMINATIVE, A_ACCUSATIVE, A_GENITIVE, A_PREPOSITIONAL, A_DATIVE, A_INSTRUMENTAL, //adjective cases
-        V_PAST, V_PRESENT, V_FUTURE, V_INFINITIVE,//verb forms
+        PRO_NOMINATIVE, PRO_ACCUSATIVE, PRO_GENITIVE, PRO_PREPOSITIONAL, PRO_DATIVE, PRO_INSTRUMENTAL, //pronoun cases
+        DET_NOMINATIVE, DET_ACCUSATIVE, DET_GENITIVE, DET_PREPOSITIONAL, DET_DATIVE, DET_INSTRUMENTAL, //determiner cases
+        V_PAST, V_PRESENT, V_FUTURE, V_INFINITIVE, //verb forms
         P_PRESENT_ACTIVE, P_PRESENT_PASSIVE, P_PAST_ACTIVE, P_PAST_PASSIVE, //participles
         PR_NOMINATIVE, PR_ACCUSATIVE, PR_GENITIVE, PR_PREPOSITIONAL, PR_DATIVE, PR_INSTRUMENTAL, //preposition cases
     }
     private final String NOUN_TAG = "N";
     private final String ADJECTIVE_TAG = "A";
-    private final String VERB_TAG = "V";
     private final String PRONOUN_TAG = "Pron";
+    private final String DETERMINER_TAG = "Det";
+    private final String VERB_TAG = "V";
     private final String PAST_TAG = "Pst";
     private final String PRESENT_TAG = "Prs";
     private final String FUTURE_TAG = "Fut";
@@ -121,21 +124,18 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
     public boolean apply(AbstractDocument docToParse){ //TODO
         assert docToParse != null;
         int attempts = 0;
-        try
-        {
+        try {
             initializeState(docToParse);
 
             Annotation docAnnotation = new Annotation(workingDoc.getText());
             pipeline.annotate(docAnnotation);
 
             List<CoreMap> sentences = docAnnotation.get(CoreAnnotations.SentencesAnnotation.class);
-            for (CoreMap itr : sentences)
-            {
+            for (CoreMap itr : sentences) {
 				/*if(attempts % 20 == 0){
 					ServerLogger.get().info("Parsing " + docToParse.getDescription() + "...");
 				}*/
-                if (itr.size() > 0)
-                {
+                if (itr.size() > 0) {
                     SemanticGraph graph = itr.get(SemanticGraphCoreAnnotations.EnhancedPlusPlusDependenciesAnnotation.class);
                     List<CoreLabel> words = itr.get(CoreAnnotations.TokensAnnotation.class);
 					/*Collection<TypedDependency> dependencies = itr
@@ -150,15 +150,12 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                     //depthCount += tree.depth();
 
                     // changed: only count words (no punctuation)
-                    for (CoreLabel cl : words)
-                    {
+                    for (CoreLabel cl : words) {
                         tokenCount++;
-                        if (!cl.tag().startsWith("$"))
-                        {
+                        if (!cl.tag().startsWith("$")) {
                             dependencyCount += 1;
                         }
-                        if (cl.value().toLowerCase().matches(WORD_PATTERN))
-                        {
+                        if (cl.value().toLowerCase().matches(WORD_PATTERN)) {
                             wordCount++;
                             characterCount += cl.value().length();
                         }
@@ -180,8 +177,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
             workingDoc.setNumSentences(sentenceCount);
             workingDoc.setNumCharacters(characterCount);
             workingDoc.flagAsParsed();
-        } finally
-        {
+        } finally {
             resetState();
         }
 
@@ -204,14 +200,14 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
         return strings;
     }
 
-    private void inspectVerbs(SemanticGraph graph, List<CoreLabel> words){
+    private void inspectVerbs(SemanticGraph graph){
         //extract verbs from the graph
         List<IndexedWord> verbs = graph.getAllNodesByPartOfSpeechPattern("VERB");
         List<CoreLabel> verbCoreLabels = indexedWordsToCoreLabels(verbs);
         //count constructions
-        int numReflexives = countMatches(RussianGrammaticalPatterns.patternReflexiveVerb, verbCoreLabels);
-        ServerLogger.get().info("NUMBER OF REFLEXIVES FOUND: " + numReflexives);
-        //TODO
+        List<CoreLabel> reflexiveVerbs = findMatches(RussianGrammaticalPatterns.patternReflexiveVerb, verbCoreLabels);
+        addConstructionOccurrences(GrammaticalConstruction.PRONOUNS_REFLEXIVE, reflexiveVerbs);
+        //TODO: correct the GrammaticalConstruction type passed into addConstructionOccurrences
     }
 
     private void inspectSentence(SemanticGraph graph, List<CoreLabel> words) {
@@ -231,9 +227,11 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                 //System.out.println("readings:\n" + finalReadings);
                 Cg3Parser parser = new Cg3Parser(finalReadings);
                 List<WordWithReadings> readingsList = parser.parse();
+                //use the reduced readings to count attributes
                 Map<Attribute, Integer> attributeCounts = countAttributes(readingsList);
                 Map<Attribute, Integer> prepositionAttributeCounts = countPrepositionAttributes(readingsList, graph);
-                attributeCounts.putAll(prepositionAttributeCounts); //TODO: use this
+                attributeCounts.putAll(prepositionAttributeCounts);
+                //TODO: save data to the document
                 System.out.println("break"); //TODO: remove this
             }
             else {
@@ -243,13 +241,16 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
             e.printStackTrace();
         }
 
+        //count things based purely on surface forms, not readings
+        //TODO: correct the GrammaticalConstruction types passed into addConstructionOccurrences
+        List<CoreLabel> yesNoParticles = findMatches(RussianGrammaticalPatterns.patternLi, words);
+        addConstructionOccurrences(GrammaticalConstruction.QUESTIONS_YESNO, yesNoParticles);
+        List<CoreLabel> conditionals = findMatches(RussianGrammaticalPatterns.patternBi, words);
+        addConstructionOccurrences(GrammaticalConstruction.CONDITIONALS, conditionals);
+        List<CoreLabel> negations = findMatches(RussianGrammaticalPatterns.patternNe, words);
+        addConstructionOccurrences(GrammaticalConstruction.NEGATION_NOT, negations);
 
-        int numLIs = countMatches(RussianGrammaticalPatterns.patternLi, words);
-        ServerLogger.get().info("NUMBER OF YES/NO Qs FOUND: " + numLIs);
-        int numConditionals = countMatches(RussianGrammaticalPatterns.patternBi, words);
-        ServerLogger.get().info("NUMBER OF CONDITIONALS FOUND: " + numConditionals);
-        inspectVerbs(graph, words);
-        //TODO: save data to the document
+        inspectVerbs(graph);
     }
 
     private Map<Attribute, Integer> countAttributes(List<WordWithReadings> wordsWithReadings){
@@ -261,6 +262,8 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
             for(CgReading reading: word.getReadings()){
                 boolean isNoun = false;
                 boolean isAdjective = false;
+                boolean isPronoun = false;
+                boolean isDeterminer = false;
                 boolean isVerb = false;
                 boolean isPast = false;
                 boolean isPresent = false;
@@ -280,6 +283,8 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                 //part of speech
                 if(tags.contains(NOUN_TAG)) isNoun = true;
                 if(tags.contains(ADJECTIVE_TAG)) isAdjective = true;
+                if(tags.contains(PRONOUN_TAG)) isPronoun = true;
+                if(tags.contains(DETERMINER_TAG)) isDeterminer = true;
                 if(tags.contains(VERB_TAG)) isVerb = true;
                 //tense
                 if(tags.contains(PAST_TAG)) isPast = true;
@@ -315,6 +320,22 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                     if(isDative) attributesToCount.put(Attribute.A_DATIVE, true);
                     if(isPrepositional) attributesToCount.put(Attribute.A_PREPOSITIONAL, true);
                     if(isInstrumental) attributesToCount.put(Attribute.A_INSTRUMENTAL, true);
+                }
+                if(isPronoun){
+                    if(isNominative) attributesToCount.put(Attribute.PRO_NOMINATIVE, true);
+                    if(isAccusative) attributesToCount.put(Attribute.PRO_ACCUSATIVE, true);
+                    if(isGenitive) attributesToCount.put(Attribute.PRO_GENITIVE, true);
+                    if(isDative) attributesToCount.put(Attribute.PRO_DATIVE, true);
+                    if(isPrepositional) attributesToCount.put(Attribute.PRO_PREPOSITIONAL, true);
+                    if(isInstrumental) attributesToCount.put(Attribute.PRO_INSTRUMENTAL, true);
+                }
+                if(isDeterminer){
+                    if(isNominative) attributesToCount.put(Attribute.DET_NOMINATIVE, true);
+                    if(isAccusative) attributesToCount.put(Attribute.DET_ACCUSATIVE, true);
+                    if(isGenitive) attributesToCount.put(Attribute.DET_GENITIVE, true);
+                    if(isDative) attributesToCount.put(Attribute.DET_DATIVE, true);
+                    if(isPrepositional) attributesToCount.put(Attribute.DET_PREPOSITIONAL, true);
+                    if(isInstrumental) attributesToCount.put(Attribute.DET_INSTRUMENTAL, true);
                 }
                 if(isVerb){
                     if(isPast) attributesToCount.put(Attribute.V_PAST, true);
@@ -399,15 +420,24 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
      * @param words   List of models that contain individual word values
      * @return number of matches to the regex pattern
      */
-    private int countMatches(Pattern pattern, List<CoreLabel> words){
-        int matches = 0;
-        for(CoreLabel word : words){
+    private List<CoreLabel> findMatches(Pattern pattern, List<CoreLabel> words){
+        List<CoreLabel> matches = new LinkedList<>();
+        for(CoreLabel word : words) {
             final String wordValue = word.value();
             Matcher m = pattern.matcher(wordValue);
-            while(m.find()){
-                matches++;
+            while (m.find()) {
+                matches.add(word);
             }
         }
         return matches;
+    }
+
+    private void addConstructionOccurrences(GrammaticalConstruction type, List<CoreLabel> labels) {
+        for(CoreLabel label: labels) {
+            int begin = label.beginPosition();
+            int end = label.endPosition();
+            System.out.println("TODO: add construction to the document"); //TODO
+            //workingDoc.getConstructionData(type).addOccurrence(begin, end);
+        }
     }
 }
