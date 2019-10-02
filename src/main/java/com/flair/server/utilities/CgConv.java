@@ -35,7 +35,7 @@ public class CgConv {
             BufferedInputStream errorOutput = new BufferedInputStream(process.getErrorStream());
             //put data in
             byte[] stringBytes = hfstString.getBytes(StandardCharsets.UTF_8);
-            System.out.println("stringBytes.length = " + stringBytes.length);
+            //System.out.println("stringBytes.length = " + stringBytes.length);
             converterInput.write(stringBytes);
             converterInput.flush();
             converterInput.close();

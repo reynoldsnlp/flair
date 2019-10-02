@@ -13,6 +13,9 @@ public class RussianGrammaticalPatterns {
     //regex for conditional particle 'бы'
     private static final String STR_BI = "\\bбы\\b";
     public static Pattern patternBi = Pattern.compile(STR_BI, CASE_INSENSITIVE);
+    //regex for conditional particle 'не'
+    private static final String STR_NE = "\\bне\\b";
+    public static Pattern patternNe = Pattern.compile(STR_NE, CASE_INSENSITIVE);
 
 
     //QUESTION WORDS
