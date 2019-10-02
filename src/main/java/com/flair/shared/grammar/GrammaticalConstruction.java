@@ -18,51 +18,51 @@ import java.util.Set;
 public enum GrammaticalConstruction
 {
     // (simple) constructions
-    EXISTENTIAL_THERE("existentialThere", Language.ENGLISH),
+    EXISTENTIAL_THERE("existentialThere", Language.ENGLISH, Language.RUSSIAN), //Russian: есть and нет
     THERE_IS_ARE("thereIsAre", Language.ENGLISH),
     THERE_WAS_WERE("thereWasWere", Language.ENGLISH),
     
     ATTRIBUTES_PARTICIPLE_1("participle1Attribute", Language.GERMAN),
     ATTRIBUTES_PARTICIPLE_2("participle2Attribute", Language.GERMAN),
-    ATTRIBUTES_ADJECTIVE("adjectiveAttribute", Language.GERMAN),
+    ATTRIBUTES_ADJECTIVE("adjectiveAttribute", Language.GERMAN, Language.RUSSIAN), //Russian: long form adjectives (without "Pred" tag)
     ATTRIBUTES_PREPOSITION("prepositionalAttribute", Language.GERMAN),
     
     CONJUNCTIONS_ADVANCED("advancedConjunctions", Language.ENGLISH),
     CONJUNCTIONS_SIMPLE("simpleConjunctions", Language.ENGLISH),
     
-    PREPOSITIONS("prepositions", Language.ENGLISH, Language.GERMAN),
+    PREPOSITIONS("prepositions", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN),
     PREPOSITIONS_SIMPLE("simplePrepositions", Language.ENGLISH, Language.GERMAN),
     PREPOSITIONS_COMPLEX("complexPrepositions", Language.ENGLISH),
     PREPOSITIONS_ADVANCED("advancedPrepositions", Language.ENGLISH),
     
     // sentence structure
-    CLAUSE_SUBORDINATE("subordinateClause", Language.ENGLISH, Language.GERMAN),
-    CLAUSE_RELATIVE("relativeClause", Language.ENGLISH, Language.GERMAN),
+    CLAUSE_SUBORDINATE("subordinateClause", Language.ENGLISH, Language.GERMAN), //*** "CS" tag
+    CLAUSE_RELATIVE("relativeClause", Language.ENGLISH, Language.GERMAN), //*** "Rel" tag
     CLAUSE_RELATIVE_REDUCED("relativeClauseReduced", Language.ENGLISH),
-    CLAUSE_ADVERBIAL("adverbialClause", Language.ENGLISH, Language.GERMAN),
-    CLAUSE_DASS("dassClause", Language.GERMAN),
-    SENTENCE_SIMPLE("simpleSentence", Language.ENGLISH, Language.GERMAN),
-    SENTENCE_COMPLEX("complexSentence", Language.ENGLISH, Language.GERMAN),
+    CLAUSE_ADVERBIAL("adverbialClause", Language.ENGLISH, Language.GERMAN), //*** ? verbal adverb? "čitajući" ? "V" and "Adv" tags
+    CLAUSE_THAT("thatClause", Language.GERMAN), //TODO: refactor situations of 'dass' to be 'that' //*** ", čto"
+    SENTENCE_SIMPLE("simpleSentence", Language.ENGLISH, Language.GERMAN), //*** no "CS" or "CC" tag
+    SENTENCE_COMPLEX("complexSentence", Language.ENGLISH, Language.GERMAN), //*** has "CS" or "CC" tag
     SENTENCE_COMPOUND("compoundSentence", Language.ENGLISH, Language.GERMAN),
     SENTENCE_INCOMPLETE("incompleteSentence", Language.ENGLISH, Language.GERMAN),
     
-    OBJECT_DIRECT("directObject", Language.ENGLISH),	 // "give me"
-    OBJECT_INDIRECT("indirectObject", Language.ENGLISH),	 // "give it toPrep me"
+    OBJECT_DIRECT("directObject", Language.ENGLISH),	 // "give me" //*** in the graph, verb with Acc or negated verb with Gen
+    OBJECT_INDIRECT("indirectObject", Language.ENGLISH),	 // "give it toPrep me" //*** in the graph, verb with Dat
     
-    PRONOUNS("pronouns", Language.ENGLISH, Language.GERMAN),
-    PRONOUNS_PERSONAL("pronounsPersonal", Language.GERMAN),
-    PRONOUNS_RELATIVE("pronounsRelative", Language.GERMAN),
-    PRONOUNS_POSSESSIVE("pronounsPossessive", Language.ENGLISH, Language.GERMAN), // /PRP$ ("", my, your, their)
-    PRONOUNS_DEMONSTRATIVE("pronounsDemonstrative", Language.GERMAN), // /JJ or PRP... ("", mine, yours, theirs)
-    PRONOUNS_REFLEXIVE("pronounsReflexive", Language.ENGLISH, Language.GERMAN), // /PRP + myself, themselves, etc.
-    PRONOUNS_INDEFINITE("pronounsIndefinite", Language.GERMAN),
-    PRONOUNS_INTERROGATIVE("pronounsInterrogative", Language.GERMAN),
+    PRONOUNS("pronouns", Language.ENGLISH, Language.GERMAN), //*** Pron
+    PRONOUNS_PERSONAL("pronounsPersonal", Language.GERMAN), //*** Pron Pers
+    PRONOUNS_RELATIVE("pronounsRelative", Language.GERMAN), //*** Pron Rel
+    PRONOUNS_POSSESSIVE("pronounsPossessive", Language.ENGLISH, Language.GERMAN), // /PRP$ ("", my, your, their) //*** Pron Pos
+    PRONOUNS_DEMONSTRATIVE("pronounsDemonstrative", Language.GERMAN), // /JJ or PRP... ("", mine, yours, theirs) //*** Pron Dem
+    PRONOUNS_REFLEXIVE("pronounsReflexive", Language.ENGLISH, Language.GERMAN), // /PRP + myself, themselves, etc. //*** Pron Refl
+    PRONOUNS_INDEFINITE("pronounsIndefinite", Language.GERMAN), //*** Pron Indef, Pron Def, nječto, njekto
+    PRONOUNS_INTERROGATIVE("pronounsInterrogative", Language.GERMAN), //*** Pron Interr
     PRONOUNS_SUBJECTIVE("pronounsSubjective", Language.ENGLISH),
     
     // quantifiers
-    DETERMINER_SOME("someDet", Language.ENGLISH, Language.GERMAN),
-    DETERMINER_ANY("anyDet", Language.ENGLISH, Language.GERMAN),
-    DETERMINER_MUCH("muchDet", Language.ENGLISH),
+    DETERMINER_SOME("someDet", Language.ENGLISH, Language.GERMAN), //*** njekotorujj / njekotoryj
+    DETERMINER_ANY("anyDet", Language.ENGLISH, Language.GERMAN), //*** ljuboj
+    DETERMINER_MUCH("muchDet", Language.ENGLISH), //*** mnogo, mnogij (lemmas, not surface form)
     DETERMINER_MANY("manyDet", Language.ENGLISH, Language.GERMAN),
     DETERMINER_A_LOT_OF("aLotOfDet", Language.ENGLISH),
     
@@ -75,9 +75,9 @@ public enum GrammaticalConstruction
     NOUNS_TUR("turNounForms", Language.GERMAN),
     NOUNS_UNG("ungNounForms", Language.GERMAN),
     
-    NEGATION_ALL("negAll", Language.ENGLISH, Language.GERMAN), // nobody, nowhere, etc.
-    NEGATION_PARTIAL("partialNegation", Language.ENGLISH, Language.GERMAN), // rarely, barely, seldom, hardly, scarcely
-    NEGATION_NO_NOT_NEVER("noNotNever", Language.ENGLISH, Language.GERMAN),
+    NEGATION_ALL("negAll", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), // nobody, nowhere, etc. //*** Pron Neg //TODO: work through these next time
+    NEGATION_PARTIAL("partialNegation", Language.ENGLISH, Language.GERMAN), // rarely, barely, seldom, hardly, scarcely //TODO: maybe add to russian later
+    NEGATION_NO_NOT_NEVER("noNotNever", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), //*** njet or nje
     NEGATION_NT("nt", Language.ENGLISH),
     NEGATION_NOT("not", Language.ENGLISH),
     

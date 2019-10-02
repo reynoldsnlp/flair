@@ -5,15 +5,20 @@ import java.util.regex.Pattern;
 
 public class RussianGrammaticalPatterns {
 
+    //EXISTENTIALS
+
+    private static final String STR_JEST = "\\bесть\\b";
+    public static Pattern patternJest = Pattern.compile(STR_JEST, CASE_INSENSITIVE);
+    private static final String STR_NJET = "\\bнет\\b";
+    public static Pattern patternNjet = Pattern.compile(STR_NJET, CASE_INSENSITIVE);
+
+
     //PARTICLES
 
-    //regex for the interrogative particle 'ли'
     private static final String STR_LI = "\\bли\\b";
     public static Pattern patternLi = Pattern.compile(STR_LI, CASE_INSENSITIVE);
-    //regex for conditional particle 'бы'
     private static final String STR_BI = "\\bбы\\b";
     public static Pattern patternBi = Pattern.compile(STR_BI, CASE_INSENSITIVE);
-    //regex for conditional particle 'не'
     private static final String STR_NE = "\\bне\\b";
     public static Pattern patternNe = Pattern.compile(STR_NE, CASE_INSENSITIVE);
 

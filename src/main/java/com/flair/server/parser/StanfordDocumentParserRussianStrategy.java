@@ -44,10 +44,12 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
     private int dependencyCount;
     private int adjCount;
     private static final String WORD_PATTERN = "[\\p{IsCyrillic}\u0300\u0301]+";
+    private static final String PREPOSITION_GRAPH_LABEL = "ADP";
 
     private enum Attribute {
         N_NOMINATIVE, N_ACCUSATIVE, N_GENITIVE, N_PREPOSITIONAL, N_DATIVE, N_INSTRUMENTAL, //noun cases
         A_NOMINATIVE, A_ACCUSATIVE, A_GENITIVE, A_PREPOSITIONAL, A_DATIVE, A_INSTRUMENTAL, //adjective cases
+        A_ATTRIBUTE,
         PRO_NOMINATIVE, PRO_ACCUSATIVE, PRO_GENITIVE, PRO_PREPOSITIONAL, PRO_DATIVE, PRO_INSTRUMENTAL, //pronoun cases
         DET_NOMINATIVE, DET_ACCUSATIVE, DET_GENITIVE, DET_PREPOSITIONAL, DET_DATIVE, DET_INSTRUMENTAL, //determiner cases
         V_PAST, V_PRESENT, V_FUTURE, V_INFINITIVE, //verb forms
@@ -57,8 +59,10 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
     private final String NOUN_TAG = "N";
     private final String ADJECTIVE_TAG = "A";
     private final String PRONOUN_TAG = "Pron";
+    private final String PREPOSITION_TAG = "Pr";
     private final String DETERMINER_TAG = "Det";
     private final String VERB_TAG = "V";
+    private final String PREDICATE_TAG = "Pred";
     private final String PAST_TAG = "Pst";
     private final String PRESENT_TAG = "Prs";
     private final String FUTURE_TAG = "Fut";
@@ -212,6 +216,14 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
         //TODO: correct the GrammaticalConstruction type passed into addConstructionOccurrences
     }
 
+    private void inspectPrepositions(SemanticGraph graph){
+        //extract verbs from the graph
+        List<IndexedWord> prepositions = graph.getAllNodesByPartOfSpeechPattern(PREPOSITION_GRAPH_LABEL);
+        List<CoreLabel> prepositionCoreLabels = indexedWordsToCoreLabels(prepositions);
+        //count constructions
+        addConstructionOccurrences(GrammaticalConstruction.PREPOSITIONS, prepositionCoreLabels);
+    }
+
     private void inspectSentence(SemanticGraph graph, List<CoreLabel> words) {
         if (words == null || words.isEmpty()) {
             return;
@@ -230,8 +242,8 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                 Cg3Parser parser = new Cg3Parser(finalReadings);
                 List<WordWithReadings> readingsList = parser.parse();
                 //use the reduced readings to count attributes
-                Map<Attribute, Integer> attributeCounts = countAttributes(readingsList);
-                Map<Attribute, Integer> prepositionAttributeCounts = countPrepositionAttributes(readingsList, graph);
+                Map<Attribute, List<WordWithReadings>> attributeCounts = countAttributes(readingsList);
+                Map<Attribute, List<WordWithReadings>> prepositionAttributeCounts = countPrepositionAttributes(readingsList, graph);
                 attributeCounts.putAll(prepositionAttributeCounts);
                 //TODO: save data to the document
                 System.out.println("break"); //TODO: remove this
@@ -245,6 +257,11 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
 
         //count things based purely on surface forms, not readings
         //TODO: correct the GrammaticalConstruction types passed into addConstructionOccurrences
+        List<CoreLabel> positiveExistentials = findMatches(RussianGrammaticalPatterns.patternJest, words);
+        addConstructionOccurrences(GrammaticalConstruction.EXISTENTIAL_THERE, positiveExistentials);
+        List<CoreLabel> negativeExistentials = findMatches(RussianGrammaticalPatterns.patternNjet, words);
+        addConstructionOccurrences(GrammaticalConstruction.EXISTENTIAL_THERE, negativeExistentials);
+
         List<CoreLabel> yesNoParticles = findMatches(RussianGrammaticalPatterns.patternLi, words);
         addConstructionOccurrences(GrammaticalConstruction.QUESTIONS_YESNO, yesNoParticles);
         List<CoreLabel> conditionals = findMatches(RussianGrammaticalPatterns.patternBi, words);
@@ -253,10 +270,11 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
         addConstructionOccurrences(GrammaticalConstruction.NEGATION_NOT, negations);
 
         inspectVerbs(graph);
+        inspectPrepositions(graph);
     }
 
-    private Map<Attribute, Integer> countAttributes(List<WordWithReadings> wordsWithReadings){
-        Map<Attribute, Integer> attributeCountMap = new HashMap<>();
+    private Map<Attribute, List<WordWithReadings>> countAttributes(List<WordWithReadings> wordsWithReadings){
+        Map<Attribute, List<WordWithReadings>> attributeInstances = new HashMap<>();
         for(WordWithReadings word: wordsWithReadings){
             Map<Attribute, Boolean> attributesToCount = new HashMap<>();
 
@@ -267,14 +285,18 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                 boolean isPronoun = false;
                 boolean isDeterminer = false;
                 boolean isVerb = false;
+                boolean isPredicate = false;
+
                 boolean isPast = false;
                 boolean isPresent = false;
                 boolean isFuture = false;
                 boolean isInfinitive = false;
+
                 boolean isPresentActive = false;
                 boolean isPresentPassive = false;
                 boolean isPastActive = false;
                 boolean isPastPassive = false;
+
                 boolean isNominative = false;
                 boolean isAccusative = false;
                 boolean isGenitive = false;
@@ -288,6 +310,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                 if(tags.contains(PRONOUN_TAG)) isPronoun = true;
                 if(tags.contains(DETERMINER_TAG)) isDeterminer = true;
                 if(tags.contains(VERB_TAG)) isVerb = true;
+                if(tags.contains(PREDICATE_TAG)) isPredicate = true;
                 //tense
                 if(tags.contains(PAST_TAG)) isPast = true;
                 if(tags.contains(PRESENT_TAG)) isPresent = true;
@@ -322,6 +345,8 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                     if(isDative) attributesToCount.put(Attribute.A_DATIVE, true);
                     if(isPrepositional) attributesToCount.put(Attribute.A_PREPOSITIONAL, true);
                     if(isInstrumental) attributesToCount.put(Attribute.A_INSTRUMENTAL, true);
+
+                    if(!isPredicate) attributesToCount.put(Attribute.A_ATTRIBUTE, true);
                 }
                 if(isPronoun){
                     if(isNominative) attributesToCount.put(Attribute.PRO_NOMINATIVE, true);
@@ -354,17 +379,20 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
             //count this word towards the appropriate attributes
             for(Attribute attr: attributesToCount.keySet()){
                 if(attributesToCount.get(attr)){
-                    addAttributeCount(attributeCountMap, attr);
+                    //add the WordWithReadings to the list associated with the given attribute
+                    List<WordWithReadings> existingList = attributeInstances.getOrDefault(attr, new LinkedList<>());
+                    existingList.add(word);
+                    attributeInstances.put(attr, existingList);
                 }
             }
         }
-        return attributeCountMap;
+        return attributeInstances;
     }
 
-    private Map<Attribute, Integer> countPrepositionAttributes(List<WordWithReadings> wordsWithReadings, SemanticGraph graph){
-        Map<Attribute, Integer> attributeCountMap = new HashMap<>();
+    private Map<Attribute, List<WordWithReadings>> countPrepositionAttributes(List<WordWithReadings> wordsWithReadings, SemanticGraph graph){
+        Map<Attribute, List<WordWithReadings>> attributeInstances = new HashMap<>();
         //find all prepositions
-        List<IndexedWord> prepositions = graph.getAllNodesByPartOfSpeechPattern("ADP");
+        List<IndexedWord> prepositions = graph.getAllNodesByPartOfSpeechPattern(PREPOSITION_GRAPH_LABEL);
         for(IndexedWord preposition: prepositions){
             List<SemanticGraphEdge> edqes = graph.getIncomingEdgesSorted(preposition);
             for(SemanticGraphEdge edge: edqes){
@@ -388,17 +416,15 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                 //count this word towards the appropriate attributes
                 for(Attribute attr: attributesToCount.keySet()){
                     if(attributesToCount.get(attr)){
-                        addAttributeCount(attributeCountMap, attr);
+                        //add the WordWithReadings to the list associated with the given attribute
+                        List<WordWithReadings> existingList = attributeInstances.getOrDefault(attr, new LinkedList<>());
+                        existingList.add(objectWithReadings);
+                        attributeInstances.put(attr, existingList);
                     }
                 }
             }
         }
-        return attributeCountMap;
-    }
-
-    private static void addAttributeCount(Map<Attribute, Integer> countMap, Attribute attr){
-        int count = countMap.getOrDefault(attr, 0);
-        countMap.put(attr, count + 1);
+        return attributeInstances;
     }
 
     /**
@@ -439,7 +465,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
             int begin = label.beginPosition();
             int end = label.endPosition();
             System.out.println("TODO: add construction to the document"); //TODO
-            //workingDoc.getConstructionData(type).addOccurrence(begin, end);
+            workingDoc.getConstructionData(type).addOccurrence(begin, end);
         }
     }
 }
