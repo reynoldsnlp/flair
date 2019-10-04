@@ -15,6 +15,7 @@ public class Cg3Parser {
     private List<CgTokenizer.CgToken> tokenList;
     private int tokenIndex = 0;
     private List<WordWithReadings> allReadings = null;
+    private int nextWordIndex = 0;
 
     //constructor
     public Cg3Parser(String source) {
@@ -78,7 +79,7 @@ public class Cg3Parser {
     private WordWithReadings parseWordWithReadings() throws CgSyntaxError {
         SurfaceFormLine surfaceFormLine = parseSurfaceFormLine();
         List<CgReading> cgReadingList = parseCgReadingList();
-        WordWithReadings word = new WordWithReadings(surfaceFormLine.getSurfaceForm());
+        WordWithReadings word = new WordWithReadings(surfaceFormLine.getSurfaceForm(), nextWordIndex++);
         for(String staticTag: surfaceFormLine.getStaticTags()) {
             word.addStaticTag(staticTag);
         }
