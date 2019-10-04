@@ -345,7 +345,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                 }
                 if(tags.contains(RELATIVE_CLAUSE_TAG)) isRelativeClause = true;
                 if(tags.contains(CC_CLAUSE_TAG)) isComplexSentence = true;
-                //personal v relative
+                //personal vs relative
                 if(tags.contains(PERSONAL_TAG)) isPersonal = true;
                 if(tags.contains(RELATIVE_TAG)) isRelative = true;
 
@@ -450,8 +450,8 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
             for(SemanticGraphEdge edge: edqes){
                 //get the object of the preposition
                 IndexedWord objectOfPreposition = edge.getSource();
-                int index = objectOfPreposition.get(CoreAnnotations.IndexAnnotation.class) - 1;
-                WordWithReadings objectWithReadings = wordsWithReadings.get(index);
+                int objectIndex = objectOfPreposition.index() - 1;
+                WordWithReadings objectWithReadings = wordsWithReadings.get(objectIndex);
 
                 //recognize which tags are present in this word's readings
                 Map<GrammaticalConstruction, Boolean> constructionsToCount = new HashMap<>();
@@ -470,7 +470,8 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                     if(constructionsToCount.get(attr)){
                         //add the WordWithReadings to the list associated with the given construction
                         List<WordWithReadings> existingList = constructionInstances.getOrDefault(attr, new LinkedList<>());
-                        existingList.add(objectWithReadings);
+                        int prepositionIndex = preposition.index() - 1;
+                        existingList.add(wordsWithReadings.get(prepositionIndex));
                         constructionInstances.put(attr, existingList);
                     }
                 }
@@ -529,7 +530,6 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
         for(CoreLabel label: labels) {
             int begin = label.beginPosition();
             int end = label.endPosition();
-            System.out.println("TODO: add construction to the document"); //TODO
             workingDoc.getConstructionData(type).addOccurrence(begin, end);
         }
     }
