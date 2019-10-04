@@ -46,19 +46,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
     private static final String WORD_PATTERN = "[\\p{IsCyrillic}\u0300\u0301]+";
     private static final String PREPOSITION_GRAPH_LABEL = "ADP";
 
-    private enum Attribute { //TODO: convert these to GrammaticalConstruction
-        N_NOMINATIVE, N_ACCUSATIVE, N_GENITIVE, N_PREPOSITIONAL, N_DATIVE, N_INSTRUMENTAL, //noun cases
-        A_NOMINATIVE, A_ACCUSATIVE, A_GENITIVE, A_PREPOSITIONAL, A_DATIVE, A_INSTRUMENTAL, //adjective cases
-        A_ATTRIBUTE,
-        PRO_NOMINATIVE, PRO_ACCUSATIVE, PRO_GENITIVE, PRO_PREPOSITIONAL, PRO_DATIVE, PRO_INSTRUMENTAL, //pronoun cases
-        PRO_PERSONAL, PRO_RELATIVE, //pronoun types
-        DET_NOMINATIVE, DET_ACCUSATIVE, DET_GENITIVE, DET_PREPOSITIONAL, DET_DATIVE, DET_INSTRUMENTAL, //determiner cases
-        V_PAST, V_PRESENT, V_FUTURE, V_INFINITIVE, //verb forms
-        P_PRESENT_ACTIVE, P_PRESENT_PASSIVE, P_PAST_ACTIVE, P_PAST_PASSIVE, //participles
-        PR_NOMINATIVE, PR_ACCUSATIVE, PR_GENITIVE, PR_PREPOSITIONAL, PR_DATIVE, PR_INSTRUMENTAL, //preposition cases
-        CL_SUBORDINATE, CL_RELATIVE, //clause types
-        SENT_COMPLEX, SENT_SIMPLE, //sentence types
-    }
+    //TAGS
     private final String NOUN_TAG = "N";
     private final String ADJECTIVE_TAG = "A";
     private final String PRONOUN_TAG = "Pron";
@@ -221,8 +209,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
         List<CoreLabel> verbCoreLabels = indexedWordsToCoreLabels(verbs);
         //count constructions
         List<CoreLabel> reflexiveVerbs = findMatches(RussianGrammaticalPatterns.patternReflexiveVerb, verbCoreLabels);
-        //addConstructionOccurrences(GrammaticalConstruction.PRONOUNS_REFLEXIVE, reflexiveVerbs);
-        //TODO: correct the GrammaticalConstruction type passed into addConstructionOccurrences
+        addConstructionOccurrences(GrammaticalConstruction.VERB_REFLEXIVE, reflexiveVerbs);
     }
 
     private void inspectPrepositions(SemanticGraph graph){
@@ -250,11 +237,11 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                 //System.out.println("readings:\n" + finalReadings);
                 Cg3Parser parser = new Cg3Parser(finalReadings);
                 List<WordWithReadings> readingsList = parser.parse();
-                //use the reduced readings to count attributes
-                Map<Attribute, List<WordWithReadings>> attributeCounts = countAttributes(readingsList);
-                Map<Attribute, List<WordWithReadings>> prepositionAttributeCounts = countPrepositionAttributes(readingsList, graph);
-                attributeCounts.putAll(prepositionAttributeCounts);
-                saveAttributesToDocument(attributeCounts, words);
+                //use the reduced readings to count constructions
+                Map<GrammaticalConstruction, List<WordWithReadings>> constructionCounts = countGrammaticalConstructions(readingsList);
+                Map<GrammaticalConstruction, List<WordWithReadings>> prepositionConstructionCounts = countPrepositionConstructions(readingsList, graph);
+                constructionCounts.putAll(prepositionConstructionCounts);
+                saveGrammaticalConstructionsToDocument(constructionCounts, words);
                 System.out.println("break"); //TODO: remove this
             }
             else {
@@ -288,13 +275,13 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
         inspectPrepositions(graph);
     }
 
-    private Map<Attribute, List<WordWithReadings>> countAttributes(List<WordWithReadings> wordsWithReadings){
+    private Map<GrammaticalConstruction, List<WordWithReadings>> countGrammaticalConstructions(List<WordWithReadings> wordsWithReadings){
         //variables for the whole sentence
         boolean isComplexSentence = false;
 
-        Map<Attribute, List<WordWithReadings>> attributeInstances = new HashMap<>();
+        Map<GrammaticalConstruction, List<WordWithReadings>> constructionInstances = new HashMap<>();
         for(WordWithReadings word: wordsWithReadings){
-            Map<Attribute, Boolean> attributesToCount = new HashMap<>();
+            Map<GrammaticalConstruction, Boolean> constructionsToCount = new HashMap<>();
 
             //recognize which tags are present in this word's readings
             for(CgReading reading: word.getReadings()){
@@ -366,77 +353,98 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
 
                 //recognize tag combinations
                 if(isNoun){
-                    if(isNominative) attributesToCount.put(Attribute.N_NOMINATIVE, true);
-                    if(isAccusative) attributesToCount.put(Attribute.N_ACCUSATIVE, true);
-                    if(isGenitive) attributesToCount.put(Attribute.N_GENITIVE, true);
-                    if(isDative) attributesToCount.put(Attribute.N_DATIVE, true);
-                    if(isPrepositional) attributesToCount.put(Attribute.N_PREPOSITIONAL, true);
-                    if(isInstrumental) attributesToCount.put(Attribute.N_INSTRUMENTAL, true);
+                    if(isNominative) constructionsToCount.put(GrammaticalConstruction.NOUN_NOMINATIVE, true);
+                    if(isAccusative) constructionsToCount.put(GrammaticalConstruction.NOUN_ACCUSATIVE, true);
+                    if(isGenitive) constructionsToCount.put(GrammaticalConstruction.NOUN_GENITIVE, true);
+                    if(isDative) constructionsToCount.put(GrammaticalConstruction.NOUN_DATIVE, true);
+                    if(isPrepositional) constructionsToCount.put(GrammaticalConstruction.NOUN_PREPOSITIONAL, true);
+                    if(isInstrumental) constructionsToCount.put(GrammaticalConstruction.NOUN_INSTRUMENTAL, true);
                 }
                 if(isAdjective){
-                    if(isNominative) attributesToCount.put(Attribute.A_NOMINATIVE, true);
-                    if(isAccusative) attributesToCount.put(Attribute.A_ACCUSATIVE, true);
-                    if(isGenitive) attributesToCount.put(Attribute.A_GENITIVE, true);
-                    if(isDative) attributesToCount.put(Attribute.A_DATIVE, true);
-                    if(isPrepositional) attributesToCount.put(Attribute.A_PREPOSITIONAL, true);
-                    if(isInstrumental) attributesToCount.put(Attribute.A_INSTRUMENTAL, true);
+                    if(isNominative) constructionsToCount.put(GrammaticalConstruction.ADJECTIVE_NOMINATIVE, true);
+                    if(isAccusative) constructionsToCount.put(GrammaticalConstruction.ADJECTIVE_ACCUSATIVE, true);
+                    if(isGenitive) constructionsToCount.put(GrammaticalConstruction.ADJECTIVE_GENITIVE, true);
+                    if(isDative) constructionsToCount.put(GrammaticalConstruction.ADJECTIVE_DATIVE, true);
+                    if(isPrepositional) constructionsToCount.put(GrammaticalConstruction.ADJECTIVE_PREPOSITIONAL, true);
+                    if(isInstrumental) constructionsToCount.put(GrammaticalConstruction.ADJECTIVE_INSTRUMENTAL, true);
 
-                    if(!isPredicate) attributesToCount.put(Attribute.A_ATTRIBUTE, true);
+                    if(!isPredicate) constructionsToCount.put(GrammaticalConstruction.ATTRIBUTES_ADJECTIVE, true);
                 }
                 if(isPronoun){
-                    if(isNominative) attributesToCount.put(Attribute.PRO_NOMINATIVE, true);
-                    if(isAccusative) attributesToCount.put(Attribute.PRO_ACCUSATIVE, true);
-                    if(isGenitive) attributesToCount.put(Attribute.PRO_GENITIVE, true);
-                    if(isDative) attributesToCount.put(Attribute.PRO_DATIVE, true);
-                    if(isPrepositional) attributesToCount.put(Attribute.PRO_PREPOSITIONAL, true);
-                    if(isInstrumental) attributesToCount.put(Attribute.PRO_INSTRUMENTAL, true);
+                    constructionsToCount.put(GrammaticalConstruction.PRONOUNS, true);
+                    if(isPersonal) constructionsToCount.put(GrammaticalConstruction.PRONOUNS_PERSONAL, true);
+                    if(isRelative) constructionsToCount.put(GrammaticalConstruction.PRONOUNS_RELATIVE, true);
 
-                    if(isPersonal) attributesToCount.put(Attribute.PRO_PERSONAL, true);
-                    if(isRelative) attributesToCount.put(Attribute.PRO_RELATIVE, true);
+                    if(isNominative) constructionsToCount.put(GrammaticalConstruction.PRONOUN_NOMINATIVE, true);
+                    if(isAccusative) constructionsToCount.put(GrammaticalConstruction.PRONOUN_ACCUSATIVE, true);
+                    if(isGenitive) constructionsToCount.put(GrammaticalConstruction.PRONOUN_GENITIVE, true);
+                    if(isDative) constructionsToCount.put(GrammaticalConstruction.PRONOUN_DATIVE, true);
+                    if(isPrepositional) constructionsToCount.put(GrammaticalConstruction.PRONOUN_PREPOSITIONAL, true);
+                    if(isInstrumental) constructionsToCount.put(GrammaticalConstruction.PRONOUN_INSTRUMENTAL, true);
                 }
                 if(isDeterminer){
-                    if(isNominative) attributesToCount.put(Attribute.DET_NOMINATIVE, true);
-                    if(isAccusative) attributesToCount.put(Attribute.DET_ACCUSATIVE, true);
-                    if(isGenitive) attributesToCount.put(Attribute.DET_GENITIVE, true);
-                    if(isDative) attributesToCount.put(Attribute.DET_DATIVE, true);
-                    if(isPrepositional) attributesToCount.put(Attribute.DET_PREPOSITIONAL, true);
-                    if(isInstrumental) attributesToCount.put(Attribute.DET_INSTRUMENTAL, true);
+                    if(isNominative) constructionsToCount.put(GrammaticalConstruction.DETERMINER_NOMINATIVE, true);
+                    if(isAccusative) constructionsToCount.put(GrammaticalConstruction.DETERMINER_ACCUSATIVE, true);
+                    if(isGenitive) constructionsToCount.put(GrammaticalConstruction.DETERMINER_GENITIVE, true);
+                    if(isDative) constructionsToCount.put(GrammaticalConstruction.DETERMINER_DATIVE, true);
+                    if(isPrepositional) constructionsToCount.put(GrammaticalConstruction.DETERMINER_PREPOSITIONAL, true);
+                    if(isInstrumental) constructionsToCount.put(GrammaticalConstruction.DETERMINER_INSTRUMENTAL, true);
                 }
                 if(isVerb){
-                    if(isPast) attributesToCount.put(Attribute.V_PAST, true);
-                    if(isPresent) attributesToCount.put(Attribute.V_PRESENT, true);
-                    if(isFuture) attributesToCount.put(Attribute.V_FUTURE, true);
-                    if(isInfinitive) attributesToCount.put(Attribute.V_INFINITIVE, true);
-                    if(isPresentActive) attributesToCount.put(Attribute.P_PRESENT_ACTIVE, true);
-                    if(isPresentPassive) attributesToCount.put(Attribute.P_PRESENT_PASSIVE, true);
-                    if(isPastActive) attributesToCount.put(Attribute.P_PAST_ACTIVE, true);
-                    if(isPastPassive) attributesToCount.put(Attribute.P_PAST_ACTIVE, true);
+                    if(isInfinitive) constructionsToCount.put(GrammaticalConstruction.VERBFORM_INFINITIVE, true);
+                    //tenses
+                    if(isPast) constructionsToCount.put(GrammaticalConstruction.TENSE_PAST, true);
+                    if(isPresent) {
+                        constructionsToCount.put(GrammaticalConstruction.TENSE_PRESENT, true);
+                        constructionsToCount.put(GrammaticalConstruction.TENSE_NON_PAST, true);
+                    }
+                    if(isFuture) {
+                        constructionsToCount.put(GrammaticalConstruction.TENSE_FUTURE, true);
+                        constructionsToCount.put(GrammaticalConstruction.TENSE_NON_PAST, true);
+                    }
+                    //participles
+                    if(isPresentActive) {
+                        constructionsToCount.put(GrammaticalConstruction.PARTICIPLE_PRESENT_ACTIVE, true);
+                        constructionsToCount.put(GrammaticalConstruction.VERBFORM_PARTICIPLE, true);
+                    }
+                    if(isPresentPassive) {
+                        constructionsToCount.put(GrammaticalConstruction.PARTICIPLE_PRESENT_PASSIVE, true);
+                        constructionsToCount.put(GrammaticalConstruction.VERBFORM_PARTICIPLE, true);
+                    }
+                    if(isPastActive) {
+                        constructionsToCount.put(GrammaticalConstruction.PARTICIPLE_PAST_ACTIVE, true);
+                        constructionsToCount.put(GrammaticalConstruction.VERBFORM_PARTICIPLE, true);
+                    }
+                    if(isPastPassive) {
+                        constructionsToCount.put(GrammaticalConstruction.PARTICIPLE_PAST_ACTIVE, true);
+                        constructionsToCount.put(GrammaticalConstruction.VERBFORM_PARTICIPLE, true);
+                    }
                 }
-                if(isSubordinateClause) attributesToCount.put(Attribute.CL_SUBORDINATE, true);
-                if(isRelativeClause) attributesToCount.put(Attribute.CL_RELATIVE, true);
+                if(isSubordinateClause) constructionsToCount.put(GrammaticalConstruction.CLAUSE_SUBORDINATE, true);
+                if(isRelativeClause) constructionsToCount.put(GrammaticalConstruction.CLAUSE_RELATIVE, true);
             }
 
-            //count this word towards the appropriate attributes
-            for(Attribute attr: attributesToCount.keySet()){
-                if(attributesToCount.get(attr)){
-                    //add the WordWithReadings to the list associated with the given attribute
-                    List<WordWithReadings> existingList = attributeInstances.getOrDefault(attr, new LinkedList<>());
+            //count this word towards the appropriate constructions
+            for(GrammaticalConstruction attr: constructionsToCount.keySet()){
+                if(constructionsToCount.get(attr)){
+                    //add the WordWithReadings to the list associated with the given construction
+                    List<WordWithReadings> existingList = constructionInstances.getOrDefault(attr, new LinkedList<>());
                     existingList.add(word);
-                    attributeInstances.put(attr, existingList);
+                    constructionInstances.put(attr, existingList);
                 }
             }
         }
         if(isComplexSentence){
-            attributeInstances.put(Attribute.SENT_COMPLEX, wordsWithReadings.subList(0,1));
+            constructionInstances.put(GrammaticalConstruction.SENTENCE_COMPLEX, wordsWithReadings.subList(0,1));
         }
         else {
-            attributeInstances.put(Attribute.SENT_SIMPLE, wordsWithReadings.subList(0,1));
+            constructionInstances.put(GrammaticalConstruction.SENTENCE_SIMPLE, wordsWithReadings.subList(0,1));
         }
-        return attributeInstances;
+        return constructionInstances;
     }
 
-    private Map<Attribute, List<WordWithReadings>> countPrepositionAttributes(List<WordWithReadings> wordsWithReadings, SemanticGraph graph){
-        Map<Attribute, List<WordWithReadings>> attributeInstances = new HashMap<>();
+    private Map<GrammaticalConstruction, List<WordWithReadings>> countPrepositionConstructions(List<WordWithReadings> wordsWithReadings, SemanticGraph graph){
+        Map<GrammaticalConstruction, List<WordWithReadings>> constructionInstances = new HashMap<>();
         //find all prepositions
         List<IndexedWord> prepositions = graph.getAllNodesByPartOfSpeechPattern(PREPOSITION_GRAPH_LABEL);
         for(IndexedWord preposition: prepositions){
@@ -448,29 +456,29 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                 WordWithReadings objectWithReadings = wordsWithReadings.get(index);
 
                 //recognize which tags are present in this word's readings
-                Map<Attribute, Boolean> attributesToCount = new HashMap<>();
+                Map<GrammaticalConstruction, Boolean> constructionsToCount = new HashMap<>();
                 for(CgReading reading: objectWithReadings.getReadings()) {
                     Set<String> tags = new HashSet<>(reading.getTags());
-                    if(tags.contains(NOMINATIVE_TAG)) attributesToCount.put(Attribute.PR_NOMINATIVE, true);
-                    if(tags.contains(ACCUSATIVE_TAG)) attributesToCount.put(Attribute.PR_ACCUSATIVE, true);
-                    if(tags.contains(GENITIVE_TAG)) attributesToCount.put(Attribute.PR_GENITIVE, true);
-                    if(tags.contains(PREPOSITIONAL_TAG)) attributesToCount.put(Attribute.PR_PREPOSITIONAL, true);
-                    if(tags.contains(DATIVE_TAG)) attributesToCount.put(Attribute.PR_DATIVE, true);
-                    if(tags.contains(INSTRUMENTAL_TAG)) attributesToCount.put(Attribute.PR_INSTRUMENTAL, true);
+                    if(tags.contains(NOMINATIVE_TAG)) constructionsToCount.put(GrammaticalConstruction.PREPOSITION_NOMINATIVE, true);
+                    if(tags.contains(ACCUSATIVE_TAG)) constructionsToCount.put(GrammaticalConstruction.PREPOSITION_ACCUSATIVE, true);
+                    if(tags.contains(GENITIVE_TAG)) constructionsToCount.put(GrammaticalConstruction.PREPOSITION_GENITIVE, true);
+                    if(tags.contains(PREPOSITIONAL_TAG)) constructionsToCount.put(GrammaticalConstruction.PREPOSITION_PREPOSITIONAL, true);
+                    if(tags.contains(DATIVE_TAG)) constructionsToCount.put(GrammaticalConstruction.PREPOSITION_DATIVE, true);
+                    if(tags.contains(INSTRUMENTAL_TAG)) constructionsToCount.put(GrammaticalConstruction.PREPOSITION_INSTRUMENTAL, true);
                 }
 
-                //count this word towards the appropriate attributes
-                for(Attribute attr: attributesToCount.keySet()){
-                    if(attributesToCount.get(attr)){
-                        //add the WordWithReadings to the list associated with the given attribute
-                        List<WordWithReadings> existingList = attributeInstances.getOrDefault(attr, new LinkedList<>());
+                //count this word towards the appropriate constructions
+                for(GrammaticalConstruction attr: constructionsToCount.keySet()){
+                    if(constructionsToCount.get(attr)){
+                        //add the WordWithReadings to the list associated with the given construction
+                        List<WordWithReadings> existingList = constructionInstances.getOrDefault(attr, new LinkedList<>());
                         existingList.add(objectWithReadings);
-                        attributeInstances.put(attr, existingList);
+                        constructionInstances.put(attr, existingList);
                     }
                 }
             }
         }
-        return attributeInstances;
+        return constructionInstances;
     }
 
     /**
@@ -506,35 +514,16 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
         return matches;
     }
 
-    private void saveAttributesToDocument(Map<Attribute, List<WordWithReadings>> attributesMap, List<CoreLabel> originalLabels) {
-        for(Attribute attr: attributesMap.keySet()){
-            List<WordWithReadings> instances = attributesMap.get(attr);
+    private void saveGrammaticalConstructionsToDocument(Map<GrammaticalConstruction, List<WordWithReadings>> constructionsMap, List<CoreLabel> originalLabels) {
+        for(GrammaticalConstruction construction: constructionsMap.keySet()){
+            List<WordWithReadings> instances = constructionsMap.get(construction);
             //convert the WordWithReadings objects to CoreLabel objects
             List<CoreLabel> labels = new LinkedList<>();
             for(WordWithReadings instance: instances){
                 labels.add(originalLabels.get(instance.getIndex()));
             }
             //add the CoreLabel objects to the document object as instances of the appropriate constructions
-            switch(attr){
-                case A_ATTRIBUTE:
-                    addConstructionOccurrences(GrammaticalConstruction.ATTRIBUTES_ADJECTIVE, labels); break;
-                case CL_SUBORDINATE:
-                    addConstructionOccurrences(GrammaticalConstruction.CLAUSE_SUBORDINATE, labels); break;
-                case CL_RELATIVE:
-                    addConstructionOccurrences(GrammaticalConstruction.CLAUSE_RELATIVE, labels); break;
-                case PRO_NOMINATIVE:
-                case PRO_ACCUSATIVE:
-                case PRO_GENITIVE:
-                case PRO_PREPOSITIONAL:
-                case PRO_DATIVE:
-                case PRO_INSTRUMENTAL:
-                    addConstructionOccurrences(GrammaticalConstruction.PRONOUNS, labels); break;
-                case PRO_PERSONAL:
-                    addConstructionOccurrences(GrammaticalConstruction.PRONOUNS_PERSONAL, labels); break;
-                case PRO_RELATIVE:
-                    addConstructionOccurrences(GrammaticalConstruction.PRONOUNS_RELATIVE, labels); break;
-                    //TODO: add the other attributes
-            }
+            addConstructionOccurrences(construction, labels);
         }
     }
 

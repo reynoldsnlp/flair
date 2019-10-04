@@ -134,8 +134,8 @@ public enum GrammaticalConstruction
     VERBTYP_MODAL("modalVerbs", Language.GERMAN),
     
     VERBFORM_TO_INFINITIVE("toInfinitiveForms", Language.ENGLISH, Language.GERMAN),
-    VERBFORM_INFINITIVE("infinitiveForms", Language.GERMAN),// "I want toPrep do it."
-    VERBFORM_PARTICIPLE("participleForms", Language.GERMAN),// "I want toPrep do it."
+    VERBFORM_INFINITIVE("infinitiveForms", Language.GERMAN, Language.RUSSIAN),// "I want toPrep do it."
+    VERBFORM_PARTICIPLE("participleForms", Language.GERMAN, Language.RUSSIAN),// "I want toPrep do it."
     
     VERB_CLUSTER("verbCluster", Language.GERMAN),
     VERB_BRACKETS("verbBrackets", Language.GERMAN),
@@ -201,7 +201,60 @@ public enum GrammaticalConstruction
     TENSE_PAST_PERFECT("pastPerfect", Language.ENGLISH),
     PRONOUNS_OBJECTIVE("pronounsObjective", Language.ENGLISH), // /PRP + me, you, them...
     POSTPOSITION("postposition", Language.GERMAN),
-    
+
+    //CASES
+
+    NOUN_NOMINATIVE("nounNominative", Language.RUSSIAN),
+    ADJECTIVE_NOMINATIVE("adjectiveNominative", Language.RUSSIAN),
+    PRONOUN_NOMINATIVE("pronounNominative", Language.RUSSIAN),
+    DETERMINER_NOMINATIVE("determinerNominative", Language.RUSSIAN),
+    PREPOSITION_NOMINATIVE("prepositionNominative", Language.RUSSIAN),
+
+    NOUN_ACCUSATIVE("nounAccusative", Language.RUSSIAN),
+    ADJECTIVE_ACCUSATIVE("adjectiveAccusative", Language.RUSSIAN),
+    PRONOUN_ACCUSATIVE("pronounAccusative", Language.RUSSIAN),
+    DETERMINER_ACCUSATIVE("determinerAccusative", Language.RUSSIAN),
+    PREPOSITION_ACCUSATIVE("prepositionAccusative", Language.RUSSIAN),
+
+    NOUN_GENITIVE("nounGenitive", Language.RUSSIAN),
+    ADJECTIVE_GENITIVE("adjectiveGenitive", Language.RUSSIAN),
+    PRONOUN_GENITIVE("pronounGenitive", Language.RUSSIAN),
+    DETERMINER_GENITIVE("determinerGenitive", Language.RUSSIAN),
+    PREPOSITION_GENITIVE("prepositionGenitive", Language.RUSSIAN),
+
+    NOUN_PREPOSITIONAL("nounPrepositional", Language.RUSSIAN),
+    ADJECTIVE_PREPOSITIONAL("adjectivePrepositional", Language.RUSSIAN),
+    PRONOUN_PREPOSITIONAL("pronounPrepositional", Language.RUSSIAN),
+    DETERMINER_PREPOSITIONAL("determinerPrepositional", Language.RUSSIAN),
+    PREPOSITION_PREPOSITIONAL("prepositionPrepositional", Language.RUSSIAN),
+
+    NOUN_DATIVE("nounDative", Language.RUSSIAN),
+    ADJECTIVE_DATIVE("adjectiveDative", Language.RUSSIAN),
+    PRONOUN_DATIVE("pronounDative", Language.RUSSIAN),
+    DETERMINER_DATIVE("determinerDative", Language.RUSSIAN),
+    PREPOSITION_DATIVE("prepositionDative", Language.RUSSIAN),
+
+    NOUN_INSTRUMENTAL("nounInstrumental", Language.RUSSIAN),
+    ADJECTIVE_INSTRUMENTAL("adjectiveInstrumental", Language.RUSSIAN),
+    PRONOUN_INSTRUMENTAL("pronounInstrumental", Language.RUSSIAN),
+    DETERMINER_INSTRUMENTAL("determinerInstrumental", Language.RUSSIAN),
+    PREPOSITION_INSTRUMENTAL("prepositionInstrumental", Language.RUSSIAN),
+
+    //RUSSIAN PARTICIPLES
+    PARTICIPLE_PRESENT_ACTIVE("presentActiveParticiple", Language.RUSSIAN),
+    PARTICIPLE_PRESENT_PASSIVE("presentPassiveParticiple", Language.RUSSIAN),
+    PARTICIPLE_PAST_ACTIVE("pastActiveParticiple", Language.RUSSIAN),
+    PARTICIPLE_PAST_PASSIVE("pastPassiveParticiple", Language.RUSSIAN),
+
+    //RUSSIAN TENSES
+    TENSE_PAST("pastTense", Language.RUSSIAN),
+    TENSE_NON_PAST("nonpastTense", Language.RUSSIAN),
+    TENSE_PRESENT("presentTense", Language.RUSSIAN),
+    TENSE_FUTURE("futureTense", Language.RUSSIAN),
+
+    //RUSSIAN VERB FORMS
+    VERB_REFLEXIVE("reflexiveVerb", Language.RUSSIAN),
+
     ;
     
 	
