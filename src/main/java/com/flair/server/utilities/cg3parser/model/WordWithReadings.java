@@ -8,10 +8,12 @@ public class WordWithReadings {
     private String surfaceForm;
     private List<String> staticTags = new ArrayList<>();
     private List<CgReading> readings = new ArrayList<>();
+    private int wordIndex;
 
     //constructor
-    public WordWithReadings(String surfaceForm) {
+    public WordWithReadings(String surfaceForm, int index) {
         this.surfaceForm = surfaceForm;
+        wordIndex = index;
     }
 
     //functions
@@ -26,6 +28,9 @@ public class WordWithReadings {
     public String getSurfaceForm() {
         return surfaceForm;
     }
+    public int getIndex() {
+        return wordIndex;
+    }
     public List<String> getStaticTags() {
         return staticTags;
     }
@@ -35,4 +40,5 @@ public class WordWithReadings {
     public boolean hasStaticTags() {
         return !staticTags.isEmpty();
     }
+
 }

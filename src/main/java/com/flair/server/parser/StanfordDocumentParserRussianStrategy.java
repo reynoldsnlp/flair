@@ -46,15 +46,18 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
     private static final String WORD_PATTERN = "[\\p{IsCyrillic}\u0300\u0301]+";
     private static final String PREPOSITION_GRAPH_LABEL = "ADP";
 
-    private enum Attribute {
+    private enum Attribute { //TODO: convert these to GrammaticalConstruction
         N_NOMINATIVE, N_ACCUSATIVE, N_GENITIVE, N_PREPOSITIONAL, N_DATIVE, N_INSTRUMENTAL, //noun cases
         A_NOMINATIVE, A_ACCUSATIVE, A_GENITIVE, A_PREPOSITIONAL, A_DATIVE, A_INSTRUMENTAL, //adjective cases
         A_ATTRIBUTE,
         PRO_NOMINATIVE, PRO_ACCUSATIVE, PRO_GENITIVE, PRO_PREPOSITIONAL, PRO_DATIVE, PRO_INSTRUMENTAL, //pronoun cases
+        PRO_PERSONAL, PRO_RELATIVE, //pronoun types
         DET_NOMINATIVE, DET_ACCUSATIVE, DET_GENITIVE, DET_PREPOSITIONAL, DET_DATIVE, DET_INSTRUMENTAL, //determiner cases
         V_PAST, V_PRESENT, V_FUTURE, V_INFINITIVE, //verb forms
         P_PRESENT_ACTIVE, P_PRESENT_PASSIVE, P_PAST_ACTIVE, P_PAST_PASSIVE, //participles
         PR_NOMINATIVE, PR_ACCUSATIVE, PR_GENITIVE, PR_PREPOSITIONAL, PR_DATIVE, PR_INSTRUMENTAL, //preposition cases
+        CL_SUBORDINATE, CL_RELATIVE, //clause types
+        SENT_COMPLEX, SENT_SIMPLE, //sentence types
     }
     private final String NOUN_TAG = "N";
     private final String ADJECTIVE_TAG = "A";
@@ -77,6 +80,12 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
     private final String PREPOSITIONAL_TAG = "Loc"; //represents 'locative'
     private final String DATIVE_TAG = "Dat";
     private final String INSTRUMENTAL_TAG = "Ins";
+    private final String SUBORDINATE_CLAUSE_TAG = "CS";
+    private final String RELATIVE_CLAUSE_TAG = "Rel";
+    private final String CC_CLAUSE_TAG = "CC"; //TODO: rename this
+    private final String PERSONAL_TAG = "Pers";
+    private final String RELATIVE_TAG = "Rel";
+
 
     public StanfordDocumentParserRussianStrategy() {
         //pipeline = null;
@@ -210,7 +219,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
         List<CoreLabel> verbCoreLabels = indexedWordsToCoreLabels(verbs);
         //count constructions
         List<CoreLabel> reflexiveVerbs = findMatches(RussianGrammaticalPatterns.patternReflexiveVerb, verbCoreLabels);
-        addConstructionOccurrences(GrammaticalConstruction.PRONOUNS_REFLEXIVE, reflexiveVerbs);
+        //addConstructionOccurrences(GrammaticalConstruction.PRONOUNS_REFLEXIVE, reflexiveVerbs);
         //TODO: correct the GrammaticalConstruction type passed into addConstructionOccurrences
     }
 
@@ -243,7 +252,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                 Map<Attribute, List<WordWithReadings>> attributeCounts = countAttributes(readingsList);
                 Map<Attribute, List<WordWithReadings>> prepositionAttributeCounts = countPrepositionAttributes(readingsList, graph);
                 attributeCounts.putAll(prepositionAttributeCounts);
-                //TODO: save data to the document
+                saveAttributesToDocument(attributeCounts, words);
                 System.out.println("break"); //TODO: remove this
             }
             else {
@@ -254,24 +263,33 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
         }
 
         //count things based purely on surface forms, not readings
-        //TODO: correct the GrammaticalConstruction types passed into addConstructionOccurrences
+
+        //есть
         List<CoreLabel> positiveExistentials = findMatches(RussianGrammaticalPatterns.patternJest, words);
         addConstructionOccurrences(GrammaticalConstruction.EXISTENTIAL_THERE, positiveExistentials);
+        //нет
         List<CoreLabel> negativeExistentials = findMatches(RussianGrammaticalPatterns.patternNjet, words);
         addConstructionOccurrences(GrammaticalConstruction.EXISTENTIAL_THERE, negativeExistentials);
-
-        List<CoreLabel> yesNoParticles = findMatches(RussianGrammaticalPatterns.patternLi, words);
-        addConstructionOccurrences(GrammaticalConstruction.QUESTIONS_YESNO, yesNoParticles);
-        List<CoreLabel> conditionals = findMatches(RussianGrammaticalPatterns.patternBi, words);
-        addConstructionOccurrences(GrammaticalConstruction.CONDITIONALS, conditionals);
+        addConstructionOccurrences(GrammaticalConstruction.NEGATION_NO_NOT_NEVER, negativeExistentials);
+        //не
         List<CoreLabel> negations = findMatches(RussianGrammaticalPatterns.patternNe, words);
         addConstructionOccurrences(GrammaticalConstruction.NEGATION_NOT, negations);
+        addConstructionOccurrences(GrammaticalConstruction.NEGATION_NO_NOT_NEVER, negations);
+        //ли
+        List<CoreLabel> yesNoParticles = findMatches(RussianGrammaticalPatterns.patternLi, words);
+        addConstructionOccurrences(GrammaticalConstruction.QUESTIONS_YESNO, yesNoParticles);
+        //бы
+        List<CoreLabel> conditionals = findMatches(RussianGrammaticalPatterns.patternBi, words);
+        addConstructionOccurrences(GrammaticalConstruction.CONDITIONALS, conditionals);
 
         inspectVerbs(graph);
         inspectPrepositions(graph);
     }
 
     private Map<Attribute, List<WordWithReadings>> countAttributes(List<WordWithReadings> wordsWithReadings){
+        //variables for the whole sentence
+        boolean isComplexSentence = false;
+
         Map<Attribute, List<WordWithReadings>> attributeInstances = new HashMap<>();
         for(WordWithReadings word: wordsWithReadings){
             Map<Attribute, Boolean> attributesToCount = new HashMap<>();
@@ -301,6 +319,13 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                 boolean isPrepositional = false;
                 boolean isDative = false;
                 boolean isInstrumental = false;
+
+                boolean isSubordinateClause = false;
+                boolean isRelativeClause = false;
+
+                boolean isPersonal = false;
+                boolean isRelative = false;
+
                 Set<String> tags = new HashSet<>(reading.getTags());
                 //part of speech
                 if(tags.contains(NOUN_TAG)) isNoun = true;
@@ -326,6 +351,16 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                 if(tags.contains(PREPOSITIONAL_TAG)) isPrepositional = true;
                 if(tags.contains(DATIVE_TAG)) isDative = true;
                 if(tags.contains(INSTRUMENTAL_TAG)) isInstrumental = true;
+                //clauses
+                if(tags.contains(SUBORDINATE_CLAUSE_TAG)) {
+                    isSubordinateClause = true;
+                    isComplexSentence = true;
+                }
+                if(tags.contains(RELATIVE_CLAUSE_TAG)) isRelativeClause = true;
+                if(tags.contains(CC_CLAUSE_TAG)) isComplexSentence = true;
+                //personal v relative
+                if(tags.contains(PERSONAL_TAG)) isPersonal = true;
+                if(tags.contains(RELATIVE_TAG)) isRelative = true;
 
                 //recognize tag combinations
                 if(isNoun){
@@ -353,6 +388,9 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                     if(isDative) attributesToCount.put(Attribute.PRO_DATIVE, true);
                     if(isPrepositional) attributesToCount.put(Attribute.PRO_PREPOSITIONAL, true);
                     if(isInstrumental) attributesToCount.put(Attribute.PRO_INSTRUMENTAL, true);
+
+                    if(isPersonal) attributesToCount.put(Attribute.PRO_PERSONAL, true);
+                    if(isRelative) attributesToCount.put(Attribute.PRO_RELATIVE, true);
                 }
                 if(isDeterminer){
                     if(isNominative) attributesToCount.put(Attribute.DET_NOMINATIVE, true);
@@ -372,6 +410,8 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                     if(isPastActive) attributesToCount.put(Attribute.P_PAST_ACTIVE, true);
                     if(isPastPassive) attributesToCount.put(Attribute.P_PAST_ACTIVE, true);
                 }
+                if(isSubordinateClause) attributesToCount.put(Attribute.CL_SUBORDINATE, true);
+                if(isRelativeClause) attributesToCount.put(Attribute.CL_RELATIVE, true);
             }
 
             //count this word towards the appropriate attributes
@@ -383,6 +423,12 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                     attributeInstances.put(attr, existingList);
                 }
             }
+        }
+        if(isComplexSentence){
+            attributeInstances.put(Attribute.SENT_COMPLEX, wordsWithReadings.subList(0,1));
+        }
+        else {
+            attributeInstances.put(Attribute.SENT_SIMPLE, wordsWithReadings.subList(0,1));
         }
         return attributeInstances;
     }
@@ -456,6 +502,38 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
             }
         }
         return matches;
+    }
+
+    private void saveAttributesToDocument(Map<Attribute, List<WordWithReadings>> attributesMap, List<CoreLabel> originalLabels) {
+        for(Attribute attr: attributesMap.keySet()){
+            List<WordWithReadings> instances = attributesMap.get(attr);
+            //convert the WordWithReadings objects to CoreLabel objects
+            List<CoreLabel> labels = new LinkedList<>();
+            for(WordWithReadings instance: instances){
+                labels.add(originalLabels.get(instance.getIndex()));
+            }
+            //add the CoreLabel objects to the document object as instances of the appropriate constructions
+            switch(attr){
+                case A_ATTRIBUTE:
+                    addConstructionOccurrences(GrammaticalConstruction.ATTRIBUTES_ADJECTIVE, labels); break;
+                case CL_SUBORDINATE:
+                    addConstructionOccurrences(GrammaticalConstruction.CLAUSE_SUBORDINATE, labels); break;
+                case CL_RELATIVE:
+                    addConstructionOccurrences(GrammaticalConstruction.CLAUSE_RELATIVE, labels); break;
+                case PRO_NOMINATIVE:
+                case PRO_ACCUSATIVE:
+                case PRO_GENITIVE:
+                case PRO_PREPOSITIONAL:
+                case PRO_DATIVE:
+                case PRO_INSTRUMENTAL:
+                    addConstructionOccurrences(GrammaticalConstruction.PRONOUNS, labels); break;
+                case PRO_PERSONAL:
+                    addConstructionOccurrences(GrammaticalConstruction.PRONOUNS_PERSONAL, labels); break;
+                case PRO_RELATIVE:
+                    addConstructionOccurrences(GrammaticalConstruction.PRONOUNS_RELATIVE, labels); break;
+                    //TODO: add the other attributes
+            }
+        }
     }
 
     private void addConstructionOccurrences(GrammaticalConstruction type, List<CoreLabel> labels) {

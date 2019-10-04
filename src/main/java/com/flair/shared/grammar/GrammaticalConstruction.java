@@ -5,6 +5,8 @@
  */
 package com.flair.shared.grammar;
 
+import org.apache.commons.codec.language.bm.Lang;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -36,22 +38,22 @@ public enum GrammaticalConstruction
     PREPOSITIONS_ADVANCED("advancedPrepositions", Language.ENGLISH),
     
     // sentence structure
-    CLAUSE_SUBORDINATE("subordinateClause", Language.ENGLISH, Language.GERMAN), //*** "CS" tag
-    CLAUSE_RELATIVE("relativeClause", Language.ENGLISH, Language.GERMAN), //*** "Rel" tag
+    CLAUSE_SUBORDINATE("subordinateClause", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN),
+    CLAUSE_RELATIVE("relativeClause", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN),
     CLAUSE_RELATIVE_REDUCED("relativeClauseReduced", Language.ENGLISH),
     CLAUSE_ADVERBIAL("adverbialClause", Language.ENGLISH, Language.GERMAN), //*** ? verbal adverb? "čitajući" ? "V" and "Adv" tags
     CLAUSE_THAT("thatClause", Language.GERMAN), //TODO: refactor situations of 'dass' to be 'that' //*** ", čto"
-    SENTENCE_SIMPLE("simpleSentence", Language.ENGLISH, Language.GERMAN), //*** no "CS" or "CC" tag
-    SENTENCE_COMPLEX("complexSentence", Language.ENGLISH, Language.GERMAN), //*** has "CS" or "CC" tag
+    SENTENCE_SIMPLE("simpleSentence", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN),
+    SENTENCE_COMPLEX("complexSentence", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN),
     SENTENCE_COMPOUND("compoundSentence", Language.ENGLISH, Language.GERMAN),
     SENTENCE_INCOMPLETE("incompleteSentence", Language.ENGLISH, Language.GERMAN),
     
     OBJECT_DIRECT("directObject", Language.ENGLISH),	 // "give me" //*** in the graph, verb with Acc or negated verb with Gen
     OBJECT_INDIRECT("indirectObject", Language.ENGLISH),	 // "give it toPrep me" //*** in the graph, verb with Dat
     
-    PRONOUNS("pronouns", Language.ENGLISH, Language.GERMAN), //*** Pron
-    PRONOUNS_PERSONAL("pronounsPersonal", Language.GERMAN), //*** Pron Pers
-    PRONOUNS_RELATIVE("pronounsRelative", Language.GERMAN), //*** Pron Rel
+    PRONOUNS("pronouns", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN),
+    PRONOUNS_PERSONAL("pronounsPersonal", Language.GERMAN, Language.RUSSIAN),
+    PRONOUNS_RELATIVE("pronounsRelative", Language.GERMAN, Language.RUSSIAN),
     PRONOUNS_POSSESSIVE("pronounsPossessive", Language.ENGLISH, Language.GERMAN), // /PRP$ ("", my, your, their) //*** Pron Pos
     PRONOUNS_DEMONSTRATIVE("pronounsDemonstrative", Language.GERMAN), // /JJ or PRP... ("", mine, yours, theirs) //*** Pron Dem
     PRONOUNS_REFLEXIVE("pronounsReflexive", Language.ENGLISH, Language.GERMAN), // /PRP + myself, themselves, etc. //*** Pron Refl
@@ -77,13 +79,13 @@ public enum GrammaticalConstruction
     
     NEGATION_ALL("negAll", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), // nobody, nowhere, etc. //*** Pron Neg //TODO: work through these next time
     NEGATION_PARTIAL("partialNegation", Language.ENGLISH, Language.GERMAN), // rarely, barely, seldom, hardly, scarcely //TODO: maybe add to russian later
-    NEGATION_NO_NOT_NEVER("noNotNever", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), //*** njet or nje
+    NEGATION_NO_NOT_NEVER("noNotNever", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), //*** Russian: нет or не
     NEGATION_NT("nt", Language.ENGLISH),
-    NEGATION_NOT("not", Language.ENGLISH),
+    NEGATION_NOT("not", Language.ENGLISH, Language.RUSSIAN), //*** Russian: не
     
     QUESTIONS_DIRECT("directQuestions", Language.ENGLISH, Language.GERMAN),
     QUESTIONS_INDIRECT("indirectQuestions", Language.ENGLISH, Language.GERMAN),
-    QUESTIONS_YESNO("yesNoQuestions", Language.ENGLISH, Language.GERMAN), // direct: "Are you ok?"
+    QUESTIONS_YESNO("yesNoQuestions", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), // direct: "Are you ok?"
     QUESTIONS_WH("whQuestions", Language.ENGLISH, Language.GERMAN),// direct: "What do you do?"
     QUESTIONS_TO_BE("toBeQuestions", Language.ENGLISH),// direct: "What's this?"
     QUESTIONS_TO_DO("toDoQuestions", Language.ENGLISH), // direct: "What do you do?"
@@ -101,7 +103,7 @@ public enum GrammaticalConstruction
     QUESTIONS_TAG("tagQuestions", Language.ENGLISH, Language.GERMAN), // ", isn't it?"
     
     // conditionals - check first, before tenses
-    CONDITIONALS("conditionals", Language.ENGLISH),
+    CONDITIONALS("conditionals", Language.ENGLISH, Language.RUSSIAN),
     CONDITIONALS_REAL("condReal", Language.ENGLISH),
     CONDITIONALS_UNREAL("condUnreal", Language.ENGLISH),
     
