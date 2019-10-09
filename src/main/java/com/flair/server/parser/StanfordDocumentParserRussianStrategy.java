@@ -50,6 +50,9 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
     private final String NOUN_TAG = "N";
     private final String ADJECTIVE_TAG = "A";
     private final String PRONOUN_TAG = "Pron";
+    private final String POSSESSIVE_TAG = "Pos";
+    private final String DEMONSTRATIVE_TAG = "Dem";
+    private final String REFLEXIVE_TAG = "Refl";
     private final String PREPOSITION_TAG = "Pr";
     private final String DETERMINER_TAG = "Det";
     private final String VERB_TAG = "V";
@@ -73,6 +76,9 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
     private final String CC_CLAUSE_TAG = "CC"; //TODO: rename this
     private final String PERSONAL_TAG = "Pers";
     private final String RELATIVE_TAG = "Rel";
+    private final String INDEFINITE_TAG = "Indef";
+    private final String DEFINITE_TAG = "Def";
+    private final String INTERROGATIVE_TAG = "Interr";
 
 
     public StanfordDocumentParserRussianStrategy() {
@@ -312,6 +318,13 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
 
                 boolean isPersonal = false;
                 boolean isRelative = false;
+                boolean isPossessive = false;
+                boolean isDemonstrative = false;
+                boolean isReflexive = false;
+
+                boolean isDefinite = false;
+                boolean isIndefinite = false;
+                boolean isInterrogative = false;
 
                 Set<String> tags = new HashSet<>(reading.getTags());
                 //part of speech
@@ -345,9 +358,16 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                 }
                 if(tags.contains(RELATIVE_CLAUSE_TAG)) isRelativeClause = true;
                 if(tags.contains(CC_CLAUSE_TAG)) isComplexSentence = true;
-                //personal vs relative
+                //types of pronouns
                 if(tags.contains(PERSONAL_TAG)) isPersonal = true;
                 if(tags.contains(RELATIVE_TAG)) isRelative = true;
+                if(tags.contains(POSSESSIVE_TAG)) isPossessive = true;
+                if(tags.contains(DEMONSTRATIVE_TAG)) isDemonstrative = true;
+                if(tags.contains(REFLEXIVE_TAG)) isReflexive = true;
+                //definite vs indefinite
+                if(tags.contains(DEFINITE_TAG)) isDefinite = true;
+                if(tags.contains(INDEFINITE_TAG)) isIndefinite = true;
+                if(tags.contains(INTERROGATIVE_TAG)) isInterrogative = true;
 
                 //recognize tag combinations
                 if(isNoun){
@@ -372,7 +392,13 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                     constructionsToCount.put(GrammaticalConstruction.PRONOUNS, true);
                     if(isPersonal) constructionsToCount.put(GrammaticalConstruction.PRONOUNS_PERSONAL, true);
                     if(isRelative) constructionsToCount.put(GrammaticalConstruction.PRONOUNS_RELATIVE, true);
-
+                    if(isPossessive) constructionsToCount.put(GrammaticalConstruction.PRONOUNS_POSSESSIVE, true);
+                    if(isDemonstrative) constructionsToCount.put(GrammaticalConstruction.PRONOUNS_DEMONSTRATIVE, true);
+                    if(isReflexive) constructionsToCount.put(GrammaticalConstruction.PRONOUNS_REFLEXIVE, true);
+                    if(isInterrogative) constructionsToCount.put(GrammaticalConstruction.PRONOUNS_INTERROGATIVE, true);
+                    //nječto, njekto
+                    if(isDefinite || isIndefinite) constructionsToCount.put(GrammaticalConstruction.PRONOUNS_INDEFINITE, true);
+                    //case
                     if(isNominative) constructionsToCount.put(GrammaticalConstruction.PRONOUN_NOMINATIVE, true);
                     if(isAccusative) constructionsToCount.put(GrammaticalConstruction.PRONOUN_ACCUSATIVE, true);
                     if(isGenitive) constructionsToCount.put(GrammaticalConstruction.PRONOUN_GENITIVE, true);
@@ -534,3 +560,5 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
         }
     }
 }
+
+

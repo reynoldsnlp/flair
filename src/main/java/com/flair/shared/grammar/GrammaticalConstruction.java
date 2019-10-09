@@ -54,11 +54,11 @@ public enum GrammaticalConstruction
     PRONOUNS("pronouns", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN),
     PRONOUNS_PERSONAL("pronounsPersonal", Language.GERMAN, Language.RUSSIAN),
     PRONOUNS_RELATIVE("pronounsRelative", Language.GERMAN, Language.RUSSIAN),
-    PRONOUNS_POSSESSIVE("pronounsPossessive", Language.ENGLISH, Language.GERMAN), // /PRP$ ("", my, your, their) //*** Pron Pos
-    PRONOUNS_DEMONSTRATIVE("pronounsDemonstrative", Language.GERMAN), // /JJ or PRP... ("", mine, yours, theirs) //*** Pron Dem
-    PRONOUNS_REFLEXIVE("pronounsReflexive", Language.ENGLISH, Language.GERMAN), // /PRP + myself, themselves, etc. //*** Pron Refl
-    PRONOUNS_INDEFINITE("pronounsIndefinite", Language.GERMAN), //*** Pron Indef, Pron Def, nječto, njekto
-    PRONOUNS_INTERROGATIVE("pronounsInterrogative", Language.GERMAN), //*** Pron Interr
+    PRONOUNS_POSSESSIVE("pronounsPossessive", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), // /PRP$ ("", my, your, their)
+    PRONOUNS_DEMONSTRATIVE("pronounsDemonstrative", Language.GERMAN, Language.RUSSIAN), // /JJ or PRP... ("", mine, yours, theirs)
+    PRONOUNS_REFLEXIVE("pronounsReflexive", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), // /PRP + myself, themselves, etc.
+    PRONOUNS_INDEFINITE("pronounsIndefinite", Language.GERMAN, Language.RUSSIAN), //***Russian: Pron Indef, Pron Def, nječto, njekto
+    PRONOUNS_INTERROGATIVE("pronounsInterrogative", Language.GERMAN, Language.RUSSIAN),
     PRONOUNS_SUBJECTIVE("pronounsSubjective", Language.ENGLISH),
     
     // quantifiers
@@ -201,6 +201,9 @@ public enum GrammaticalConstruction
     TENSE_PAST_PERFECT("pastPerfect", Language.ENGLISH),
     PRONOUNS_OBJECTIVE("pronounsObjective", Language.ENGLISH), // /PRP + me, you, them...
     POSTPOSITION("postposition", Language.GERMAN),
+
+
+    //*** NEW CONSTRUCTIONS BELOW ***//
 
     //CASES
 
