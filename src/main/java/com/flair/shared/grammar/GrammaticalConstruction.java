@@ -17,7 +17,7 @@ import java.util.Set;
  * IMPORTANT - ORDER-DEPENDENT! ADD NEW ITEMS TO THE END!
  * @author shadeMe
 */
-public enum GrammaticalConstruction
+public enum GrammaticalConstruction //TODO: separate lemma-based Constructions used in Russian so they can have their own descriptions in the UI
 {
     // (simple) constructions
     EXISTENTIAL_THERE("existentialThere", Language.ENGLISH, Language.RUSSIAN), //Russian: есть and нет
@@ -57,7 +57,7 @@ public enum GrammaticalConstruction
     PRONOUNS_POSSESSIVE("pronounsPossessive", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), // /PRP$ ("", my, your, their)
     PRONOUNS_DEMONSTRATIVE("pronounsDemonstrative", Language.GERMAN, Language.RUSSIAN), // /JJ or PRP... ("", mine, yours, theirs)
     PRONOUNS_REFLEXIVE("pronounsReflexive", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), // /PRP + myself, themselves, etc.
-    PRONOUNS_INDEFINITE("pronounsIndefinite", Language.GERMAN, Language.RUSSIAN), //***Russian: Pron Indef, Pron Def, nječto, njekto
+    PRONOUNS_INDEFINITE("pronounsIndefinite", Language.GERMAN, Language.RUSSIAN),
     PRONOUNS_INTERROGATIVE("pronounsInterrogative", Language.GERMAN, Language.RUSSIAN),
     PRONOUNS_SUBJECTIVE("pronounsSubjective", Language.ENGLISH),
     
@@ -77,34 +77,34 @@ public enum GrammaticalConstruction
     NOUNS_TUR("turNounForms", Language.GERMAN),
     NOUNS_UNG("ungNounForms", Language.GERMAN),
     
-    NEGATION_ALL("negAll", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), // nobody, nowhere, etc. //*** Pron Neg //TODO: work through these next time
+    NEGATION_ALL("negAll", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), // nobody, nowhere, etc. //*** Pron Neg
     NEGATION_PARTIAL("partialNegation", Language.ENGLISH, Language.GERMAN), // rarely, barely, seldom, hardly, scarcely //TODO: maybe add to russian later
-    NEGATION_NO_NOT_NEVER("noNotNever", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), //*** Russian: нет or не
+    NEGATION_NO_NOT_NEVER("noNotNever", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), //*** Russian: нет, не, nikogda, ni //TODO
     NEGATION_NT("nt", Language.ENGLISH),
-    NEGATION_NOT("not", Language.ENGLISH, Language.RUSSIAN), //*** Russian: не
+    NEGATION_NOT("not", Language.ENGLISH, Language.RUSSIAN), //Russian: не
     
-    QUESTIONS_DIRECT("directQuestions", Language.ENGLISH, Language.GERMAN),
-    QUESTIONS_INDIRECT("indirectQuestions", Language.ENGLISH, Language.GERMAN),
-    QUESTIONS_YESNO("yesNoQuestions", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), // direct: "Are you ok?"
-    QUESTIONS_WH("whQuestions", Language.ENGLISH, Language.GERMAN),// direct: "What do you do?"
-    QUESTIONS_TO_BE("toBeQuestions", Language.ENGLISH),// direct: "What's this?"
+    QUESTIONS_DIRECT("directQuestions", Language.ENGLISH, Language.GERMAN), //*** ends in a '?'
+    QUESTIONS_INDIRECT("indirectQuestions", Language.ENGLISH, Language.GERMAN), //*** (li or tag "Interr") with no '?' //TODO: just 'li'?
+    QUESTIONS_YESNO("yesNoQuestions", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), // direct: "Are you ok?" //*** (has li or no interrogative) and does have a '?'
+    QUESTIONS_WH("whQuestions", Language.ENGLISH, Language.GERMAN),// direct: "What do you do?" //*** has "Interr" which is not 'li', and has a '?'
+    QUESTIONS_TO_BE("toBeQuestions", Language.ENGLISH),// direct: "What's this?" //TODO: Russian. What.
     QUESTIONS_TO_DO("toDoQuestions", Language.ENGLISH), // direct: "What do you do?"
     QUESTIONS_TO_HAVE("toHaveQuestions", Language.ENGLISH),// direct: "What have you done?"
     QUESTIONS_MODAL("modalQuestions", Language.ENGLISH),// direct: "Should I go?", "What should I do?"
-    QUESTIONS_WHAT("what", Language.ENGLISH, Language.GERMAN),
-    QUESTIONS_WHO("who", Language.ENGLISH, Language.GERMAN),
-    QUESTIONS_HOW("how", Language.ENGLISH, Language.GERMAN),
-    QUESTIONS_WHY("why", Language.ENGLISH, Language.GERMAN),
-    QUESTIONS_WHERE("where", Language.ENGLISH, Language.GERMAN),
-    QUESTIONS_WHEN("when", Language.ENGLISH, Language.GERMAN),
-    QUESTIONS_WHOSE("whose", Language.ENGLISH, Language.GERMAN),
+    QUESTIONS_WHAT("what", Language.ENGLISH, Language.GERMAN), //*** čto lemma
+    QUESTIONS_WHO("who", Language.ENGLISH, Language.GERMAN), //*** kto
+    QUESTIONS_HOW("how", Language.ENGLISH, Language.GERMAN),//*** kak
+    QUESTIONS_WHY("why", Language.ENGLISH, Language.GERMAN),//*** počjemu začjem
+    QUESTIONS_WHERE("where", Language.ENGLISH, Language.GERMAN),//*** gdje //TODO: add a construction QUESTIONS_WHITHER //*** kuda lemma
+    QUESTIONS_WHEN("when", Language.ENGLISH, Language.GERMAN),//*** kogda
+    QUESTIONS_WHOSE("whose", Language.ENGLISH, Language.GERMAN),//*** čjej
     QUESTIONS_WHOM("whom", Language.ENGLISH, Language.GERMAN),
-    QUESTIONS_WHICH("which", Language.ENGLISH, Language.GERMAN),
-    QUESTIONS_TAG("tagQuestions", Language.ENGLISH, Language.GERMAN), // ", isn't it?"
+    QUESTIONS_WHICH("which", Language.ENGLISH, Language.GERMAN),//*** kakoj //TODO: add a construction QUESTIONS_WHAT_KIND //*** kakov lemma
+    QUESTIONS_TAG("tagQuestions", Language.ENGLISH, Language.GERMAN), // ", isn't it?" //*** ", (nje) tak (li)?" //TODO: come back to this
     
     // conditionals - check first, before tenses
     CONDITIONALS("conditionals", Language.ENGLISH, Language.RUSSIAN),
-    CONDITIONALS_REAL("condReal", Language.ENGLISH),
+    CONDITIONALS_REAL("condReal", Language.ENGLISH), //TODO: pick up here next time
     CONDITIONALS_UNREAL("condUnreal", Language.ENGLISH),
     
     // tenses - only if not conditional

@@ -73,7 +73,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
     private final String INSTRUMENTAL_TAG = "Ins";
     private final String SUBORDINATE_CLAUSE_TAG = "CS";
     private final String RELATIVE_CLAUSE_TAG = "Rel";
-    private final String CC_CLAUSE_TAG = "CC"; //TODO: rename this
+    private final String COORDINATE_CLAUSE_TAG = "CC";
     private final String PERSONAL_TAG = "Pers";
     private final String RELATIVE_TAG = "Rel";
     private final String INDEFINITE_TAG = "Indef";
@@ -359,7 +359,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                     isComplexSentence = true;
                 }
                 if(tags.contains(RELATIVE_CLAUSE_TAG)) isRelativeClause = true;
-                if(tags.contains(CC_CLAUSE_TAG)) isComplexSentence = true;
+                if(tags.contains(COORDINATE_CLAUSE_TAG)) isComplexSentence = true;
                 //types of pronouns
                 if(tags.contains(PERSONAL_TAG)) isPersonal = true;
                 if(tags.contains(RELATIVE_TAG)) isRelative = true;
@@ -460,7 +460,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                 }
             }
         }
-        if(isComplexSentence){
+        if(isComplexSentence){ //TODO: change so the whole sentence is highlighted
             constructionInstances.put(GrammaticalConstruction.SENTENCE_COMPLEX, wordsWithReadings.subList(0,1));
         }
         else {
