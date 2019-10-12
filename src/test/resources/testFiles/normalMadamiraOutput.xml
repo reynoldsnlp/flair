@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<madamira_output xmlns="urn:edu.columbia.ccls.madamira.configuration:0.1">
+    <out_doc id="ExampleDocument">
+        <out_seg id="BODY_0">
+            <segment_info/>
+            <word_info>
+                <word id="0" word="هذه">
+                    <svm_prediction>
+                        <morph_feature_set lemma="هٰذاh`*A" pos="pron_dem"/>
+                    </svm_prediction>
+                    <analysis rank="0" score="1.0">
+                        <morph_feature_set lemma="هٰذا_1" pos="pron_dem"/>
+                    </analysis>
+                    <tokenized scheme="ATB">
+                        <tok id="0" form0="هذه"/>
+                    </tokenized>
+                </word>
+                <word id="1" word="جملة">
+                    <svm_prediction>
+                        <morph_feature_set lemma="جُمْلَةjumolap" pos="noun"/>
+                    </svm_prediction>
+                    <analysis rank="0" score="0.8837559213663835">
+                        <morph_feature_set lemma="جُمْلَة_1" pos="noun"/>
+                    </analysis>
+                    <tokenized scheme="ATB">
+                        <tok id="0" form0="جملة"/>
+                    </tokenized>
+                </word>
+                <word id="2" word="اختبار">
+                    <svm_prediction>
+                        <morph_feature_set lemma="ٱِخْتِبار{ixotibAr" pos="noun"/>
+                    </svm_prediction>
+                    <analysis rank="0" score="0.8976950388630852">
+                        <morph_feature_set lemma="ٱِخْتِبار_1" pos="noun"/>
+                    </analysis>
+                    <tokenized scheme="ATB">
+                        <tok id="0" form0="اختبار"/>
+                    </tokenized>
+                </word>
+                <word id="3" word="للمعالج">
+                    <svm_prediction>
+                        <morph_feature_set lemma="مُعالِجmuEAlij" pos="noun"/>
+                    </svm_prediction>
+                    <analysis rank="0" score="0.8944374375687777">
+                        <morph_feature_set lemma="مُعالِج_1" pos="noun"/>
+                    </analysis>
+                    <tokenized scheme="ATB">
+                        <tok id="0" form0="ل+"/>
+                        <tok id="1" form0="المعالج"/>
+                    </tokenized>
+                </word>
+                <word id="4" word="العربي">
+                    <svm_prediction>
+                        <morph_feature_set lemma="عَرَبِيّEarabiy~" pos="adj"/>
+                    </svm_prediction>
+                    <analysis rank="0" score="0.8957755326635665">
+                        <morph_feature_set lemma="عَرَبِيّ_1" pos="adj"/>
+                    </analysis>
+                    <tokenized scheme="ATB">
+                        <tok id="0" form0="العربي"/>
+                    </tokenized>
+                </word>
+                <word id="5" word="سيقوم">
+                    <svm_prediction>
+                        <morph_feature_set lemma="قامqAm" pos="verb"/>
+                    </svm_prediction>
+                    <analysis rank="0" score="0.8837264721368754">
+                        <morph_feature_set lemma="قام-ُ_1" pos="verb"/>
+                    </analysis>
+                    <tokenized scheme="ATB">
+                        <tok id="0" form0="س+"/>
+                        <tok id="1" form0="يقوم"/>
+                    </tokenized>
+                </word>
+                <word id="6" word="المعالج">
+                    <svm_prediction>
+                        <morph_feature_set lemma="مُعالِجmuEAlij" pos="noun"/>
+                    </svm_prediction>
+                    <analysis rank="0" score="0.8889183115798678">
+                        <morph_feature_set lemma="مُعالِج_1" pos="noun"/>
+                    </analysis>
+                    <tokenized scheme="ATB">
+                        <tok id="0" form0="المعالج"/>
+                    </tokenized>
+                </word>
+                <word id="7" word="الطوافة">
+                    <svm_prediction>
+                        <morph_feature_set lemma="طَوّافَةTaw~Afap" pos="noun"/>
+                    </svm_prediction>
+                    <analysis rank="0" score="0.8856549817245463">
+                        <morph_feature_set lemma="طَوّافَة_1" pos="noun"/>
+                    </analysis>
+                    <tokenized scheme="ATB">
+                        <tok id="0" form0="الطوافة"/>
+                    </tokenized>
+                </word>
+                <word id="8" word="بمعالجة">
+                    <svm_prediction>
+                        <morph_feature_set lemma="مُعالَجَةmuEAlajap" pos="noun"/>
+                    </svm_prediction>
+                    <analysis rank="0" score="0.894096931751717">
+                        <morph_feature_set lemma="مُعالَجَة_1" pos="noun"/>
+                    </analysis>
+                    <tokenized scheme="ATB">
+                        <tok id="0" form0="ب+"/>
+                        <tok id="1" form0="معالجة"/>
+                    </tokenized>
+                </word>
+                <word id="9" word="هذه">
+                    <svm_prediction>
+                        <morph_feature_set lemma="هٰذاh`*A" pos="pron_dem"/>
+                    </svm_prediction>
+                    <analysis rank="0" score="1.0">
+                        <morph_feature_set lemma="هٰذا_1" pos="pron_dem"/>
+                    </analysis>
+                    <tokenized scheme="ATB">
+                        <tok id="0" form0="هذه"/>
+                    </tokenized>
+                </word>
+                <word id="10" word="الجملة">
+                    <svm_prediction>
+                        <morph_feature_set lemma="جُمْلَةjumolap" pos="noun"/>
+                    </svm_prediction>
+                    <analysis rank="0" score="0.894337024164781">
+                        <morph_feature_set lemma="جُمْلَة_1" pos="noun"/>
+                    </analysis>
+                    <tokenized scheme="ATB">
+                        <tok id="0" form0="الجملة"/>
+                    </tokenized>
+                </word>
+            </word_info>
+        </out_seg>
+    </out_doc>
+</madamira_output>
+

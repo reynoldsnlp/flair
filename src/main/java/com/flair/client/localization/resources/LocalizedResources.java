@@ -54,6 +54,8 @@ public class LocalizedResources
 			return englishStrings.getGramConstructionStrings();
 		case ARABIC:
 			return englishStrings.getGramConstructionStrings();
+		case TEST:
+			return englishStrings.getGramConstructionStrings(); 
 		default:
 			throw new RuntimeException("No localized gramconst strings for language " + lang);
 		}
@@ -70,7 +72,9 @@ public class LocalizedResources
 		case RUSSIAN:
 			return englishStrings.getGeneralStrings();
 		case ARABIC:
-			return englishStrings.getGeneralStrings();	
+			return englishStrings.getGeneralStrings();
+		case TEST:
+			return englishStrings.getGeneralStrings();
 		default:
 			throw new RuntimeException("No localized general strings for language " + lang);
 		}

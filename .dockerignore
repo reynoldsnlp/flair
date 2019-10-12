@@ -1,5 +1,6 @@
 /bin/
 /src/main/webapp/WEB-INF/lib/*.jar
+/target/
 /war/
 .DS_Store
 .classpath

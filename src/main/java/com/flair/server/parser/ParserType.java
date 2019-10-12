@@ -11,5 +11,6 @@ package com.flair.server.parser;
  */
 public enum ParserType
 {
-    STANFORD_CORENLP
+    STANFORD_CORENLP,
+    TEST
 }

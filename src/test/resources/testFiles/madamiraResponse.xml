@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<madamira_output xmlns="urn:edu.columbia.ccls.madamira.configuration:0.1">
+    <out_doc id="ExampleDocument">
+        <out_seg id="BODY_0">
+            <segment_info/>
+            <word_info>
+                <word id="0" word="سنة.">
+                    <svm_prediction>
+                        <morph_feature_set lemma="سنة.snp." pos="verb"/>
+                    </svm_prediction>
+                    <tokenized scheme="ATB">
+                        <tok id="0" form0="سنة."/>
+                    </tokenized>
+                </word>
+            </word_info>
+        </out_seg>
+    </out_doc>
+</madamira_output>

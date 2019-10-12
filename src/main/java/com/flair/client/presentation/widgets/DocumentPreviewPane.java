@@ -483,10 +483,13 @@ public class DocumentPreviewPane extends LocalizedComposite implements AbstractD
 					
 					// set up the remaining fields
 					lblDocTitleUI.setText(rankable.getDocument().getTitle());
-					lblDocLevelUI.setText(rankable.getDocument().getReadabilityLevel().toString());
+					if(rankable.getDocument().getReadabilityLevel() != null)
+						lblDocLevelUI.setText(rankable.getDocument().getReadabilityLevel().toString());
+					else 
+						lblDocLevelUI.setText(rankable.getDocument().getArabicReadabilityLevel().toString());
 					lblDocNumSentencesUI.setText(rankable.getDocument().getNumSentences() + " " + getLocalizedString(LocalizationTags.NUM_SENTENCES.toString()));
 					lblDocNumWordsUI.setText(rankable.getDocument().getNumWords() + " " + getLocalizedString(LocalizationTags.NUM_WORDS.toString()));
-					
+
 					pnlDocTextPreviewUI.add(new HTML(rankable.getPreviewMarkup()));
 					pnlDocTextPreviewUI.scrollToTop();
 					

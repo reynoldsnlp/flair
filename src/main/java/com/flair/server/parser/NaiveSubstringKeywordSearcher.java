@@ -18,11 +18,17 @@ public class NaiveSubstringKeywordSearcher implements AbstractDocumentKeywordSea
     {
 	if (input == null)
 	    throw new IllegalArgumentException("No keyword search input");
+	else if (source == null)
+	    throw new IllegalArgumentException("No source document to read");
 	
 	KeywordSearcherOutput output = new KeywordSearcherOutput(input);
 	// force to lowercase
 	String sourceText = source.getText().toLowerCase();
 	
+	for(String word : input.getKeywords())
+	{
+		ServerLogger.get().info(word);
+	}
 	long startTime = System.currentTimeMillis();
 	for (String keyword : input)
 	{
@@ -51,8 +57,10 @@ public class NaiveSubstringKeywordSearcher implements AbstractDocumentKeywordSea
 		    validEndBoundary = true;
 		}
 
-		if (validStartBoundary && validEndBoundary)
+		if (validStartBoundary && validEndBoundary) 
+		{
 		    output.addHit(keyword, startIdx, endIdx);
+		}
 		
 		startIdx = sourceText.indexOf(keyword, endIdx);
 	    }

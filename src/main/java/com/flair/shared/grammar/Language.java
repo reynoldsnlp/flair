@@ -15,6 +15,7 @@ public enum Language
     GERMAN,
     RUSSIAN,
     ARABIC,
+    TEST,	//useful for unit tests
     ;
     
     public static Language fromString(String lang)
@@ -27,6 +28,8 @@ public enum Language
             return RUSSIAN;
         else if (lang.equalsIgnoreCase(ARABIC.name()))
     		return ARABIC;
+        else if (lang.equalsIgnoreCase(TEST.name()))
+    		return TEST;
     	else
     		throw new RuntimeException("Invalid language string " + lang);
     }

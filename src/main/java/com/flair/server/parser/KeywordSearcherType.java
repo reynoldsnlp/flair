@@ -9,5 +9,6 @@ package com.flair.server.parser;
  */
 public enum KeywordSearcherType
 {
-    NAIVE_SUBSTRING
+    NAIVE_SUBSTRING,
+    TEST
 }

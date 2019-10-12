@@ -34,7 +34,7 @@ public class DocumentConstructionData extends AbstractConstructionData
 	public DocumentConstructionData(GrammaticalConstruction type, AbstractDocument parent)
 	{
 		super(type);
-
+		
 		assert parent != null;
 		parentDocument = parent;
 		occurrences = new ArrayList<>();
@@ -87,7 +87,7 @@ public class DocumentConstructionData extends AbstractConstructionData
 }
 
 /**
- * Now this factory creates both arabic and regualr documents
+ * Now this factory creates both arabic and regular documents
  */
 class DocumentConstructionDataFactory extends AbstractConstructionDataFactory
 {
