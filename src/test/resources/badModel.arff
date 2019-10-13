@@ -1,0 +1,21 @@
+@relation arabicReadingDifficulty
+
+@attribute sentence_length NUMERIC
+@attribute word_length NUMERIC
+@attribute lexical_diversity NUMERIC
+@attribute lexical_complexity NUMERIC
+@attribute max_lexical_complexity NUMERIC
+@attribute p95 NUMERIC
+@attribute mean NUMERIC
+@attribute median NUMERIC
+@attribute noun NUMERIC
+@attribute pron NUMERIC
+@attribute verb NUMERIC
+@attribute prep NUMERIC
+@attribute part NUMERIC
+@attribute conj NUMERIC
+@attribute adv NUMERIC	
+@attribute adj NUMERIC
+@attribute difficulty {1.0, 2.0, 3.0, 4.0}
+
+@data 

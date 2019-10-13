@@ -8,9 +8,9 @@ package com.flair.server.parser;
 import java.util.Collection;
 import java.util.List;
 
+import com.flair.server.grammar.RussianGrammaticalTreePatterns;
 import com.flair.server.utilities.ServerLogger;
 import com.flair.shared.grammar.Language;
-
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.pipeline.Annotation;
@@ -19,6 +19,8 @@ import edu.stanford.nlp.semgraph.SemanticGraphCoreAnnotations;
 import edu.stanford.nlp.trees.Tree;
 import edu.stanford.nlp.trees.TreeCoreAnnotations;
 import edu.stanford.nlp.trees.TypedDependency;
+import edu.stanford.nlp.trees.tregex.TregexMatcher;
+import edu.stanford.nlp.trees.tregex.TregexPattern;
 import edu.stanford.nlp.util.CoreMap;
 
 
@@ -33,7 +35,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
 	private int dependencyCount;
 	private int adjCount;
     
-	private static final String WORD_PATTERN = "\\p{IsCyrillic}+"; // TODO add Ёё and U+0300 and U+0301 and more? TODO test
+	private static final String WORD_PATTERN = "[\\p{IsCyrillic}\u0300\u0301]+"; //not sure if this regex is correct for including all number of russian words. EDIT: regex has been changed to handle the two accents over letters
 
     public StanfordDocumentParserRussianStrategy()
     {
@@ -49,12 +51,13 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
 
     public boolean	isLanguageSupported(Language lang){
         return true;
+        //return (lang == Language.RUSSIAN);
     }
     private void initializeState(AbstractDocument doc) {
 		if (pipeline == null)
 		{
 			throw new IllegalStateException("Parser not set");
-		} else if (isLanguageSupported(doc.getLanguage()) == false)
+		} else if (!isLanguageSupported(doc.getLanguage()))
 		{
 			throw new IllegalArgumentException("Document language " + doc.getLanguage()
 					+ " not supported (Strategy language: " + Language.RUSSIAN + ")");
@@ -76,8 +79,36 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
 		pipeline = null;
 		workingDoc = null;
 	}
+
+    /**
+     * Counts the number of matches to a specific TregexPattern within a parse tree
+     * @param pattern TregexPattern to be matched against the Tree
+     * @param tree Dependency tree
+     * @return number of matches to the tregex pattern
+     */
+    private int countMatches(TregexPattern pattern, Tree tree) {
+        int matches = 0;
+        TregexMatcher matcher = pattern.matcher(tree);
+        while (matcher.findNextMatchingNode())	//while the matcher can find the next match to the pattern, increment the number of matches
+        {
+            matches++;
+        }
+        return matches;
+    }
+
+    private void inspectSentence(Tree tree, List<CoreLabel> words) {
+        if(tree == null){
+            ServerLogger.get().info("Received a null tree to inspect sentence in the RussianStrategy");
+            return;
+        }
+        if (words == null || words.isEmpty()) {
+            return;
+        }
+        int numLIs = countMatches(RussianGrammaticalTreePatterns.patternLi, tree);
+        int numConditionals = countMatches(RussianGrammaticalTreePatterns.patternBi, tree);
+    }
     
-    public boolean	apply(AbstractDocument docToParse){
+    public boolean	apply(AbstractDocument docToParse){ //TODO: edit this to recognize li and buj/bi sentences
 		assert docToParse != null;
 		int attempts = 0; 
 		try
@@ -102,6 +133,10 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
 							.get(SemanticGraphCoreAnnotations.CollapsedDependenciesAnnotation.class)
 							.typedDependencies();
 							*/
+
+					//**RKE**
+                    inspectSentence(tree, words);
+                    //**RKE**
 
 					sentenceCount++;
 					//dependencyCount += dependencies.size();

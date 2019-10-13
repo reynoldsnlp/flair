@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<madamira_output xmlns="urn:edu.columbia.ccls.madamira.configuration:0.1">
+    <out_doc id="ExampleDocument">
+        <out_seg id="BODY_0">
+            <segment_info/>
+            <word_info/>
+        </out_seg>
+    </out_doc>
+</madamira_output>

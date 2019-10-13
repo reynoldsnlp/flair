@@ -7,6 +7,7 @@ package com.flair.server.utilities;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.lang.invoke.MethodHandles;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -30,6 +31,7 @@ public final class ServerLogger extends AbstractDebugLogger
 	{
 		super("FLAIR-ServerLogger");
 		this.pipeline = LoggerFactory.getLogger(loggerName);
+		//this.pipeline = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 	}
 
 	public static ServerLogger get() {
@@ -48,12 +50,10 @@ public final class ServerLogger extends AbstractDebugLogger
 	@Override
 	protected void print(Channel channel, String message)
 	{
-		String timeStamp = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new Date());
 		StringBuilder builder = new StringBuilder();
 		for (int i = 0; i < indentLevel; i++)
 			builder.append("\t");
 
-		builder.append(timeStamp + " ");
 		builder.append(prettyPrintCaller());
 		builder.append(" ");
 		builder.append(message);
@@ -61,7 +61,7 @@ public final class ServerLogger extends AbstractDebugLogger
 		switch (channel)
 		{
 		case TRACE:
-			pipeline.info(builder.toString());
+			pipeline.trace(builder.toString());
 			break;
 		case ERROR:
 			pipeline.error(builder.toString());

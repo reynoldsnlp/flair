@@ -91,7 +91,7 @@ class StanfordDocumentParser extends AbstractDocumentParser
 			throw new IllegalArgumentException("Invalid model language: " + modelLanguage + "");
 		}
 			pipeline = new StanfordCoreNLP(pipelineProps);
-			
+			ServerLogger.get().info("Successful construction of StanfordDocumentParser");
 		
 	}
 

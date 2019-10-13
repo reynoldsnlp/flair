@@ -27,7 +27,7 @@ public class GermanGrammaticalTreePatterns
     private static final String STR_NOUN_PRONOUN_ANSWER_PARTICLE = "/^(NN|NE|PDS|PIS|PPER|PPOSS|PRELS|PRF|PWS|PWAV|PAV|PTKANT)$/";
     public static TregexPattern patternNounOrPronounOrAnswerParticle = TregexPattern.compile(STR_NOUN_PRONOUN_ANSWER_PARTICLE);
 
-    // count all S tags to get all clauses in a sentence exatcly once
+    // count all S tags to get all clauses in a sentence exactly once
     private static final String STR_CLAUSES_PER_SENTENCE = "(@S)";
     public static TregexPattern patternClausesPerSentence = TregexPattern.compile(STR_CLAUSES_PER_SENTENCE);
 

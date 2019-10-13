@@ -4,11 +4,15 @@
  */
 package com.flair.server.crawler.impl.azure;
 
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URI;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -136,11 +140,29 @@ public class AzureWebSearch implements AbstractSearchAgentImpl
 		return sb.toString();
 	}
 
+	private static String convertStreamToString(InputStream is) {
+		BufferedReader br = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
+        StringBuilder output = new StringBuilder();
+        try {
+            while (br.ready()) {
+                output.append(br.readLine());
+                output.append('\n');
+            }
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        return output.toString();
+	}
+
 	private void loadResults(InputStream stream)
 	{
 		results.clear();
-		AzureWebSearchResponse response = deserializer.fromJson(new InputStreamReader(stream),
+		String stringFromInputStream = convertStreamToString(stream);
+		AzureWebSearchResponse response = deserializer.fromJson(stringFromInputStream,
 				AzureWebSearchResponse.class);
+		/*AzureWebSearchResponse response = deserializer.fromJson(new InputStreamReader(stream),
+				AzureWebSearchResponse.class);*/
 		if (response != null)
 		{
 			WebAnswer answer = response.webPages;

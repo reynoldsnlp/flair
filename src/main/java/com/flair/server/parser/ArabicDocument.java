@@ -32,15 +32,14 @@ import com.flair.server.raft.Raft;
 import com.flair.server.utilities.ServerLogger;
 
 /**
- * Represents an arabic text document that's parsed by the Stanford Parser and is ranked by RAFT
+ * Represents an Arabic text document that's parsed by the Stanford Parser and is given a readability score by RAFT
  * 
  * @author mjbriggs
  */
-class ArabicDocument implements AbstractDocument
+public class ArabicDocument implements AbstractDocument
 {
 	private final AbstractDocumentSource				source;
 	private final double								readabilityScore;
-	private final DocumentReadabilityLevel				readabilityLevel;	// calculate from the readability score
 	private final ArabicDocumentReadabilityLevel		arabicReadabilityLevel;	// calculate from the readability score
 	private final ConstructionDataCollection			constructionData;
 
@@ -48,26 +47,41 @@ class ArabicDocument implements AbstractDocument
 	private int											numSentences;
 	private int											numDependencies;
 	private int											numWords;
-	private int											numTokens;		// number of words essentially (kinda), later substituted with no of words (without punctuation)
+	private int											numTokens;		// number of words essentially (kinda), later substituted with number of words (without punctuation)
 
 	private double										avgWordLength;		// doesn't include punctuation
 	private double										avgSentenceLength;
 	private double										avgTreeDepth;
 
-	private double										fancyDocLength;	// ### TODO better name needed, formerly "docLenTfIdf"
+	private double										fancyDocLength;	
 	private KeywordSearcherOutput						keywordData;
 
-	private boolean parsed;
+	private boolean 									parsed;
 
-	private Raft raft;
+	private Raft 										raft;
 
+	public ArabicDocument(AbstractDocumentSource source, double readabilityScore, 
+	ArabicDocumentReadabilityLevel arabicReadabilityLevel, ConstructionDataCollection constructionData, Raft raft) 
+	{
+		this.source = source;
+		this.readabilityScore = readabilityScore;
+		this.arabicReadabilityLevel = arabicReadabilityLevel;
+		this.constructionData = constructionData;
+		this.raft = raft;
+	} 
+	
 	public ArabicDocument(AbstractDocumentSource parent)
+	{
+		this(parent, new Raft());
+	}
+	
+	public ArabicDocument(AbstractDocumentSource parent, Raft raft)
 	{
         ServerLogger.get().info("Creating arabic document");
 		assert parent != null;
 
-		raft = new Raft();
-
+		this.raft = raft;
+        
 		source = parent;
 		constructionData = new ConstructionDataCollection(parent.getLanguage(), new DocumentConstructionDataFactory(this));
 
@@ -79,17 +93,16 @@ class ArabicDocument implements AbstractDocument
 		int whitespaceCount = 0;
 		for (int i = 0; i < pageText.length(); i++)
 		{
-			if (pageText.charAt(i) == ' ')
+			if (Character.isWhitespace(pageText.charAt(i)))
 				whitespaceCount++;
 		}
 		numCharacters = pageText.length() - whitespaceCount;
 		tokenizer = new StringTokenizer(pageText, "[.!?]");
 		numSentences = tokenizer.countTokens();
 		numDependencies = 0;
+		
 
 		double readabilityScoreCalc = 0;
-		double readabilityLevelThreshold_A = 0;
-		double readabilityLevelThreshold_B = 0;
 
 		double readabilityLevelThreshold_1 = 0;
 		double readabilityLevelThreshold_2 = 0;
@@ -103,40 +116,16 @@ class ArabicDocument implements AbstractDocument
 		{
 		case ARABIC:
 			readabilityScoreCalc = calculateReadabilityScore(source.getSourceText());
-			if(readabilityScoreCalc == 0.0){
-				ServerLogger.get().error("RAFT document analysis failed on " + getDescription() + 
-				", document number " + raft.getSalt() + ", now using default readability score");
-				try {
-					File failedSourceText = new File("/tmp/source" + raft.getSalt() + ".txt");
-					Writer writer = new BufferedWriter(new OutputStreamWriter
-							(new FileOutputStream(failedSourceText), "UTF8"));
-					writer.write(source.getSourceText());
-					writer.close();
-				}
-				catch(UnsupportedEncodingException e) {
-					ServerLogger.get().error("UNSUPPORTED ENCODING - WRITING FAILED SOURCE TEXT");
-					e.printStackTrace();
-				}
-				catch(IOException e) {
-					ServerLogger.get().error("COULD NOT WRITE TO FILE - WRITING FAILED SOURCE TEXT");
-					e.printStackTrace();
-				}
+			if(readabilityScoreCalc == 0.0)
+			{
+				ServerLogger.get().error("RAFT document analysis failed on " + getDescription() + ", now using default readability score");
 				readabilityScoreCalc = Math
 					.ceil(((double) numCharacters / (double) numTokens) + (numTokens / (double) numSentences));
-				readabilityLevelThreshold_A = 10;
-				readabilityLevelThreshold_B = 20;
-
-				readabilityLevelThreshold_1 = 10;
-				readabilityLevelThreshold_2 = 20;
+				readabilityScoreCalc /= 10;
 			}
-			else{
-				readabilityLevelThreshold_A = 1.1;
-				readabilityLevelThreshold_B = 2.1;
-
-				readabilityLevelThreshold_1 = 1.1;
-				readabilityLevelThreshold_2 = 2.1;
-				readabilityLevelThreshold_3 = 3.1;
-			}
+			readabilityLevelThreshold_1 = 1.1;
+			readabilityLevelThreshold_2 = 2.1;
+			readabilityLevelThreshold_3 = 3.1;
 			break;
 		default:
 			throw new IllegalArgumentException("Invalid document language, tried to use a non arabic language with an arabic document object");
@@ -144,16 +133,10 @@ class ArabicDocument implements AbstractDocument
 
 		if (numSentences != 0 && numCharacters != 0)		//If num sentences && num characters != 0, we use the readability score we calculated
 			readabilityScore = readabilityScoreCalc;
-		else												//else we use a negative score, this ensures that we either dont use the document or its is ranked as easiest
+		else												//else we use a negative score, this ensures that we either don't use the document or its is ranked as easiest
 			readabilityScore = -10.0;
-															// Below we detirmine DocumentReadabilityLevel tag for the client
-		if (readabilityScore < readabilityLevelThreshold_A)		
-			readabilityLevel = DocumentReadabilityLevel.LEVEL_A;
-		else if (readabilityLevelThreshold_A <= readabilityScore && readabilityScore <= readabilityLevelThreshold_B)
-			readabilityLevel = DocumentReadabilityLevel.LEVEL_B;
-		else
-			readabilityLevel = DocumentReadabilityLevel.LEVEL_C;
-
+															// Below we determine DocumentReadabilityLevel tag for the client
+		
 		if (readabilityScore < readabilityLevelThreshold_1)		
 			arabicReadabilityLevel = ArabicDocumentReadabilityLevel.LEVEL_1;
 		else if (readabilityLevelThreshold_1 <= readabilityScore && readabilityScore <= readabilityLevelThreshold_2)		
@@ -163,50 +146,55 @@ class ArabicDocument implements AbstractDocument
 		else 
 			arabicReadabilityLevel = ArabicDocumentReadabilityLevel.LEVEL_4;
 		
-		ServerLogger.get().info("arabicReadabilityLevel = " + arabicReadabilityLevel.toString());
+		ServerLogger.get().info("arabicReadabilityLevel = " + arabicReadabilityLevel.toString() + " for readability score " + readabilityScore);
 
 		avgWordLength = avgSentenceLength = avgTreeDepth = fancyDocLength = 0;
 		keywordData = null;
 		parsed = false;
 	}
 
-	public double calculateReadabilityScore(String source) { 
-		//throws IOException, FileNotFoundException, ClassNotFoundException, UnsupportedEncodingException, InterruptedException, Exception
-		double readabilityLevel = 0;
-		try{
+	public double calculateReadabilityScore(String source) 
+	{ 
+		double readabilityLevel;
+		readabilityLevel = 0;
+		try
+		{
 			readabilityLevel = raft.ScoreText(source);	//throws a bunch of exceptions so just catch the most general case
-			ServerLogger.get().info("For document " + getDescription() + " number is " + raft.getSalt());
 		}
-		catch(Exception ex){
-			ServerLogger.get().error(ex.toString());
-			StringWriter errors = new StringWriter();
-			ex.printStackTrace(new PrintWriter(errors));
-			ServerLogger.get().error(errors.toString());
+		catch(Exception ex)
+		{
+			ServerLogger.get().error(ex, "caught exception " + ex.toString() + " in calculateReadabilityScore, now setting score to 0");
 			return 0;
 		}
 		return readabilityLevel;
 	}
 
 	@Override
-	public Language getLanguage() {
+	public Language getLanguage() 
+	{
 		return source.getLanguage();
 	}
 
 	@Override
-	public String getText() {
+	public String getText() 
+	{
 		return source.getSourceText();
 	}
 
 	@Override
-	public String getDescription() {
+	public String getDescription() 
+	{
 		return "{" + source.getDescription() + " | S[" + numSentences + "], C[" + numCharacters + "]" + "}";
 	}
 
 	@Override
-	public DocumentConstructionData getConstructionData(GrammaticalConstruction type) {
+	public DocumentConstructionData getConstructionData(GrammaticalConstruction type) 
+	{
 		return (DocumentConstructionData) constructionData.getData(type);
 	}
 
+	//consider getting rid of this function all together, it isn't used for Arabic since 
+	//we do not use grammatical constructions for our arabic functionality 
 	public void calculateFancyDocLength()
 	{
 		double sumOfPowers = 0.0;
@@ -216,7 +204,9 @@ class ArabicDocument implements AbstractDocument
 		{
 			DocumentConstructionData data = getConstructionData(itr);
 			if (data.hasConstruction())
+			{
 				sumOfPowers += Math.pow(data.getWeightedFrequency(), 2);
+			}
 		}
 
 		if (sumOfPowers > 0)
@@ -226,122 +216,146 @@ class ArabicDocument implements AbstractDocument
 	}
 
 	@Override
-	public double getReadabilityScore() {
+	public double getReadabilityScore() 
+	{
 		return readabilityScore;
 	}
 
 	@Override
-	public DocumentReadabilityLevel getReadabilityLevel() {
-		return readabilityLevel;
+	public DocumentReadabilityLevel getReadabilityLevel() 
+	{
+		return null;
 	}
 
 	@Override
-	public ArabicDocumentReadabilityLevel getArabicReadabilityLevel() {
+	public ArabicDocumentReadabilityLevel getArabicReadabilityLevel() 
+	{
 		return arabicReadabilityLevel;
 	}
 
 	@Override
-	public int getNumCharacters() {
+	public int getNumCharacters() 
+	{
 		return numCharacters;
 	}
 
 	@Override
-	public int getNumSentences() {
+	public int getNumSentences() 
+	{
 		return numSentences;
 	}
 
 	@Override
-	public int getNumDependencies() {
+	public int getNumDependencies() 
+	{
 		return numDependencies;
 	}
 
 	@Override
-	public int getNumWords() {
+	public int getNumWords()
+	{
 		return numWords;
 	}
 
 	@Override
-	public int getNumTokens() {
+	public int getNumTokens() 
+	{
 		return numTokens;
 	}
 
 	@Override
-	public double getAvgWordLength() {
+	public double getAvgWordLength() 
+	{
 		return avgWordLength;
 	}
 
 	@Override
-	public double getAvgSentenceLength() {
+	public double getAvgSentenceLength() 
+	{
 		return avgSentenceLength;
 	}
 
 	@Override
-	public double getAvgTreeDepth() {
+	public double getAvgTreeDepth() 
+	{
 		return avgTreeDepth;
 	}
 
 	@Override
-	public int getLength() {
+	public int getLength() 
+	{
 		return numWords;
 	}
 
 	@Override
-	public double getFancyLength() {
+	public double getFancyLength() 
+	{
 		return fancyDocLength;
 	}
 
 	@Override
-	public void setNumCharacters(int value) {
+	public void setNumCharacters(int value) 
+	{
 		numCharacters = value;
 	}
 
 	@Override
-	public void setNumSentences(int value) {
+	public void setNumSentences(int value) 
+	{
 		numSentences = value;
 	}
 
 	@Override
-	public void setNumDependencies(int value) {
+	public void setNumDependencies(int value) 
+	{
 		numDependencies = value;
 	}
 
 	@Override
-	public void setNumWords(int numWords) {
+	public void setNumWords(int numWords) 
+	{
 		this.numWords = numWords;
 	}
 
 	@Override
-	public void setNumTokens(int numTokens) {
+	public void setNumTokens(int numTokens) 
+	{
 		this.numTokens = numTokens;
 	}
 
 	@Override
-	public void setAvgWordLength(double value) {
+	public void setAvgWordLength(double value) 
+	{
 		avgWordLength = value;
 	}
 
 	@Override
-	public void setAvgSentenceLength(double value) {
+	public void setAvgSentenceLength(double value) 
+	{
 		avgSentenceLength = value;
 	}
 
 	@Override
-	public void setAvgTreeDepth(double value) {
+	public void setAvgTreeDepth(double value) 
+	{
 		avgTreeDepth = value;
 	}
 
 	@Override
-	public void setLength(int value) {
+	public void setLength(int value) 
+	{
 		numWords = value;
 	}
 
 	@Override
-	public boolean isParsed() {
+	public boolean isParsed() 
+	{
 		return parsed;
 	}
 
 	@Override
-	public void flagAsParsed() {
+	public void flagAsParsed() 
+	{
 		if (parsed)
 			throw new IllegalStateException("Document already flagged as parsed");
 
@@ -350,31 +364,37 @@ class ArabicDocument implements AbstractDocument
 	}
 
 	@Override
-	public AbstractDocumentSource getDocumentSource() {
+	public AbstractDocumentSource getDocumentSource() 
+	{
 		return source;
 	}
 
 	@Override
-	public int compareTo(AbstractDocument t) {
+	public int compareTo(AbstractDocument t) 
+	{
 		return source.compareTo(t.getDocumentSource());
 	}
 
 	@Override
-	public KeywordSearcherOutput getKeywordData() {
+	public KeywordSearcherOutput getKeywordData() 
+	{
 		return keywordData;
 	}
 
 	@Override
-	public void setKeywordData(KeywordSearcherOutput data) {
+	public void setKeywordData(KeywordSearcherOutput data) 
+	{
 		keywordData = data;
 	}
 
 	@Override
-	public Iterable<GrammaticalConstruction> getSupportedConstructions() {
+	public Iterable<GrammaticalConstruction> getSupportedConstructions() 
+	{
 		return GrammaticalConstruction.getForLanguage(getLanguage());
 	}
 	@Override 
-	public String toString(){
+	public String toString()
+	{
 		return "Document : " + getDescription() + 
 		"\nAverage Sentence Length : " + getAvgSentenceLength() + 
 		"\nAverage Word Length : " + getAvgWordLength() + 

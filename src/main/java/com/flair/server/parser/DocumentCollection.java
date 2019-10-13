@@ -10,11 +10,12 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import com.flair.server.utilities.ServerLogger;
 import com.flair.shared.grammar.GrammaticalConstruction;
 import com.flair.shared.grammar.Language;
 
 /**
- * A collection of related documents represeting a corpus
+ * A collection of related documents representing a corpus
  * 
  * @author shadeMe
  */
@@ -48,16 +49,17 @@ public class DocumentCollection implements Iterable<AbstractDocument>
 					docFreq++;
 				}
 			}
-
 			data.calculateData(dataStore.size(), occurrences, docFreq);
 		}
 	}
 
-	public DocumentCollectionConstructionData getConstructionData(GrammaticalConstruction construction) {
+	public DocumentCollectionConstructionData getConstructionData(GrammaticalConstruction construction) 
+	{
 		return (DocumentCollectionConstructionData) constructionData.getData(construction);
 	}
 
-	public synchronized int size() {
+	public synchronized int size() 
+	{
 		return dataStore.size();
 	}
 
@@ -66,17 +68,20 @@ public class DocumentCollection implements Iterable<AbstractDocument>
 		if (doc.getLanguage() != language)
 			throw new IllegalArgumentException("Invalid language for collection. Expected " + language + ", received " + doc.getLanguage());
 			
+		ServerLogger.get().info("recalcConstructionData is " + recalcConstructionData);
 		dataStore.add(doc);
 		if (recalcConstructionData)
 			refreshConstructionData();
 	}
 
 	@Override
-	public Iterator<AbstractDocument> iterator() {
+	public Iterator<AbstractDocument> iterator() 
+	{
 		return dataStore.iterator();
 	}
 
-	public synchronized void sort() {
+	public synchronized void sort() 
+	{
 		Collections.sort(dataStore);
 	}
 
@@ -86,5 +91,20 @@ public class DocumentCollection implements Iterable<AbstractDocument>
 			throw new IllegalArgumentException("Index must be 0 < " + i + " < " + dataStore.size());
 
 		return dataStore.get(i);
+	}
+	
+	protected Language getLanguage() 
+	{
+		return language;
+	}
+
+	protected List<AbstractDocument> getDataStore() 
+	{
+		return dataStore;
+	}
+
+	protected ConstructionDataCollection getConstructionData() 
+	{
+		return constructionData;
 	}
 }

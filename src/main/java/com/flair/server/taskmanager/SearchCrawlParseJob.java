@@ -212,6 +212,7 @@ final class SearchCrawlParseJobInput
 								    AbstractDocumentKeywordSearcherFactory keywordSearcher,
 								    KeywordSearcherInput keywordSearcherInput)
 	{
+		ServerLogger.get().info("Start of SearchCrawlParseJobInput()");
 		this.sourceLanguage = sourceLanguage;
 		this.query = query;
 		this.numResults = numResults;
@@ -224,6 +225,7 @@ final class SearchCrawlParseJobInput
 		this.docParsingStrategy = strategy;
 		this.keywordSearcher = keywordSearcher;
 		this.keywordSearcherInput = keywordSearcherInput;
+		ServerLogger.get().info("End of SearchCrawlParseJobInput()");
 	}
 }
 

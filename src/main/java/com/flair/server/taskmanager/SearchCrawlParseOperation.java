@@ -3,6 +3,7 @@ package com.flair.server.taskmanager;
 import com.flair.server.crawler.SearchResult;
 import com.flair.server.parser.AbstractDocument;
 import com.flair.server.parser.DocumentCollection;
+import com.flair.server.utilities.ServerLogger;
 
 /**
  * Search Crawl Parse operation that extends the AbstractPipeLineOperation interface
@@ -59,6 +60,7 @@ class SearchCrawlParseOperationImpl extends BasicPipelineOperation implements Se
 		crawlC = null;
 		parseC = null;
 		jobC = null;
+		ServerLogger.get().info("SearchCrawlParseOperationImpl()");
 	}
 	
 	@Override

@@ -1,0 +1,16 @@
+/bin/
+/src/main/webapp/WEB-INF/lib/*.jar
+/target/
+/war/
+.DS_Store
+.classpath
+.git
+.idea
+.metadata
+.project
+.settings/
+.vscode/
+"*.icloud"
+flair.iml
+gwt-unitCache/
+pom-stanford.xml

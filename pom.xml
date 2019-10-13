@@ -18,6 +18,7 @@
 		<maven.compiler.target>1.8</maven.compiler.target>
 
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
 	</properties>
 
 	<dependencyManagement>
@@ -113,15 +114,9 @@
 			<version>1.3.0</version>
 		</dependency>
 		<dependency>
-			<!--transitive dependency for gwt-d3-api-->
 			<groupId>com.github.gwtd3</groupId>
-            		<artifactId>gwt-d3-js</artifactId>
-            		<version>3.5.11</version>
-        	</dependency>
-		<dependency>
-			<groupId>edu.stanford.nlp</groupId>
-			<artifactId>stanford-corenlp-russian-models</artifactId>
-			<version>master-SNAPSHOT</version>
+			<artifactId>gwt-d3-js</artifactId>
+			<version>3.5.14</version>
 		</dependency>
 		<dependency>
 			<groupId>edu.stanford.nlp</groupId>
@@ -146,29 +141,28 @@
 			<version>3.9.2</version>
 			<classifier>models-arabic</classifier>
 		</dependency>
-		<!--
-		<dependency>
-			<groupId>raft</groupId>
-			<artifactId>raft</artifactId>
-			<version>master-SNAPSHOT</version>
-		</dependency>
-		-->
-
-		<!--RAFT dependencies-->
-		<dependency>
-    		<groupId>nz.ac.waikato.cms.weka</groupId>
-    		<artifactId>weka-stable</artifactId>
-    		<version>3.6.10</version>
-		</dependency>
-
-
-		<!-- Local Dependencies -->
 		<dependency>
 			<groupId>edu.stanford.nlp</groupId>
-			<artifactId>stanford-tregex</artifactId>
-			<version>3.6.0</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/stanford-tregex-3.6.0.jar</systemPath>
+			<artifactId>stanford-corenlp-russian-models</artifactId>
+			<version>master-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+    		<groupId>com.sun.net.httpserver</groupId>
+   			<artifactId>http</artifactId>
+    		<version>20070405</version>
+    		<scope>test</scope>
+		</dependency>
+		<dependency>
+    		<groupId>org.mockito</groupId>
+    		<artifactId>mockito-inline</artifactId>
+    		<version>3.0.0</version>
+    		<scope>test</scope>
+		</dependency>
+		<!--RAFT dependencies-->
+		<dependency>
+			<groupId>nz.ac.waikato.cms.weka</groupId>
+			<artifactId>weka-stable</artifactId>
+			<version>3.6.10</version>
 		</dependency>
 	</dependencies>
 
@@ -250,6 +244,26 @@
 					</execution>
 				</executions>
 			</plugin>
+			<plugin>
+          		<groupId>org.apache.maven.plugins</groupId>
+          		<artifactId>maven-surefire-plugin</artifactId>
+          		<version>3.0.0-M3</version>
+				<dependencies>
+    				<dependency>
+        				<groupId>org.apache.maven.surefire</groupId>
+        				<artifactId>surefire-junit47</artifactId>
+       					<version>3.0.0-M3</version>
+      				</dependency>
+    			</dependencies>
+				<configuration>
+        			<enableAssertions>true</enableAssertions>
+					<!--<parallel>methods</parallel>-->
+         			<!--<threadCount>2</threadCount>-->
+					<!--comment line below to include integration tests-->
+					<excludedGroups>type.IntegrationTest</excludedGroups>
+					
+    			</configuration>
+        	</plugin>
 		</plugins>
 	</build>
 

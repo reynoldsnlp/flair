@@ -108,16 +108,19 @@ public final class MasterJobPipeline
  	*/
 	private AbstractParsingStrategyFactory getStrategyForLanguage(Language lang)
 	{
-		ServerLogger.get().info("getStrategyForLanguage()");
 		switch (lang)
 		{
 		case ENGLISH:
+		ServerLogger.get().info("getStrategyForLanguage()");
 			return stanfordEnglishStrategy;
 		case GERMAN:
+		ServerLogger.get().info("getStrategyForLanguage()");
 			return stanfordGermanStrategy;
 		case RUSSIAN:
+		ServerLogger.get().info("getStrategyForLanguage()");
 			return stanfordRussianStrategy;
 		case ARABIC:
+		ServerLogger.get().info("getStrategyForLanguage()");
 			return stanfordArabicStrategy;	
 		default:
 			throw new IllegalArgumentException("Language " + lang + " not supported");
@@ -131,7 +134,6 @@ public final class MasterJobPipeline
 	 */
 	private DocumentParserPool getParserPoolForLanguage(Language lang)
 	{
-		ServerLogger.get().info("getParserPoolForLanguage()");
 		switch (lang)
 		{
 		case ENGLISH:
@@ -141,6 +143,7 @@ public final class MasterJobPipeline
 						MasterParsingFactoryGenerator.createParser(ParserType.STANFORD_CORENLP, Language.ENGLISH));
 			}
 
+		ServerLogger.get().info("getParserPoolForLanguage()");
 			return stanfordParserEnglishPool;
 		case GERMAN:
 			if (stanfordParserGermanPool == null)
@@ -149,6 +152,7 @@ public final class MasterJobPipeline
 						MasterParsingFactoryGenerator.createParser(ParserType.STANFORD_CORENLP, Language.GERMAN));
 			}
 
+		ServerLogger.get().info("getParserPoolForLanguage()");
 			return stanfordParserGermanPool;
 		case RUSSIAN:
 			if (stanfordParserRussianPool == null)
@@ -157,6 +161,7 @@ public final class MasterJobPipeline
 						MasterParsingFactoryGenerator.createParser(ParserType.STANFORD_CORENLP, Language.RUSSIAN));
 			}
 
+		ServerLogger.get().info("getParserPoolForLanguage()");
 			return stanfordParserRussianPool;	
 		case ARABIC:
 			if (stanfordParserArabicPool == null)
@@ -165,6 +170,7 @@ public final class MasterJobPipeline
 						MasterParsingFactoryGenerator.createParser(ParserType.STANFORD_CORENLP, Language.ARABIC));
 			}	
 
+		ServerLogger.get().info("getParserPoolForLanguage()");
 			return stanfordParserArabicPool;	
 		default:
 			throw new IllegalArgumentException("Language " + lang + " not supported");
@@ -176,18 +182,26 @@ public final class MasterJobPipeline
 													int numResults,
 													KeywordSearcherInput keywords)
 	{
-		ServerLogger.get().info("doSearchCrawlParse()");
-		SearchCrawlParseJobInput jobParams = new SearchCrawlParseJobInput(lang,
-																query,
-																numResults,
-																webSearchExecutor,
-																webCrawlExecutor,
-																docParseExecutor,
-																getParserPoolForLanguage(lang),
-																getStrategyForLanguage(lang),
-																naiveSubstringSearcher,
-																keywords);
-		SearchCrawlParseOperationImpl newOp = new SearchCrawlParseOperationImpl(jobParams);
+		ServerLogger.get().info("Start of doSearchCrawlParse()");
+		SearchCrawlParseOperationImpl newOp = null;
+		try{
+			SearchCrawlParseJobInput jobParams = new SearchCrawlParseJobInput(lang,
+			query,
+			numResults,
+			webSearchExecutor,
+			webCrawlExecutor,
+			docParseExecutor,
+			getParserPoolForLanguage(lang),
+			getStrategyForLanguage(lang),
+			naiveSubstringSearcher,
+			keywords);
+			newOp = new SearchCrawlParseOperationImpl(jobParams);	
+		} catch(Exception ex) {
+			ServerLogger.get().info("Failed in doSearchCrawlParse on exception " + ex.getMessage());
+			return newOp;
+		}
+		
+		ServerLogger.get().info("End of doSearchCrawlParse()");
 		return newOp;
 	}
 
