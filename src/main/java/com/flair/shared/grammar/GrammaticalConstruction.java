@@ -5,6 +5,8 @@
  */
 package com.flair.shared.grammar;
 
+import org.apache.commons.codec.language.bm.Lang;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -15,54 +17,54 @@ import java.util.Set;
  * IMPORTANT - ORDER-DEPENDENT! ADD NEW ITEMS TO THE END!
  * @author shadeMe
 */
-public enum GrammaticalConstruction
+public enum GrammaticalConstruction //TODO: separate lemma-based Constructions used in Russian so they can have their own descriptions in the UI
 {
     // (simple) constructions
-    EXISTENTIAL_THERE("existentialThere", Language.ENGLISH),
+    EXISTENTIAL_THERE("existentialThere", Language.ENGLISH, Language.RUSSIAN), //Russian: есть and нет
     THERE_IS_ARE("thereIsAre", Language.ENGLISH),
     THERE_WAS_WERE("thereWasWere", Language.ENGLISH),
     
     ATTRIBUTES_PARTICIPLE_1("participle1Attribute", Language.GERMAN),
     ATTRIBUTES_PARTICIPLE_2("participle2Attribute", Language.GERMAN),
-    ATTRIBUTES_ADJECTIVE("adjectiveAttribute", Language.GERMAN),
+    ATTRIBUTES_ADJECTIVE("adjectiveAttribute", Language.GERMAN, Language.RUSSIAN), //Russian: long form adjectives (without "Pred" tag)
     ATTRIBUTES_PREPOSITION("prepositionalAttribute", Language.GERMAN),
     
     CONJUNCTIONS_ADVANCED("advancedConjunctions", Language.ENGLISH),
     CONJUNCTIONS_SIMPLE("simpleConjunctions", Language.ENGLISH),
     
-    PREPOSITIONS("prepositions", Language.ENGLISH, Language.GERMAN),
+    PREPOSITIONS("prepositions", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN),
     PREPOSITIONS_SIMPLE("simplePrepositions", Language.ENGLISH, Language.GERMAN),
     PREPOSITIONS_COMPLEX("complexPrepositions", Language.ENGLISH),
     PREPOSITIONS_ADVANCED("advancedPrepositions", Language.ENGLISH),
     
     // sentence structure
-    CLAUSE_SUBORDINATE("subordinateClause", Language.ENGLISH, Language.GERMAN),
-    CLAUSE_RELATIVE("relativeClause", Language.ENGLISH, Language.GERMAN),
+    CLAUSE_SUBORDINATE("subordinateClause", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN),
+    CLAUSE_RELATIVE("relativeClause", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN),
     CLAUSE_RELATIVE_REDUCED("relativeClauseReduced", Language.ENGLISH),
-    CLAUSE_ADVERBIAL("adverbialClause", Language.ENGLISH, Language.GERMAN),
-    CLAUSE_DASS("dassClause", Language.GERMAN),
-    SENTENCE_SIMPLE("simpleSentence", Language.ENGLISH, Language.GERMAN),
-    SENTENCE_COMPLEX("complexSentence", Language.ENGLISH, Language.GERMAN),
+    CLAUSE_ADVERBIAL("adverbialClause", Language.ENGLISH, Language.GERMAN), //*** ? verbal adverb? "čitajući" ? "V" and "Adv" tags
+    CLAUSE_THAT("thatClause", Language.GERMAN), //TODO: refactor situations of 'dass' to be 'that' //*** ", čto"
+    SENTENCE_SIMPLE("simpleSentence", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN),
+    SENTENCE_COMPLEX("complexSentence", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN),
     SENTENCE_COMPOUND("compoundSentence", Language.ENGLISH, Language.GERMAN),
     SENTENCE_INCOMPLETE("incompleteSentence", Language.ENGLISH, Language.GERMAN),
     
-    OBJECT_DIRECT("directObject", Language.ENGLISH),	 // "give me"
-    OBJECT_INDIRECT("indirectObject", Language.ENGLISH),	 // "give it toPrep me"
+    OBJECT_DIRECT("directObject", Language.ENGLISH),	 // "give me" //*** in the graph, verb with Acc or negated verb with Gen
+    OBJECT_INDIRECT("indirectObject", Language.ENGLISH),	 // "give it toPrep me" //*** in the graph, verb with Dat
     
-    PRONOUNS("pronouns", Language.ENGLISH, Language.GERMAN),
-    PRONOUNS_PERSONAL("pronounsPersonal", Language.GERMAN),
-    PRONOUNS_RELATIVE("pronounsRelative", Language.GERMAN),
-    PRONOUNS_POSSESSIVE("pronounsPossessive", Language.ENGLISH, Language.GERMAN), // /PRP$ ("", my, your, their)
-    PRONOUNS_DEMONSTRATIVE("pronounsDemonstrative", Language.GERMAN), // /JJ or PRP... ("", mine, yours, theirs)
-    PRONOUNS_REFLEXIVE("pronounsReflexive", Language.ENGLISH, Language.GERMAN), // /PRP + myself, themselves, etc.
-    PRONOUNS_INDEFINITE("pronounsIndefinite", Language.GERMAN),
-    PRONOUNS_INTERROGATIVE("pronounsInterrogative", Language.GERMAN),
+    PRONOUNS("pronouns", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN),
+    PRONOUNS_PERSONAL("pronounsPersonal", Language.GERMAN, Language.RUSSIAN),
+    PRONOUNS_RELATIVE("pronounsRelative", Language.GERMAN, Language.RUSSIAN),
+    PRONOUNS_POSSESSIVE("pronounsPossessive", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), // /PRP$ ("", my, your, their)
+    PRONOUNS_DEMONSTRATIVE("pronounsDemonstrative", Language.GERMAN, Language.RUSSIAN), // /JJ or PRP... ("", mine, yours, theirs)
+    PRONOUNS_REFLEXIVE("pronounsReflexive", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), // /PRP + myself, themselves, etc.
+    PRONOUNS_INDEFINITE("pronounsIndefinite", Language.GERMAN, Language.RUSSIAN),
+    PRONOUNS_INTERROGATIVE("pronounsInterrogative", Language.GERMAN, Language.RUSSIAN),
     PRONOUNS_SUBJECTIVE("pronounsSubjective", Language.ENGLISH),
     
     // quantifiers
-    DETERMINER_SOME("someDet", Language.ENGLISH, Language.GERMAN),
-    DETERMINER_ANY("anyDet", Language.ENGLISH, Language.GERMAN),
-    DETERMINER_MUCH("muchDet", Language.ENGLISH),
+    DETERMINER_SOME("someDet", Language.ENGLISH, Language.GERMAN), //*** njekotorujj / njekotoryj
+    DETERMINER_ANY("anyDet", Language.ENGLISH, Language.GERMAN), //*** ljuboj
+    DETERMINER_MUCH("muchDet", Language.ENGLISH), //*** mnogo, mnogij (lemmas, not surface form)
     DETERMINER_MANY("manyDet", Language.ENGLISH, Language.GERMAN),
     DETERMINER_A_LOT_OF("aLotOfDet", Language.ENGLISH),
     
@@ -75,34 +77,34 @@ public enum GrammaticalConstruction
     NOUNS_TUR("turNounForms", Language.GERMAN),
     NOUNS_UNG("ungNounForms", Language.GERMAN),
     
-    NEGATION_ALL("negAll", Language.ENGLISH, Language.GERMAN), // nobody, nowhere, etc.
-    NEGATION_PARTIAL("partialNegation", Language.ENGLISH, Language.GERMAN), // rarely, barely, seldom, hardly, scarcely
-    NEGATION_NO_NOT_NEVER("noNotNever", Language.ENGLISH, Language.GERMAN),
+    NEGATION_ALL("negAll", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), // nobody, nowhere, etc. //*** Pron Neg
+    NEGATION_PARTIAL("partialNegation", Language.ENGLISH, Language.GERMAN), // rarely, barely, seldom, hardly, scarcely //TODO: maybe add to russian later
+    NEGATION_NO_NOT_NEVER("noNotNever", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), //*** Russian: нет, не, nikogda, ni //TODO
     NEGATION_NT("nt", Language.ENGLISH),
-    NEGATION_NOT("not", Language.ENGLISH),
+    NEGATION_NOT("not", Language.ENGLISH, Language.RUSSIAN), //Russian: не
     
-    QUESTIONS_DIRECT("directQuestions", Language.ENGLISH, Language.GERMAN),
-    QUESTIONS_INDIRECT("indirectQuestions", Language.ENGLISH, Language.GERMAN),
-    QUESTIONS_YESNO("yesNoQuestions", Language.ENGLISH, Language.GERMAN), // direct: "Are you ok?"
-    QUESTIONS_WH("whQuestions", Language.ENGLISH, Language.GERMAN),// direct: "What do you do?"
-    QUESTIONS_TO_BE("toBeQuestions", Language.ENGLISH),// direct: "What's this?"
+    QUESTIONS_DIRECT("directQuestions", Language.ENGLISH, Language.GERMAN), //*** ends in a '?'
+    QUESTIONS_INDIRECT("indirectQuestions", Language.ENGLISH, Language.GERMAN), //*** (li or tag "Interr") with no '?' //TODO: just 'li'?
+    QUESTIONS_YESNO("yesNoQuestions", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), // direct: "Are you ok?" //*** (has li or no interrogative) and does have a '?'
+    QUESTIONS_WH("whQuestions", Language.ENGLISH, Language.GERMAN),// direct: "What do you do?" //*** has "Interr" which is not 'li', and has a '?'
+    QUESTIONS_TO_BE("toBeQuestions", Language.ENGLISH),// direct: "What's this?" //TODO: Russian. What.
     QUESTIONS_TO_DO("toDoQuestions", Language.ENGLISH), // direct: "What do you do?"
     QUESTIONS_TO_HAVE("toHaveQuestions", Language.ENGLISH),// direct: "What have you done?"
     QUESTIONS_MODAL("modalQuestions", Language.ENGLISH),// direct: "Should I go?", "What should I do?"
-    QUESTIONS_WHAT("what", Language.ENGLISH, Language.GERMAN),
-    QUESTIONS_WHO("who", Language.ENGLISH, Language.GERMAN),
-    QUESTIONS_HOW("how", Language.ENGLISH, Language.GERMAN),
-    QUESTIONS_WHY("why", Language.ENGLISH, Language.GERMAN),
-    QUESTIONS_WHERE("where", Language.ENGLISH, Language.GERMAN),
-    QUESTIONS_WHEN("when", Language.ENGLISH, Language.GERMAN),
-    QUESTIONS_WHOSE("whose", Language.ENGLISH, Language.GERMAN),
+    QUESTIONS_WHAT("what", Language.ENGLISH, Language.GERMAN), //*** čto lemma
+    QUESTIONS_WHO("who", Language.ENGLISH, Language.GERMAN), //*** kto
+    QUESTIONS_HOW("how", Language.ENGLISH, Language.GERMAN),//*** kak
+    QUESTIONS_WHY("why", Language.ENGLISH, Language.GERMAN),//*** počjemu začjem
+    QUESTIONS_WHERE("where", Language.ENGLISH, Language.GERMAN),//*** gdje //TODO: add a construction QUESTIONS_WHITHER //*** kuda lemma
+    QUESTIONS_WHEN("when", Language.ENGLISH, Language.GERMAN),//*** kogda
+    QUESTIONS_WHOSE("whose", Language.ENGLISH, Language.GERMAN),//*** čjej
     QUESTIONS_WHOM("whom", Language.ENGLISH, Language.GERMAN),
-    QUESTIONS_WHICH("which", Language.ENGLISH, Language.GERMAN),
-    QUESTIONS_TAG("tagQuestions", Language.ENGLISH, Language.GERMAN), // ", isn't it?"
+    QUESTIONS_WHICH("which", Language.ENGLISH, Language.GERMAN),//*** kakoj //TODO: add a construction QUESTIONS_WHAT_KIND //*** kakov lemma
+    QUESTIONS_TAG("tagQuestions", Language.ENGLISH, Language.GERMAN), // ", isn't it?" //*** ", (nje) tak (li)?" //TODO: come back to this
     
     // conditionals - check first, before tenses
-    CONDITIONALS("conditionals", Language.ENGLISH),
-    CONDITIONALS_REAL("condReal", Language.ENGLISH),
+    CONDITIONALS("conditionals", Language.ENGLISH, Language.RUSSIAN),
+    CONDITIONALS_REAL("condReal", Language.ENGLISH), //TODO: pick up here next time
     CONDITIONALS_UNREAL("condUnreal", Language.ENGLISH),
     
     // tenses - only if not conditional
@@ -132,8 +134,8 @@ public enum GrammaticalConstruction
     VERBTYP_MODAL("modalVerbs", Language.GERMAN),
     
     VERBFORM_TO_INFINITIVE("toInfinitiveForms", Language.ENGLISH, Language.GERMAN),
-    VERBFORM_INFINITIVE("infinitiveForms", Language.GERMAN),// "I want toPrep do it."
-    VERBFORM_PARTICIPLE("participleForms", Language.GERMAN),// "I want toPrep do it."
+    VERBFORM_INFINITIVE("infinitiveForms", Language.GERMAN, Language.RUSSIAN),// "I want toPrep do it."
+    VERBFORM_PARTICIPLE("participleForms", Language.GERMAN, Language.RUSSIAN),// "I want toPrep do it."
     
     VERB_CLUSTER("verbCluster", Language.GERMAN),
     VERB_BRACKETS("verbBrackets", Language.GERMAN),
@@ -199,7 +201,63 @@ public enum GrammaticalConstruction
     TENSE_PAST_PERFECT("pastPerfect", Language.ENGLISH),
     PRONOUNS_OBJECTIVE("pronounsObjective", Language.ENGLISH), // /PRP + me, you, them...
     POSTPOSITION("postposition", Language.GERMAN),
-    
+
+
+    //*** NEW CONSTRUCTIONS BELOW ***//
+
+    //CASES
+
+    NOUN_NOMINATIVE("nounNominative", Language.RUSSIAN),
+    ADJECTIVE_NOMINATIVE("adjectiveNominative", Language.RUSSIAN),
+    PRONOUN_NOMINATIVE("pronounNominative", Language.RUSSIAN),
+    DETERMINER_NOMINATIVE("determinerNominative", Language.RUSSIAN),
+    PREPOSITION_NOMINATIVE("prepositionNominative", Language.RUSSIAN),
+
+    NOUN_ACCUSATIVE("nounAccusative", Language.RUSSIAN),
+    ADJECTIVE_ACCUSATIVE("adjectiveAccusative", Language.RUSSIAN),
+    PRONOUN_ACCUSATIVE("pronounAccusative", Language.RUSSIAN),
+    DETERMINER_ACCUSATIVE("determinerAccusative", Language.RUSSIAN),
+    PREPOSITION_ACCUSATIVE("prepositionAccusative", Language.RUSSIAN),
+
+    NOUN_GENITIVE("nounGenitive", Language.RUSSIAN),
+    ADJECTIVE_GENITIVE("adjectiveGenitive", Language.RUSSIAN),
+    PRONOUN_GENITIVE("pronounGenitive", Language.RUSSIAN),
+    DETERMINER_GENITIVE("determinerGenitive", Language.RUSSIAN),
+    PREPOSITION_GENITIVE("prepositionGenitive", Language.RUSSIAN),
+
+    NOUN_PREPOSITIONAL("nounPrepositional", Language.RUSSIAN),
+    ADJECTIVE_PREPOSITIONAL("adjectivePrepositional", Language.RUSSIAN),
+    PRONOUN_PREPOSITIONAL("pronounPrepositional", Language.RUSSIAN),
+    DETERMINER_PREPOSITIONAL("determinerPrepositional", Language.RUSSIAN),
+    PREPOSITION_PREPOSITIONAL("prepositionPrepositional", Language.RUSSIAN),
+
+    NOUN_DATIVE("nounDative", Language.RUSSIAN),
+    ADJECTIVE_DATIVE("adjectiveDative", Language.RUSSIAN),
+    PRONOUN_DATIVE("pronounDative", Language.RUSSIAN),
+    DETERMINER_DATIVE("determinerDative", Language.RUSSIAN),
+    PREPOSITION_DATIVE("prepositionDative", Language.RUSSIAN),
+
+    NOUN_INSTRUMENTAL("nounInstrumental", Language.RUSSIAN),
+    ADJECTIVE_INSTRUMENTAL("adjectiveInstrumental", Language.RUSSIAN),
+    PRONOUN_INSTRUMENTAL("pronounInstrumental", Language.RUSSIAN),
+    DETERMINER_INSTRUMENTAL("determinerInstrumental", Language.RUSSIAN),
+    PREPOSITION_INSTRUMENTAL("prepositionInstrumental", Language.RUSSIAN),
+
+    //RUSSIAN PARTICIPLES
+    PARTICIPLE_PRESENT_ACTIVE("presentActiveParticiple", Language.RUSSIAN),
+    PARTICIPLE_PRESENT_PASSIVE("presentPassiveParticiple", Language.RUSSIAN),
+    PARTICIPLE_PAST_ACTIVE("pastActiveParticiple", Language.RUSSIAN),
+    PARTICIPLE_PAST_PASSIVE("pastPassiveParticiple", Language.RUSSIAN),
+
+    //RUSSIAN TENSES
+    TENSE_PAST("pastTense", Language.RUSSIAN),
+    TENSE_NON_PAST("nonpastTense", Language.RUSSIAN),
+    TENSE_PRESENT("presentTense", Language.RUSSIAN),
+    TENSE_FUTURE("futureTense", Language.RUSSIAN),
+
+    //RUSSIAN VERB FORMS
+    VERB_REFLEXIVE("reflexiveVerb", Language.RUSSIAN),
+
     ;
     
 	
