@@ -70,9 +70,9 @@ _gram-helpText_	CARDINALS	<INSERT_HELP_TEXT>
 _gram-name_	CLAUSE_ADVERBIAL	Adverbial
 _gram-path_	CLAUSE_ADVERBIAL	Clauses > Adverbial clause
 _gram-helpText_	CLAUSE_ADVERBIAL	A subordinate clause functioning as an adverb. E.g., John's goldfish died when he was 3.
-_gram-name_	CLAUSE_DASS	CLAUSE_DASS
-_gram-path_	CLAUSE_DASS	CLAUSE_DASS
-_gram-helpText_	CLAUSE_DASS	<INSERT_HELP_TEXT>
+_gram-name_	CLAUSE_THAT	CLAUSE_THAT
+_gram-path_	CLAUSE_THAT	CLAUSE_THAT
+_gram-helpText_	CLAUSE_THAT	<INSERT_HELP_TEXT>
 _gram-name_	CLAUSE_RELATIVE	Relative
 _gram-path_	CLAUSE_RELATIVE	Clauses > Relative clause
 _gram-helpText_	CLAUSE_RELATIVE	A subordinate clause that defines a noun phrase and starts with a relative pronoun (who, which, that, where, when, whose, whom). E.g., John saw Sam who was talking to his parents.

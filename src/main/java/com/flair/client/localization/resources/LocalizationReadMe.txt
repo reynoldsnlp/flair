@@ -2,7 +2,7 @@ FLAIR localization readMe:
 
 The strings-en files are localized strings for the English language, whereas the strings-de files are for german. The "general" strings are fully localized, in that we have strings for both languages.
 The "constructions" files contain the strings for the various grammatical constructions used by FLAIR. For every construction, there are three rows: _gram-name_, _gram-path_ and _gram-helpText_
-_gram-name_ - This is the name of the grammatical construction that's displayed to the user. It usually follows its default placeholder string (e.g: CLAUSE_DASS - Dass Clause)
+_gram-name_ - This is the name of the grammatical construction that's displayed to the user. It usually follows its default placeholder string (e.g: CLAUSE_THAT - Dass Clause)
 _gram-path_ - This is the path string described by the construction's categories. (e.g: Direct questions has a path string of "Questions > Direct Questions")
 _gram-helpText_ - This is the example text displayed to the user. It's formatted in the following manner: e.g., <insert example word(s) here>
 

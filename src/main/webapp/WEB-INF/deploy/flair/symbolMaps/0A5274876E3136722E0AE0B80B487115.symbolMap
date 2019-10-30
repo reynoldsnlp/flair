@@ -2101,7 +2101,7 @@ vz,com.flair.shared.grammar.GrammaticalConstruction::ATTRIBUTES_PARTICIPLE_2,com
 wz,com.flair.shared.grammar.GrammaticalConstruction::ATTRIBUTES_PREPOSITION,com.flair.shared.grammar.GrammaticalConstruction,ATTRIBUTES_PREPOSITION,com/flair/shared/grammar/GrammaticalConstruction.java,28,-1
 xz,com.flair.shared.grammar.GrammaticalConstruction::CARDINALS,com.flair.shared.grammar.GrammaticalConstruction,CARDINALS,com/flair/shared/grammar/GrammaticalConstruction.java,178,-1
 yz,com.flair.shared.grammar.GrammaticalConstruction::CLAUSE_ADVERBIAL,com.flair.shared.grammar.GrammaticalConstruction,CLAUSE_ADVERBIAL,com/flair/shared/grammar/GrammaticalConstruction.java,42,-1
-zz,com.flair.shared.grammar.GrammaticalConstruction::CLAUSE_DASS,com.flair.shared.grammar.GrammaticalConstruction,CLAUSE_DASS,com/flair/shared/grammar/GrammaticalConstruction.java,43,-1
+zz,com.flair.shared.grammar.GrammaticalConstruction::CLAUSE_THAT,com.flair.shared.grammar.GrammaticalConstruction,CLAUSE_THAT,com/flair/shared/grammar/GrammaticalConstruction.java,43,-1
 Az,com.flair.shared.grammar.GrammaticalConstruction::CLAUSE_RELATIVE,com.flair.shared.grammar.GrammaticalConstruction,CLAUSE_RELATIVE,com/flair/shared/grammar/GrammaticalConstruction.java,40,-1
 Bz,com.flair.shared.grammar.GrammaticalConstruction::CLAUSE_RELATIVE_REDUCED,com.flair.shared.grammar.GrammaticalConstruction,CLAUSE_RELATIVE_REDUCED,com/flair/shared/grammar/GrammaticalConstruction.java,41,-1
 Cz,com.flair.shared.grammar.GrammaticalConstruction::CLAUSE_SUBORDINATE,com.flair.shared.grammar.GrammaticalConstruction,CLAUSE_SUBORDINATE,com/flair/shared/grammar/GrammaticalConstruction.java,39,-1

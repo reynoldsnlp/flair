@@ -70,9 +70,9 @@ _gram-helpText_	CARDINALS	eins, 2, 323c
 _gram-name_	CLAUSE_ADVERBIAL	Adverbial
 _gram-path_	CLAUSE_ADVERBIAL	Nebensatztypen > Adverbial
 _gram-helpText_	CLAUSE_ADVERBIAL	(Sie arbeitet viel,) weil sie Ärztin ist.
-_gram-name_	CLAUSE_DASS	Dass-Satz
-_gram-path_	CLAUSE_DASS	Nebensatztypen > Dass-Satz
-_gram-helpText_	CLAUSE_DASS	(Ich weiß,) dass sie Ärztin ist.
+_gram-name_	CLAUSE_THAT	Dass-Satz
+_gram-path_	CLAUSE_THAT	Nebensatztypen > Dass-Satz
+_gram-helpText_	CLAUSE_THAT	(Ich weiß,) dass sie Ärztin ist.
 _gram-name_	CLAUSE_RELATIVE	Relativ
 _gram-path_	CLAUSE_RELATIVE	Nebensatztypen > Relativ
 _gram-helpText_	CLAUSE_RELATIVE	(die Frau,) die Ärztin ist

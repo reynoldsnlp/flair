@@ -56,7 +56,7 @@
 						
 						<flair:GrammaticalConstructionWeightSlider gram="CLAUSE_ADVERBIAL" parentLanguage="GERMAN"/>
 						
-						<flair:GrammaticalConstructionWeightSlider gram="CLAUSE_DASS" parentLanguage="GERMAN"/>
+						<flair:GrammaticalConstructionWeightSlider gram="CLAUSE_THAT" parentLanguage="GERMAN"/>
 					</flair:GrammaticalConstructionPanelItem>
 				</flair:GrammaticalConstructionPanel>
 			</flair:GrammaticalConstructionPanelItem>
