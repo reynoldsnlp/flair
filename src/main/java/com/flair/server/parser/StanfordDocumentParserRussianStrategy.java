@@ -92,7 +92,6 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
         }
     }
 
-
     public void setPipeline(StanfordCoreNLP pipeline) {
         assert pipeline != null;
         this.pipeline = pipeline;
@@ -522,7 +521,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
         }
         return matches;
     }
-    
+
     /**
      * Counts the number of matches to a specific regex Pattern for individual words
      * @param pattern Pattern to be matched against each word

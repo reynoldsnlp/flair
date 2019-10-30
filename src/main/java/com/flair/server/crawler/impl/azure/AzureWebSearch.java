@@ -28,11 +28,6 @@ import com.google.gson.GsonBuilder;
 
 /**
  * Basic web search implementation that uses the Azure Search API
-<<<<<<< HEAD
- * 
-=======
- *
->>>>>>> russian functional
  * @author shadeMe
  */
 public class AzureWebSearch implements AbstractSearchAgentImpl
