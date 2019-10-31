@@ -129,7 +129,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
         workingDoc = null;
     }
 
-    public boolean apply(AbstractDocument docToParse){ //TODO
+    public boolean apply(AbstractDocument docToParse){
         assert docToParse != null;
         int attempts = 0;
         try {
@@ -243,7 +243,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                 Cg3Parser parser = new Cg3Parser(finalReadings);
                 List<WordWithReadings> readingsList = parser.parse();
                 //use the reduced readings to count constructions
-                Map<GrammaticalConstruction, List<WordWithReadings>> constructionCounts = countGrammaticalConstructions(readingsList);
+                Map<GrammaticalConstruction, List<WordWithReadings>> constructionCounts = countGrammaticalConstructions(readingsList, words);
                 Map<GrammaticalConstruction, List<WordWithReadings>> prepositionConstructionCounts = countPrepositionConstructions(readingsList, graph);
                 constructionCounts.putAll(prepositionConstructionCounts);
                 saveGrammaticalConstructionsToDocument(constructionCounts, words);
@@ -280,15 +280,21 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
         inspectPrepositions(graph);
     }
 
-    private Map<GrammaticalConstruction, List<WordWithReadings>> countGrammaticalConstructions(List<WordWithReadings> wordsWithReadings){
+    private Map<GrammaticalConstruction, List<WordWithReadings>> countGrammaticalConstructions(List<WordWithReadings> wordsWithReadings, List<CoreLabel> words){
         //variables for the whole sentence
         boolean isComplexSentence = false;
+        int sentenceStart = -1;
+        int sentenceEnd = -1;
+        if(words.size() != 0){
+            sentenceStart = words.get(0).beginPosition();
+            sentenceEnd = words.get(words.size() - 1).endPosition();
+        }
 
         Map<GrammaticalConstruction, List<WordWithReadings>> constructionInstances = new HashMap<>();
         for(WordWithReadings word: wordsWithReadings){
             Map<GrammaticalConstruction, Boolean> constructionsToCount = new HashMap<>();
 
-            //recognize which tags are present in this word's readings
+            //recognize which tags and lemmas are present in this word's readings
             for(CgReading reading: word.getReadings()){
                 boolean isNoun = false;
                 boolean isAdjective = false;
@@ -369,6 +375,14 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                 if(tags.contains(DEFINITE_TAG)) isDefinite = true;
                 if(tags.contains(INDEFINITE_TAG)) isIndefinite = true;
                 if(tags.contains(INTERROGATIVE_TAG)) isInterrogative = true;
+
+
+                //look at the lemma
+                String lemma = reading.getBaseForm();
+                if(isMatch(RussianGrammaticalPatterns.patternNjekotorujj, lemma)){
+                    constructionsToCount.put(GrammaticalConstruction.DETERMINER_SOME, true);
+                }
+                //TODO: add more lemma-based constructions
 
                 //recognize tag combinations
                 if(isNoun){
@@ -459,11 +473,11 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                 }
             }
         }
-        if(isComplexSentence){ //TODO: change so the whole sentence is highlighted
-            constructionInstances.put(GrammaticalConstruction.SENTENCE_COMPLEX, wordsWithReadings.subList(0,1));
+        if(isComplexSentence){
+            addConstructionByIndices(GrammaticalConstruction.SENTENCE_COMPLEX, sentenceStart, sentenceEnd);
         }
         else {
-            constructionInstances.put(GrammaticalConstruction.SENTENCE_SIMPLE, wordsWithReadings.subList(0,1));
+            addConstructionByIndices(GrammaticalConstruction.SENTENCE_SIMPLE, sentenceStart, sentenceEnd);
         }
         return constructionInstances;
     }
@@ -540,6 +554,11 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
         return matches;
     }
 
+    private boolean isMatch(Pattern pattern, String value){
+        Matcher m = pattern.matcher(value);
+        return m.matches();
+    }
+
     private void saveGrammaticalConstructionsToDocument(Map<GrammaticalConstruction, List<WordWithReadings>> constructionsMap, List<CoreLabel> originalLabels) {
         for(GrammaticalConstruction construction: constructionsMap.keySet()){
             List<WordWithReadings> instances = constructionsMap.get(construction);
@@ -559,6 +578,10 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
             int end = label.endPosition();
             workingDoc.getConstructionData(type).addOccurrence(begin, end);
         }
+    }
+
+    private void addConstructionByIndices(GrammaticalConstruction type, int startIndex, int endIndex){
+        workingDoc.getConstructionData(type).addOccurrence(startIndex, endIndex);
     }
 }
 
