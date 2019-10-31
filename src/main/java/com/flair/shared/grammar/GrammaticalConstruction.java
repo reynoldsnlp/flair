@@ -5,8 +5,6 @@
  */
 package com.flair.shared.grammar;
 
-import org.apache.commons.codec.language.bm.Lang;
-
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -42,7 +40,7 @@ public enum GrammaticalConstruction //TODO: separate lemma-based Constructions u
     CLAUSE_RELATIVE("relativeClause", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN),
     CLAUSE_RELATIVE_REDUCED("relativeClauseReduced", Language.ENGLISH),
     CLAUSE_ADVERBIAL("adverbialClause", Language.ENGLISH, Language.GERMAN), //*** ? verbal adverb? "čitajući" ? "V" and "Adv" tags
-    CLAUSE_THAT("thatClause", Language.GERMAN), //TODO: refactor situations of 'dass' to be 'that' //*** ", čto"
+    CLAUSE_THAT("thatClause", Language.GERMAN),
     SENTENCE_SIMPLE("simpleSentence", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN),
     SENTENCE_COMPLEX("complexSentence", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN),
     SENTENCE_COMPOUND("compoundSentence", Language.ENGLISH, Language.GERMAN),
@@ -62,7 +60,7 @@ public enum GrammaticalConstruction //TODO: separate lemma-based Constructions u
     PRONOUNS_SUBJECTIVE("pronounsSubjective", Language.ENGLISH),
     
     // quantifiers
-    DETERMINER_SOME("someDet", Language.ENGLISH, Language.GERMAN), //*** njekotorujj / njekotoryj
+    DETERMINER_SOME("someDet", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN),
     DETERMINER_ANY("anyDet", Language.ENGLISH, Language.GERMAN), //*** ljuboj
     DETERMINER_MUCH("muchDet", Language.ENGLISH), //*** mnogo, mnogij (lemmas, not surface form)
     DETERMINER_MANY("manyDet", Language.ENGLISH, Language.GERMAN),
@@ -91,7 +89,7 @@ public enum GrammaticalConstruction //TODO: separate lemma-based Constructions u
     QUESTIONS_TO_DO("toDoQuestions", Language.ENGLISH), // direct: "What do you do?"
     QUESTIONS_TO_HAVE("toHaveQuestions", Language.ENGLISH),// direct: "What have you done?"
     QUESTIONS_MODAL("modalQuestions", Language.ENGLISH),// direct: "Should I go?", "What should I do?"
-    QUESTIONS_WHAT("what", Language.ENGLISH, Language.GERMAN), //*** čto lemma
+    QUESTIONS_WHAT("what", Language.ENGLISH, Language.GERMAN), //*** čto lemma //TODO: what if this is a CLAUSE_THAT ?
     QUESTIONS_WHO("who", Language.ENGLISH, Language.GERMAN), //*** kto
     QUESTIONS_HOW("how", Language.ENGLISH, Language.GERMAN),//*** kak
     QUESTIONS_WHY("why", Language.ENGLISH, Language.GERMAN),//*** počjemu začjem
