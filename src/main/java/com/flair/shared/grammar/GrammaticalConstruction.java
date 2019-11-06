@@ -61,8 +61,8 @@ public enum GrammaticalConstruction //TODO: separate lemma-based Constructions u
     
     // quantifiers
     DETERMINER_SOME("someDet", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN),
-    DETERMINER_ANY("anyDet", Language.ENGLISH, Language.GERMAN), //*** ljuboj
-    DETERMINER_MUCH("muchDet", Language.ENGLISH), //*** mnogo, mnogij (lemmas, not surface form)
+    DETERMINER_ANY("anyDet", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN),
+    DETERMINER_MUCH("muchDet", Language.ENGLISH, Language.RUSSIAN),
     DETERMINER_MANY("manyDet", Language.ENGLISH, Language.GERMAN),
     DETERMINER_A_LOT_OF("aLotOfDet", Language.ENGLISH),
     
@@ -81,23 +81,23 @@ public enum GrammaticalConstruction //TODO: separate lemma-based Constructions u
     NEGATION_NT("nt", Language.ENGLISH),
     NEGATION_NOT("not", Language.ENGLISH, Language.RUSSIAN), //Russian: не
     
-    QUESTIONS_DIRECT("directQuestions", Language.ENGLISH, Language.GERMAN), //*** ends in a '?'
-    QUESTIONS_INDIRECT("indirectQuestions", Language.ENGLISH, Language.GERMAN), //*** (li or tag "Interr") with no '?' //TODO: just 'li'?
-    QUESTIONS_YESNO("yesNoQuestions", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), // direct: "Are you ok?" //*** (has li or no interrogative) and does have a '?'
-    QUESTIONS_WH("whQuestions", Language.ENGLISH, Language.GERMAN),// direct: "What do you do?" //*** has "Interr" which is not 'li', and has a '?'
+    QUESTIONS_DIRECT("directQuestions", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), // Russian: ends in a '?'
+    QUESTIONS_INDIRECT("indirectQuestions", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), // Russian: (li or tag "Interr") with no '?' //TODO: just 'li'?
+    QUESTIONS_YESNO("yesNoQuestions", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), // direct: "Are you ok?" // Russian: (has li or no interrogative) and does have a '?'
+    QUESTIONS_WH("whQuestions", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN),// direct: "What do you do?" // Russian: has "Interr" which is not 'li', and has a '?'
     QUESTIONS_TO_BE("toBeQuestions", Language.ENGLISH),// direct: "What's this?" //TODO: Russian. What.
     QUESTIONS_TO_DO("toDoQuestions", Language.ENGLISH), // direct: "What do you do?"
     QUESTIONS_TO_HAVE("toHaveQuestions", Language.ENGLISH),// direct: "What have you done?"
     QUESTIONS_MODAL("modalQuestions", Language.ENGLISH),// direct: "Should I go?", "What should I do?"
-    QUESTIONS_WHAT("what", Language.ENGLISH, Language.GERMAN), //*** čto lemma //TODO: what if this is a CLAUSE_THAT ?
-    QUESTIONS_WHO("who", Language.ENGLISH, Language.GERMAN), //*** kto
-    QUESTIONS_HOW("how", Language.ENGLISH, Language.GERMAN),//*** kak
-    QUESTIONS_WHY("why", Language.ENGLISH, Language.GERMAN),//*** počjemu začjem
-    QUESTIONS_WHERE("where", Language.ENGLISH, Language.GERMAN),//*** gdje //TODO: add a construction QUESTIONS_WHITHER //*** kuda lemma
-    QUESTIONS_WHEN("when", Language.ENGLISH, Language.GERMAN),//*** kogda
-    QUESTIONS_WHOSE("whose", Language.ENGLISH, Language.GERMAN),//*** čjej
+    QUESTIONS_WHAT("what", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), //TODO: what if this is a CLAUSE_THAT ?
+    QUESTIONS_WHO("who", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN),
+    QUESTIONS_HOW("how", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN),
+    QUESTIONS_WHY("why", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN),
+    QUESTIONS_WHERE("where", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN),
+    QUESTIONS_WHEN("when", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN),
+    QUESTIONS_WHOSE("whose", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN),
     QUESTIONS_WHOM("whom", Language.ENGLISH, Language.GERMAN),
-    QUESTIONS_WHICH("which", Language.ENGLISH, Language.GERMAN),//*** kakoj //TODO: add a construction QUESTIONS_WHAT_KIND //*** kakov lemma
+    QUESTIONS_WHICH("which", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN),
     QUESTIONS_TAG("tagQuestions", Language.ENGLISH, Language.GERMAN), // ", isn't it?" //*** ", (nje) tak (li)?" //TODO: come back to this
     
     // conditionals - check first, before tenses
@@ -255,6 +255,10 @@ public enum GrammaticalConstruction //TODO: separate lemma-based Constructions u
 
     //RUSSIAN VERB FORMS
     VERB_REFLEXIVE("reflexiveVerb", Language.RUSSIAN),
+
+    //RUSSIAN QUESTION WORDS
+    QUESTIONS_WHITHER("whither", Language.RUSSIAN),
+    QUESTIONS_WHAT_KIND("whatKind", Language.RUSSIAN),
 
     ;
     
