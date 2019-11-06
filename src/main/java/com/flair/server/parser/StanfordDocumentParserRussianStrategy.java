@@ -394,7 +394,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                     hasLi = true;
                 }
                 //determiners
-                if(isMatch(RussianGrammaticalPatterns.patternNjekotorujj, lemma)){
+                if(isMatch(RussianGrammaticalPatterns.patternNjekotoryj, lemma)){
                     constructionsToCount.put(GrammaticalConstruction.DETERMINER_SOME, true);
                 }
                 if(isMatch(RussianGrammaticalPatterns.patternLjuboj, lemma)){
@@ -552,6 +552,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
         }
         else{ //no question mark
             if(hasLi || hasInterrogative){
+                //NB: this will recognize situations such as "скажу ему, когда ты придешь"
                 addConstructionByIndices(GrammaticalConstruction.QUESTIONS_INDIRECT, sentenceStart, sentenceEnd);
             }
         }

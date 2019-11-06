@@ -85,11 +85,11 @@ public enum GrammaticalConstruction //TODO: separate lemma-based Constructions u
     QUESTIONS_INDIRECT("indirectQuestions", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), // Russian: (li or tag "Interr") with no '?' //TODO: just 'li'?
     QUESTIONS_YESNO("yesNoQuestions", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), // direct: "Are you ok?" // Russian: (has li or no interrogative) and does have a '?'
     QUESTIONS_WH("whQuestions", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN),// direct: "What do you do?" // Russian: has "Interr" which is not 'li', and has a '?'
-    QUESTIONS_TO_BE("toBeQuestions", Language.ENGLISH),// direct: "What's this?" //TODO: Russian. What.
+    QUESTIONS_TO_BE("toBeQuestions", Language.ENGLISH),// direct: "What's this?" //TODO: Russian. What. Graph regex?
     QUESTIONS_TO_DO("toDoQuestions", Language.ENGLISH), // direct: "What do you do?"
     QUESTIONS_TO_HAVE("toHaveQuestions", Language.ENGLISH),// direct: "What have you done?"
     QUESTIONS_MODAL("modalQuestions", Language.ENGLISH),// direct: "Should I go?", "What should I do?"
-    QUESTIONS_WHAT("what", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), //TODO: what if this is a CLAUSE_THAT ?
+    QUESTIONS_WHAT("what", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), //TODO: what if this is a CLAUSE_THAT ? applies similarly for other question words.
     QUESTIONS_WHO("who", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN),
     QUESTIONS_HOW("how", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN),
     QUESTIONS_WHY("why", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN),
@@ -102,8 +102,8 @@ public enum GrammaticalConstruction //TODO: separate lemma-based Constructions u
     
     // conditionals - check first, before tenses
     CONDITIONALS("conditionals", Language.ENGLISH, Language.RUSSIAN),
-    CONDITIONALS_REAL("condReal", Language.ENGLISH), //TODO: pick up here next time
-    CONDITIONALS_UNREAL("condUnreal", Language.ENGLISH),
+    CONDITIONALS_REAL("condReal", Language.ENGLISH),
+    CONDITIONALS_UNREAL("condUnreal", Language.ENGLISH), //*** jesli by
     
     // tenses - only if not conditional
     TENSE_PRESENT_SIMPLE("presentSimple", Language.ENGLISH),
@@ -150,8 +150,8 @@ public enum GrammaticalConstruction //TODO: separate lemma-based Constructions u
     MODALS_OUGHT("ought", Language.ENGLISH),// Klasse 10
     MODALS_ABLE("able", Language.ENGLISH),// Klasse 10 ("", annotated as JJ)
     MODALS_HAVE_TO("haveTo", Language.ENGLISH),// ??
-    
-    VERBS_IRREGULAR("irregularVerbs", Language.ENGLISH),// past tense or past participle not ending with -ed
+    //TODO: pick up here
+    VERBS_IRREGULAR("irregularVerbs", Language.ENGLISH),// past tense or past participle not ending with -ed //TODO: add to russian as parent of past an non-past
     VERBS_REGULAR("regularVerbs", Language.ENGLISH),// past tense or past participle ending with -ed
     VERBS_PHRASAL("phrasalVerbs", Language.ENGLISH),// phrasal verbs ("", & verbs with prepositions: look atPrep)
     
@@ -247,18 +247,33 @@ public enum GrammaticalConstruction //TODO: separate lemma-based Constructions u
     PARTICIPLE_PAST_ACTIVE("pastActiveParticiple", Language.RUSSIAN),
     PARTICIPLE_PAST_PASSIVE("pastPassiveParticiple", Language.RUSSIAN),
 
-    //RUSSIAN TENSES
-    TENSE_PAST("pastTense", Language.RUSSIAN),
-    TENSE_NON_PAST("nonpastTense", Language.RUSSIAN),
-    TENSE_PRESENT("presentTense", Language.RUSSIAN),
-    TENSE_FUTURE("futureTense", Language.RUSSIAN),
-
     //RUSSIAN VERB FORMS
     VERB_REFLEXIVE("reflexiveVerb", Language.RUSSIAN),
 
     //RUSSIAN QUESTION WORDS
     QUESTIONS_WHITHER("whither", Language.RUSSIAN),
     QUESTIONS_WHAT_KIND("whatKind", Language.RUSSIAN),
+
+    //RUSSIAN TENSES
+    TENSE_PAST("pastTense", Language.RUSSIAN),
+    TENSE_NON_PAST("nonpastTense", Language.RUSSIAN),
+    TENSE_PRESENT("presentTense", Language.RUSSIAN),
+    TENSE_FUTURE("futureTense", Language.RUSSIAN),
+
+    //VERBAL ASPECT //TODO
+    ASPECT_PERFECTIVE("perfective", Language.RUSSIAN),
+    ASPECT_IMPERFECTIVE("imperfective", Language.RUSSIAN),
+    ASPECT_BIASPECTUAL("biaspectual", Language.RUSSIAN),
+
+    //TENSE AND ASPECT COMBINED //TODO
+
+    //CONJUGATION CLASSES
+
+    //DECLENSION CLASSES
+
+    //IRREGULAR VERBS
+    VERBS_IRREGULAR_PAST("verbsIrregularPast", Language.RUSSIAN),
+    VERBS_IRREGULAR_NONPAST("verbsIrregularNonpast", Language.RUSSIAN), //*** хотеть бежать есть дать чтить
 
     ;
     

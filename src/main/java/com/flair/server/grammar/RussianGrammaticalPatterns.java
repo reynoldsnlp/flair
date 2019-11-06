@@ -25,8 +25,8 @@ public class RussianGrammaticalPatterns {
 
     //REGULAR WORDS
 
-    private static final String STR_NJEKOTORUJJ = "\\bнекоторый\\b";
-    public static Pattern patternNjekotorujj = Pattern.compile(STR_NJEKOTORUJJ, CASE_INSENSITIVE);
+    private static final String STR_NJEKOTORYJ = "\\bнекоторый\\b";
+    public static Pattern patternNjekotoryj = Pattern.compile(STR_NJEKOTORYJ, CASE_INSENSITIVE);
     private static final String STR_LJUBOJ = "\\bлюбой\\b";
     public static Pattern patternLjuboj = Pattern.compile(STR_LJUBOJ, CASE_INSENSITIVE);
     private static final String STR_MNOGO = "\\bмног(о|ий)\\b";
