@@ -283,6 +283,10 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
     private Map<GrammaticalConstruction, List<WordWithReadings>> countGrammaticalConstructions(List<WordWithReadings> wordsWithReadings, List<CoreLabel> words){
         //variables for the whole sentence
         boolean isComplexSentence = false;
+        boolean hasLi = false;
+        boolean hasInterrogative = false;
+        boolean hasInterrogativeBesidesLi = false;
+        boolean hasQuestionMark = false;
         int sentenceStart = -1;
         int sentenceEnd = -1;
         if(words.size() != 0){
@@ -374,14 +378,70 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                 //definite vs indefinite
                 if(tags.contains(DEFINITE_TAG)) isDefinite = true;
                 if(tags.contains(INDEFINITE_TAG)) isIndefinite = true;
-                if(tags.contains(INTERROGATIVE_TAG)) isInterrogative = true;
-
+                if(tags.contains(INTERROGATIVE_TAG)) {
+                    isInterrogative = true;
+                    hasInterrogative = true;
+                    String lemma = reading.getBaseForm();
+                    if(!isMatch(RussianGrammaticalPatterns.patternLi, lemma)){
+                        hasInterrogativeBesidesLi = true;
+                    }
+                }
 
                 //look at the lemma
                 String lemma = reading.getBaseForm();
+                //particles
+                if(isMatch(RussianGrammaticalPatterns.patternLi, lemma)){
+                    hasLi = true;
+                }
+                //determiners
                 if(isMatch(RussianGrammaticalPatterns.patternNjekotorujj, lemma)){
                     constructionsToCount.put(GrammaticalConstruction.DETERMINER_SOME, true);
                 }
+                if(isMatch(RussianGrammaticalPatterns.patternLjuboj, lemma)){
+                    constructionsToCount.put(GrammaticalConstruction.DETERMINER_ANY, true);
+                }
+                if(isMatch(RussianGrammaticalPatterns.patternMnogo, lemma)){
+                    constructionsToCount.put(GrammaticalConstruction.DETERMINER_MUCH, true);
+                }
+                //question words
+                if(isMatch(RussianGrammaticalPatterns.patternChto, lemma)){
+                    constructionsToCount.put(GrammaticalConstruction.QUESTIONS_WHAT, true);
+                }
+                if(isMatch(RussianGrammaticalPatterns.patternKto, lemma)){
+                    constructionsToCount.put(GrammaticalConstruction.QUESTIONS_WHO, true);
+                }
+                if(isMatch(RussianGrammaticalPatterns.patternKak, lemma)){
+                    constructionsToCount.put(GrammaticalConstruction.QUESTIONS_HOW, true);
+                }
+                if(isMatch(RussianGrammaticalPatterns.patternPochjemu, lemma)){
+                    constructionsToCount.put(GrammaticalConstruction.QUESTIONS_WHY, true);
+                }
+                if(isMatch(RussianGrammaticalPatterns.patternZachjem, lemma)){
+                    constructionsToCount.put(GrammaticalConstruction.QUESTIONS_WHY, true);
+                }
+                if(isMatch(RussianGrammaticalPatterns.patternGdje, lemma)){
+                    constructionsToCount.put(GrammaticalConstruction.QUESTIONS_WHERE, true);
+                }
+                if(isMatch(RussianGrammaticalPatterns.patternKogda, lemma)){
+                    constructionsToCount.put(GrammaticalConstruction.QUESTIONS_WHEN, true);
+                }
+                if(isMatch(RussianGrammaticalPatterns.patternChjej, lemma)){
+                    constructionsToCount.put(GrammaticalConstruction.QUESTIONS_WHOSE, true);
+                }
+                if(isMatch(RussianGrammaticalPatterns.patternKakoj, lemma)){
+                    constructionsToCount.put(GrammaticalConstruction.QUESTIONS_WHICH, true);
+                }
+                if(isMatch(RussianGrammaticalPatterns.patternKuda, lemma)){
+                    constructionsToCount.put(GrammaticalConstruction.QUESTIONS_WHITHER, true);
+                }
+                if(isMatch(RussianGrammaticalPatterns.patternKakov, lemma)){
+                    constructionsToCount.put(GrammaticalConstruction.QUESTIONS_WHAT_KIND, true);
+                }
+                //punctuation
+                if(isMatch(RussianGrammaticalPatterns.patternQuestionMark, lemma)){
+                    hasQuestionMark = true;
+                }
+
                 //TODO: add more lemma-based constructions
 
                 //recognize tag combinations
@@ -473,12 +533,29 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                 }
             }
         }
+
+        //sentence level
         if(isComplexSentence){
             addConstructionByIndices(GrammaticalConstruction.SENTENCE_COMPLEX, sentenceStart, sentenceEnd);
         }
         else {
             addConstructionByIndices(GrammaticalConstruction.SENTENCE_SIMPLE, sentenceStart, sentenceEnd);
         }
+        if(hasQuestionMark){
+            addConstructionByIndices(GrammaticalConstruction.QUESTIONS_DIRECT, sentenceStart, sentenceEnd);
+            if(hasLi || !hasInterrogative){
+                addConstructionByIndices(GrammaticalConstruction.QUESTIONS_YESNO, sentenceStart, sentenceEnd);
+            }
+            if(hasInterrogativeBesidesLi){
+                addConstructionByIndices(GrammaticalConstruction.QUESTIONS_WH, sentenceStart, sentenceEnd);
+            }
+        }
+        else{ //no question mark
+            if(hasLi || hasInterrogative){
+                addConstructionByIndices(GrammaticalConstruction.QUESTIONS_INDIRECT, sentenceStart, sentenceEnd);
+            }
+        }
+
         return constructionInstances;
     }
 
