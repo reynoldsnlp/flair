@@ -27,7 +27,7 @@ public class ConstructionSliderBundleRussian extends LanguageSpecificConstructio
 
     @UiField
     @LocalizedField
-    GrammaticalConstructionPanelItem pnlSentencesUI;
+    GrammaticalConstructionPanelItem            pnlSentencesUI;
     @UiField
     @LocalizedField
     GrammaticalConstructionPanelItem			pnlQuestionsUI;
@@ -78,14 +78,14 @@ public class ConstructionSliderBundleRussian extends LanguageSpecificConstructio
     GrammaticalConstructionPanelItem			pnlPrepositionsUI;
     @UiField
     @LocalizedField
-    GrammaticalConstructionPanelItem pnlNounsUI;//pnlPronounCasesUI
+    GrammaticalConstructionPanelItem            pnlNounsUI;
     @UiField
     @LocalizedField
-    GrammaticalConstructionPanelItem pnlPronounCasesUI;
+    GrammaticalConstructionPanelItem            pnlPronounCasesUI;
 
     public ConstructionSliderBundleRussian()
     {
-        super(Language.ENGLISH);
+        super(Language.RUSSIAN);
 
         initWidget(uiBinder.createAndBindUi(this));
         initLocale(localeBinder.bind(this));
