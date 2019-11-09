@@ -103,7 +103,7 @@ public enum GrammaticalConstruction //TODO: separate lemma-based Constructions u
     // conditionals - check first, before tenses
     CONDITIONALS("conditionals", Language.ENGLISH, Language.RUSSIAN),
     CONDITIONALS_REAL("condReal", Language.ENGLISH),
-    CONDITIONALS_UNREAL("condUnreal", Language.ENGLISH), //*** jesli by
+    CONDITIONALS_UNREAL("condUnreal", Language.ENGLISH, Language.RUSSIAN), //*** jesli by
     
     // tenses - only if not conditional
     TENSE_PRESENT_SIMPLE("presentSimple", Language.ENGLISH),
@@ -151,8 +151,8 @@ public enum GrammaticalConstruction //TODO: separate lemma-based Constructions u
     MODALS_ABLE("able", Language.ENGLISH),// Klasse 10 ("", annotated as JJ)
     MODALS_HAVE_TO("haveTo", Language.ENGLISH),// ??
     //TODO: pick up here
-    VERBS_IRREGULAR("irregularVerbs", Language.ENGLISH),// past tense or past participle not ending with -ed //TODO: add to russian as parent of past an non-past
-    VERBS_REGULAR("regularVerbs", Language.ENGLISH),// past tense or past participle ending with -ed
+    VERBS_IRREGULAR("irregularVerbs", Language.ENGLISH, Language.RUSSIAN),// past tense or past participle not ending with -ed //TODO: add to russian as parent of past an non-past
+    VERBS_REGULAR("regularVerbs", Language.ENGLISH, Language.RUSSIAN),// past tense or past participle ending with -ed
     VERBS_PHRASAL("phrasalVerbs", Language.ENGLISH),// phrasal verbs ("", & verbs with prepositions: look atPrep)
     
     IMPERATIVES("imperatives", Language.ENGLISH, Language.GERMAN),// start with a Verb, often end with "!": "Do it yourself!"
