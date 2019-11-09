@@ -12,6 +12,7 @@ import com.flair.client.model.interfaces.DocumentRankerOutput.Rank;
 import com.flair.client.presentation.interfaces.AbstractRankerSettingsPane;
 import com.flair.client.presentation.widgets.sliderbundles.ConstructionSliderBundleEnglish;
 import com.flair.client.presentation.widgets.sliderbundles.ConstructionSliderBundleGerman;
+import com.flair.client.presentation.widgets.sliderbundles.ConstructionSliderBundleRussian;
 import com.flair.client.utilities.ClientLogger;
 import com.flair.shared.grammar.GrammaticalConstruction;
 import com.flair.shared.grammar.Language;
@@ -92,6 +93,8 @@ public class RankerSettingsPane extends LocalizedComposite implements AbstractRa
 	ConstructionSliderBundleEnglish			bdlEnglishSlidersUI;
 	@UiField
 	ConstructionSliderBundleGerman			bdlGermanSlidersUI;
+	@UiField
+	ConstructionSliderBundleRussian			bdlRussianSlidersUI;
 	@UiField
 	@LocalizedField
 	MaterialCardTitle						lblLanguageUseUI;
@@ -188,6 +191,7 @@ public class RankerSettingsPane extends LocalizedComposite implements AbstractRa
 		{
 			bdlEnglishSlidersUI.setVisible(false);
 			bdlGermanSlidersUI.setVisible(false);
+			bdlRussianSlidersUI.setVisible(false);
 		}
 		
 		public void resetUI()
@@ -285,16 +289,15 @@ public class RankerSettingsPane extends LocalizedComposite implements AbstractRa
 		{
 			switch (sliderLanguage)
 			{
-			case ENGLISH:
-				return bdlEnglishSlidersUI;
-			case GERMAN:
-				return bdlGermanSlidersUI;
-			case RUSSIAN:
-				return bdlEnglishSlidersUI;
-			case ARABIC:
-				return bdlEnglishSlidersUI;	
-			default:
-				return null;
+				case ARABIC:
+				case ENGLISH:
+					return bdlEnglishSlidersUI;
+				case GERMAN:
+					return bdlGermanSlidersUI;
+				case RUSSIAN:
+					return bdlRussianSlidersUI;
+				default:
+					return null;
 			}
 		}
 		
@@ -431,19 +434,19 @@ public class RankerSettingsPane extends LocalizedComposite implements AbstractRa
 	public void setSettingsChangedHandler(EventHandler handler)
 	{
 		// update here as the sliders themselves aren't be available during the construction of the panel
-		bdlEnglishSlidersUI.forEachWeightSlider(s -> {
-			s.setWeightChangeHandler((w, v) -> state.onSettingChange());
-			s.setToggleHandler((w, v) -> state.onSettingChange());
-			s.refreshLocale();
-		});
-		
-		bdlGermanSlidersUI.forEachWeightSlider(s -> {
-			s.setWeightChangeHandler((w, v) -> state.onSettingChange());
-			s.setToggleHandler((w, v) -> state.onSettingChange());
-			s.refreshLocale();
-		});
-		
+		updateSlider(bdlEnglishSlidersUI);
+		updateSlider(bdlGermanSlidersUI);
+		updateSlider(bdlRussianSlidersUI);
+
 		state.setChangeHandler(handler);
+	}
+
+	private void updateSlider(LanguageSpecificConstructionSliderBundle slider){
+		slider.forEachWeightSlider(s -> {
+			s.setWeightChangeHandler((w, v) -> state.onSettingChange());
+			s.setToggleHandler((w, v) -> state.onSettingChange());
+			s.refreshLocale();
+		});
 	}
 
 	@Override

@@ -40,6 +40,7 @@
 					<m:MaterialRow ui:field="pnlToggleContainerUI" marginTop="20">
 						<flair.pak:ConstructionSliderBundleEnglish ui:field="bdlEnglishSlidersUI"/>
 						<flair.pak:ConstructionSliderBundleGerman ui:field="bdlGermanSlidersUI"/>
+						<flair.pak:ConstructionSliderBundleRussian ui:field="bdlRussianSlidersUI"/>
 					</m:MaterialRow>
 				</m:MaterialPanel>
 				

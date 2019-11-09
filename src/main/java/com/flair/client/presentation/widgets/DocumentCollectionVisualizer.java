@@ -19,6 +19,7 @@ import com.flair.client.localization.interfaces.LocalizationBinder;
 import com.flair.client.presentation.interfaces.VisualizerService;
 import com.flair.client.presentation.widgets.sliderbundles.ConstructionSliderBundleEnglish;
 import com.flair.client.presentation.widgets.sliderbundles.ConstructionSliderBundleGerman;
+import com.flair.client.presentation.widgets.sliderbundles.ConstructionSliderBundleRussian;
 import com.flair.shared.grammar.GrammaticalConstruction;
 import com.flair.shared.grammar.Language;
 import com.flair.shared.interop.RankableDocument;
@@ -517,23 +518,23 @@ public class DocumentCollectionVisualizer extends LocalizedComposite implements 
 			
 			bdlEnglishSlidersUI.setVisible(false);
 			bdlGermanSlidersUI.setVisible(false);
+			bdlRussianSlidersUI.setVisible(false);
 			
 			resetSelectedAxes();
 			
 			// setup sliders
 			switch (input.getSliders().getLanguage())
 			{
-			case ENGLISH:
-				toggles = bdlEnglishSlidersUI;
-				break;
-			case GERMAN:
-				toggles = bdlGermanSlidersUI;
-				break;
-			case RUSSIAN:
-				toggles = bdlEnglishSlidersUI;
-			case ARABIC:
-				toggles = bdlEnglishSlidersUI;	
-				break;
+				case ARABIC:
+				case ENGLISH:
+					toggles = bdlEnglishSlidersUI;
+					break;
+				case GERMAN:
+					toggles = bdlGermanSlidersUI;
+					break;
+				case RUSSIAN:
+					toggles = bdlRussianSlidersUI;
+					break;
 			}
 			
 			toggles.setVisible(true);
@@ -708,6 +709,8 @@ public class DocumentCollectionVisualizer extends LocalizedComposite implements 
 	ConstructionSliderBundleEnglish		bdlEnglishSlidersUI;
 	@UiField
 	ConstructionSliderBundleGerman		bdlGermanSlidersUI;
+	@UiField
+	ConstructionSliderBundleRussian		bdlRussianSlidersUI;
 	@UiField
 	@LocalizedCommonField(tag=CommonLocalizationTags.FILTER, type=LocalizedFieldType.TEXT_BUTTON)
 	MaterialButton				btnApplyUI;
