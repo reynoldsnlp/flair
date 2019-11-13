@@ -103,21 +103,17 @@
 
 						<flair:GrammaticalConstructionWeightSlider gram="ATTRIBUTES_ADJECTIVE" parentLanguage="RUSSIAN"/>
 
-						<flair:GrammaticalConstructionPanel accordion="true" popout="false">
-							<flair:GrammaticalConstructionPanelItem ui:field="pnlAdjectiveCasesUI" text="pronouns" iconType="EXPAND_MORE">
-								<flair:GrammaticalConstructionWeightSlider gram="ADJECTIVE_NOMINATIVE" parentLanguage="RUSSIAN"/>
+						<flair:GrammaticalConstructionWeightSlider gram="ADJECTIVE_NOMINATIVE" parentLanguage="RUSSIAN"/>
 
-								<flair:GrammaticalConstructionWeightSlider gram="ADJECTIVE_ACCUSATIVE" parentLanguage="RUSSIAN"/>
+						<flair:GrammaticalConstructionWeightSlider gram="ADJECTIVE_ACCUSATIVE" parentLanguage="RUSSIAN"/>
 
-								<flair:GrammaticalConstructionWeightSlider gram="ADJECTIVE_GENITIVE" parentLanguage="RUSSIAN"/>
+						<flair:GrammaticalConstructionWeightSlider gram="ADJECTIVE_GENITIVE" parentLanguage="RUSSIAN"/>
 
-								<flair:GrammaticalConstructionWeightSlider gram="ADJECTIVE_PREPOSITIONAL" parentLanguage="RUSSIAN"/>
+						<flair:GrammaticalConstructionWeightSlider gram="ADJECTIVE_PREPOSITIONAL" parentLanguage="RUSSIAN"/>
 
-								<flair:GrammaticalConstructionWeightSlider gram="ADJECTIVE_DATIVE" parentLanguage="RUSSIAN"/>
+						<flair:GrammaticalConstructionWeightSlider gram="ADJECTIVE_DATIVE" parentLanguage="RUSSIAN"/>
 
-								<flair:GrammaticalConstructionWeightSlider gram="ADJECTIVE_INSTRUMENTAL" parentLanguage="RUSSIAN"/>
-							</flair:GrammaticalConstructionPanelItem>
-						</flair:GrammaticalConstructionPanel>
+						<flair:GrammaticalConstructionWeightSlider gram="ADJECTIVE_INSTRUMENTAL" parentLanguage="RUSSIAN"/>
 					</flair:GrammaticalConstructionPanelItem>
 					
 					<!-- Adverbs -->
@@ -139,21 +135,17 @@
 
 						<flair:GrammaticalConstructionWeightSlider gram="PRONOUNS_REFLEXIVE" parentLanguage="RUSSIAN"/>
 
-						<flair:GrammaticalConstructionPanel accordion="true" popout="false">
-							<flair:GrammaticalConstructionPanelItem ui:field="pnlPronounCasesUI" text="pronouns" iconType="EXPAND_MORE">
-								<flair:GrammaticalConstructionWeightSlider gram="PRONOUN_NOMINATIVE" parentLanguage="RUSSIAN"/>
+						<flair:GrammaticalConstructionWeightSlider gram="PRONOUN_NOMINATIVE" parentLanguage="RUSSIAN"/>
 
-								<flair:GrammaticalConstructionWeightSlider gram="PRONOUN_ACCUSATIVE" parentLanguage="RUSSIAN"/>
+						<flair:GrammaticalConstructionWeightSlider gram="PRONOUN_ACCUSATIVE" parentLanguage="RUSSIAN"/>
 
-								<flair:GrammaticalConstructionWeightSlider gram="PRONOUN_GENITIVE" parentLanguage="RUSSIAN"/>
+						<flair:GrammaticalConstructionWeightSlider gram="PRONOUN_GENITIVE" parentLanguage="RUSSIAN"/>
 
-								<flair:GrammaticalConstructionWeightSlider gram="PRONOUN_PREPOSITIONAL" parentLanguage="RUSSIAN"/>
+						<flair:GrammaticalConstructionWeightSlider gram="PRONOUN_PREPOSITIONAL" parentLanguage="RUSSIAN"/>
 
-								<flair:GrammaticalConstructionWeightSlider gram="PRONOUN_DATIVE" parentLanguage="RUSSIAN"/>
+						<flair:GrammaticalConstructionWeightSlider gram="PRONOUN_DATIVE" parentLanguage="RUSSIAN"/>
 
-								<flair:GrammaticalConstructionWeightSlider gram="PRONOUN_INSTRUMENTAL" parentLanguage="RUSSIAN"/>
-							</flair:GrammaticalConstructionPanelItem>
-						</flair:GrammaticalConstructionPanel>
+						<flair:GrammaticalConstructionWeightSlider gram="PRONOUN_INSTRUMENTAL" parentLanguage="RUSSIAN"/>
 					</flair:GrammaticalConstructionPanelItem>
 					
 					<!-- Conjunctions -->

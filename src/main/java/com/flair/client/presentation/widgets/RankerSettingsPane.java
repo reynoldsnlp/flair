@@ -197,16 +197,10 @@ public class RankerSettingsPane extends LocalizedComposite implements AbstractRa
 		public void resetUI()
 		{
 			ClientLogger.get().info("Calling resetUI");
-			switch(sliderLanguage) {
+			switch(sliderLanguage) { //TODO: switch out which cases are listed explicitly and which are under default
 				case ARABIC:
-					ClientLogger.get().info("Language is Arabic");
+					ClientLogger.get().info("Language is " + sliderLanguage.toString());
 					showArabicLevels();
-					hideSliderBundles();
-					lblConstructionsUI.setVisible(false);
-					break;
-				case RUSSIAN:
-					ClientLogger.get().info("Language is Russian");
-					showDefaultLevels();
 					hideSliderBundles();
 					lblConstructionsUI.setVisible(false);
 					break;
@@ -214,7 +208,12 @@ public class RankerSettingsPane extends LocalizedComposite implements AbstractRa
 					ClientLogger.get().info("Language is " + sliderLanguage.toString());
 					showDefaultLevels();
 					hideSliderBundles();
-					getSliderBundle().setVisible(true);
+					if (getSliderBundle() != null) {
+						getSliderBundle().setVisible(true);
+					}
+					else{
+						ClientLogger.get().error("Slider bundle not found");
+					}
 					lblConstructionsUI.setVisible(true);
 			}
 			/*
