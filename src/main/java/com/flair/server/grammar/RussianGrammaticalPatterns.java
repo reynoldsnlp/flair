@@ -66,6 +66,12 @@ public class RussianGrammaticalPatterns {
     public static Pattern patternReflexiveVerb = Pattern.compile(STR_REFLEXIVE_VERB, CASE_INSENSITIVE);
 
 
+    //CONJUNCTIONS
+
+    private static final String STR_JESLY = "\\bеслы\\b";
+    public static Pattern patternJesly = Pattern.compile(STR_JESLY, CASE_INSENSITIVE);
+
+
     //PUNCTUATION
 
     private static final String STR_QUESTION_MARK = "\\?";

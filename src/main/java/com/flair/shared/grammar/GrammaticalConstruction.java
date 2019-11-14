@@ -152,7 +152,7 @@ public enum GrammaticalConstruction //TODO: separate lemma-based Constructions u
     MODALS_HAVE_TO("haveTo", Language.ENGLISH),// ??
 
     VERBS_IRREGULAR("irregularVerbs", Language.ENGLISH, Language.RUSSIAN),// past tense or past participle not ending with -ed //TODO: add to russian as parent of past an non-past
-    VERBS_REGULAR("regularVerbs", Language.ENGLISH, Language.RUSSIAN),// past tense or past participle ending with -ed
+    VERBS_REGULAR("regularVerbs", Language.ENGLISH, Language.RUSSIAN),// past tense or past participle ending with -ed //TODO: add this as a parent of various conjugation classes(?)
     VERBS_PHRASAL("phrasalVerbs", Language.ENGLISH),// phrasal verbs ("", & verbs with prepositions: look atPrep)
     //TODO: pick up here
     IMPERATIVES("imperatives", Language.ENGLISH, Language.GERMAN),// start with a Verb, often end with "!": "Do it yourself!"
@@ -273,7 +273,7 @@ public enum GrammaticalConstruction //TODO: separate lemma-based Constructions u
 
     //IRREGULAR VERBS
     //(ся|сь) may be attached to the end of any infinitive (for the purpose of recognizing these verbs)
-    VERBS_IRREGULAR_PAST("verbsIrregularPast", Language.RUSSIAN), //*** prefix + -жечь, -шибить, -расти, идти, -йти
+    VERBS_IRREGULAR_PAST("verbsIrregularPast", Language.RUSSIAN), //*** -жечь, -шибить, -расти, идти, -йти
     VERBS_IRREGULAR_NONPAST("verbsIrregularNonpast", Language.RUSSIAN), //*** хотеть бежать есть дать чтить
 
     ;

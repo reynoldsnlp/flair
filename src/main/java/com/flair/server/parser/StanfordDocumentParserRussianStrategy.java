@@ -269,9 +269,6 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
         List<CoreLabel> negations = findMatches(RussianGrammaticalPatterns.patternNe, words);
         addConstructionOccurrences(GrammaticalConstruction.NEGATION_NOT, negations);
         addConstructionOccurrences(GrammaticalConstruction.NEGATION_NO_NOT_NEVER, negations);
-        //ли
-        List<CoreLabel> yesNoParticles = findMatches(RussianGrammaticalPatterns.patternLi, words);
-        addConstructionOccurrences(GrammaticalConstruction.QUESTIONS_YESNO, yesNoParticles);
         //бы
         List<CoreLabel> conditionals = findMatches(RussianGrammaticalPatterns.patternBi, words);
         addConstructionOccurrences(GrammaticalConstruction.CONDITIONALS, conditionals);
@@ -284,6 +281,8 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
         //variables for the whole sentence
         boolean isComplexSentence = false;
         boolean hasLi = false;
+        boolean hasBi = false;
+        boolean hasJesli = false;
         boolean hasInterrogative = false;
         boolean hasInterrogativeBesidesLi = false;
         boolean hasQuestionMark = false;
@@ -393,6 +392,9 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                 if(isMatch(RussianGrammaticalPatterns.patternLi, lemma)){
                     hasLi = true;
                 }
+                if(isMatch(RussianGrammaticalPatterns.patternBi, lemma)){
+                    hasBi = true;
+                }
                 //determiners
                 if(isMatch(RussianGrammaticalPatterns.patternNjekotoryj, lemma)){
                     constructionsToCount.put(GrammaticalConstruction.DETERMINER_SOME, true);
@@ -437,12 +439,14 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                 if(isMatch(RussianGrammaticalPatterns.patternKakov, lemma)){
                     constructionsToCount.put(GrammaticalConstruction.QUESTIONS_WHAT_KIND, true);
                 }
+                //conjunctions
+                if(isMatch(RussianGrammaticalPatterns.patternJesly, lemma)){
+                    hasJesli = true;
+                }
                 //punctuation
                 if(isMatch(RussianGrammaticalPatterns.patternQuestionMark, lemma)){
                     hasQuestionMark = true;
                 }
-
-                //TODO: add more lemma-based constructions
 
                 //recognize tag combinations
                 if(isNoun){
@@ -535,12 +539,18 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
         }
 
         //sentence level
+
         if(isComplexSentence){
             addConstructionByIndices(GrammaticalConstruction.SENTENCE_COMPLEX, sentenceStart, sentenceEnd);
         }
         else {
             addConstructionByIndices(GrammaticalConstruction.SENTENCE_SIMPLE, sentenceStart, sentenceEnd);
         }
+
+        if(hasJesli && hasBi){ //TODO: what if they're in different clauses? "Если ты придешь, я тоже бы пришел"
+            addConstructionByIndices(GrammaticalConstruction.CONDITIONALS_UNREAL, sentenceStart, sentenceEnd);
+        }
+
         if(hasQuestionMark){
             addConstructionByIndices(GrammaticalConstruction.QUESTIONS_DIRECT, sentenceStart, sentenceEnd);
             if(hasLi || !hasInterrogative){
