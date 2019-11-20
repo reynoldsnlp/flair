@@ -79,6 +79,9 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
     private final String INDEFINITE_TAG = "Indef";
     private final String DEFINITE_TAG = "Def";
     private final String INTERROGATIVE_TAG = "Interr";
+    private final String NEGATIVE_TAG = "Neg";
+    private final String PERFECTIVE_TAG = "Perf";
+    private final String IMPERFECTIVE_TAG = "Impf"; //todo
 
 
     public StanfordDocumentParserRussianStrategy() {
@@ -335,6 +338,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                 boolean isDefinite = false;
                 boolean isIndefinite = false;
                 boolean isInterrogative = false;
+                boolean isNegative = false;
 
                 Set<String> tags = new HashSet<>(reading.getTags());
                 //part of speech
@@ -377,6 +381,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                 //definite vs indefinite
                 if(tags.contains(DEFINITE_TAG)) isDefinite = true;
                 if(tags.contains(INDEFINITE_TAG)) isIndefinite = true;
+                //other
                 if(tags.contains(INTERROGATIVE_TAG)) {
                     isInterrogative = true;
                     hasInterrogative = true;
@@ -385,6 +390,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                         hasInterrogativeBesidesLi = true;
                     }
                 }
+                if(tags.contains(NEGATIVE_TAG)) isNegative = true;
 
                 //look at the lemma
                 String lemma = reading.getBaseForm();
@@ -525,6 +531,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                 }
                 if(isSubordinateClause) constructionsToCount.put(GrammaticalConstruction.CLAUSE_SUBORDINATE, true);
                 if(isRelativeClause) constructionsToCount.put(GrammaticalConstruction.CLAUSE_RELATIVE, true);
+                if(isNegative) constructionsToCount.put(GrammaticalConstruction.NEGATION_ALL, true);
             }
 
             //count this word towards the appropriate constructions
@@ -547,7 +554,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
             addConstructionByIndices(GrammaticalConstruction.SENTENCE_SIMPLE, sentenceStart, sentenceEnd);
         }
 
-        if(hasJesli && hasBi){ //TODO: what if they're in different clauses? "Если ты придешь, я тоже бы пришел"
+        if(hasJesli && hasBi){
             addConstructionByIndices(GrammaticalConstruction.CONDITIONALS_UNREAL, sentenceStart, sentenceEnd);
         }
 
@@ -562,7 +569,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
         }
         else{ //no question mark
             if(hasLi || hasInterrogative){
-                //NB: this will recognize situations such as "скажу ему, когда ты придешь"
+                //NB: this will recognize situations such as "скажу ему, когда ты придешь" //TODO: FIX THIS (find using a list of verbs that can introduce indirect speech then an interrogative)
                 addConstructionByIndices(GrammaticalConstruction.QUESTIONS_INDIRECT, sentenceStart, sentenceEnd);
             }
         }
