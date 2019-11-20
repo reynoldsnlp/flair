@@ -52,7 +52,7 @@ _gram-helpText_	ASPECT_PROGRESSIVE	All progressive tenses. Am/is/are/was/were/wi
 _gram-name_	ASPECT_SIMPLE	Simple
 _gram-path_	ASPECT_SIMPLE	Verbs > Aspects > Simple aspect
 _gram-helpText_	ASPECT_SIMPLE	All simple tenses. Do/does/did/will do. 
-_gram-name_	ATTRIBUTES_ADJECTIVE	ATTRIBUTES_ADJECTIVE
+_gram-name_	ATTRIBUTES_ADJECTIVE	Attributive Adjective
 _gram-path_	ATTRIBUTES_ADJECTIVE	ATTRIBUTES_ADJECTIVE
 _gram-helpText_	ATTRIBUTES_ADJECTIVE	<INSERT_HELP_TEXT>
 _gram-name_	ATTRIBUTES_PARTICIPLE_1	ATTRIBUTES_PARTICIPLE_1
@@ -160,8 +160,8 @@ _gram-helpText_	NEGATION_ALL	All forms of negation: no, not, never, nobody, part
 _gram-name_	NEGATION_NOT	Not (full form)
 _gram-path_	NEGATION_NOT	Negation > Full form "not"
 _gram-helpText_	NEGATION_NOT	e.g., John has not been to the US before.
-_gram-name_	NEGATION_NO_NOT_NEVER	No, not, never
-_gram-path_	NEGATION_NO_NOT_NEVER	Negation > Negative forms "no, not, never"
+_gram-name_	NEGATION_NO_NOT_NEVER	No, not, never, etc.
+_gram-path_	NEGATION_NO_NOT_NEVER	Negation > Negative forms "no", "not", "never", etc.
 _gram-helpText_	NEGATION_NO_NOT_NEVER	e.g., You have no right to say that. We do not know John well enough. Sam has never seen John.
 _gram-name_	NEGATION_NT	N't (contracted form)
 _gram-path_	NEGATION_NT	Negation > Contracted form "n't"
