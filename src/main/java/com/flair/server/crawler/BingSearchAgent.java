@@ -65,7 +65,7 @@ class BingSearchAgent extends CachingSearchAgent
 			qPostfix = " language:ru";
 			market = "ru-RU";
 			break;
-		case ARABIC:	//TODO add note to add this case for a new language
+		case ARABIC:
 			qPostfix = " language:ar";
 			market = "ar-SA";
 			break;
