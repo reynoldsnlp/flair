@@ -45,6 +45,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
     private int adjCount;
     private static final String WORD_PATTERN = "[\\p{IsCyrillic}\u0300\u0301]+";
     private static final String PREPOSITION_GRAPH_LABEL = "ADP";
+    private static final String VERB_GRAPH_LABEL = "VERB";
 
     //TAGS
     private final String NOUN_TAG = "N";
@@ -246,11 +247,8 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                 Cg3Parser parser = new Cg3Parser(finalReadings);
                 List<WordWithReadings> readingsList = parser.parse();
                 //use the reduced readings to count constructions
-                Map<GrammaticalConstruction, List<WordWithReadings>> constructionCounts = countGrammaticalConstructions(readingsList, words);
-                Map<GrammaticalConstruction, List<WordWithReadings>> prepositionConstructionCounts = countPrepositionConstructions(readingsList, graph);
-                constructionCounts.putAll(prepositionConstructionCounts);
+                Map<GrammaticalConstruction, List<WordWithReadings>> constructionCounts = countGrammaticalConstructions(readingsList, words, graph);
                 saveGrammaticalConstructionsToDocument(constructionCounts, words);
-                System.out.println("break"); //TODO: remove this
             }
             else {
                 ServerLogger.get().info("There was an error using the constraint grammar");
@@ -280,7 +278,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
         inspectPrepositions(graph);
     }
 
-    private Map<GrammaticalConstruction, List<WordWithReadings>> countGrammaticalConstructions(List<WordWithReadings> wordsWithReadings, List<CoreLabel> words){
+    private Map<GrammaticalConstruction, List<WordWithReadings>> countGrammaticalConstructions(List<WordWithReadings> wordsWithReadings, List<CoreLabel> words, SemanticGraph graph){
         //variables for the whole sentence
         boolean isComplexSentence = false;
         boolean hasLi = false;
@@ -574,6 +572,13 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
             }
         }
 
+        //preposition things using the graph
+        Map<GrammaticalConstruction, List<WordWithReadings>> prepositionConstructionCounts = countPrepositionConstructions(wordsWithReadings, graph);
+        constructionInstances.putAll(prepositionConstructionCounts);
+        //verb direct objects and indirect objects using the graph
+        Map<GrammaticalConstruction, List<WordWithReadings>> verbalObjectConstructionCounts = countVerbalObjectConstructions(wordsWithReadings, graph);
+        constructionInstances.putAll(prepositionConstructionCounts);
+
         return constructionInstances;
     }
 
@@ -602,18 +607,50 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                 }
 
                 //count this word towards the appropriate constructions
-                for(GrammaticalConstruction attr: constructionsToCount.keySet()){
-                    if(constructionsToCount.get(attr)){
-                        //add the WordWithReadings to the list associated with the given construction
-                        List<WordWithReadings> existingList = constructionInstances.getOrDefault(attr, new LinkedList<>());
-                        int prepositionIndex = preposition.index() - 1;
-                        existingList.add(wordsWithReadings.get(prepositionIndex));
-                        constructionInstances.put(attr, existingList);
-                    }
-                }
+                countWordInConstructions(wordsWithReadings, constructionInstances, preposition, constructionsToCount);
             }
         }
         return constructionInstances;
+    }
+
+    private Map<GrammaticalConstruction, List<WordWithReadings>> countVerbalObjectConstructions(List<WordWithReadings> wordsWithReadings, SemanticGraph graph){
+        Map<GrammaticalConstruction, List<WordWithReadings>> constructionInstances = new HashMap<>();
+        //find all prepositions
+        List<IndexedWord> verbs = graph.getAllNodesByPartOfSpeechPattern(VERB_GRAPH_LABEL);
+        for(IndexedWord verb: verbs){
+            List<SemanticGraphEdge> edqes = graph.getIncomingEdgesSorted(verb);
+            for(SemanticGraphEdge edge: edqes){
+                //get the object of the verb
+                IndexedWord objectOfVerb = edge.getSource();
+                int objectIndex = objectOfVerb.index() - 1;
+                WordWithReadings objectWithReadings = wordsWithReadings.get(objectIndex);
+
+                //recognize which tags are present in this word's readings
+                Map<GrammaticalConstruction, Boolean> constructionsToCount = new HashMap<>();
+                for(CgReading reading: objectWithReadings.getReadings()) {
+                    Set<String> tags = new HashSet<>(reading.getTags());
+                    if(tags.contains(ACCUSATIVE_TAG)) constructionsToCount.put(GrammaticalConstruction.OBJECT_DIRECT, true);
+                    if(tags.contains(GENITIVE_TAG)) constructionsToCount.put(GrammaticalConstruction.OBJECT_DIRECT, true);
+                    if(tags.contains(DATIVE_TAG)) constructionsToCount.put(GrammaticalConstruction.OBJECT_INDIRECT, true);
+                }
+
+                //count this word towards the appropriate constructions
+                countWordInConstructions(wordsWithReadings, constructionInstances, verb, constructionsToCount);
+            }
+        }
+        return constructionInstances;
+    }
+
+    private void countWordInConstructions(List<WordWithReadings> wordsWithReadings, Map<GrammaticalConstruction, List<WordWithReadings>> constructionInstances, IndexedWord verb, Map<GrammaticalConstruction, Boolean> constructionsToCount) {
+        for(GrammaticalConstruction attr: constructionsToCount.keySet()){
+            if(constructionsToCount.get(attr)){
+                //add the WordWithReadings to the list associated with the given construction
+                List<WordWithReadings> existingList = constructionInstances.getOrDefault(attr, new LinkedList<>());
+                int prepositionIndex = verb.index() - 1;
+                existingList.add(wordsWithReadings.get(prepositionIndex));
+                constructionInstances.put(attr, existingList);
+            }
+        }
     }
 
     /**

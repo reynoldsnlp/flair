@@ -46,8 +46,8 @@ public enum GrammaticalConstruction //TODO: separate lemma-based Constructions u
     SENTENCE_COMPOUND("compoundSentence", Language.ENGLISH, Language.GERMAN),
     SENTENCE_INCOMPLETE("incompleteSentence", Language.ENGLISH, Language.GERMAN),
     
-    OBJECT_DIRECT("directObject", Language.ENGLISH),	 //*** in the graph, verb with Acc, or negated verb with Gen
-    OBJECT_INDIRECT("indirectObject", Language.ENGLISH),	 // "give it toPrep me" //*** in the graph, verb with Dat
+    OBJECT_DIRECT("directObject", Language.ENGLISH, Language.RUSSIAN),
+    OBJECT_INDIRECT("indirectObject", Language.ENGLISH, Language.RUSSIAN),
     
     PRONOUNS("pronouns", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN),
     PRONOUNS_PERSONAL("pronounsPersonal", Language.GERMAN, Language.RUSSIAN),
