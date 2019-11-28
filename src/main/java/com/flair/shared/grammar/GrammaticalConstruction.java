@@ -58,7 +58,6 @@ public enum GrammaticalConstruction //TODO: separate lemma-based Constructions u
     PRONOUNS_INDEFINITE("pronounsIndefinite", Language.GERMAN, Language.RUSSIAN),
     PRONOUNS_INTERROGATIVE("pronounsInterrogative", Language.GERMAN, Language.RUSSIAN),
     PRONOUNS_SUBJECTIVE("pronounsSubjective", Language.ENGLISH),
-    //TODO: add PRONOUNS_NEGATIVE //*** "Neg Pron"
     
     // quantifiers
     DETERMINER_SOME("someDet", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN),
@@ -76,21 +75,20 @@ public enum GrammaticalConstruction //TODO: separate lemma-based Constructions u
     NOUNS_TUR("turNounForms", Language.GERMAN),
     NOUNS_UNG("ungNounForms", Language.GERMAN),
     
-    NEGATION_ALL("negAll", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), // nobody, nowhere, etc. //*** anything listed below
-    NEGATION_PARTIAL("partialNegation", Language.ENGLISH, Language.GERMAN), // rarely, barely, seldom, hardly, scarcely //TODO: find 'вряд ли' (and similar things?)
-    NEGATION_NO_NOT_NEVER("noNotNever", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), //*** Russian: нет, не, ни, никогда, никак, никуда, нигде, ниоткуда, нипочём, ничуть, нисколько, нисколечко
+    NEGATION_ALL("negAll", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), // nobody, nowhere, etc.
+    NEGATION_PARTIAL("partialNegation", Language.ENGLISH, Language.GERMAN), // rarely, barely, seldom, hardly, scarcely //TODO: find 'вряд ли' (and similar things?), also add to NEGATION_ALL
+    NEGATION_NO_NOT_NEVER("noNotNever", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), // Russian: нет, не, ни, никогда, никак, никуда, нигде, ниоткуда, нипочём, ничуть, нисколько, нисколечко
     NEGATION_NT("nt", Language.ENGLISH),
-    NEGATION_NOT("not", Language.ENGLISH, Language.RUSSIAN), //*** Russian: не, ни
-    //TODO: add NEGATION_PRONOUNS //***, "Neg Pron"
+    NEGATION_NOT("not", Language.ENGLISH, Language.RUSSIAN),
     
     QUESTIONS_DIRECT("directQuestions", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), // Russian: ends in a '?'
     QUESTIONS_INDIRECT("indirectQuestions", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), // Russian: ???????
     QUESTIONS_YESNO("yesNoQuestions", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), // direct: "Are you ok?" // Russian: (has li or no interrogative) and does have a '?'
-    QUESTIONS_WH("whQuestions", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN),// direct: "What do you do?" // Russian: has "Interr" which is not 'li', and has a '?'
-    QUESTIONS_TO_BE("toBeQuestions", Language.ENGLISH),// direct: "What's this?" //TODO: Russian. What. Graph regex?
+    QUESTIONS_WH("whQuestions", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), // direct: "What do you do?" // Russian: has "Interr" which is not 'li', and has a '?'
+    QUESTIONS_TO_BE("toBeQuestions", Language.ENGLISH), // direct: "What's this?" //TODO: Russian. What. Graph regex?
     QUESTIONS_TO_DO("toDoQuestions", Language.ENGLISH), // direct: "What do you do?"
-    QUESTIONS_TO_HAVE("toHaveQuestions", Language.ENGLISH),// direct: "What have you done?"
-    QUESTIONS_MODAL("modalQuestions", Language.ENGLISH),// direct: "Should I go?", "What should I do?"
+    QUESTIONS_TO_HAVE("toHaveQuestions", Language.ENGLISH), // direct: "What have you done?"
+    QUESTIONS_MODAL("modalQuestions", Language.ENGLISH), // direct: "Should I go?", "What should I do?"
     QUESTIONS_WHAT("what", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), //TODO: the Interrogative thing we're looking at should be in the main clause, i.e. a sibling of the main verb)
     QUESTIONS_WHO("who", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN),
     QUESTIONS_HOW("how", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN),
@@ -100,7 +98,7 @@ public enum GrammaticalConstruction //TODO: separate lemma-based Constructions u
     QUESTIONS_WHOSE("whose", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN),
     QUESTIONS_WHOM("whom", Language.ENGLISH, Language.GERMAN),
     QUESTIONS_WHICH("which", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN),
-    QUESTIONS_TAG("tagQuestions", Language.ENGLISH, Language.GERMAN), // ", isn't it?" //*** ", (nje) tak (li)?" //TODO: come back to this
+    QUESTIONS_TAG("tagQuestions", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), // ", isn't it?" //*** ", (nje) tak (li)?" //TODO: come back to this
     
     // conditionals - check first, before tenses
     CONDITIONALS("conditionals", Language.ENGLISH, Language.RUSSIAN),
@@ -134,8 +132,8 @@ public enum GrammaticalConstruction //TODO: separate lemma-based Constructions u
     VERBTYP_MODAL("modalVerbs", Language.GERMAN),
     
     VERBFORM_TO_INFINITIVE("toInfinitiveForms", Language.ENGLISH, Language.GERMAN),
-    VERBFORM_INFINITIVE("infinitiveForms", Language.GERMAN, Language.RUSSIAN),// "I want toPrep do it."
-    VERBFORM_PARTICIPLE("participleForms", Language.GERMAN, Language.RUSSIAN),// "I want toPrep do it."
+    VERBFORM_INFINITIVE("infinitiveForms", Language.GERMAN, Language.RUSSIAN),
+    VERBFORM_PARTICIPLE("participleForms", Language.GERMAN, Language.RUSSIAN),
     
     VERB_CLUSTER("verbCluster", Language.GERMAN),
     VERB_BRACKETS("verbBrackets", Language.GERMAN),
@@ -153,21 +151,21 @@ public enum GrammaticalConstruction //TODO: separate lemma-based Constructions u
     MODALS_ABLE("able", Language.ENGLISH),// Klasse 10 ("", annotated as JJ)
     MODALS_HAVE_TO("haveTo", Language.ENGLISH),// ??
 
-    VERBS_IRREGULAR("irregularVerbs", Language.ENGLISH, Language.RUSSIAN),// past tense or past participle not ending with -ed //TODO: add to russian as parent of past an non-past
+    VERBS_IRREGULAR("irregularVerbs", Language.ENGLISH, Language.RUSSIAN),// past tense or past participle not ending with -ed //TODO: add to russian as parent of past irregular and non-past irregular
     VERBS_REGULAR("regularVerbs", Language.ENGLISH, Language.RUSSIAN),// past tense or past participle ending with -ed //TODO: add this as a parent of various conjugation classes(?)
     VERBS_PHRASAL("phrasalVerbs", Language.ENGLISH),// phrasal verbs ("", & verbs with prepositions: look atPrep)
 
-    IMPERATIVES("imperatives", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN),// start with a Verb, often end with "!": "Do it yourself!" //*** "Imp" tag
+    IMPERATIVES("imperatives", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN),// start with a Verb, often end with "!": "Do it yourself!"
     PASSIVE_VOICE_WERDEN("passiveVoiceWerden", Language.GERMAN),
     PASSIVE_VOICE_SEIN("passiveVoiceSein", Language.GERMAN),
     
     ADJECTIVE_POSITIVE("positiveAdj", Language.ENGLISH, Language.GERMAN),// "nice"
-    ADJECTIVE_COMPARATIVE_SHORT("comparativeAdjShort", Language.ENGLISH),// "nicer" //*** "Cmpar" and "Pred" tags
-    ADJECTIVE_SUPERLATIVE_SHORT("superlativeAdjShort", Language.ENGLISH),// "nicest" //TODO for Russian
-    ADJECTIVE_COMPARATIVE_LONG("comparativeAdjLong", Language.ENGLISH),// "more beautiful" //*** 'более' then an adjective
-    ADJECTIVE_SUPERLATIVE_LONG("superlativeAdjLong", Language.ENGLISH),// "most beautiful" //*** 'самый' then an adjective
+    ADJECTIVE_COMPARATIVE_SHORT("comparativeAdjShort", Language.ENGLISH, Language.RUSSIAN),// "nicer" // Russian: "Cmpar" and "Pred" tags
+    ADJECTIVE_SUPERLATIVE_SHORT("superlativeAdjShort", Language.ENGLISH, Language.RUSSIAN),// "nicest" //TODO for Russian
+    ADJECTIVE_COMPARATIVE_LONG("comparativeAdjLong", Language.ENGLISH, Language.RUSSIAN),// "more beautiful" //*** 'более' then an adjective
+    ADJECTIVE_SUPERLATIVE_LONG("superlativeAdjLong", Language.ENGLISH, Language.RUSSIAN),// "most beautiful" //*** 'самый' then an adjective
     
-    ADVERB_POSITIVE("positiveAdv", Language.ENGLISH, Language.GERMAN),// "quickly" //*** "Adv" tag
+    ADVERB_POSITIVE("positiveAdv", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN),// "quickly"
     ADVERB_COMPARATIVE_SHORT("comparativeAdvShort", Language.ENGLISH),// "faster"
     ADVERB_SUPERLATIVE_SHORT("superlativeAdvShort", Language.ENGLISH),// "fastest"
     ADVERB_COMPARATIVE_LONG("comparativeAdvLong", Language.ENGLISH),// "more quickly"
@@ -196,7 +194,7 @@ public enum GrammaticalConstruction //TODO: separate lemma-based Constructions u
     VERBFORM_EMPATHIC_DO("emphaticDo", Language.ENGLISH), // "I do realize it": do/did/VBP followed by /VB
     
     PRONOUNS_POSSESSIVE_ABSOLUTE("pronounsPossessiveAbsolute", Language.ENGLISH), // /JJ or PRP... ("", mine, yours, theirs)
-    PASSIVE_VOICE("passiveVoice", Language.ENGLISH), //*** has one of two passive participle tags or tag "Pass", OR 3pl-verb without a nominative tag in the same clause
+    PASSIVE_VOICE("passiveVoice", Language.ENGLISH, Language.RUSSIAN), //*** has one of two passive participle tags or tag "Pass", OR (TODO) 3pl-verb without a nominative tag in the same clause
     TENSE_PRESENT_PERFECT("presentPerfect", Language.ENGLISH),
     TENSE_PAST_PERFECT("pastPerfect", Language.ENGLISH),
     PRONOUNS_OBJECTIVE("pronounsObjective", Language.ENGLISH), // /PRP + me, you, them...
@@ -251,8 +249,10 @@ public enum GrammaticalConstruction //TODO: separate lemma-based Constructions u
 
     //RUSSIAN VERB FORMS
     VERB_REFLEXIVE("reflexiveVerb", Language.RUSSIAN),
-    //*** VERBAL_ADVERB "V" and "Adv" tags //TODO: umbrella for both past and present verbal adverbs (past have perfective tag, present have imperfective tag
-    //make sure localization describing verbal adverbs also uses the word 'gerund'
+    VERBAL_ADVERB("verbalAdverb", Language.RUSSIAN),
+    VERBAL_ADVERB_PRESENT("verbalAdverbPresent", Language.RUSSIAN), //imperfective, "V", and "Adv" tags
+    VERBAL_ADVERB_PAST("verbalAdverbPast", Language.RUSSIAN), //perfective, "V", and "Adv" tags
+    //TODO make sure localization describing verbal adverbs also uses the word 'gerund'
 
     //RUSSIAN QUESTION WORDS
     QUESTIONS_WHITHER("whither", Language.RUSSIAN),
@@ -264,10 +264,10 @@ public enum GrammaticalConstruction //TODO: separate lemma-based Constructions u
     TENSE_PRESENT("presentTense", Language.RUSSIAN),
     TENSE_FUTURE("futureTense", Language.RUSSIAN),
 
-    //VERBAL ASPECT //TODO
+    //VERBAL ASPECT
     ASPECT_PERFECTIVE("perfective", Language.RUSSIAN),
     ASPECT_IMPERFECTIVE("imperfective", Language.RUSSIAN),
-    ASPECT_BIASPECTUAL("biaspectual", Language.RUSSIAN),
+    ASPECT_BIASPECTUAL("biaspectual", Language.RUSSIAN), //TODO: how can we recognize this?
 
     //TENSE AND ASPECT COMBINED //TODO
 
@@ -279,6 +279,10 @@ public enum GrammaticalConstruction //TODO: separate lemma-based Constructions u
     //(ся|сь) may be attached to the end of any infinitive (for the purpose of recognizing these verbs)
     VERBS_IRREGULAR_PAST("verbsIrregularPast", Language.RUSSIAN), //*** -жечь, -шибить, -расти, идти, -йти
     VERBS_IRREGULAR_NONPAST("verbsIrregularNonpast", Language.RUSSIAN), //*** хотеть бежать есть дать чтить
+
+    //OTHER
+    PRONOUNS_NEGATIVE("pronounsNegative", Language.RUSSIAN),
+    NEGATION_PRONOUNS("negationPronouns", Language.RUSSIAN),
 
     ;
     
