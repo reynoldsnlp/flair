@@ -50,6 +50,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
     //TAGS
     private final String NOUN_TAG = "N";
     private final String ADJECTIVE_TAG = "A";
+    private final String ADVERB_TAG = "Adv";
     private final String PRONOUN_TAG = "Pron";
     private final String POSSESSIVE_TAG = "Pos";
     private final String DEMONSTRATIVE_TAG = "Dem";
@@ -62,6 +63,8 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
     private final String PRESENT_TAG = "Prs";
     private final String FUTURE_TAG = "Fut";
     private final String INFINITIVE_TAG = "Inf";
+    private final String IMPERATIVE_TAG = "Imp";
+    private final String PASSIVE_TAG = "Pass";
     private final String P_PRESENT_ACTIVE_TAG = "PrsAct";
     private final String P_PRESENT_PASSIVE_TAG = "PrsPss";
     private final String P_PAST_ACTIVE_TAG = "PstAct";
@@ -81,6 +84,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
     private final String DEFINITE_TAG = "Def";
     private final String INTERROGATIVE_TAG = "Interr";
     private final String NEGATIVE_TAG = "Neg";
+    private final String COMPARATIVE_TAG = "Cmpar";
     private final String PERFECTIVE_TAG = "Perf";
     private final String IMPERFECTIVE_TAG = "Impf"; //todo
 
@@ -154,7 +158,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
 							.get(SemanticGraphCoreAnnotations.CollapsedDependenciesAnnotation.class)
 							.typedDependencies();
 							*/
-					
+
                     inspectSentence(graph, words);
 
                     sentenceCount++;
@@ -267,9 +271,52 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
         addConstructionOccurrences(GrammaticalConstruction.EXISTENTIAL_THERE, negativeExistentials);
         addConstructionOccurrences(GrammaticalConstruction.NEGATION_NO_NOT_NEVER, negativeExistentials);
         //не
-        List<CoreLabel> negations = findMatches(RussianGrammaticalPatterns.patternNe, words);
-        addConstructionOccurrences(GrammaticalConstruction.NEGATION_NOT, negations);
-        addConstructionOccurrences(GrammaticalConstruction.NEGATION_NO_NOT_NEVER, negations);
+        List<CoreLabel> negationsNe = findMatches(RussianGrammaticalPatterns.patternNe, words);
+        addConstructionOccurrences(GrammaticalConstruction.NEGATION_NOT, negationsNe);
+        addConstructionOccurrences(GrammaticalConstruction.NEGATION_ALL, negationsNe);
+        addConstructionOccurrences(GrammaticalConstruction.NEGATION_NO_NOT_NEVER, negationsNe);
+        //не
+        List<CoreLabel> negationsNi = findMatches(RussianGrammaticalPatterns.patternNi, words);
+        addConstructionOccurrences(GrammaticalConstruction.NEGATION_NOT, negationsNi);
+        addConstructionOccurrences(GrammaticalConstruction.NEGATION_ALL, negationsNi);
+        addConstructionOccurrences(GrammaticalConstruction.NEGATION_NO_NOT_NEVER, negationsNi);
+        //никогда
+        List<CoreLabel> negationsNikogda = findMatches(RussianGrammaticalPatterns.patternNikogda, words);
+        addConstructionOccurrences(GrammaticalConstruction.NEGATION_ALL, negationsNikogda);
+        addConstructionOccurrences(GrammaticalConstruction.NEGATION_NO_NOT_NEVER, negationsNikogda);
+        //никак
+        List<CoreLabel> negationsNikak = findMatches(RussianGrammaticalPatterns.patternNikak, words);
+        addConstructionOccurrences(GrammaticalConstruction.NEGATION_ALL, negationsNikak);
+        addConstructionOccurrences(GrammaticalConstruction.NEGATION_NO_NOT_NEVER, negationsNikak);
+        //никуда
+        List<CoreLabel> negationsNikuda = findMatches(RussianGrammaticalPatterns.patternNikuda, words);
+        addConstructionOccurrences(GrammaticalConstruction.NEGATION_ALL, negationsNikuda);
+        addConstructionOccurrences(GrammaticalConstruction.NEGATION_NO_NOT_NEVER, negationsNikuda);
+        //нигде
+        List<CoreLabel> negationsNigdje = findMatches(RussianGrammaticalPatterns.patternNigdje, words);
+        addConstructionOccurrences(GrammaticalConstruction.NEGATION_ALL, negationsNigdje);
+        addConstructionOccurrences(GrammaticalConstruction.NEGATION_NO_NOT_NEVER, negationsNigdje);
+        //ниоткуда
+        List<CoreLabel> negationsNiotkuda = findMatches(RussianGrammaticalPatterns.patternNiotkuda, words);
+        addConstructionOccurrences(GrammaticalConstruction.NEGATION_ALL, negationsNiotkuda);
+        addConstructionOccurrences(GrammaticalConstruction.NEGATION_NO_NOT_NEVER, negationsNiotkuda);
+        //нипочём
+        List<CoreLabel> negationsNipochjom = findMatches(RussianGrammaticalPatterns.patternNipochjom, words);
+        addConstructionOccurrences(GrammaticalConstruction.NEGATION_ALL, negationsNipochjom);
+        addConstructionOccurrences(GrammaticalConstruction.NEGATION_NO_NOT_NEVER, negationsNipochjom);
+        //ничуть
+        List<CoreLabel> negationsNichut = findMatches(RussianGrammaticalPatterns.patternNichut, words);
+        addConstructionOccurrences(GrammaticalConstruction.NEGATION_ALL, negationsNichut);
+        addConstructionOccurrences(GrammaticalConstruction.NEGATION_NO_NOT_NEVER, negationsNichut);
+        //нисколько
+        List<CoreLabel> negationsNiskoljko = findMatches(RussianGrammaticalPatterns.patternNiskoljko, words);
+        addConstructionOccurrences(GrammaticalConstruction.NEGATION_ALL, negationsNiskoljko);
+        addConstructionOccurrences(GrammaticalConstruction.NEGATION_NO_NOT_NEVER, negationsNiskoljko);
+        //нисколечко
+        List<CoreLabel> negationsNiskoljechko = findMatches(RussianGrammaticalPatterns.patternNiskoljechko, words);
+        addConstructionOccurrences(GrammaticalConstruction.NEGATION_ALL, negationsNiskoljechko);
+        addConstructionOccurrences(GrammaticalConstruction.NEGATION_NO_NOT_NEVER, negationsNiskoljechko);
+
         //бы
         List<CoreLabel> conditionals = findMatches(RussianGrammaticalPatterns.patternBi, words);
         addConstructionOccurrences(GrammaticalConstruction.CONDITIONALS, conditionals);
@@ -302,16 +349,21 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
             for(CgReading reading: word.getReadings()){
                 boolean isNoun = false;
                 boolean isAdjective = false;
+                boolean isAdverb = false;
                 boolean isPronoun = false;
                 boolean isDeterminer = false;
                 boolean isVerb = false;
                 boolean isPredicate = false;
 
+                boolean isPerfective = false;
+                boolean isImperfective = false;
                 boolean isPast = false;
                 boolean isPresent = false;
                 boolean isFuture = false;
                 boolean isInfinitive = false;
+                boolean isImperative = false;
 
+                boolean isPassive = false;
                 boolean isPresentActive = false;
                 boolean isPresentPassive = false;
                 boolean isPastActive = false;
@@ -337,21 +389,28 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                 boolean isIndefinite = false;
                 boolean isInterrogative = false;
                 boolean isNegative = false;
+                boolean isComparative = false;
 
                 Set<String> tags = new HashSet<>(reading.getTags());
                 //part of speech
                 if(tags.contains(NOUN_TAG)) isNoun = true;
                 if(tags.contains(ADJECTIVE_TAG)) isAdjective = true;
+                if(tags.contains(ADVERB_TAG)) isAdverb = true;
                 if(tags.contains(PRONOUN_TAG)) isPronoun = true;
                 if(tags.contains(DETERMINER_TAG)) isDeterminer = true;
                 if(tags.contains(VERB_TAG)) isVerb = true;
                 if(tags.contains(PREDICATE_TAG)) isPredicate = true;
+                //aspect
+                if(tags.contains(PERFECTIVE_TAG)) isPerfective = true;
+                if(tags.contains(IMPERFECTIVE_TAG)) isImperfective = true;
                 //tense
                 if(tags.contains(PAST_TAG)) isPast = true;
                 if(tags.contains(PRESENT_TAG)) isPresent = true;
                 if(tags.contains(FUTURE_TAG)) isFuture = true;
                 if(tags.contains(INFINITIVE_TAG)) isInfinitive = true;
+                if(tags.contains(IMPERATIVE_TAG)) isImperative = true;
                 //participles
+                if(tags.contains(PASSIVE_TAG)) isPassive = true;
                 if(tags.contains(P_PRESENT_ACTIVE_TAG)) isPresentActive = true;
                 if(tags.contains(P_PRESENT_PASSIVE_TAG)) isPresentPassive = true;
                 if(tags.contains(P_PAST_ACTIVE_TAG)) isPastActive = true;
@@ -389,6 +448,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                     }
                 }
                 if(tags.contains(NEGATIVE_TAG)) isNegative = true;
+                if(tags.contains(COMPARATIVE_TAG)) isComparative = true;
 
                 //look at the lemma
                 String lemma = reading.getBaseForm();
@@ -444,7 +504,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                     constructionsToCount.put(GrammaticalConstruction.QUESTIONS_WHAT_KIND, true);
                 }
                 //conjunctions
-                if(isMatch(RussianGrammaticalPatterns.patternJesly, lemma)){
+                if(isMatch(RussianGrammaticalPatterns.patternJesli, lemma)){
                     hasJesli = true;
                 }
                 //punctuation
@@ -469,7 +529,16 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                     if(isPrepositional) constructionsToCount.put(GrammaticalConstruction.ADJECTIVE_PREPOSITIONAL, true);
                     if(isInstrumental) constructionsToCount.put(GrammaticalConstruction.ADJECTIVE_INSTRUMENTAL, true);
 
-                    if(!isPredicate) constructionsToCount.put(GrammaticalConstruction.ATTRIBUTES_ADJECTIVE, true);
+                    if(isPredicate) {
+                        if(isComparative){
+                            constructionsToCount.put(GrammaticalConstruction.ADJECTIVE_COMPARATIVE_SHORT, true);
+                        }
+                    } else {
+                        constructionsToCount.put(GrammaticalConstruction.ATTRIBUTES_ADJECTIVE, true);
+                    }
+                }
+                if(isAdverb){
+                    constructionsToCount.put(GrammaticalConstruction.ADVERB_POSITIVE, true);
                 }
                 if(isPronoun){
                     constructionsToCount.put(GrammaticalConstruction.PRONOUNS, true);
@@ -481,6 +550,12 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                     if(isInterrogative) constructionsToCount.put(GrammaticalConstruction.PRONOUNS_INTERROGATIVE, true);
                     //nječto, njekto
                     if(isDefinite || isIndefinite) constructionsToCount.put(GrammaticalConstruction.PRONOUNS_INDEFINITE, true);
+                    //negative
+                    if(isNegative) {
+                        constructionsToCount.put(GrammaticalConstruction.PRONOUNS_NEGATIVE, true);
+                        constructionsToCount.put(GrammaticalConstruction.NEGATION_PRONOUNS, true);
+                        constructionsToCount.put(GrammaticalConstruction.NEGATION_ALL, true);
+                    }
                     //case
                     if(isNominative) constructionsToCount.put(GrammaticalConstruction.PRONOUN_NOMINATIVE, true);
                     if(isAccusative) constructionsToCount.put(GrammaticalConstruction.PRONOUN_ACCUSATIVE, true);
@@ -499,6 +574,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                 }
                 if(isVerb){
                     if(isInfinitive) constructionsToCount.put(GrammaticalConstruction.VERBFORM_INFINITIVE, true);
+                    if(isImperative) constructionsToCount.put(GrammaticalConstruction.IMPERATIVES, true);
                     //tenses
                     if(isPast) constructionsToCount.put(GrammaticalConstruction.TENSE_PAST, true);
                     if(isPresent) {
@@ -509,7 +585,17 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                         constructionsToCount.put(GrammaticalConstruction.TENSE_FUTURE, true);
                         constructionsToCount.put(GrammaticalConstruction.TENSE_NON_PAST, true);
                     }
+                    //aspect
+                    if(isPerfective){
+                        constructionsToCount.put(GrammaticalConstruction.ASPECT_PERFECTIVE, true);
+                    }
+                    if(isImperfective){
+                        constructionsToCount.put(GrammaticalConstruction.ASPECT_IMPERFECTIVE, true);
+                    }
                     //participles
+                    if(isPassive){
+                        constructionsToCount.put(GrammaticalConstruction.PASSIVE_VOICE, true);
+                    }
                     if(isPresentActive) {
                         constructionsToCount.put(GrammaticalConstruction.PARTICIPLE_PRESENT_ACTIVE, true);
                         constructionsToCount.put(GrammaticalConstruction.VERBFORM_PARTICIPLE, true);
@@ -517,6 +603,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                     if(isPresentPassive) {
                         constructionsToCount.put(GrammaticalConstruction.PARTICIPLE_PRESENT_PASSIVE, true);
                         constructionsToCount.put(GrammaticalConstruction.VERBFORM_PARTICIPLE, true);
+                        constructionsToCount.put(GrammaticalConstruction.PASSIVE_VOICE, true);
                     }
                     if(isPastActive) {
                         constructionsToCount.put(GrammaticalConstruction.PARTICIPLE_PAST_ACTIVE, true);
@@ -525,6 +612,17 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                     if(isPastPassive) {
                         constructionsToCount.put(GrammaticalConstruction.PARTICIPLE_PAST_ACTIVE, true);
                         constructionsToCount.put(GrammaticalConstruction.VERBFORM_PARTICIPLE, true);
+                        constructionsToCount.put(GrammaticalConstruction.PASSIVE_VOICE, true);
+                    }
+                    //verbal adverbs
+                    if(isAdverb){
+                        constructionsToCount.put(GrammaticalConstruction.VERBAL_ADVERB, true);
+                        if(isPerfective){
+                            constructionsToCount.put(GrammaticalConstruction.VERBAL_ADVERB_PAST, true);
+                        }
+                        if(isImperfective){
+                            constructionsToCount.put(GrammaticalConstruction.VERBAL_ADVERB_PRESENT, true);
+                        }
                     }
                 }
                 if(isSubordinateClause) constructionsToCount.put(GrammaticalConstruction.CLAUSE_SUBORDINATE, true);

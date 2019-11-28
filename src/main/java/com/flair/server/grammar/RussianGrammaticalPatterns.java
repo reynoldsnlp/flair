@@ -21,6 +21,30 @@ public class RussianGrammaticalPatterns {
     public static Pattern patternBi = Pattern.compile(STR_BI, CASE_INSENSITIVE);
     private static final String STR_NE = "\\bне\\b";
     public static Pattern patternNe = Pattern.compile(STR_NE, CASE_INSENSITIVE);
+    private static final String STR_NI = "\\bни\\b";
+    public static Pattern patternNi = Pattern.compile(STR_NI, CASE_INSENSITIVE);
+
+
+    //NEGATION ADVERBS
+
+    private static final String STR_NIKOGDA = "\\bникогда\\b";
+    public static Pattern patternNikogda = Pattern.compile(STR_NIKOGDA, CASE_INSENSITIVE);
+    private static final String STR_NIKAK = "\\bникак\\b";
+    public static Pattern patternNikak = Pattern.compile(STR_NIKAK, CASE_INSENSITIVE);
+    private static final String STR_NIKUDA = "\\bникуда\\b";
+    public static Pattern patternNikuda = Pattern.compile(STR_NIKUDA, CASE_INSENSITIVE);
+    private static final String STR_NIGDJE = "\\bнигде\\b";
+    public static Pattern patternNigdje = Pattern.compile(STR_NIGDJE, CASE_INSENSITIVE);
+    private static final String STR_NIOTKUDA = "\\bноткуда\\b";
+    public static Pattern patternNiotkuda = Pattern.compile(STR_NIOTKUDA, CASE_INSENSITIVE);
+    private static final String STR_NIPOCHJOM = "\\bнипоч[ёе]м\\b";
+    public static Pattern patternNipochjom = Pattern.compile(STR_NIPOCHJOM, CASE_INSENSITIVE);
+    private static final String STR_NICHUT = "\\bничуть\\b";
+    public static Pattern patternNichut = Pattern.compile(STR_NICHUT, CASE_INSENSITIVE);
+    private static final String STR_NISKOLJKO = "\\bнисколько\\b";
+    public static Pattern patternNiskoljko = Pattern.compile(STR_NISKOLJKO, CASE_INSENSITIVE);
+    private static final String STR_NISKOLJECHKO = "\\bнисколечко\\b";
+    public static Pattern patternNiskoljechko = Pattern.compile(STR_NISKOLJECHKO, CASE_INSENSITIVE);
 
 
     //REGULAR WORDS
@@ -68,8 +92,8 @@ public class RussianGrammaticalPatterns {
 
     //CONJUNCTIONS
 
-    private static final String STR_JESLY = "\\bеслы\\b";
-    public static Pattern patternJesly = Pattern.compile(STR_JESLY, CASE_INSENSITIVE);
+    private static final String STR_JESLI = "\\bесли\\b";
+    public static Pattern patternJesli = Pattern.compile(STR_JESLI, CASE_INSENSITIVE);
 
 
     //PUNCTUATION
