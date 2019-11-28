@@ -85,9 +85,14 @@ public class RussianGrammaticalPatterns {
 
     //VERB FORMS
 
-    //regex for reflexive verbs
+    //reflexive verbs
     private static final String STR_REFLEXIVE_VERB = "(ся|сь)\\b";
     public static Pattern patternReflexiveVerb = Pattern.compile(STR_REFLEXIVE_VERB, CASE_INSENSITIVE);
+    //irregular verbs
+    private static final String STR_IRREGULAR_PAST_VERB = "(жечь|шибить|расти|\\bидти|йти)(\\b|ся\\b|сь\\b)";
+    public static Pattern patternIrregularPastVerb = Pattern.compile(STR_IRREGULAR_PAST_VERB, CASE_INSENSITIVE);
+    private static final String STR_IRREGULAR_NONPAST_VERB = "(хотеть|бежать|есть|дать|чтить)(\\b|ся\\b|сь\\b)";
+    public static Pattern patternIrregularNonpastVerb = Pattern.compile(STR_IRREGULAR_NONPAST_VERB, CASE_INSENSITIVE);
 
 
     //CONJUNCTIONS

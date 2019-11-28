@@ -362,6 +362,8 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                 boolean isFuture = false;
                 boolean isInfinitive = false;
                 boolean isImperative = false;
+                boolean isIrregularPast = false;
+                boolean isIrregularNonpast = false;
 
                 boolean isPassive = false;
                 boolean isPresentActive = false;
@@ -510,6 +512,18 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                 //punctuation
                 if(isMatch(RussianGrammaticalPatterns.patternQuestionMark, lemma)){
                     hasQuestionMark = true;
+                }
+                //irregular verbs
+                if(isMatch(RussianGrammaticalPatterns.patternIrregularPastVerb, lemma)){
+                    isIrregularPast = true;
+                    constructionsToCount.put(GrammaticalConstruction.VERBS_IRREGULAR_PAST, true);
+                }
+                if(isMatch(RussianGrammaticalPatterns.patternIrregularNonpastVerb, lemma)){
+                    isIrregularNonpast = true;
+                    constructionsToCount.put(GrammaticalConstruction.VERBS_IRREGULAR_NONPAST, true);
+                }
+                if(isIrregularPast || isIrregularNonpast){
+                    constructionsToCount.put(GrammaticalConstruction.VERBS_IRREGULAR, true);
                 }
 
                 //recognize tag combinations
