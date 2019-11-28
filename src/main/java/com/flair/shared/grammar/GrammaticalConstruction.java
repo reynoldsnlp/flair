@@ -151,7 +151,7 @@ public enum GrammaticalConstruction //TODO: separate lemma-based Constructions u
     MODALS_ABLE("able", Language.ENGLISH),// Klasse 10 ("", annotated as JJ)
     MODALS_HAVE_TO("haveTo", Language.ENGLISH),// ??
 
-    VERBS_IRREGULAR("irregularVerbs", Language.ENGLISH, Language.RUSSIAN),// past tense or past participle not ending with -ed //TODO: add to russian as parent of past irregular and non-past irregular
+    VERBS_IRREGULAR("irregularVerbs", Language.ENGLISH, Language.RUSSIAN),// past tense or past participle not ending with -ed
     VERBS_REGULAR("regularVerbs", Language.ENGLISH, Language.RUSSIAN),// past tense or past participle ending with -ed //TODO: add this as a parent of various conjugation classes(?)
     VERBS_PHRASAL("phrasalVerbs", Language.ENGLISH),// phrasal verbs ("", & verbs with prepositions: look atPrep)
 
@@ -191,7 +191,7 @@ public enum GrammaticalConstruction //TODO: separate lemma-based Constructions u
     VERBFORM_AUXILIARIES_BE_DO_HAVE("auxiliariesBeDoHave", Language.ENGLISH), // be, do, have??! ("", got?), NOT modals!!! + V
     VERBFORM_COPULAR("copularVerbs", Language.ENGLISH), // be, stay, seem, etc. - CHECK the parser
     VERBFORM_ING("ingVerbForms", Language.ENGLISH), // gerund, participle, nouns
-    VERBFORM_EMPATHIC_DO("emphaticDo", Language.ENGLISH), // "I do realize it": do/did/VBP followed by /VB
+    VERBFORM_EMPHATIC_DO("emphaticDo", Language.ENGLISH), // "I do realize it": do/did/VBP followed by /VB
     
     PRONOUNS_POSSESSIVE_ABSOLUTE("pronounsPossessiveAbsolute", Language.ENGLISH), // /JJ or PRP... ("", mine, yours, theirs)
     PASSIVE_VOICE("passiveVoice", Language.ENGLISH, Language.RUSSIAN), //*** has one of two passive participle tags or tag "Pass", OR (TODO) 3pl-verb without a nominative tag in the same clause
@@ -269,7 +269,7 @@ public enum GrammaticalConstruction //TODO: separate lemma-based Constructions u
     ASPECT_IMPERFECTIVE("imperfective", Language.RUSSIAN),
     ASPECT_BIASPECTUAL("biaspectual", Language.RUSSIAN), //TODO: how can we recognize this?
 
-    //TENSE AND ASPECT COMBINED //TODO
+    //TENSE AND ASPECT COMBINED //TODO: what do you mean? future is only perfective, present is only imperfective. So, the aspects in past tense?
 
     //CONJUGATION CLASSES
 
@@ -277,8 +277,8 @@ public enum GrammaticalConstruction //TODO: separate lemma-based Constructions u
 
     //IRREGULAR VERBS
     //(ся|сь) may be attached to the end of any infinitive (for the purpose of recognizing these verbs)
-    VERBS_IRREGULAR_PAST("verbsIrregularPast", Language.RUSSIAN), //*** -жечь, -шибить, -расти, идти, -йти
-    VERBS_IRREGULAR_NONPAST("verbsIrregularNonpast", Language.RUSSIAN), //*** хотеть бежать есть дать чтить
+    VERBS_IRREGULAR_PAST("verbsIrregularPast", Language.RUSSIAN), // Russian: -жечь, -шибить, -расти, идти, -йти
+    VERBS_IRREGULAR_NONPAST("verbsIrregularNonpast", Language.RUSSIAN), // Russian: хотеть бежать есть дать чтить
 
     //OTHER
     PRONOUNS_NEGATIVE("pronounsNegative", Language.RUSSIAN),

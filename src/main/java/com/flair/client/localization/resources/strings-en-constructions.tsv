@@ -391,9 +391,9 @@ _gram-helpText_	VERBFORM_AUXILIARIES_BE_DO_HAVE	Auxiliaries "be" and "have" (sho
 _gram-name_	VERBFORM_COPULAR	Copula
 _gram-path_	VERBFORM_COPULAR	Verbs > Verb forms > Copular verbs
 _gram-helpText_	VERBFORM_COPULAR	Copular verbs be, seem, look, stay, etc. E.g., She looks upset.
-_gram-name_	VERBFORM_EMPATHIC_DO	Emphatic do 
-_gram-path_	VERBFORM_EMPATHIC_DO	Verbs > Other > Emphatic do
-_gram-helpText_	VERBFORM_EMPATHIC_DO	e.g., I did tell the truth.
+_gram-name_	VERBFORM_EMPHATIC_DO	Emphatic do 
+_gram-path_	VERBFORM_EMPHATIC_DO	Verbs > Other > Emphatic do
+_gram-helpText_	VERBFORM_EMPHATIC_DO	e.g., I did tell the truth.
 _gram-name_	VERBFORM_INFINITIVE	Infinitive
 _gram-path_	VERBFORM_INFINITIVE	Verbs > Verb forms > Infinitive
 _gram-helpText_	VERBFORM_INFINITIVE	Base form of the verb. E.g., John can draw pretty well.
