@@ -55,6 +55,13 @@ public class RussianGrammaticalPatterns {
     public static Pattern patternLjuboj = Pattern.compile(STR_LJUBOJ, CASE_INSENSITIVE);
     private static final String STR_MNOGO = "\\bмног(о|ий)\\b";
     public static Pattern patternMnogo = Pattern.compile(STR_MNOGO, CASE_INSENSITIVE);
+    private static final String STR_VRJAD = "\\bвряд\\b";
+    public static Pattern patternVrjad = Pattern.compile(STR_VRJAD, CASE_INSENSITIVE);
+    //comparative and superlative
+    private static final String STR_BOLJEJE = "\\bболее\\b";
+    public static Pattern patternBoljeje = Pattern.compile(STR_BOLJEJE, CASE_INSENSITIVE);
+    private static final String STR_SAMYJ = "\\bсамый\\b";
+    public static Pattern patternSamyj = Pattern.compile(STR_SAMYJ, CASE_INSENSITIVE);
 
 
     //QUESTION WORDS

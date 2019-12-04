@@ -5,10 +5,7 @@
  */
 package com.flair.shared.grammar;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Represents a grammatical construction.
@@ -76,7 +73,7 @@ public enum GrammaticalConstruction //TODO: separate lemma-based Constructions u
     NOUNS_UNG("ungNounForms", Language.GERMAN),
     
     NEGATION_ALL("negAll", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), // nobody, nowhere, etc.
-    NEGATION_PARTIAL("partialNegation", Language.ENGLISH, Language.GERMAN), // rarely, barely, seldom, hardly, scarcely //TODO: find 'вряд ли' (and similar things?), also add to NEGATION_ALL
+    NEGATION_PARTIAL("partialNegation", Language.ENGLISH, Language.GERMAN), // rarely, barely, seldom, hardly, scarcely //TODO: find more things similar to 'вряд ли'; also add to NEGATION_ALL
     NEGATION_NO_NOT_NEVER("noNotNever", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), // Russian: нет, не, ни, никогда, никак, никуда, нигде, ниоткуда, нипочём, ничуть, нисколько, нисколечко
     NEGATION_NT("nt", Language.ENGLISH),
     NEGATION_NOT("not", Language.ENGLISH, Language.RUSSIAN),
@@ -162,8 +159,8 @@ public enum GrammaticalConstruction //TODO: separate lemma-based Constructions u
     ADJECTIVE_POSITIVE("positiveAdj", Language.ENGLISH, Language.GERMAN),// "nice"
     ADJECTIVE_COMPARATIVE_SHORT("comparativeAdjShort", Language.ENGLISH, Language.RUSSIAN),// "nicer" // Russian: "Cmpar" and "Pred" tags
     ADJECTIVE_SUPERLATIVE_SHORT("superlativeAdjShort", Language.ENGLISH, Language.RUSSIAN),// "nicest" //TODO for Russian
-    ADJECTIVE_COMPARATIVE_LONG("comparativeAdjLong", Language.ENGLISH, Language.RUSSIAN),// "more beautiful" //*** 'более' then an adjective
-    ADJECTIVE_SUPERLATIVE_LONG("superlativeAdjLong", Language.ENGLISH, Language.RUSSIAN),// "most beautiful" //*** 'самый' then an adjective
+    ADJECTIVE_COMPARATIVE_LONG("comparativeAdjLong", Language.ENGLISH, Language.RUSSIAN),// "more beautiful" // Russian: 'более' then an adjective
+    ADJECTIVE_SUPERLATIVE_LONG("superlativeAdjLong", Language.ENGLISH, Language.RUSSIAN),// "most beautiful" // Russian: 'самый' then an adjective
     
     ADVERB_POSITIVE("positiveAdv", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN),// "quickly"
     ADVERB_COMPARATIVE_SHORT("comparativeAdvShort", Language.ENGLISH),// "faster"
@@ -194,7 +191,7 @@ public enum GrammaticalConstruction //TODO: separate lemma-based Constructions u
     VERBFORM_EMPHATIC_DO("emphaticDo", Language.ENGLISH), // "I do realize it": do/did/VBP followed by /VB
     
     PRONOUNS_POSSESSIVE_ABSOLUTE("pronounsPossessiveAbsolute", Language.ENGLISH), // /JJ or PRP... ("", mine, yours, theirs)
-    PASSIVE_VOICE("passiveVoice", Language.ENGLISH, Language.RUSSIAN), //*** has one of two passive participle tags or tag "Pass", OR (TODO) 3pl-verb without a nominative tag in the same clause
+    PASSIVE_VOICE("passiveVoice", Language.ENGLISH, Language.RUSSIAN), //TODO: add in for it to also recognize 3pl-verb without a nominative tag in the same clause
     TENSE_PRESENT_PERFECT("presentPerfect", Language.ENGLISH),
     TENSE_PAST_PERFECT("pastPerfect", Language.ENGLISH),
     PRONOUNS_OBJECTIVE("pronounsObjective", Language.ENGLISH), // /PRP + me, you, them...
@@ -267,7 +264,7 @@ public enum GrammaticalConstruction //TODO: separate lemma-based Constructions u
     //VERBAL ASPECT
     ASPECT_PERFECTIVE("perfective", Language.RUSSIAN),
     ASPECT_IMPERFECTIVE("imperfective", Language.RUSSIAN),
-    ASPECT_BIASPECTUAL("biaspectual", Language.RUSSIAN), //TODO: how can we recognize this?
+    ASPECT_BIASPECTUAL("biaspectual", Language.RUSSIAN),
 
     //TENSE AND ASPECT COMBINED //TODO: what do you mean? future is only perfective, present is only imperfective. So, the aspects in past tense?
 
@@ -309,8 +306,7 @@ public enum GrammaticalConstruction //TODO: separate lemma-based Constructions u
 		this.langs = new HashSet<>();
 		
 		Helper.registerID(id, this);
-		for (Language itr : languages)
-			langs.add(itr);
+        langs.addAll(Arrays.asList(languages));
 	}
 
 	@Override

@@ -86,7 +86,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
     private final String NEGATIVE_TAG = "Neg";
     private final String COMPARATIVE_TAG = "Cmpar";
     private final String PERFECTIVE_TAG = "Perf";
-    private final String IMPERFECTIVE_TAG = "Impf"; //todo
+    private final String IMPERFECTIVE_TAG = "Impf";
 
 
     public StanfordDocumentParserRussianStrategy() {
@@ -238,15 +238,15 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
             return;
         }
         String wordsWithLemmas = analyser.runTransducer(indexedWordsToStrings(words));
-        ServerLogger.get().info("Transducer results received");
+        //ServerLogger.get().info("Transducer results received");
         String cgForm;
         try {
             cgForm = CgConv.hfstToCg(wordsWithLemmas);
-            ServerLogger.get().info("Transducer results converted to cg3 format");
+            //ServerLogger.get().info("Transducer results converted to cg3 format");
             //System.out.println("cgForm:\n" + cgForm);
             String finalReadings = VislCg3.runVislCg3(cgForm);
             if(!finalReadings.isEmpty()) {
-                ServerLogger.get().info("Readings have been reduced by the constraint grammar");
+                //ServerLogger.get().info("Readings have been reduced by the constraint grammar");
                 //System.out.println("readings:\n" + finalReadings);
                 Cg3Parser parser = new Cg3Parser(finalReadings);
                 List<WordWithReadings> readingsList = parser.parse();
@@ -342,6 +342,10 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
         }
 
         Map<GrammaticalConstruction, List<WordWithReadings>> constructionInstances = new HashMap<>();
+        WordWithReadings previousWord = null;
+        boolean boljejeEncountered = false;
+        boolean samyjEncountered = false;
+        boolean vrjadEncountered = false;
         for(WordWithReadings word: wordsWithReadings){
             Map<GrammaticalConstruction, Boolean> constructionsToCount = new HashMap<>();
 
@@ -508,6 +512,10 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                 //conjunctions
                 if(isMatch(RussianGrammaticalPatterns.patternJesli, lemma)){
                     hasJesli = true;
+                    if(vrjadEncountered){
+                        addSingleConstructionInstance(constructionInstances, GrammaticalConstruction.NEGATION_PARTIAL, previousWord);
+                        addSingleConstructionInstance(constructionInstances, GrammaticalConstruction.NEGATION_ALL, previousWord);
+                    }
                 }
                 //punctuation
                 if(isMatch(RussianGrammaticalPatterns.patternQuestionMark, lemma)){
@@ -542,13 +550,23 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                     if(isDative) constructionsToCount.put(GrammaticalConstruction.ADJECTIVE_DATIVE, true);
                     if(isPrepositional) constructionsToCount.put(GrammaticalConstruction.ADJECTIVE_PREPOSITIONAL, true);
                     if(isInstrumental) constructionsToCount.put(GrammaticalConstruction.ADJECTIVE_INSTRUMENTAL, true);
-
                     if(isPredicate) {
                         if(isComparative){
                             constructionsToCount.put(GrammaticalConstruction.ADJECTIVE_COMPARATIVE_SHORT, true);
                         }
                     } else {
                         constructionsToCount.put(GrammaticalConstruction.ATTRIBUTES_ADJECTIVE, true);
+                    }
+                    //comparative and superlative
+                    if(previousWord != null) {
+                        GrammaticalConstruction attr = null;
+                        if(boljejeEncountered) {
+                            attr = GrammaticalConstruction.ADJECTIVE_COMPARATIVE_LONG;
+                        }
+                        else if(samyjEncountered) {
+                            attr = GrammaticalConstruction.ADJECTIVE_SUPERLATIVE_LONG;
+                        }
+                        if(attr != null) addSingleConstructionInstance(constructionInstances, attr, previousWord);
                     }
                 }
                 if(isAdverb){
@@ -605,6 +623,9 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                     }
                     if(isImperfective){
                         constructionsToCount.put(GrammaticalConstruction.ASPECT_IMPERFECTIVE, true);
+                        if(isPerfective){ //biaspectual
+                            constructionsToCount.put(GrammaticalConstruction.ASPECT_BIASPECTUAL, true);
+                        }
                     }
                     //participles
                     if(isPassive){
@@ -647,12 +668,17 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
             //count this word towards the appropriate constructions
             for(GrammaticalConstruction attr: constructionsToCount.keySet()){
                 if(constructionsToCount.get(attr)){
-                    //add the WordWithReadings to the list associated with the given construction
-                    List<WordWithReadings> existingList = constructionInstances.getOrDefault(attr, new LinkedList<>());
-                    existingList.add(word);
-                    constructionInstances.put(attr, existingList);
+                    addSingleConstructionInstance(constructionInstances, attr, word);
                 }
             }
+
+            //handle things dealing with adjacent words
+            String surfaceForm = word.getSurfaceForm();
+            boljejeEncountered = isMatch(RussianGrammaticalPatterns.patternBoljeje, surfaceForm);
+            samyjEncountered = isMatch(RussianGrammaticalPatterns.patternSamyj, surfaceForm);
+            vrjadEncountered = isMatch(RussianGrammaticalPatterns.patternVrjad, surfaceForm);
+            //save this word so we still have access to it on the next iteration of the loop
+            previousWord = word;
         }
 
         //sentence level
@@ -689,9 +715,17 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
         constructionInstances.putAll(prepositionConstructionCounts);
         //verb direct objects and indirect objects using the graph
         Map<GrammaticalConstruction, List<WordWithReadings>> verbalObjectConstructionCounts = countVerbalObjectConstructions(wordsWithReadings, graph);
-        constructionInstances.putAll(prepositionConstructionCounts);
+        constructionInstances.putAll(verbalObjectConstructionCounts);
 
         return constructionInstances;
+    }
+
+    private static void addSingleConstructionInstance(Map<GrammaticalConstruction, List<WordWithReadings>> constructionInstances,
+                                                      GrammaticalConstruction attr, WordWithReadings word){
+        //add the WordWithReadings to the list associated with the given construction
+        List<WordWithReadings> existingList = constructionInstances.getOrDefault(attr, new LinkedList<>());
+        existingList.add(word);
+        constructionInstances.put(attr, existingList);
     }
 
     private Map<GrammaticalConstruction, List<WordWithReadings>> countPrepositionConstructions(List<WordWithReadings> wordsWithReadings, SemanticGraph graph){
@@ -828,5 +862,4 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
         workingDoc.getConstructionData(type).addOccurrence(startIndex, endIndex);
     }
 }
-
 
