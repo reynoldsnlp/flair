@@ -39,8 +39,8 @@ NLP.
    option is recommended. Another option is to create another implementation of
    the `AbstractDocument` interface. This option is intended for languages that
    require an implementation that differs greatly from the current language
-   implementations. Our arabic implementation uses a different ranking scale,
-   so we have a different class for arabic documents. 
+   implementations. Our Arabic implementation uses a different ranking scale,
+   so we have a different class for Arabic documents. 
 5. In the file `/com/flair/server/utilities/AbstractTextExtractor.java`, add a
    case for the new language following the example of previous language cases,
    utilizing the language code for the new language.  
