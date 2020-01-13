@@ -17,6 +17,7 @@ import java.util.Set;
  * IMPORTANT - ORDER-DEPENDENT! ADD NEW ITEMS TO THE END!
  * @author shadeMe
 */
+//THIS IS MY COMMENT!
 public enum GrammaticalConstruction //TODO: separate lemma-based Constructions used in Russian so they can have their own descriptions in the UI
 {
     // (simple) constructions
