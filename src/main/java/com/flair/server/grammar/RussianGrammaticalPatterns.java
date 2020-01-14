@@ -18,7 +18,7 @@ public class RussianGrammaticalPatterns {
     private static final String STR_LI = "\\bли\\b";
     public static Pattern patternLi = Pattern.compile(STR_LI, CASE_INSENSITIVE);
     private static final String STR_BI = "\\bбы\\b";
-    public static Pattern patternBi = Pattern.compile(STR_BI, CASE_INSENSITIVE);
+    public static Pattern patternBy = Pattern.compile(STR_BI, CASE_INSENSITIVE);
     private static final String STR_NE = "\\bне\\b";
     public static Pattern patternNe = Pattern.compile(STR_NE, CASE_INSENSITIVE);
     private static final String STR_NI = "\\bни\\b";

@@ -12,7 +12,7 @@ import java.util.*;
  * IMPORTANT - ORDER-DEPENDENT! ADD NEW ITEMS TO THE END!
  * @author shadeMe
 */
-public enum GrammaticalConstruction //TODO: separate lemma-based Constructions used in Russian so they can have their own descriptions in the UI
+public enum GrammaticalConstruction
 {
     // (simple) constructions
     EXISTENTIAL_THERE("existentialThere", Language.ENGLISH, Language.RUSSIAN), //Russian: есть and нет
@@ -21,7 +21,7 @@ public enum GrammaticalConstruction //TODO: separate lemma-based Constructions u
     
     ATTRIBUTES_PARTICIPLE_1("participle1Attribute", Language.GERMAN),
     ATTRIBUTES_PARTICIPLE_2("participle2Attribute", Language.GERMAN),
-    ATTRIBUTES_ADJECTIVE("adjectiveAttribute", Language.GERMAN, Language.RUSSIAN), //Russian: long form adjectives (without "Pred" tag) //TODO: different construction so it can be named "long form"; also make a short form one
+    ATTRIBUTES_ADJECTIVE("adjectiveAttribute", Language.GERMAN),
     ATTRIBUTES_PREPOSITION("prepositionalAttribute", Language.GERMAN),
     
     CONJUNCTIONS_ADVANCED("advancedConjunctions", Language.ENGLISH),
@@ -44,7 +44,7 @@ public enum GrammaticalConstruction //TODO: separate lemma-based Constructions u
     SENTENCE_INCOMPLETE("incompleteSentence", Language.ENGLISH, Language.GERMAN),
     
     OBJECT_DIRECT("directObject", Language.ENGLISH, Language.RUSSIAN),
-    OBJECT_INDIRECT("indirectObject", Language.ENGLISH, Language.RUSSIAN),
+    OBJECT_INDIRECT("indirectObject", Language.ENGLISH),
     
     PRONOUNS("pronouns", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN),
     PRONOUNS_PERSONAL("pronounsPersonal", Language.GERMAN, Language.RUSSIAN),
@@ -52,10 +52,10 @@ public enum GrammaticalConstruction //TODO: separate lemma-based Constructions u
     PRONOUNS_POSSESSIVE("pronounsPossessive", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), // /PRP$ ("", my, your, their)
     PRONOUNS_DEMONSTRATIVE("pronounsDemonstrative", Language.GERMAN, Language.RUSSIAN),
     PRONOUNS_REFLEXIVE("pronounsReflexive", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), // /PRP + myself, themselves, etc.
-    PRONOUNS_INDEFINITE("pronounsIndefinite", Language.GERMAN, Language.RUSSIAN),
+    PRONOUNS_INDEFINITE("pronounsIndefinite", Language.GERMAN),
     PRONOUNS_INTERROGATIVE("pronounsInterrogative", Language.GERMAN, Language.RUSSIAN),
     PRONOUNS_SUBJECTIVE("pronounsSubjective", Language.ENGLISH),
-    
+    //TODO: pick up here for reviewing text descriptions
     // quantifiers
     DETERMINER_SOME("someDet", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN),
     DETERMINER_ANY("anyDet", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN),
@@ -73,7 +73,7 @@ public enum GrammaticalConstruction //TODO: separate lemma-based Constructions u
     NOUNS_UNG("ungNounForms", Language.GERMAN),
     
     NEGATION_ALL("negAll", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), // nobody, nowhere, etc.
-    NEGATION_PARTIAL("partialNegation", Language.ENGLISH, Language.GERMAN), // rarely, barely, seldom, hardly, scarcely //TODO: find more things similar to 'вряд ли'; also add to NEGATION_ALL
+    NEGATION_PARTIAL("partialNegation", Language.ENGLISH, Language.GERMAN), // rarely, barely, seldom, hardly, scarcely //TODO: find more things similar to 'вряд ли'; also add them to NEGATION_ALL
     NEGATION_NO_NOT_NEVER("noNotNever", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), // Russian: нет, не, ни, никогда, никак, никуда, нигде, ниоткуда, нипочём, ничуть, нисколько, нисколечко
     NEGATION_NT("nt", Language.ENGLISH),
     NEGATION_NOT("not", Language.ENGLISH, Language.RUSSIAN),
@@ -155,12 +155,12 @@ public enum GrammaticalConstruction //TODO: separate lemma-based Constructions u
     IMPERATIVES("imperatives", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN),// start with a Verb, often end with "!": "Do it yourself!"
     PASSIVE_VOICE_WERDEN("passiveVoiceWerden", Language.GERMAN),
     PASSIVE_VOICE_SEIN("passiveVoiceSein", Language.GERMAN),
-    
+
     ADJECTIVE_POSITIVE("positiveAdj", Language.ENGLISH, Language.GERMAN),// "nice"
-    ADJECTIVE_COMPARATIVE_SHORT("comparativeAdjShort", Language.ENGLISH, Language.RUSSIAN),// "nicer" // Russian: "Cmpar" and "Pred" tags
-    ADJECTIVE_SUPERLATIVE_SHORT("superlativeAdjShort", Language.ENGLISH, Language.RUSSIAN),// "nicest" //TODO for Russian
-    ADJECTIVE_COMPARATIVE_LONG("comparativeAdjLong", Language.ENGLISH, Language.RUSSIAN),// "more beautiful" // Russian: 'более' then an adjective
-    ADJECTIVE_SUPERLATIVE_LONG("superlativeAdjLong", Language.ENGLISH, Language.RUSSIAN),// "most beautiful" // Russian: 'самый' then an adjective
+    ADJECTIVE_COMPARATIVE_SHORT("comparativeAdjShort", Language.ENGLISH),// "nicer"
+    ADJECTIVE_SUPERLATIVE_SHORT("superlativeAdjShort", Language.ENGLISH),// "nicest"
+    ADJECTIVE_COMPARATIVE_LONG("comparativeAdjLong", Language.ENGLISH),// "more beautiful"
+    ADJECTIVE_SUPERLATIVE_LONG("superlativeAdjLong", Language.ENGLISH),// "most beautiful"
     
     ADVERB_POSITIVE("positiveAdv", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN),// "quickly"
     ADVERB_COMPARATIVE_SHORT("comparativeAdvShort", Language.ENGLISH),// "faster"
@@ -199,6 +199,14 @@ public enum GrammaticalConstruction //TODO: separate lemma-based Constructions u
 
 
     //*** NEW CONSTRUCTIONS BELOW ***//
+
+    //ADJECTIVES
+    ADJECTIVE_LONG_RUSSIAN("adjectiveLongRussian", Language.RUSSIAN), //Russian: long form adjectives (without "Pred" tag)
+    ADJECTIVE_SHORT_RUSSIAN("adjectiveLongRussian", Language.RUSSIAN), //Russian: short form adjectives (with "Pred" tag)
+    ADJECTIVE_COMPARATIVE_SHORT_RUSSIAN("comparativeAdjShortRussian", Language.RUSSIAN),// Russian: "Cmpar" and "Pred" tags
+    ADJECTIVE_SUPERLATIVE_SHORT_RUSSIAN("superlativeAdjShortRussian", Language.RUSSIAN),// "nicest" //TODO for Russian
+    ADJECTIVE_COMPARATIVE_LONG_RUSSIAN("comparativeAdjLongRussian", Language.RUSSIAN),// Russian: 'более' then an adjective
+    ADJECTIVE_SUPERLATIVE_LONG_RUSSIAN("superlativeAdjLongRussian", Language.RUSSIAN),// Russian: 'самый' then an adjective
 
     //CASES
 
@@ -280,6 +288,9 @@ public enum GrammaticalConstruction //TODO: separate lemma-based Constructions u
     //OTHER
     PRONOUNS_NEGATIVE("pronounsNegative", Language.RUSSIAN),
     NEGATION_PRONOUNS("negationPronouns", Language.RUSSIAN),
+    OBJECT_INDIRECT_RUSSIAN("indirectObjectRussian", Language.RUSSIAN),
+    PRONOUNS_DEFINITE_RUSSIAN("pronounsDefiniteRussian", Language.RUSSIAN),
+    PRONOUNS_INDEFINITE_RUSSIAN("pronounsIndefiniteRussian", Language.RUSSIAN),
 
     ;
     

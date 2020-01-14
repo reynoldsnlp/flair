@@ -318,7 +318,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
         addConstructionOccurrences(GrammaticalConstruction.NEGATION_NO_NOT_NEVER, negationsNiskoljechko);
 
         //бы
-        List<CoreLabel> conditionals = findMatches(RussianGrammaticalPatterns.patternBi, words);
+        List<CoreLabel> conditionals = findMatches(RussianGrammaticalPatterns.patternBy, words);
         addConstructionOccurrences(GrammaticalConstruction.CONDITIONALS, conditionals);
 
         inspectVerbs(graph);
@@ -433,7 +433,10 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                     isSubordinateClause = true;
                     isComplexSentence = true;
                 }
-                if(tags.contains(RELATIVE_CLAUSE_TAG)) isRelativeClause = true;
+                if(tags.contains(RELATIVE_CLAUSE_TAG)){
+                    isRelativeClause = true;
+                    isComplexSentence = true;
+                }
                 if(tags.contains(COORDINATE_CLAUSE_TAG)) isComplexSentence = true;
                 //types of pronouns
                 if(tags.contains(PERSONAL_TAG)) isPersonal = true;
@@ -462,7 +465,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                 if(isMatch(RussianGrammaticalPatterns.patternLi, lemma)){
                     hasLi = true;
                 }
-                if(isMatch(RussianGrammaticalPatterns.patternBi, lemma)){
+                if(isMatch(RussianGrammaticalPatterns.patternBy, lemma)){
                     hasBi = true;
                 }
                 //determiners
@@ -551,20 +554,21 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                     if(isPrepositional) constructionsToCount.put(GrammaticalConstruction.ADJECTIVE_PREPOSITIONAL, true);
                     if(isInstrumental) constructionsToCount.put(GrammaticalConstruction.ADJECTIVE_INSTRUMENTAL, true);
                     if(isPredicate) {
+	                    constructionsToCount.put(GrammaticalConstruction.ADJECTIVE_LONG_RUSSIAN, true);
                         if(isComparative){
-                            constructionsToCount.put(GrammaticalConstruction.ADJECTIVE_COMPARATIVE_SHORT, true);
+                            constructionsToCount.put(GrammaticalConstruction.ADJECTIVE_COMPARATIVE_SHORT_RUSSIAN, true);
                         }
                     } else {
-                        constructionsToCount.put(GrammaticalConstruction.ATTRIBUTES_ADJECTIVE, true);
+                        constructionsToCount.put(GrammaticalConstruction.ADJECTIVE_SHORT_RUSSIAN, true);
                     }
                     //comparative and superlative
                     if(previousWord != null) {
                         GrammaticalConstruction attr = null;
                         if(boljejeEncountered) {
-                            attr = GrammaticalConstruction.ADJECTIVE_COMPARATIVE_LONG;
+                            attr = GrammaticalConstruction.ADJECTIVE_COMPARATIVE_LONG_RUSSIAN;
                         }
                         else if(samyjEncountered) {
-                            attr = GrammaticalConstruction.ADJECTIVE_SUPERLATIVE_LONG;
+                            attr = GrammaticalConstruction.ADJECTIVE_SUPERLATIVE_LONG_RUSSIAN;
                         }
                         if(attr != null) addSingleConstructionInstance(constructionInstances, attr, previousWord);
                     }
@@ -580,8 +584,8 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                     if(isDemonstrative) constructionsToCount.put(GrammaticalConstruction.PRONOUNS_DEMONSTRATIVE, true);
                     if(isReflexive) constructionsToCount.put(GrammaticalConstruction.PRONOUNS_REFLEXIVE, true);
                     if(isInterrogative) constructionsToCount.put(GrammaticalConstruction.PRONOUNS_INTERROGATIVE, true);
-                    //nječto, njekto
-                    if(isDefinite || isIndefinite) constructionsToCount.put(GrammaticalConstruction.PRONOUNS_INDEFINITE, true);
+                    if(isDefinite) constructionsToCount.put(GrammaticalConstruction.PRONOUNS_DEFINITE_RUSSIAN, true);
+                    if(isIndefinite) constructionsToCount.put(GrammaticalConstruction.PRONOUNS_INDEFINITE_RUSSIAN, true);
                     //negative
                     if(isNegative) {
                         constructionsToCount.put(GrammaticalConstruction.PRONOUNS_NEGATIVE, true);
@@ -777,7 +781,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                     Set<String> tags = new HashSet<>(reading.getTags());
                     if(tags.contains(ACCUSATIVE_TAG)) constructionsToCount.put(GrammaticalConstruction.OBJECT_DIRECT, true);
                     if(tags.contains(GENITIVE_TAG)) constructionsToCount.put(GrammaticalConstruction.OBJECT_DIRECT, true);
-                    if(tags.contains(DATIVE_TAG)) constructionsToCount.put(GrammaticalConstruction.OBJECT_INDIRECT, true);
+                    if(tags.contains(DATIVE_TAG)) constructionsToCount.put(GrammaticalConstruction.OBJECT_INDIRECT_RUSSIAN, true);
                 }
 
                 //count this word towards the appropriate constructions
