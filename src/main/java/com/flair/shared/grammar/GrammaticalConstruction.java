@@ -202,7 +202,7 @@ public enum GrammaticalConstruction
 
     //ADJECTIVES
     ADJECTIVE_LONG_RUSSIAN("adjectiveLongRussian", Language.RUSSIAN), //Russian: long form adjectives (without "Pred" tag)
-    ADJECTIVE_SHORT_RUSSIAN("adjectiveLongRussian", Language.RUSSIAN), //Russian: short form adjectives (with "Pred" tag)
+    ADJECTIVE_SHORT_RUSSIAN("adjectiveShortRussian", Language.RUSSIAN), //Russian: short form adjectives (with "Pred" tag)
     ADJECTIVE_COMPARATIVE_SHORT_RUSSIAN("comparativeAdjShortRussian", Language.RUSSIAN),// Russian: "Cmpar" and "Pred" tags
     ADJECTIVE_SUPERLATIVE_SHORT_RUSSIAN("superlativeAdjShortRussian", Language.RUSSIAN),// "nicest" //TODO for Russian
     ADJECTIVE_COMPARATIVE_LONG_RUSSIAN("comparativeAdjLongRussian", Language.RUSSIAN),// Russian: 'более' then an adjective
@@ -302,7 +302,7 @@ public enum GrammaticalConstruction
 		private static void registerID(String id, GrammaticalConstruction gram)
 	    {
 	    	if (UNIQUE_IDS.containsKey(id))
-	    		throw new RuntimeException("Grammatical construction ID already registered");
+	    		throw new RuntimeException("Grammatical construction ID already registered: " + id);
 	    	else
 	    		UNIQUE_IDS.put(id, gram);
 		}
