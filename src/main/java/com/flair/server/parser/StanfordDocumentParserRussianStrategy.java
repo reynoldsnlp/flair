@@ -329,7 +329,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
         //variables for the whole sentence
         boolean isComplexSentence = false;
         boolean hasLi = false;
-        boolean hasBi = false;
+        boolean hasBy = false;
         boolean hasJesli = false;
         boolean hasInterrogative = false;
         boolean hasInterrogativeBesidesLi = false;
@@ -466,7 +466,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                     hasLi = true;
                 }
                 if(isMatch(RussianGrammaticalPatterns.patternBy, lemma)){
-                    hasBi = true;
+                    hasBy = true;
                 }
                 //determiners
                 if(isMatch(RussianGrammaticalPatterns.patternNjekotoryj, lemma)){
@@ -694,7 +694,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
             addConstructionByIndices(GrammaticalConstruction.SENTENCE_SIMPLE, sentenceStart, sentenceEnd);
         }
 
-        if(hasJesli && hasBi){
+        if(hasJesli && hasBy){
             addConstructionByIndices(GrammaticalConstruction.CONDITIONALS_UNREAL, sentenceStart, sentenceEnd);
         }
 
