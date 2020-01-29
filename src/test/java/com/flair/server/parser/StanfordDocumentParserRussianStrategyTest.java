@@ -2,22 +2,24 @@ package com.flair.server.parser;
 
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;
+import edu.stanford.nlp.ling.IndexedWord;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import edu.stanford.nlp.semgraph.SemanticGraph;
 import edu.stanford.nlp.semgraph.SemanticGraphCoreAnnotations;
+import edu.stanford.nlp.semgraph.semgrex.SemgrexMatcher;
 import edu.stanford.nlp.util.CoreMap;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
 import java.util.List;
 import java.util.Properties;
-import static org.junit.Assert.*;
+
+import static com.flair.server.grammar.RussianGrammaticalPatterns.*;
 
 public class StanfordDocumentParserRussianStrategyTest {
 
-	private final String stringToParse = "когда мужчина собирается приехать сюда?";
+	private final String stringToParse = "говорят, что все в порядке. Когда мужчина собирается приехать сюда?. когда мужчина собирается приехать сюда? Я приду, когда он придет.";
 
 	//constants
 	private static final String RUSSIAN_POS_MODEL       = "edu/stanford/nlp/models/pos-tagger/russian-ud-pos.tagger";
@@ -49,6 +51,18 @@ public class StanfordDocumentParserRussianStrategyTest {
 			if (itr.size() > 0) {
 				SemanticGraph graph = itr.get(SemanticGraphCoreAnnotations.EnhancedPlusPlusDependenciesAnnotation.class);
 				List<CoreLabel> words = itr.get(CoreAnnotations.TokensAnnotation.class);
+
+				SemgrexMatcher questionMatcher = patternQuestionWordMainClause.matcher(graph);
+				while(questionMatcher.find()){
+					IndexedWord child = questionMatcher.getNode(labelQuestionWordMainClause);
+					System.out.println("Child node: \"" + child.value() + "\" with index " + child.index());
+				}
+
+				SemgrexMatcher verbNoSubjectMatcher = patternVerbNoSubject.matcher(graph);
+				while(verbNoSubjectMatcher.find()){
+					IndexedWord child = verbNoSubjectMatcher.getNode(labelVerbNoSubject);
+					System.out.println("Subjectless verb node: \"" + child.value() + "\" with index " + child.index());
+				}
 			}
 		}
 	}
