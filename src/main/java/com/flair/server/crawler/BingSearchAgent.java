@@ -33,6 +33,7 @@ class BingSearchAgent extends CachingSearchAgent
 			if(!isKeySet) {
 				ServerLogger.get().info("Setting PROD_API_KEY");
 				PROD_API_KEY = System.getenv("BING_API");
+				if(PROD_API_KEY == null) throw new Exception("BING_API environment variable not found");
 				isKeySet = true;
 			}
 			else {
