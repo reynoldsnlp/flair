@@ -625,3 +625,15 @@ _gram-helpText_	PRONOUNS_DEFINITE_RUSSIAN	<INSERT_HELP_TEXT>
 _gram-name_	PRONOUNS_INDEFINITE_RUSSIAN	<pronounsIndefiniteRussian>
 _gram-path_	PRONOUNS_INDEFINITE_RUSSIAN	<INSERT_PATH>
 _gram-helpText_	PRONOUNS_INDEFINITE_RUSSIAN	<INSERT_HELP_TEXT>
+_gram-name_	DETERMINER_SOME_RUSSIAN	<someDetRussian>
+_gram-path_	DETERMINER_SOME_RUSSIAN	<someDetRussian_PATH>
+_gram-helpText_	DETERMINER_SOME_RUSSIAN	<someDetRussian_HELP_TEXT>
+_gram-name_	DETERMINER_ANY_RUSSIAN	<anyDetRussian>
+_gram-path_	DETERMINER_ANY_RUSSIAN	<anyDetRussian_PATH>
+_gram-helpText_	DETERMINER_ANY_RUSSIAN	<anyDetRussian_HELP_TEXT>
+_gram-name_	DETERMINER_MUCH_RUSSIAN	<muchDetRussian>
+_gram-path_	DETERMINER_MUCH_RUSSIAN	<muchDetRussian_PATH>
+_gram-helpText_	DETERMINER_MUCH_RUSSIAN	<muchDetRussian_HELP_TEXT>
+_gram-name_	NEGATION_NO_NOT_NEVER_RUSSIAN	<noNotNeverRussian>
+_gram-path_	NEGATION_NO_NOT_NEVER_RUSSIAN	<noNotNeverRussian_PATH>
+_gram-helpText_	NEGATION_NO_NOT_NEVER_RUSSIAN	<noNotNeverRussian_HELP_TEXT>

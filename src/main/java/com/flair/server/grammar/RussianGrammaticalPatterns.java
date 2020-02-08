@@ -59,6 +59,10 @@ public class RussianGrammaticalPatterns {
     public static final Pattern patternMnogo = Pattern.compile(STR_MNOGO, CASE_INSENSITIVE);
     private static final String STR_VRJAD = "\\bвряд\\b";
     public static final Pattern patternVrjad = Pattern.compile(STR_VRJAD, CASE_INSENSITIVE);
+    private static final String STR_REDKO = "\\bредко\\b";
+    public static final Pattern patternRedko = Pattern.compile(STR_REDKO, CASE_INSENSITIVE);
+    private static final String STR_JEDVA = "\\bедва\\b";
+    public static final Pattern patternJedva = Pattern.compile(STR_JEDVA, CASE_INSENSITIVE);
     //comparative and superlative
     private static final String STR_BOLJEJE = "\\bболее\\b";
     public static final Pattern patternBoljeje = Pattern.compile(STR_BOLJEJE, CASE_INSENSITIVE);
@@ -117,9 +121,10 @@ public class RussianGrammaticalPatterns {
 
 
     //SENTENCE STRUCTURES
-    
-    public static final String labelQuestionWordMainClause = "questionWordMainClause";
-    public static final SemgrexPattern patternQuestionWordMainClause = SemgrexPattern.compile(String.format("{tag:SCONJ}=%s [ <advmod {$} | !< {} ]", labelQuestionWordMainClause));
+
+    //this pattern is not necessarily complete
+    /*public static final String labelQuestionWordMainClause = "questionWordMainClause";
+    public static final SemgrexPattern patternQuestionWordMainClause = SemgrexPattern.compile(String.format("{tag:SCONJ}=%s [ <advmod {$} | !< {} ]", labelQuestionWordMainClause));*/
 
     public static final String labelVerbNoSubject = "verbNoSubject";
     public static final SemgrexPattern patternVerbNoSubject = SemgrexPattern.compile(String.format("{tag:VERB}=%s [ !>nsubj {} ]", labelVerbNoSubject));

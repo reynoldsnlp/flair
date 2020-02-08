@@ -19,7 +19,7 @@ import static com.flair.server.grammar.RussianGrammaticalPatterns.*;
 
 public class StanfordDocumentParserRussianStrategyTest {
 
-	private final String stringToParse = "говорят, что все в порядке. Когда мужчина собирается приехать сюда?. когда мужчина собирается приехать сюда? Я приду, когда он придет.";
+	private final String stringToParse = "этот человек – мой отец. из-за чего ты здесь? в каком ты здании? В каком ты здании? Я приду, когда он придет. куда он делся?";
 
 	//constants
 	private static final String RUSSIAN_POS_MODEL       = "edu/stanford/nlp/models/pos-tagger/russian-ud-pos.tagger";
@@ -52,11 +52,11 @@ public class StanfordDocumentParserRussianStrategyTest {
 				SemanticGraph graph = itr.get(SemanticGraphCoreAnnotations.EnhancedPlusPlusDependenciesAnnotation.class);
 				List<CoreLabel> words = itr.get(CoreAnnotations.TokensAnnotation.class);
 
-				SemgrexMatcher questionMatcher = patternQuestionWordMainClause.matcher(graph);
+				/*SemgrexMatcher questionMatcher = patternQuestionWordMainClause.matcher(graph);
 				while(questionMatcher.find()){
-					IndexedWord child = questionMatcher.getNode(labelQuestionWordMainClause);
-					System.out.println("Child node: \"" + child.value() + "\" with index " + child.index());
-				}
+					IndexedWord questionWord = questionMatcher.getNode(labelQuestionWordMainClause);
+					System.out.println("Child node: \"" + questionWord.value() + "\" with index " + questionWord.index());
+				}*/
 
 				SemgrexMatcher verbNoSubjectMatcher = patternVerbNoSubject.matcher(graph);
 				while(verbNoSubjectMatcher.find()){
