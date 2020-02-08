@@ -9,7 +9,6 @@ import java.io.*;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import com.flair.server.grammar.RussianGrammaticalPatterns;
 import com.flair.server.utilities.CgConv;
 import com.flair.server.utilities.HFSTAnalyser;
 import com.flair.server.utilities.HFSTAnalyser.TransducerStreamException;
@@ -31,6 +30,7 @@ import edu.stanford.nlp.semgraph.SemanticGraphEdge;
 import edu.stanford.nlp.semgraph.semgrex.SemgrexMatcher;
 import edu.stanford.nlp.semgraph.semgrex.SemgrexPattern;
 import edu.stanford.nlp.util.CoreMap;
+import static com.flair.server.grammar.RussianGrammaticalPatterns.*;
 
 class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserStrategy {
     private static final String RUSSIAN_TRANSDUCER_HFSTOL = "/analyser-gt-desc.hfstol";
@@ -87,6 +87,8 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
     private final String COMPARATIVE_TAG = "Cmpar";
     private final String PERFECTIVE_TAG = "Perf";
     private final String IMPERFECTIVE_TAG = "Impf";
+	private final String THIRD_PLURAL_TAG = "Pl3";
+    //
 
 
     public StanfordDocumentParserRussianStrategy() {
@@ -221,7 +223,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
         List<IndexedWord> verbs = graph.getAllNodesByPartOfSpeechPattern("VERB");
         List<CoreLabel> verbCoreLabels = indexedWordsToCoreLabels(verbs);
         //count constructions
-        List<CoreLabel> reflexiveVerbs = findMatches(RussianGrammaticalPatterns.patternReflexiveVerb, verbCoreLabels);
+        List<CoreLabel> reflexiveVerbs = findMatches(patternReflexiveVerb, verbCoreLabels);
         addConstructionOccurrences(GrammaticalConstruction.VERB_REFLEXIVE, reflexiveVerbs);
     }
 
@@ -264,61 +266,59 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
         //count things based purely on surface forms, not readings
 
         //есть
-        List<CoreLabel> positiveExistentials = findMatches(RussianGrammaticalPatterns.patternJest, words);
+        List<CoreLabel> positiveExistentials = findMatches(patternJest, words);
         addConstructionOccurrences(GrammaticalConstruction.EXISTENTIAL_THERE, positiveExistentials);
         //нет
-        List<CoreLabel> negativeExistentials = findMatches(RussianGrammaticalPatterns.patternNjet, words);
+        List<CoreLabel> negativeExistentials = findMatches(patternNjet, words);
         addConstructionOccurrences(GrammaticalConstruction.EXISTENTIAL_THERE, negativeExistentials);
-        addConstructionOccurrences(GrammaticalConstruction.NEGATION_NO_NOT_NEVER, negativeExistentials);
+        addConstructionOccurrences(GrammaticalConstruction.NEGATION_NO_NOT_NEVER_RUSSIAN, negativeExistentials);
         //не
-        List<CoreLabel> negationsNe = findMatches(RussianGrammaticalPatterns.patternNe, words);
-        addConstructionOccurrences(GrammaticalConstruction.NEGATION_NOT, negationsNe);
+        List<CoreLabel> negationsNe = findMatches(patternNe, words);
         addConstructionOccurrences(GrammaticalConstruction.NEGATION_ALL, negationsNe);
-        addConstructionOccurrences(GrammaticalConstruction.NEGATION_NO_NOT_NEVER, negationsNe);
-        //не
-        List<CoreLabel> negationsNi = findMatches(RussianGrammaticalPatterns.patternNi, words);
-        addConstructionOccurrences(GrammaticalConstruction.NEGATION_NOT, negationsNi);
+        addConstructionOccurrences(GrammaticalConstruction.NEGATION_NO_NOT_NEVER_RUSSIAN, negationsNe);
+        //ни
+        List<CoreLabel> negationsNi = findMatches(patternNi, words);
         addConstructionOccurrences(GrammaticalConstruction.NEGATION_ALL, negationsNi);
-        addConstructionOccurrences(GrammaticalConstruction.NEGATION_NO_NOT_NEVER, negationsNi);
+        addConstructionOccurrences(GrammaticalConstruction.NEGATION_NO_NOT_NEVER_RUSSIAN, negationsNi);
         //никогда
-        List<CoreLabel> negationsNikogda = findMatches(RussianGrammaticalPatterns.patternNikogda, words);
+        List<CoreLabel> negationsNikogda = findMatches(patternNikogda, words);
         addConstructionOccurrences(GrammaticalConstruction.NEGATION_ALL, negationsNikogda);
-        addConstructionOccurrences(GrammaticalConstruction.NEGATION_NO_NOT_NEVER, negationsNikogda);
+        addConstructionOccurrences(GrammaticalConstruction.NEGATION_NO_NOT_NEVER_RUSSIAN, negationsNikogda);
         //никак
-        List<CoreLabel> negationsNikak = findMatches(RussianGrammaticalPatterns.patternNikak, words);
+        List<CoreLabel> negationsNikak = findMatches(patternNikak, words);
         addConstructionOccurrences(GrammaticalConstruction.NEGATION_ALL, negationsNikak);
-        addConstructionOccurrences(GrammaticalConstruction.NEGATION_NO_NOT_NEVER, negationsNikak);
+        addConstructionOccurrences(GrammaticalConstruction.NEGATION_NO_NOT_NEVER_RUSSIAN, negationsNikak);
         //никуда
-        List<CoreLabel> negationsNikuda = findMatches(RussianGrammaticalPatterns.patternNikuda, words);
+        List<CoreLabel> negationsNikuda = findMatches(patternNikuda, words);
         addConstructionOccurrences(GrammaticalConstruction.NEGATION_ALL, negationsNikuda);
-        addConstructionOccurrences(GrammaticalConstruction.NEGATION_NO_NOT_NEVER, negationsNikuda);
+        addConstructionOccurrences(GrammaticalConstruction.NEGATION_NO_NOT_NEVER_RUSSIAN, negationsNikuda);
         //нигде
-        List<CoreLabel> negationsNigdje = findMatches(RussianGrammaticalPatterns.patternNigdje, words);
+        List<CoreLabel> negationsNigdje = findMatches(patternNigdje, words);
         addConstructionOccurrences(GrammaticalConstruction.NEGATION_ALL, negationsNigdje);
-        addConstructionOccurrences(GrammaticalConstruction.NEGATION_NO_NOT_NEVER, negationsNigdje);
+        addConstructionOccurrences(GrammaticalConstruction.NEGATION_NO_NOT_NEVER_RUSSIAN, negationsNigdje);
         //ниоткуда
-        List<CoreLabel> negationsNiotkuda = findMatches(RussianGrammaticalPatterns.patternNiotkuda, words);
+        List<CoreLabel> negationsNiotkuda = findMatches(patternNiotkuda, words);
         addConstructionOccurrences(GrammaticalConstruction.NEGATION_ALL, negationsNiotkuda);
-        addConstructionOccurrences(GrammaticalConstruction.NEGATION_NO_NOT_NEVER, negationsNiotkuda);
+        addConstructionOccurrences(GrammaticalConstruction.NEGATION_NO_NOT_NEVER_RUSSIAN, negationsNiotkuda);
         //нипочём
-        List<CoreLabel> negationsNipochjom = findMatches(RussianGrammaticalPatterns.patternNipochjom, words);
+        List<CoreLabel> negationsNipochjom = findMatches(patternNipochjom, words);
         addConstructionOccurrences(GrammaticalConstruction.NEGATION_ALL, negationsNipochjom);
-        addConstructionOccurrences(GrammaticalConstruction.NEGATION_NO_NOT_NEVER, negationsNipochjom);
+        addConstructionOccurrences(GrammaticalConstruction.NEGATION_NO_NOT_NEVER_RUSSIAN, negationsNipochjom);
         //ничуть
-        List<CoreLabel> negationsNichut = findMatches(RussianGrammaticalPatterns.patternNichut, words);
+        List<CoreLabel> negationsNichut = findMatches(patternNichut, words);
         addConstructionOccurrences(GrammaticalConstruction.NEGATION_ALL, negationsNichut);
-        addConstructionOccurrences(GrammaticalConstruction.NEGATION_NO_NOT_NEVER, negationsNichut);
+        addConstructionOccurrences(GrammaticalConstruction.NEGATION_NO_NOT_NEVER_RUSSIAN, negationsNichut);
         //нисколько
-        List<CoreLabel> negationsNiskoljko = findMatches(RussianGrammaticalPatterns.patternNiskoljko, words);
+        List<CoreLabel> negationsNiskoljko = findMatches(patternNiskoljko, words);
         addConstructionOccurrences(GrammaticalConstruction.NEGATION_ALL, negationsNiskoljko);
-        addConstructionOccurrences(GrammaticalConstruction.NEGATION_NO_NOT_NEVER, negationsNiskoljko);
+        addConstructionOccurrences(GrammaticalConstruction.NEGATION_NO_NOT_NEVER_RUSSIAN, negationsNiskoljko);
         //нисколечко
-        List<CoreLabel> negationsNiskoljechko = findMatches(RussianGrammaticalPatterns.patternNiskoljechko, words);
+        List<CoreLabel> negationsNiskoljechko = findMatches(patternNiskoljechko, words);
         addConstructionOccurrences(GrammaticalConstruction.NEGATION_ALL, negationsNiskoljechko);
-        addConstructionOccurrences(GrammaticalConstruction.NEGATION_NO_NOT_NEVER, negationsNiskoljechko);
+        addConstructionOccurrences(GrammaticalConstruction.NEGATION_NO_NOT_NEVER_RUSSIAN, negationsNiskoljechko);
 
         //бы
-        List<CoreLabel> conditionals = findMatches(RussianGrammaticalPatterns.patternBy, words);
+        List<CoreLabel> conditionals = findMatches(patternBy, words);
         addConstructionOccurrences(GrammaticalConstruction.CONDITIONALS, conditionals);
 
         inspectVerbs(graph);
@@ -345,7 +345,6 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
         WordWithReadings previousWord = null;
         boolean boljejeEncountered = false;
         boolean samyjEncountered = false;
-        boolean vrjadEncountered = false;
         for(WordWithReadings word: wordsWithReadings){
             Map<GrammaticalConstruction, Boolean> constructionsToCount = new HashMap<>();
 
@@ -452,7 +451,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                     isInterrogative = true;
                     hasInterrogative = true;
                     String lemma = reading.getBaseForm();
-                    if(!isMatch(RussianGrammaticalPatterns.patternLi, lemma)){
+                    if(!isMatch(patternLi, lemma)){
                         hasInterrogativeBesidesLi = true;
                     }
                 }
@@ -462,74 +461,36 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                 //look at the lemma
                 String lemma = reading.getBaseForm();
                 //particles
-                if(isMatch(RussianGrammaticalPatterns.patternLi, lemma)){
+                if(isMatch(patternLi, lemma)){
                     hasLi = true;
                 }
-                if(isMatch(RussianGrammaticalPatterns.patternBy, lemma)){
+                if(isMatch(patternBy, lemma)){
                     hasBy = true;
                 }
                 //determiners
-                if(isMatch(RussianGrammaticalPatterns.patternNjekotoryj, lemma)){
-                    constructionsToCount.put(GrammaticalConstruction.DETERMINER_SOME, true);
+                if(isMatch(patternNjekotoryj, lemma)){
+                    constructionsToCount.put(GrammaticalConstruction.DETERMINER_SOME_RUSSIAN, true);
                 }
-                if(isMatch(RussianGrammaticalPatterns.patternLjuboj, lemma)){
-                    constructionsToCount.put(GrammaticalConstruction.DETERMINER_ANY, true);
+                if(isMatch(patternLjuboj, lemma)){
+                    constructionsToCount.put(GrammaticalConstruction.DETERMINER_ANY_RUSSIAN, true);
                 }
-                if(isMatch(RussianGrammaticalPatterns.patternMnogo, lemma)){
-                    constructionsToCount.put(GrammaticalConstruction.DETERMINER_MUCH, true);
-                }
-                //question words
-                if(isMatch(RussianGrammaticalPatterns.patternChto, lemma)){
-                    constructionsToCount.put(GrammaticalConstruction.QUESTIONS_WHAT, true);
-                }
-                if(isMatch(RussianGrammaticalPatterns.patternKto, lemma)){
-                    constructionsToCount.put(GrammaticalConstruction.QUESTIONS_WHO, true);
-                }
-                if(isMatch(RussianGrammaticalPatterns.patternKak, lemma)){
-                    constructionsToCount.put(GrammaticalConstruction.QUESTIONS_HOW, true);
-                }
-                if(isMatch(RussianGrammaticalPatterns.patternPochjemu, lemma)){
-                    constructionsToCount.put(GrammaticalConstruction.QUESTIONS_WHY, true);
-                }
-                if(isMatch(RussianGrammaticalPatterns.patternZachjem, lemma)){
-                    constructionsToCount.put(GrammaticalConstruction.QUESTIONS_WHY, true);
-                }
-                if(isMatch(RussianGrammaticalPatterns.patternGdje, lemma)){
-                    constructionsToCount.put(GrammaticalConstruction.QUESTIONS_WHERE, true);
-                }
-                if(isMatch(RussianGrammaticalPatterns.patternKogda, lemma)){
-                    constructionsToCount.put(GrammaticalConstruction.QUESTIONS_WHEN, true);
-                }
-                if(isMatch(RussianGrammaticalPatterns.patternChjej, lemma)){
-                    constructionsToCount.put(GrammaticalConstruction.QUESTIONS_WHOSE, true);
-                }
-                if(isMatch(RussianGrammaticalPatterns.patternKakoj, lemma)){
-                    constructionsToCount.put(GrammaticalConstruction.QUESTIONS_WHICH, true);
-                }
-                if(isMatch(RussianGrammaticalPatterns.patternKuda, lemma)){
-                    constructionsToCount.put(GrammaticalConstruction.QUESTIONS_WHITHER, true);
-                }
-                if(isMatch(RussianGrammaticalPatterns.patternKakov, lemma)){
-                    constructionsToCount.put(GrammaticalConstruction.QUESTIONS_WHAT_KIND, true);
+                if(isMatch(patternMnogo, lemma)){
+                    constructionsToCount.put(GrammaticalConstruction.DETERMINER_MUCH_RUSSIAN, true);
                 }
                 //conjunctions
-                if(isMatch(RussianGrammaticalPatterns.patternJesli, lemma)){
+                if(isMatch(patternJesli, lemma)){
                     hasJesli = true;
-                    if(vrjadEncountered){
-                        addSingleConstructionInstance(constructionInstances, GrammaticalConstruction.NEGATION_PARTIAL, previousWord);
-                        addSingleConstructionInstance(constructionInstances, GrammaticalConstruction.NEGATION_ALL, previousWord);
-                    }
                 }
                 //punctuation
-                if(isMatch(RussianGrammaticalPatterns.patternQuestionMark, lemma)){
+                if(isMatch(patternQuestionMark, lemma)){
                     hasQuestionMark = true;
                 }
                 //irregular verbs
-                if(isMatch(RussianGrammaticalPatterns.patternIrregularPastVerb, lemma)){
+                if(isMatch(patternIrregularPastVerb, lemma)){
                     isIrregularPast = true;
                     constructionsToCount.put(GrammaticalConstruction.VERBS_IRREGULAR_PAST, true);
                 }
-                if(isMatch(RussianGrammaticalPatterns.patternIrregularNonpastVerb, lemma)){
+                if(isMatch(patternIrregularNonpastVerb, lemma)){
                     isIrregularNonpast = true;
                     constructionsToCount.put(GrammaticalConstruction.VERBS_IRREGULAR_NONPAST, true);
                 }
@@ -590,7 +551,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                     if(isNegative) {
                         constructionsToCount.put(GrammaticalConstruction.PRONOUNS_NEGATIVE, true);
                         constructionsToCount.put(GrammaticalConstruction.NEGATION_PRONOUNS, true);
-                        constructionsToCount.put(GrammaticalConstruction.NEGATION_ALL, true);
+                        constructionsToCount.put(GrammaticalConstruction.NEGATION_ALL, true); //this is actually redundant because of the check below
                     }
                     //case
                     if(isNominative) constructionsToCount.put(GrammaticalConstruction.PRONOUN_NOMINATIVE, true);
@@ -676,11 +637,17 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                 }
             }
 
-            //handle things dealing with adjacent words
+            //look at the surface form
             String surfaceForm = word.getSurfaceForm();
-            boljejeEncountered = isMatch(RussianGrammaticalPatterns.patternBoljeje, surfaceForm);
-            samyjEncountered = isMatch(RussianGrammaticalPatterns.patternSamyj, surfaceForm);
-            vrjadEncountered = isMatch(RussianGrammaticalPatterns.patternVrjad, surfaceForm);
+	        if(isMatch(patternVrjad, surfaceForm) || isMatch(patternRedko, surfaceForm) || isMatch(patternJedva, surfaceForm)){
+	        	//TODO: confirm that Redko and Jedva don't change form when acting as NEGATION_PARTIAL markers
+		        addSingleConstructionInstance(constructionInstances, GrammaticalConstruction.NEGATION_PARTIAL, word);
+		        addSingleConstructionInstance(constructionInstances, GrammaticalConstruction.NEGATION_ALL, word);
+	        }
+
+	        //handle things dealing with adjacent words
+            boljejeEncountered = isMatch(patternBoljeje, surfaceForm);
+            samyjEncountered = isMatch(patternSamyj, surfaceForm);
             //save this word so we still have access to it on the next iteration of the loop
             previousWord = word;
         }
@@ -706,6 +673,47 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
             if(hasInterrogativeBesidesLi){
                 addConstructionByIndices(GrammaticalConstruction.QUESTIONS_WH, sentenceStart, sentenceEnd);
             }
+
+	        //question words
+	        for(int i = 0; i < 2; i++) { //a question word has to be one of the first two words in the sentence
+		        CoreLabel plainWord = words.get(i);
+	        	WordWithReadings word = wordsWithReadings.get(i);
+	        	boolean isWhat = false;
+	        	boolean isWho = false;
+	        	boolean isHow = false;
+	        	boolean isWhy = false;
+	        	boolean isWhere = false;
+	        	boolean isWhen = false;
+	        	boolean isWhose = false;
+	        	boolean isWhich = false;
+	        	boolean isWhither = false;
+	        	boolean isWhatKind = false;
+		        for(CgReading reading: word.getReadings()){ //TODO: optimize this so it asks if lemma.toLowerCase() is in the set of question words
+			        String lemma = reading.getBaseForm();
+			        isWhat |= isMatch(patternChto, lemma);
+			        isWho |= isMatch(patternKto, lemma);
+			        isHow |= isMatch(patternKak, lemma);
+			        isWhy |= isMatch(patternPochjemu, lemma);
+			        isWhy |= isMatch(patternZachjem, lemma);
+			        isWhere |= isMatch(patternGdje, lemma);
+			        isWhen |= isMatch(patternKogda, lemma);
+			        isWhose |= isMatch(patternChjej, lemma);
+			        isWhich |= isMatch(patternKakoj, lemma);
+			        isWhither |= isMatch(patternKuda, lemma);
+			        isWhatKind |= isMatch(patternKakov, lemma);
+		        }
+		        //TODO: if these booleans are 100% mutually exclusive, this next block can be optimized
+		        if(isWhat) addConstructionByIndices(GrammaticalConstruction.QUESTIONS_WHAT, plainWord.beginPosition(), plainWord.endPosition());
+		        if(isWho) addConstructionByIndices(GrammaticalConstruction.QUESTIONS_WHO, plainWord.beginPosition(), plainWord.endPosition());
+		        if(isHow) addConstructionByIndices(GrammaticalConstruction.QUESTIONS_HOW, plainWord.beginPosition(), plainWord.endPosition());
+		        if(isWhy) addConstructionByIndices(GrammaticalConstruction.QUESTIONS_WHY, plainWord.beginPosition(), plainWord.endPosition());
+		        if(isWhere) addConstructionByIndices(GrammaticalConstruction.QUESTIONS_WHERE, plainWord.beginPosition(), plainWord.endPosition());
+		        if(isWhen) addConstructionByIndices(GrammaticalConstruction.QUESTIONS_WHEN, plainWord.beginPosition(), plainWord.endPosition());
+		        if(isWhose) addConstructionByIndices(GrammaticalConstruction.QUESTIONS_WHOSE, plainWord.beginPosition(), plainWord.endPosition());
+		        if(isWhich) addConstructionByIndices(GrammaticalConstruction.QUESTIONS_WHOSE, plainWord.beginPosition(), plainWord.endPosition());
+		        if(isWhither) addConstructionByIndices(GrammaticalConstruction.QUESTIONS_WHITHER, plainWord.beginPosition(), plainWord.endPosition());
+		        if(isWhatKind) addConstructionByIndices(GrammaticalConstruction.QUESTIONS_WHAT_KIND, plainWord.beginPosition(), plainWord.endPosition());
+	        }
         }
         else{ //no question mark
             if(hasLi || hasInterrogative){
@@ -713,6 +721,22 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                 addConstructionByIndices(GrammaticalConstruction.QUESTIONS_INDIRECT, sentenceStart, sentenceEnd);
             }
         }
+
+        //using Semgrex
+
+	    //passive voice using 3rd-person plural subjectless verb
+	    SemgrexMatcher verbNoSubjectMatcher = patternVerbNoSubject.matcher(graph);
+	    while(verbNoSubjectMatcher.find()){
+		    IndexedWord subjectlessVerb = verbNoSubjectMatcher.getNode(labelVerbNoSubject);
+		    WordWithReadings subjectlessVerbWithReadings = wordsWithReadings.get(subjectlessVerb.index() - 1);
+		    for(CgReading reading: subjectlessVerbWithReadings.getReadings()){
+		    	List<String> tags = reading.getTags();
+			    if(tags.contains(THIRD_PLURAL_TAG)) {
+				    addConstructionByIndices(GrammaticalConstruction.PASSIVE_VOICE, subjectlessVerb.beginPosition(), subjectlessVerb.endPosition());
+			    	break;
+			    }
+		    }
+	    }
 
         //preposition things using the graph
         Map<GrammaticalConstruction, List<WordWithReadings>> prepositionConstructionCounts = countPrepositionConstructions(wordsWithReadings, graph);

@@ -55,11 +55,11 @@ public enum GrammaticalConstruction
     PRONOUNS_INDEFINITE("pronounsIndefinite", Language.GERMAN),
     PRONOUNS_INTERROGATIVE("pronounsInterrogative", Language.GERMAN, Language.RUSSIAN),
     PRONOUNS_SUBJECTIVE("pronounsSubjective", Language.ENGLISH),
-    //TODO: pick up here for reviewing text descriptions
+
     // quantifiers
-    DETERMINER_SOME("someDet", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN),
-    DETERMINER_ANY("anyDet", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN),
-    DETERMINER_MUCH("muchDet", Language.ENGLISH, Language.RUSSIAN),
+    DETERMINER_SOME("someDet", Language.ENGLISH, Language.GERMAN),
+    DETERMINER_ANY("anyDet", Language.ENGLISH, Language.GERMAN),
+    DETERMINER_MUCH("muchDet", Language.ENGLISH),
     DETERMINER_MANY("manyDet", Language.ENGLISH, Language.GERMAN),
     DETERMINER_A_LOT_OF("aLotOfDet", Language.ENGLISH),
     
@@ -73,11 +73,11 @@ public enum GrammaticalConstruction
     NOUNS_UNG("ungNounForms", Language.GERMAN),
     
     NEGATION_ALL("negAll", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), // nobody, nowhere, etc.
-    NEGATION_PARTIAL("partialNegation", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), // rarely, barely, seldom, hardly, scarcely //TODO: find more things similar to 'вряд ли'; also add them to NEGATION_ALL
-    NEGATION_NO_NOT_NEVER("noNotNever", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), // Russian: нет, не, ни, никогда, никак, никуда, нигде, ниоткуда, нипочём, ничуть, нисколько, нисколечко
+    NEGATION_PARTIAL("partialNegation", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), // rarely, barely, seldom, hardly, scarcely // Russian: вряд, редко, едва //TODO: find more things similar to these; also add them to NEGATION_ALL
+    NEGATION_NO_NOT_NEVER("noNotNever", Language.ENGLISH, Language.GERMAN),
     NEGATION_NT("nt", Language.ENGLISH),
-    NEGATION_NOT("not", Language.ENGLISH, Language.RUSSIAN),
-    
+    NEGATION_NOT("not", Language.ENGLISH),
+    //TODO: pick up here to look at localizations
     QUESTIONS_DIRECT("directQuestions", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), // Russian: ends in a '?'
     QUESTIONS_INDIRECT("indirectQuestions", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), // Russian: ???????
     QUESTIONS_YESNO("yesNoQuestions", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), // direct: "Are you ok?" // Russian: (has li or no interrogative) and does have a '?'
@@ -86,7 +86,7 @@ public enum GrammaticalConstruction
     QUESTIONS_TO_DO("toDoQuestions", Language.ENGLISH), // direct: "What do you do?"
     QUESTIONS_TO_HAVE("toHaveQuestions", Language.ENGLISH), // direct: "What have you done?"
     QUESTIONS_MODAL("modalQuestions", Language.ENGLISH), // direct: "Should I go?", "What should I do?"
-    QUESTIONS_WHAT("what", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), //TODO: the Interrogative thing we're looking at should be in the main clause
+    QUESTIONS_WHAT("what", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN),
     QUESTIONS_WHO("who", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN),
     QUESTIONS_HOW("how", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN),
     QUESTIONS_WHY("why", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN),
@@ -191,7 +191,7 @@ public enum GrammaticalConstruction
     VERBFORM_EMPHATIC_DO("emphaticDo", Language.ENGLISH), // "I do realize it": do/did/VBP followed by /VB
     
     PRONOUNS_POSSESSIVE_ABSOLUTE("pronounsPossessiveAbsolute", Language.ENGLISH), // /JJ or PRP... ("", mine, yours, theirs)
-    PASSIVE_VOICE("passiveVoice", Language.ENGLISH, Language.RUSSIAN), //TODO: add in for it to also recognize 3pl-verb without a nominative tag in the same clause
+    PASSIVE_VOICE("passiveVoice", Language.ENGLISH, Language.RUSSIAN),
     TENSE_PRESENT_PERFECT("presentPerfect", Language.ENGLISH),
     TENSE_PAST_PERFECT("pastPerfect", Language.ENGLISH),
     PRONOUNS_OBJECTIVE("pronounsObjective", Language.ENGLISH), // /PRP + me, you, them...
@@ -274,7 +274,8 @@ public enum GrammaticalConstruction
     ASPECT_IMPERFECTIVE("imperfective", Language.RUSSIAN),
     ASPECT_BIASPECTUAL("biaspectual", Language.RUSSIAN),
 
-    //TENSE AND ASPECT COMBINED //TODO: what do you mean? future is only perfective, present is only imperfective. So, the aspects in past tense?
+    //TENSE AND ASPECT COMBINED
+    //TODO: future imperfective, future perfective, present, past perfective, past imperfective (?)
 
     //CONJUGATION CLASSES
 
@@ -291,6 +292,11 @@ public enum GrammaticalConstruction
     OBJECT_INDIRECT_RUSSIAN("indirectObjectRussian", Language.RUSSIAN),
     PRONOUNS_DEFINITE_RUSSIAN("pronounsDefiniteRussian", Language.RUSSIAN),
     PRONOUNS_INDEFINITE_RUSSIAN("pronounsIndefiniteRussian", Language.RUSSIAN),
+    //********************
+    DETERMINER_SOME_RUSSIAN("someDetRussian", Language.RUSSIAN),
+    DETERMINER_ANY_RUSSIAN("anyDetRussian", Language.RUSSIAN),
+    DETERMINER_MUCH_RUSSIAN("muchDetRussian", Language.RUSSIAN),
+    NEGATION_NO_NOT_NEVER_RUSSIAN("noNotNeverRussian", Language.RUSSIAN), // нет, не, ни, никогда, никак, никуда, нигде, ниоткуда, нипочём, ничуть, нисколько, нисколечко
 
     ;
     
