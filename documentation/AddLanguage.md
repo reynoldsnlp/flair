@@ -12,7 +12,7 @@ NLP.
 2. Add a case in `/com/flair/shared/grammar/DefaultVocabularyList.java` for the
    language you wish to add. It is not required to have an actual vocabulary
    list for the new language, you can just use an empty array list. However,
-   having a vocabulary list will provide an additional criteria for ranking
+   having a vocabulary list will provide additional criteria for ranking
    documents. 
 
 ## Server 
