@@ -17,10 +17,6 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 
-/**
- * An example class that shows how MADAMIRA can be called through its API.
- *
- */
 public class Madamira 
 {
 	private String url;
@@ -83,7 +79,7 @@ public class Madamira
 			return sbr.toString();		
 	}
 	// runs client standalone
-	public static String lemmatize(int port, String url, InputStream inputStreamIn) 
+	public static String runClient(int port, String url, InputStream inputStreamIn)
 	{
 		Madamira client = new Madamira(port, url, inputStreamIn);
 		return 	client.run();

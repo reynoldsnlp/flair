@@ -17,6 +17,7 @@ import com.flair.client.localization.annotations.LocalizedCommonField;
 import com.flair.client.localization.annotations.LocalizedField;
 import com.flair.client.localization.interfaces.LocalizationBinder;
 import com.flair.client.presentation.interfaces.VisualizerService;
+import com.flair.client.presentation.widgets.sliderbundles.ConstructionSliderBundleArabic;
 import com.flair.client.presentation.widgets.sliderbundles.ConstructionSliderBundleEnglish;
 import com.flair.client.presentation.widgets.sliderbundles.ConstructionSliderBundleGerman;
 import com.flair.shared.grammar.GrammaticalConstruction;
@@ -517,6 +518,7 @@ public class DocumentCollectionVisualizer extends LocalizedComposite implements 
 			
 			bdlEnglishSlidersUI.setVisible(false);
 			bdlGermanSlidersUI.setVisible(false);
+			bdlArabicSlidersUI.setVisible(false);
 			
 			resetSelectedAxes();
 			
@@ -532,7 +534,7 @@ public class DocumentCollectionVisualizer extends LocalizedComposite implements 
 			case RUSSIAN:
 				toggles = bdlEnglishSlidersUI;
 			case ARABIC:
-				toggles = bdlEnglishSlidersUI;	
+				toggles = bdlArabicSlidersUI;
 				break;
 			}
 			
@@ -708,6 +710,8 @@ public class DocumentCollectionVisualizer extends LocalizedComposite implements 
 	ConstructionSliderBundleEnglish		bdlEnglishSlidersUI;
 	@UiField
 	ConstructionSliderBundleGerman		bdlGermanSlidersUI;
+	@UiField
+	ConstructionSliderBundleArabic 		bdlArabicSlidersUI;
 	@UiField
 	@LocalizedCommonField(tag=CommonLocalizationTags.FILTER, type=LocalizedFieldType.TEXT_BUTTON)
 	MaterialButton				btnApplyUI;

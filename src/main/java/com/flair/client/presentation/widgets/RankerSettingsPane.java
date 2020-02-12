@@ -10,6 +10,7 @@ import com.flair.client.localization.interfaces.LocalizationBinder;
 import com.flair.client.model.interfaces.DocumentRankerOutput;
 import com.flair.client.model.interfaces.DocumentRankerOutput.Rank;
 import com.flair.client.presentation.interfaces.AbstractRankerSettingsPane;
+import com.flair.client.presentation.widgets.sliderbundles.ConstructionSliderBundleArabic;
 import com.flair.client.presentation.widgets.sliderbundles.ConstructionSliderBundleEnglish;
 import com.flair.client.presentation.widgets.sliderbundles.ConstructionSliderBundleGerman;
 import com.flair.client.utilities.ClientLogger;
@@ -92,6 +93,8 @@ public class RankerSettingsPane extends LocalizedComposite implements AbstractRa
 	ConstructionSliderBundleEnglish			bdlEnglishSlidersUI;
 	@UiField
 	ConstructionSliderBundleGerman			bdlGermanSlidersUI;
+	@UiField
+	ConstructionSliderBundleArabic 			bdlArabicSlidersUI;
 	@UiField
 	@LocalizedField
 	MaterialCardTitle						lblLanguageUseUI;
@@ -195,23 +198,23 @@ public class RankerSettingsPane extends LocalizedComposite implements AbstractRa
 			ClientLogger.get().info("Calling resetUI");
 			switch(sliderLanguage) {
 				case ARABIC:
-					ClientLogger.get().info("Language is Arabic");
-					showArabicLevels();
-					hideSliderBundles();
-					lblConstructionsUI.setVisible(false);
-					break;
+				case ENGLISH:
+				case GERMAN:
 				case RUSSIAN:
-					ClientLogger.get().info("Language is Russian");
-					showDefaultLevels();
+					if (sliderLanguage == Language.ARABIC) showArabicLevels();
+					else showDefaultLevels();
+					hideSliderBundles();
+					if (getSliderBundle() != null) {
+						getSliderBundle().setVisible(true);
+					}
+					else{
+						ClientLogger.get().error("Slider bundle not found");
+					}
+					lblConstructionsUI.setVisible(true);
+					break;
+				default: //if no sliders are available
 					hideSliderBundles();
 					lblConstructionsUI.setVisible(false);
-					break;
-				default:
-					ClientLogger.get().info("Language is " + sliderLanguage.toString());
-					showDefaultLevels();
-					hideSliderBundles();
-					getSliderBundle().setVisible(true);
-					lblConstructionsUI.setVisible(true);
 			}
 			/*
 			hideSliderBundles();
@@ -292,7 +295,7 @@ public class RankerSettingsPane extends LocalizedComposite implements AbstractRa
 			case RUSSIAN:
 				return bdlEnglishSlidersUI;
 			case ARABIC:
-				return bdlEnglishSlidersUI;	
+				return bdlArabicSlidersUI;
 			default:
 				return null;
 			}
@@ -442,7 +445,13 @@ public class RankerSettingsPane extends LocalizedComposite implements AbstractRa
 			s.setToggleHandler((w, v) -> state.onSettingChange());
 			s.refreshLocale();
 		});
-		
+
+		bdlArabicSlidersUI.forEachWeightSlider(s -> {
+			s.setWeightChangeHandler((w, v) -> state.onSettingChange());
+			s.setToggleHandler((w, v) -> state.onSettingChange());
+			s.refreshLocale();
+		});
+
 		state.setChangeHandler(handler);
 	}
 

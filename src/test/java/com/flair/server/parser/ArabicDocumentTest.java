@@ -11,6 +11,7 @@ import com.flair.shared.grammar.Language;
 import com.flair.shared.parser.ArabicDocumentReadabilityLevel;
 import com.flair.server.parser.ConstructionDataCollection;
 
+import edu.columbia.ccls.madamira.configuration.OutDoc;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -56,8 +57,9 @@ public class ArabicDocumentTest
     {
         try
         {
-			when(raft.ScoreText(source.getSourceText())).thenReturn(1);
-            Assert.assertEquals(1.0, arabicDocument.calculateReadabilityScore(source.getSourceText()));
+            OutDoc outDoc = MadamiraAPI.getInstance().run(sourceText);
+			when(raft.ScoreText(outDoc)).thenReturn(1);
+            Assert.assertEquals(1.0, arabicDocument.calculateReadabilityScore());
         }
         catch (Exception e)
         {
@@ -70,8 +72,9 @@ public class ArabicDocumentTest
     {
         try
         {
-            when(raft.ScoreText("")).thenThrow(new Exception());
-            Assert.assertEquals(0.0, arabicDocument.calculateReadabilityScore(""));
+            OutDoc outDoc = new MadamiraAPI().getInstance().run("");
+            when(raft.ScoreText(outDoc)).thenThrow(new Exception());
+            Assert.assertEquals(0.0, arabicDocument.calculateReadabilityScore());
         }
         catch(Exception e)
         {
@@ -88,12 +91,13 @@ public class ArabicDocumentTest
         doc.calculateFancyDocLength();
         Assert.assertEquals(0.0, doc.getFancyLength());
     }
-    
+
     private void testArabicConstructor(int level, SimpleDocumentSource source)
     {
     	try
-    	{	
-    		when(raft.ScoreText(source.getSourceText())).thenReturn(level);
+    	{
+    	    OutDoc outDoc = new MadamiraAPI().getInstance().run(source.getSourceText());
+    		when(raft.ScoreText(outDoc)).thenReturn(level);
             defaultConstructorDocument = spy(new ArabicDocument(source, raft));
             Assert.assertEquals((double) level, defaultConstructorDocument.getReadabilityScore(), .1);
             

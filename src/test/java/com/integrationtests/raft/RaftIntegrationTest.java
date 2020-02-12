@@ -9,10 +9,12 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
+import com.flair.server.parser.MadamiraAPI;
 import com.flair.server.raft.Raft;
 import com.flair.server.utilities.CustomFileReader;
 import com.ibm.icu.impl.Assert;
 
+import edu.columbia.ccls.madamira.configuration.OutDoc;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -32,7 +34,8 @@ public class RaftIntegrationTest
     {
         try
         {
-            int documentScore = raft.ScoreText(documentText);
+            OutDoc outDoc = new MadamiraAPI().getInstance().run(documentText);
+            int documentScore = raft.ScoreText(outDoc);
             System.out.println("text score == " + documentScore);
             System.out.flush();
             assertTrue("Make sure that MADAMIRA server is running", documentScore == testScore);
@@ -122,7 +125,8 @@ public class RaftIntegrationTest
     public void testScoreText() throws FileNotFoundException, ClassNotFoundException, UnsupportedEncodingException,
             IOException, InterruptedException, Exception 
     {
-        double score = raft.ScoreText(textSource);
+        OutDoc outDoc = new MadamiraAPI().getInstance().run(textSource);
+        double score = raft.ScoreText(outDoc);
         System.out.println("text score == " + score);
         System.out.flush();
         assertTrue("Make sure that MADAMIRA server is running", score > 0);

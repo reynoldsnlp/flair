@@ -18,6 +18,7 @@ import java.io.Writer;
 import java.lang.Exception;
 import java.util.StringTokenizer;
 
+import com.flair.server.raft.Madamira;
 import com.flair.server.utilities.ServerLogger;
 import com.flair.shared.grammar.GrammaticalConstruction;
 import com.flair.shared.grammar.Language;
@@ -26,6 +27,7 @@ import com.flair.shared.parser.ArabicDocumentReadabilityLevel;
 
 
 //import org.apache.cxf.common.i18n.Exception;
+import edu.columbia.ccls.madamira.configuration.OutDoc;
 import org.jsoup.select.Evaluator.Class;
 
 import com.flair.server.raft.Raft;
@@ -59,6 +61,7 @@ public class ArabicDocument implements AbstractDocument
 	private boolean 									parsed;
 
 	private Raft 										raft;
+	private OutDoc										outDoc;
 
 	public ArabicDocument(AbstractDocumentSource source, double readabilityScore, 
 	ArabicDocumentReadabilityLevel arabicReadabilityLevel, ConstructionDataCollection constructionData, Raft raft) 
@@ -68,6 +71,10 @@ public class ArabicDocument implements AbstractDocument
 		this.arabicReadabilityLevel = arabicReadabilityLevel;
 		this.constructionData = constructionData;
 		this.raft = raft;
+
+		MadamiraAPI api = MadamiraAPI.getInstance();
+		api.run(source.getSourceText());
+		this.outDoc = api.getOutDoc();
 	} 
 	
 	public ArabicDocument(AbstractDocumentSource parent)
@@ -100,7 +107,6 @@ public class ArabicDocument implements AbstractDocument
 		tokenizer = new StringTokenizer(pageText, "[.!?]");
 		numSentences = tokenizer.countTokens();
 		numDependencies = 0;
-		
 
 		double readabilityScoreCalc = 0;
 
@@ -115,7 +121,8 @@ public class ArabicDocument implements AbstractDocument
 		switch (source.getLanguage())
 		{
 		case ARABIC:
-			readabilityScoreCalc = calculateReadabilityScore(source.getSourceText());
+			//TODO: figure out where this and StanfordDocumentArabicParser and this connect to call MadamiraAPI
+			readabilityScoreCalc = calculateReadabilityScore();
 			if(readabilityScoreCalc == 0.0)
 			{
 				ServerLogger.get().error("RAFT document analysis failed on " + getDescription() + ", now using default readability score");
@@ -153,13 +160,13 @@ public class ArabicDocument implements AbstractDocument
 		parsed = false;
 	}
 
-	public double calculateReadabilityScore(String source) 
-	{ 
+	public double calculateReadabilityScore()
+	{
 		double readabilityLevel;
 		readabilityLevel = 0;
 		try
 		{
-			readabilityLevel = raft.ScoreText(source);	//throws a bunch of exceptions so just catch the most general case
+			readabilityLevel = raft.ScoreText(outDoc);	//throws a bunch of exceptions so just catch the most general case
 		}
 		catch(Exception ex)
 		{

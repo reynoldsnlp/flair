@@ -1,46 +1,35 @@
 package com.flair.server.raft;
 
-import java.io.File;
-import java.io.Writer;
-import java.net.UnknownHostException;
-import java.nio.charset.StandardCharsets;
-import java.io.BufferedWriter;
-import java.io.ByteArrayInputStream;
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.OutputStreamWriter;
-import java.io.StringWriter;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.TreeMap;
-
 import com.flair.server.utilities.ServerLogger;
-
-import java.util.Map;
-import java.util.Random;
-
-import org.jsoup.*;
+import org.jsoup.Jsoup;
 import org.jsoup.nodes.Attributes;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-public class Processor {
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.util.*;
 
-	public Processor(String webText) {
-		try {
+import edu.columbia.ccls.madamira.MADAMIRAWrapper;
+import edu.columbia.ccls.madamira.configuration.*;
+
+
+public class FeatureExtractor {
+
+	public FeatureExtractor(OutDoc outDoc) {
+		/*try {
 			webText = webText.trim().replaceAll("&", "+");
 			webText = webText.trim().replaceAll("(\\s)+", "$1");
 			body = webText;
 		} catch (NullPointerException e) {
 			ServerLogger.get().error(e, e.getMessage());
 			body = null;
-		}
+		}*/
+		OutSeg outSeg = outDoc.getOutSeg().get(0);
+		this.words = outSeg.getWordInfo().getWord();
+		this.rawText = outSeg.getSegmentInfo().getPreprocessed();
+
 		Random r = new Random();
 		taskSalt = r.nextInt(10000000); // gives a random number to salt our file names with
 		lemmaFreqListMap = new TreeMap<>();
@@ -64,8 +53,8 @@ public class Processor {
 		exceptionCaught = false;
 	}
 
-	private Document madaOutput;
-	private String body;
+	private List<Word> words;
+	private String rawText;
 	private TreeMap<String, Integer> lemmaFreqListMap; // maps a string "LEMMA:::POS" to its frequency within the text
 	private TreeMap<String, Integer> POSList; // keeps a count for each POS tag
 	private TreeMap<String, Integer> freqListMap; // Arabic frequency list
@@ -85,6 +74,7 @@ public class Processor {
 	private double mean;
 	private double median;
 	private double avgWordLen;
+
 	private int taskSalt;
 	private boolean exceptionCaught;
 
@@ -94,31 +84,31 @@ public class Processor {
 			+ "        <preprocessing sentence_ids=\"false\" separate_punct=\"true\" input_encoding=\"UTF8\"/>\r\n"
 			+ "        <overall_vars output_encoding=\"UTF8\" dialect=\"MSA\" output_analyses=\"TOP\" morph_backoff=\"NONE\"/>\r\n"
 			+ "        <requested_output>\r\n"
-			+ "            <req_variable name=\"PREPROCESSED\" value=\"false\" />\r\n"
-			+ "            <req_variable name=\"STEM\" value=\"false\" />\r\n"
-			+ "            <req_variable name=\"GLOSS\" value=\"false\" />\r\n"
+			+ "            <req_variable name=\"PREPROCESSED\" value=\"true\" />\r\n"
+			+ "            <req_variable name=\"STEM\" value=\"true\" />\r\n"
+			+ "            <req_variable name=\"GLOSS\" value=\"true\" />\r\n"
 			+ "            <req_variable name=\"LEMMA\" value=\"true\" />\r\n"
-			+ "            <req_variable name=\"DIAC\" value=\"false\" />\r\n"
-			+ "            <req_variable name=\"ASP\" value=\"false\" />\r\n"
-			+ "            <req_variable name=\"CAS\" value=\"false\" />\r\n"
-			+ "            <req_variable name=\"ENC0\" value=\"false\" />\r\n"
-			+ "            <req_variable name=\"ENC1\" value=\"false\" />\r\n"
-			+ "            <req_variable name=\"ENC2\" value=\"false\" />\r\n"
-			+ "            <req_variable name=\"GEN\" value=\"false\" />\r\n"
-			+ "            <req_variable name=\"MOD\" value=\"false\" />\r\n"
-			+ "            <req_variable name=\"NUM\" value=\"false\" />\r\n"
-			+ "            <req_variable name=\"PER\" value=\"false\" />\r\n"
+			+ "            <req_variable name=\"DIAC\" value=\"true\" />\r\n"
+			+ "            <req_variable name=\"ASP\" value=\"true\" />\r\n"
+			+ "            <req_variable name=\"CAS\" value=\"true\" />\r\n"
+			+ "            <req_variable name=\"ENC0\" value=\"true\" />\r\n"
+			+ "            <req_variable name=\"ENC1\" value=\"true\" />\r\n"
+			+ "            <req_variable name=\"ENC2\" value=\"true\" />\r\n"
+			+ "            <req_variable name=\"GEN\" value=\"true\" />\r\n"
+			+ "            <req_variable name=\"MOD\" value=\"true\" />\r\n"
+			+ "            <req_variable name=\"NUM\" value=\"true\" />\r\n"
+			+ "            <req_variable name=\"PER\" value=\"true\" />\r\n"
 			+ "            <req_variable name=\"POS\" value=\"true\" />\r\n"
-			+ "            <req_variable name=\"PRC0\" value=\"false\" />\r\n"
-			+ "            <req_variable name=\"PRC1\" value=\"false\" />\r\n"
-			+ "            <req_variable name=\"PRC2\" value=\"false\" />\r\n"
-			+ "            <req_variable name=\"PRC3\" value=\"false\" />\r\n"
-			+ "            <req_variable name=\"STT\" value=\"false\" />\r\n"
-			+ "            <req_variable name=\"VOX\" value=\"false\" />\r\n"
-			+ "            <req_variable name=\"BW\" value=\"false\" />\r\n"
-			+ "            <req_variable name=\"SOURCE\" value=\"false\" />\r\n"
-			+ "			<req_variable name=\"NER\" value=\"false\" />\r\n"
-			+ "			<req_variable name=\"BPC\" value=\"false\" />\r\n" + "        </requested_output>\r\n"
+			+ "            <req_variable name=\"PRC0\" value=\"true\" />\r\n"
+			+ "            <req_variable name=\"PRC1\" value=\"true\" />\r\n"
+			+ "            <req_variable name=\"PRC2\" value=\"true\" />\r\n"
+			+ "            <req_variable name=\"PRC3\" value=\"true\" />\r\n"
+			+ "            <req_variable name=\"STT\" value=\"true\" />\r\n"
+			+ "            <req_variable name=\"VOX\" value=\"true\" />\r\n"
+			+ "            <req_variable name=\"BW\" value=\"true\" />\r\n"
+			+ "            <req_variable name=\"SOURCE\" value=\"true\" />\r\n"
+			+ "			<req_variable name=\"NER\" value=\"true\" />\r\n"
+			+ "			<req_variable name=\"BPC\" value=\"true\" />\r\n" + "        </requested_output>\r\n"
 			+ "	</madamira_configuration>\r\n" + "    <in_doc id=\"ExampleDocument\">";
 
 	private String madamiraBottom = "</in_doc>\r\n" + "</madamira_input>";
@@ -133,16 +123,16 @@ public class Processor {
 	 * madamiraInput, sends it off to be lemmatized and saves output to
 	 * madamiraOutput.
 	 */
-	public void lemmatizeText()
+	/*public void lemmatizeText()
 	{
-		if (body != null) 
+		if (rawText != null)
 		{
 			input = "/tmp/mada_input" + taskSalt + ".txt";
 			output = "/tmp/mada_output" + taskSalt + ".txt";
 			InputStream inputStream;
 			StringBuilder inputBuilder = new StringBuilder();
 			inputBuilder.append(madamiraTop + "\n\n");
-			String[] bodyStrings = body.split("\n");
+			String[] bodyStrings = rawText.split("\n");
 			int segCount = 0;
 			for (String s : bodyStrings) 
 			{
@@ -153,13 +143,14 @@ public class Processor {
 			inputBuilder.append("\n\n" + madamiraBottom);
 			inputStream = new ByteArrayInputStream(inputBuilder.toString().getBytes(StandardCharsets.UTF_8));
 			String outputString;
-			outputString = Madamira.lemmatize(8223, "http://mada_image:", inputStream);
+
+			outputString = Madamira.runClient(8223, "http://icall.byu.edu:", inputStream);
 			if (outputString == null) 
 			{
 				ServerLogger.get().error("failed to connect to mada_image, now trying to connect on localhost");
-				outputString = Madamira.lemmatize(8223, "http://localhost:", inputStream);
+				outputString = Madamira.runClient(8223, "http://localhost:", inputStream);
 			}
-			
+
 			//checks if localhost result is null as well, if so a blank document is created
 			if (outputString == null) 
 			{
@@ -174,10 +165,10 @@ public class Processor {
 		} 
 		else 
 		{
-			ServerLogger.get().error("Body is null, creating new empy document");
+			ServerLogger.get().error("Body is null, creating new empty document");
 			madaOutput = new Document(""); // creates a new empty document
 		}
-	}
+	}*/
 
 	/**
 	 * Uses JSOUP to to extract words, lemmas and pos tags from the Madamira output
@@ -186,21 +177,47 @@ public class Processor {
 	 */
 	public void createLemmaList() 
 	{
-		if (madaOutput == null) 
+		/*if (madaOutput == null)
 		{
 			ServerLogger.get().error("madaOutput is null");
 			return;
 		}
-		Elements words = madaOutput.getElementsByTag("word");
+		Elements words = madaOutput.getElementsByTag("word");*/
+
 		int wCount = 0; // word count (excluding punc, latin, and digit)
 		int tCount = 0; // token count
 		maxLemmaComplexity = 0;
 		boolean includeTokens;
-		for (Element word : words) 
+
+		for (Word word : words) {
+			includeTokens = false;	// default to false, then include this batch of tokens if the corresponding
+									// lemma will also be included
+
+			MorphFeatureSet morphFeatureSet = word.getAnalysis().get(0).getMorphFeatureSet();
+			String pos = morphFeatureSet.getPos();
+			String lemma = morphFeatureSet.getLemma();
+
+			if (!pos.equals("punc") && !pos.equals("latin") && !pos.equals("digit") && !pos.equals("noun_prop")) {
+				includeTokens = true;
+				wCount++;
+				addToPOSMap(pos);
+				addToLemmaFreqListMap(lemma + ":::" + pos);
+			}
+
+			if (includeTokens) {
+				List<Tok> tokens = word.getTokenized().get(0).getTok();
+				if (tokens.size() > maxLemmaComplexity)
+					maxLemmaComplexity = tokens.size();
+				tCount += tokens.size();
+			}
+		}
+
+		/*for (Element word : words)
 		{
 			includeTokens = false; // default to false, then include this batch of tokens if the corresponding
 									// lemma will also be included
 			String l = new String(); // lemma (value)
+
 			Elements analysis = word.getElementsByTag("analysis");
 			for (Element item : analysis) 
 			{
@@ -212,14 +229,14 @@ public class Processor {
 					l = morphAttributes.get("lemma");
 					// l = makeArabicOnly(morphAttributes.get("lemma"));
 					// l = normalize(l);
-					if (!pos.equals("punc") && !pos.equals("latin") && !pos.equals("digit")) 
-					{
+					if (!pos.equals("punc") && !pos.equals("latin") && !pos.equals("digit"))
+
+						// proper nouns appear to be messing up frequency data for easier texts
+						if (!pos.equals("noun_prop"))
+						{		{
 						includeTokens = true;
 						wCount++;
 						addToPOSMap(pos);
-						// proper nouns appear to be messing up frequency data for easier texts
-						if (!pos.equals("noun_prop")) 
-						{
 							addToLemmaFreqListMap(l + ":::" + pos);
 						}
 					}
@@ -240,7 +257,7 @@ public class Processor {
 					tCount += tokens.size();
 				}
 			}
-		}
+		}*/
 		wordCount = wCount;
 		tokenCount = tCount;
 		lexDiv = (double) lemmaFreqListMap.size() / (double) wordCount;
@@ -364,12 +381,12 @@ public class Processor {
 	public void countSentences() 
 	{
 		// Counts a sentence at new lines and after punctuation
-		for (int i = 1; i < body.length(); i++) 
+		for (int i = 1; i < rawText.length(); i++)
 		{
-			char c = body.charAt(i);
-			char p = body.charAt(i - 1);
+			char c = rawText.charAt(i);
+			char p = rawText.charAt(i - 1);
 			if (isEndPunct(c) && !isEndPunct(p) || c == '\n' && p != '\n' && !isEndPunct(p)
-					|| i == body.length() - 1 && p != '\n' && !isEndPunct(p))
+					|| i == rawText.length() - 1 && p != '\n' && !isEndPunct(p))
 				sentCount++;
 		}
 
@@ -449,7 +466,7 @@ public class Processor {
 	 * Sorts the entries in the lemmaFreqListMap into a sorted List to find the 95th
 	 * percentile, Then finds that lemma's frequency in the freqList
 	 */
-	public void calcFreq95() 
+	public void calcFreq95()
 	{
 		int index95 = (int) (frequencies.size() * .95);
 		if (index95 > 0) 
@@ -490,7 +507,7 @@ public class Processor {
 	public void calcAvgWordLen() 
 	{
 		int chars = 0;
-		String normalizedBody = normalize(body);
+		String normalizedBody = normalize(rawText);
 		for (int i = 0; i < normalizedBody.length(); i++) {
 			if (!Character.isWhitespace(normalizedBody.charAt(i)))
 				chars++;
@@ -575,7 +592,7 @@ public class Processor {
 		return wordCount;
 	}
 
-	public Document getMadaOutput() 
+	/*public Document getMadaOutput()
 	{
 		return madaOutput;
 	}
@@ -583,7 +600,7 @@ public class Processor {
 	public void setMadaOutput(Document madaOutput) 
 	{
 		this.madaOutput = madaOutput;
-	}
+	}*/
 
 	public int getTokenCount() 
 	{
@@ -749,5 +766,5 @@ public class Processor {
         input=input.replaceAll("\u0670", "");//ARABIC LETTER SUPERSCRIPT ALEF
 
         return input;
-	}	
+	}
 }

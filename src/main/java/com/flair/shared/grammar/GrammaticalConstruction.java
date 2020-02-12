@@ -33,7 +33,7 @@ public enum GrammaticalConstruction //TODO: separate lemma-based Constructions u
     CONJUNCTIONS_ADVANCED("advancedConjunctions", Language.ENGLISH),
     CONJUNCTIONS_SIMPLE("simpleConjunctions", Language.ENGLISH),
     
-    PREPOSITIONS("prepositions", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN),
+    PREPOSITIONS("prepositions", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN, Language.ARABIC),
     PREPOSITIONS_SIMPLE("simplePrepositions", Language.ENGLISH, Language.GERMAN),
     PREPOSITIONS_COMPLEX("complexPrepositions", Language.ENGLISH),
     PREPOSITIONS_ADVANCED("advancedPrepositions", Language.ENGLISH),
@@ -52,7 +52,7 @@ public enum GrammaticalConstruction //TODO: separate lemma-based Constructions u
     OBJECT_DIRECT("directObject", Language.ENGLISH),	 // "give me" //*** in the graph, verb with Acc or negated verb with Gen
     OBJECT_INDIRECT("indirectObject", Language.ENGLISH),	 // "give it toPrep me" //*** in the graph, verb with Dat
     
-    PRONOUNS("pronouns", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN),
+    PRONOUNS("pronouns", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN, Language.ARABIC),
     PRONOUNS_PERSONAL("pronounsPersonal", Language.GERMAN, Language.RUSSIAN),
     PRONOUNS_RELATIVE("pronounsRelative", Language.GERMAN, Language.RUSSIAN),
     PRONOUNS_POSSESSIVE("pronounsPossessive", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), // /PRP$ ("", my, your, their)
@@ -258,6 +258,9 @@ public enum GrammaticalConstruction //TODO: separate lemma-based Constructions u
 
     //RUSSIAN VERB FORMS
     VERB_REFLEXIVE("reflexiveVerb", Language.RUSSIAN),
+
+    //ARABIC
+    VERBAL_NOUN ("verbalNoun", Language.ARABIC),
 
     ;
     
