@@ -61,9 +61,9 @@ public class ConstructionSliderBundleRussian extends LanguageSpecificConstructio
     @UiField
     @LocalizedField
     GrammaticalConstructionPanelItem			pnlAdjectivesUI;
-    /*@UiField
+    @UiField
     @LocalizedField
-    GrammaticalConstructionPanelItem			pnlAdverbsUI;*/
+    GrammaticalConstructionPanelItem			pnlAdverbsUI;
     @UiField
     @LocalizedField
     GrammaticalConstructionPanelItem			pnlPronounsUI;
