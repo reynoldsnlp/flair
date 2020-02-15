@@ -73,7 +73,7 @@ public enum GrammaticalConstruction
     NOUNS_UNG("ungNounForms", Language.GERMAN),
     
     NEGATION_ALL("negAll", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), // nobody, nowhere, etc.
-    NEGATION_PARTIAL("partialNegation", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), // rarely, barely, seldom, hardly, scarcely // Russian: вряд, редко, едва //TODO: find more things similar to these; also add them to NEGATION_ALL
+    NEGATION_PARTIAL("partialNegation", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), // rarely, barely, seldom, hardly, scarcely // Russian: вряд, редко, едва //TODO: еле, еле-еле, не совсем, навряд, наврядли, едва-едва, нечасто, изредка, почти не, с трудом, чуть, чуть-чуть
     NEGATION_NO_NOT_NEVER("noNotNever", Language.ENGLISH, Language.GERMAN),
     NEGATION_NT("nt", Language.ENGLISH),
     NEGATION_NOT("not", Language.ENGLISH),
@@ -204,9 +204,8 @@ public enum GrammaticalConstruction
     ADJECTIVE_LONG_RUSSIAN("adjectiveLongRussian", Language.RUSSIAN), //Russian: long form adjectives (without "Pred" tag)
     ADJECTIVE_SHORT_RUSSIAN("adjectiveShortRussian", Language.RUSSIAN), //Russian: short form adjectives (with "Pred" tag)
     ADJECTIVE_COMPARATIVE_SHORT_RUSSIAN("comparativeAdjShortRussian", Language.RUSSIAN),// Russian: "Cmpar" and "Pred" tags
-    ADJECTIVE_SUPERLATIVE_SHORT_RUSSIAN("superlativeAdjShortRussian", Language.RUSSIAN),// "nicest" //TODO for Russian
     ADJECTIVE_COMPARATIVE_LONG_RUSSIAN("comparativeAdjLongRussian", Language.RUSSIAN),// Russian: 'более' then an adjective
-    ADJECTIVE_SUPERLATIVE_LONG_RUSSIAN("superlativeAdjLongRussian", Language.RUSSIAN),// Russian: 'самый' then an adjective
+    ADJECTIVE_SUPERLATIVE_LONG_RUSSIAN("superlativeAdjLongRussian", Language.RUSSIAN),// Russian: 'самый' then an adjective //TODO: or any lemma that ends in -[^жшщч]ейший or -[жшщч]айший, or any lemma among: высший, низший, лучший, худший, старший, младший
 
     //CASES
 
@@ -275,7 +274,9 @@ public enum GrammaticalConstruction
     ASPECT_BIASPECTUAL("biaspectual", Language.RUSSIAN),
 
     //TENSE AND ASPECT COMBINED
-    //TODO: future imperfective, future perfective, present, past perfective, past imperfective (?)
+    //********** to be added to the .tsv files
+    //TODO: future imperfective, future perfective, present, past perfective, past imperfective
+    //********** end of to be added to the .tsv files
 
     //CONJUGATION CLASSES
 
@@ -292,7 +293,6 @@ public enum GrammaticalConstruction
     OBJECT_INDIRECT_RUSSIAN("indirectObjectRussian", Language.RUSSIAN),
     PRONOUNS_DEFINITE_RUSSIAN("pronounsDefiniteRussian", Language.RUSSIAN),
     PRONOUNS_INDEFINITE_RUSSIAN("pronounsIndefiniteRussian", Language.RUSSIAN),
-    //********************
     DETERMINER_SOME_RUSSIAN("someDetRussian", Language.RUSSIAN),
     DETERMINER_ANY_RUSSIAN("anyDetRussian", Language.RUSSIAN),
     DETERMINER_MUCH_RUSSIAN("muchDetRussian", Language.RUSSIAN),
