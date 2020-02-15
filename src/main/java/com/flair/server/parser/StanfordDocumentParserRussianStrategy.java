@@ -640,7 +640,6 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
             //look at the surface form
             String surfaceForm = word.getSurfaceForm();
 	        if(isMatch(patternVrjad, surfaceForm) || isMatch(patternRedko, surfaceForm) || isMatch(patternJedva, surfaceForm)){
-	        	//TODO: confirm that Redko and Jedva don't change form when acting as NEGATION_PARTIAL markers
 		        addSingleConstructionInstance(constructionInstances, GrammaticalConstruction.NEGATION_PARTIAL, word);
 		        addSingleConstructionInstance(constructionInstances, GrammaticalConstruction.NEGATION_ALL, word);
 	        }
