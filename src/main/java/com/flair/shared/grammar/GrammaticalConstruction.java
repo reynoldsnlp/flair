@@ -77,10 +77,12 @@ public enum GrammaticalConstruction
     NEGATION_NO_NOT_NEVER("noNotNever", Language.ENGLISH, Language.GERMAN),
     NEGATION_NT("nt", Language.ENGLISH),
     NEGATION_NOT("not", Language.ENGLISH),
-    //TODO: pick up here to look at localizations
+
     QUESTIONS_DIRECT("directQuestions", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), // Russian: ends in a '?'
     QUESTIONS_INDIRECT("indirectQuestions", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), // Russian: ???????
+    //TODO: make QUESTIONS_YESNO its own Russian version so we can have the localization not mention auxiliary verbs
     QUESTIONS_YESNO("yesNoQuestions", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), // direct: "Are you ok?" // Russian: (has li or no interrogative) and does have a '?'
+    //TODO: make QUESTIONS_WH its own Russian version so we can have the localization not mention "wh"
     QUESTIONS_WH("whQuestions", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), // direct: "What do you do?" // Russian: has "Interr" which is not 'li', and has a '?'
     QUESTIONS_TO_BE("toBeQuestions", Language.ENGLISH), // direct: "What's this?" //TODO: Russian. What. Graph regex?
     QUESTIONS_TO_DO("toDoQuestions", Language.ENGLISH), // direct: "What do you do?"
@@ -98,9 +100,9 @@ public enum GrammaticalConstruction
     QUESTIONS_TAG("tagQuestions", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), // ", isn't it?" //*** ", (nje) tak (li)?" //TODO: come back to this
     
     // conditionals - check first, before tenses
-    CONDITIONALS("conditionals", Language.ENGLISH, Language.RUSSIAN),
+    CONDITIONALS("conditionals", Language.ENGLISH, Language.RUSSIAN), //TODO: make CONDITIONALS its own Russian version for localization
     CONDITIONALS_REAL("condReal", Language.ENGLISH),
-    CONDITIONALS_UNREAL("condUnreal", Language.ENGLISH, Language.RUSSIAN),
+    CONDITIONALS_UNREAL("condUnreal", Language.ENGLISH, Language.RUSSIAN), //TODO: verify that this is a thing (Rob)
     
     // tenses - only if not conditional
     TENSE_PRESENT_SIMPLE("presentSimple", Language.ENGLISH),
@@ -129,9 +131,9 @@ public enum GrammaticalConstruction
     VERBTYP_MODAL("modalVerbs", Language.GERMAN),
     
     VERBFORM_TO_INFINITIVE("toInfinitiveForms", Language.ENGLISH, Language.GERMAN),
-    VERBFORM_INFINITIVE("infinitiveForms", Language.GERMAN, Language.RUSSIAN),
-    VERBFORM_PARTICIPLE("participleForms", Language.GERMAN, Language.RUSSIAN),
-    
+    VERBFORM_INFINITIVE("infinitiveForms", Language.GERMAN, Language.RUSSIAN), //TODO: make this its own for localization
+    VERBFORM_PARTICIPLE("participleForms", Language.GERMAN, Language.RUSSIAN), //TODO: make this its own for localization
+
     VERB_CLUSTER("verbCluster", Language.GERMAN),
     VERB_BRACKETS("verbBrackets", Language.GERMAN),
     
@@ -148,11 +150,11 @@ public enum GrammaticalConstruction
     MODALS_ABLE("able", Language.ENGLISH),// Klasse 10 ("", annotated as JJ)
     MODALS_HAVE_TO("haveTo", Language.ENGLISH),// ??
 
-    VERBS_IRREGULAR("irregularVerbs", Language.ENGLISH, Language.RUSSIAN),// past tense or past participle not ending with -ed
-    VERBS_REGULAR("regularVerbs", Language.ENGLISH, Language.RUSSIAN),// past tense or past participle ending with -ed //TODO: add this as a parent of various conjugation classes(?)
+    VERBS_IRREGULAR("irregularVerbs", Language.ENGLISH, Language.RUSSIAN),// past tense or past participle not ending with -ed //TODO: make this its own for localization
+    VERBS_REGULAR("regularVerbs", Language.ENGLISH, Language.RUSSIAN),// past tense or past participle ending with -ed //TODO: add this as a parent of various conjugation classes(?) //TODO: make this its own for localization
     VERBS_PHRASAL("phrasalVerbs", Language.ENGLISH),// phrasal verbs ("", & verbs with prepositions: look atPrep)
 
-    IMPERATIVES("imperatives", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN),// start with a Verb, often end with "!": "Do it yourself!"
+    IMPERATIVES("imperatives", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN),// start with a Verb, often end with "!": "Do it yourself!" //TODO: make this its own for localization
     PASSIVE_VOICE_WERDEN("passiveVoiceWerden", Language.GERMAN),
     PASSIVE_VOICE_SEIN("passiveVoiceSein", Language.GERMAN),
 
