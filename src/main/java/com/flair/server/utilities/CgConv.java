@@ -9,15 +9,15 @@ import java.nio.charset.StandardCharsets;
  */
 public class CgConv {
     //constants
-    private static final String CG_CONV_EXE = "/cg3/bin/cg-conv.exe";
-    private static final URL CG_CONV = CgConv.class.getClassLoader().getResource(CG_CONV_EXE);
+    private static final String CG_CONV_EXECUTABLE = "cg-conv";
+    private static final URL CG_CONV = CgConv.class.getClassLoader().getResource(CG_CONV_EXECUTABLE);
     private static final int TIMEOUT_MS = 10*1000;
 
     //functions
 
     public static String hfstToCg(String hfstString) throws IOException {
         if(CG_CONV == null) {
-            throw new IOException("cg-conv.exe not found.");
+            throw new IOException("cg-conv not found.");
         }
 
         /*System.out.println("hfstString:");
