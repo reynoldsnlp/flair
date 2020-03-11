@@ -80,14 +80,13 @@ public enum GrammaticalConstruction
 
     QUESTIONS_DIRECT("directQuestions", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), // Russian: ends in a '?'
     QUESTIONS_INDIRECT("indirectQuestions", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), // Russian: ???????
-    //TODO: make QUESTIONS_YESNO its own Russian version so we can have the localization not mention auxiliary verbs
-    QUESTIONS_YESNO("yesNoQuestions", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), // direct: "Are you ok?" // Russian: (has li or no interrogative) and does have a '?'
-    //TODO: make QUESTIONS_WH its own Russian version so we can have the localization not mention "wh"
-    QUESTIONS_WH("whQuestions", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), // direct: "What do you do?" // Russian: has "Interr" which is not 'li', and has a '?'
+    QUESTIONS_YESNO("yesNoQuestions", Language.ENGLISH, Language.GERMAN), // direct: "Are you ok?"
+    QUESTIONS_WH("whQuestions", Language.ENGLISH, Language.GERMAN), // direct: "What do you do?"
     QUESTIONS_TO_BE("toBeQuestions", Language.ENGLISH), // direct: "What's this?" //TODO: Russian. What. Graph regex?
     QUESTIONS_TO_DO("toDoQuestions", Language.ENGLISH), // direct: "What do you do?"
     QUESTIONS_TO_HAVE("toHaveQuestions", Language.ENGLISH), // direct: "What have you done?"
     QUESTIONS_MODAL("modalQuestions", Language.ENGLISH), // direct: "Should I go?", "What should I do?"
+    //TODO: split the following russion question word constructions into their own, for localization
     QUESTIONS_WHAT("what", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN),
     QUESTIONS_WHO("who", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN),
     QUESTIONS_HOW("how", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN),
@@ -100,7 +99,7 @@ public enum GrammaticalConstruction
     QUESTIONS_TAG("tagQuestions", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), // ", isn't it?" //*** ", (nje) tak (li)?" //TODO: come back to this
     
     // conditionals - check first, before tenses
-    CONDITIONALS("conditionals", Language.ENGLISH, Language.RUSSIAN), //TODO: make CONDITIONALS its own Russian version for localization
+    CONDITIONALS("conditionals", Language.ENGLISH),
     CONDITIONALS_REAL("condReal", Language.ENGLISH),
     CONDITIONALS_UNREAL("condUnreal", Language.ENGLISH, Language.RUSSIAN), //TODO: verify that this is a thing (Rob)
     
@@ -131,8 +130,8 @@ public enum GrammaticalConstruction
     VERBTYP_MODAL("modalVerbs", Language.GERMAN),
     
     VERBFORM_TO_INFINITIVE("toInfinitiveForms", Language.ENGLISH, Language.GERMAN),
-    VERBFORM_INFINITIVE("infinitiveForms", Language.GERMAN, Language.RUSSIAN), //TODO: make this its own for localization
-    VERBFORM_PARTICIPLE("participleForms", Language.GERMAN, Language.RUSSIAN), //TODO: make this its own for localization
+    VERBFORM_INFINITIVE("infinitiveForms", Language.GERMAN),
+    VERBFORM_PARTICIPLE("participleForms", Language.GERMAN),
 
     VERB_CLUSTER("verbCluster", Language.GERMAN),
     VERB_BRACKETS("verbBrackets", Language.GERMAN),
@@ -150,11 +149,11 @@ public enum GrammaticalConstruction
     MODALS_ABLE("able", Language.ENGLISH),// Klasse 10 ("", annotated as JJ)
     MODALS_HAVE_TO("haveTo", Language.ENGLISH),// ??
 
-    VERBS_IRREGULAR("irregularVerbs", Language.ENGLISH, Language.RUSSIAN),// past tense or past participle not ending with -ed //TODO: make this its own for localization
-    VERBS_REGULAR("regularVerbs", Language.ENGLISH, Language.RUSSIAN),// past tense or past participle ending with -ed //TODO: add this as a parent of various conjugation classes(?) //TODO: make this its own for localization
+    VERBS_IRREGULAR("irregularVerbs", Language.ENGLISH),// past tense or past participle not ending with -ed
+    VERBS_REGULAR("regularVerbs", Language.ENGLISH),// past tense or past participle ending with -ed
     VERBS_PHRASAL("phrasalVerbs", Language.ENGLISH),// phrasal verbs ("", & verbs with prepositions: look atPrep)
 
-    IMPERATIVES("imperatives", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN),// start with a Verb, often end with "!": "Do it yourself!" //TODO: make this its own for localization
+    IMPERATIVES("imperatives", Language.ENGLISH, Language.GERMAN),// start with a Verb, often end with "!": "Do it yourself!"
     PASSIVE_VOICE_WERDEN("passiveVoiceWerden", Language.GERMAN),
     PASSIVE_VOICE_SEIN("passiveVoiceSein", Language.GERMAN),
 
@@ -254,13 +253,20 @@ public enum GrammaticalConstruction
     PARTICIPLE_PAST_PASSIVE("pastPassiveParticiple", Language.RUSSIAN),
 
     //RUSSIAN VERB FORMS
+    VERBS_IRREGULAR_RUSSIAN("irregularVerbsRussian", Language.RUSSIAN),
+    VERBS_REGULAR_RUSSIAN("regularVerbsRussian", Language.RUSSIAN), //TODO: delete this
     VERB_REFLEXIVE("reflexiveVerb", Language.RUSSIAN),
     VERBAL_ADVERB("verbalAdverb", Language.RUSSIAN),
     VERBAL_ADVERB_PRESENT("verbalAdverbPresent", Language.RUSSIAN), //imperfective, "V", and "Adv" tags
     VERBAL_ADVERB_PAST("verbalAdverbPast", Language.RUSSIAN), //perfective, "V", and "Adv" tags
     //TODO make sure localization describing verbal adverbs also uses the word 'gerund'
+    VERBFORM_INFINITIVE_RUSSIAN("infinitiveFormsRussian", Language.RUSSIAN),
+    VERBFORM_PARTICIPLE_RUSSIAN("participleFormsRussian", Language.RUSSIAN),
+    IMPERATIVES_RUSSIAN("imperativesRussian", Language.RUSSIAN),
 
     //RUSSIAN QUESTION WORDS
+    QUESTIONS_YESNO_RUSSIAN("yesNoQuestionsRussian", Language.RUSSIAN), // direct: "Are you ok?" // Russian: (has li or no interrogative) and does have a '?'
+    QUESTIONS_WH_RUSSIAN("whQuestionsRussian", Language.RUSSIAN), // direct: "What do you do?" // Russian: has "Interr" which is not 'li', and has a '?'
     QUESTIONS_WHITHER("whither", Language.RUSSIAN),
     QUESTIONS_WHAT_KIND("whatKind", Language.RUSSIAN),
 
@@ -276,9 +282,13 @@ public enum GrammaticalConstruction
     ASPECT_BIASPECTUAL("biaspectual", Language.RUSSIAN),
 
     //TENSE AND ASPECT COMBINED
-    //********** to be added to the .tsv files
-    //TODO: future imperfective, future perfective, present, past perfective, past imperfective
-    //********** end of to be added to the .tsv files
+    FUTURE_IMPERFECTIVE("futureImperfective", Language.RUSSIAN),
+    FUTURE_PERFECTIVE("futurePerfective", Language.RUSSIAN),
+    PAST_PERFECTIVE("pastPerfective", Language.RUSSIAN),
+    PAST_IMPERFECTIVE("pastImperfective", Language.RUSSIAN),
+    //TODO: add these 4 to the front end, along with present tense
+    //TODO: make the parser strategy count these 4
+    //TODO: remove the individual constructions that do past, future, aspect, etc
 
     //CONJUGATION CLASSES
 
@@ -299,6 +309,7 @@ public enum GrammaticalConstruction
     DETERMINER_ANY_RUSSIAN("anyDetRussian", Language.RUSSIAN),
     DETERMINER_MUCH_RUSSIAN("muchDetRussian", Language.RUSSIAN),
     NEGATION_NO_NOT_NEVER_RUSSIAN("noNotNeverRussian", Language.RUSSIAN), // нет, не, ни, никогда, никак, никуда, нигде, ниоткуда, нипочём, ничуть, нисколько, нисколечко
+    CONDITIONALS_RUSSIAN("conditionalsRussian", Language.RUSSIAN),
 
     ;
     
