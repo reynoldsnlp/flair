@@ -1,24 +1,19 @@
 package com.flair.server.utilities;
 
 import java.io.*;
-import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
 public class VislCg3 {
     //constants
-    private static final String VISLCG3_RELATIVE = "vislcg3";
-    private static final URL VISLCG3 = VislCg3.class.getClassLoader().getResource(VISLCG3_RELATIVE);
+    private static final String VISLCG3 = "vislcg3";
     private static final String DISAMBIGUATOR_RELATIVE = "/disambiguator-ru.cg3";
     private static final File DISAMBIGUATOR_FILE = new File(VislCg3.class.getClassLoader().getResource(DISAMBIGUATOR_RELATIVE).getPath());
 
     //functions
 
     public static String runVislCg3(String cgReadings) throws IOException {
-        if(VISLCG3 == null) {
-            throw new IOException("vislcg3 not found.");
-        }
         //set up arguments
-        ProcessBuilder pb = new ProcessBuilder(VISLCG3.getPath(), "-g", DISAMBIGUATOR_FILE.getAbsolutePath());
+        ProcessBuilder pb = new ProcessBuilder(VISLCG3, "-g", DISAMBIGUATOR_FILE.getAbsolutePath());
         Process process;
         try {
             //start the executable

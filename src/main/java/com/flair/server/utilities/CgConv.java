@@ -1,7 +1,6 @@
 package com.flair.server.utilities;
 
 import java.io.*;
-import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
 /**
@@ -9,22 +8,14 @@ import java.nio.charset.StandardCharsets;
  */
 public class CgConv {
     //constants
-    private static final String CG_CONV_EXECUTABLE = "cg-conv";
-    private static final URL CG_CONV = CgConv.class.getClassLoader().getResource(CG_CONV_EXECUTABLE);
+    private static final String CG_CONV = "cg-conv";
     private static final int TIMEOUT_MS = 10*1000;
 
     //functions
 
     public static String hfstToCg(String hfstString) throws IOException {
-        if(CG_CONV == null) {
-            throw new IOException("cg-conv not found.");
-        }
-
-        /*System.out.println("hfstString:");
-        System.out.println(hfstString);*/
-
         //set up arguments
-        ProcessBuilder pb = new ProcessBuilder(CG_CONV.getPath(), "-f");
+        ProcessBuilder pb = new ProcessBuilder(CG_CONV, "-f");
         Process process;
         try {
             //start the executable
