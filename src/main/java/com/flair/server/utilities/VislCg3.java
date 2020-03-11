@@ -1,25 +1,19 @@
 package com.flair.server.utilities;
 
 import java.io.*;
-import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
 public class VislCg3 {
     //constants
-    private static final String VISLCG3_EXE = "/cg3/bin/vislcg3.exe";
-    private static final URL VISLCG3 = VislCg3.class.getClassLoader().getResource(VISLCG3_EXE);
-    //TODO: make this work WITHOUT an absolute path!
-    //private static final String DISAMBIGUATOR_CG3 = "disambiguator-ru.cg3";
-    private static final String DISAMBIGUATOR_CG3 = "C:\\Users\\Ryan\\Documents\\NLP\\flair\\src\\main\\resources\\cg3\\bin\\disambiguator-ru.cg3";
+    private static final String VISLCG3 = "vislcg3";
+    private static final String DISAMBIGUATOR_RELATIVE = "/disambiguator-ru.cg3";
+    private static final File DISAMBIGUATOR_FILE = new File(VislCg3.class.getClassLoader().getResource(DISAMBIGUATOR_RELATIVE).getPath());
 
     //functions
 
     public static String runVislCg3(String cgReadings) throws IOException {
-        if(VISLCG3 == null) {
-            throw new IOException("vislcg3.exe not found.");
-        }
         //set up arguments
-        ProcessBuilder pb = new ProcessBuilder(VISLCG3.getPath(), "-g", DISAMBIGUATOR_CG3);
+        ProcessBuilder pb = new ProcessBuilder(VISLCG3, "-g", DISAMBIGUATOR_FILE.getAbsolutePath());
         Process process;
         try {
             //start the executable

@@ -432,7 +432,7 @@ _gram-path_	VERBTYP_AUXILIARIES	Verbs > Verb forms > Auxiliary verbs
 _gram-helpText_	VERBTYP_AUXILIARIES	Full and contracted forms of "be" and "have". E.g., am, 's, have, 're
 _gram-name_	VERBTYP_MAIN	VERBTYP_MAIN
 _gram-path_	VERBTYP_MAIN	VERBTYP_MAIN
-_gram-helpText_	VERBTYP_MAIN	<INSERT_HELP_TEXT>
+_gram-helpText_	VERBTYP_MAIN	<INSERT_HELP_TEXT>/
 _gram-name_	VERBTYP_MODAL	VERBTYP_MODAL
 _gram-path_	VERBTYP_MODAL	VERBTYP_MODAL
 _gram-helpText_	VERBTYP_MODAL	<INSERT_HELP_TEXT>
