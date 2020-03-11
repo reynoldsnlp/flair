@@ -319,7 +319,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
 
         //бы
         List<CoreLabel> conditionals = findMatches(patternBy, words);
-        addConstructionOccurrences(GrammaticalConstruction.CONDITIONALS, conditionals);
+        addConstructionOccurrences(GrammaticalConstruction.CONDITIONALS_RUSSIAN, conditionals);
 
         inspectVerbs(graph);
         inspectPrepositions(graph);
@@ -495,7 +495,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                     constructionsToCount.put(GrammaticalConstruction.VERBS_IRREGULAR_NONPAST, true);
                 }
                 if(isIrregularPast || isIrregularNonpast){
-                    constructionsToCount.put(GrammaticalConstruction.VERBS_IRREGULAR, true);
+                    constructionsToCount.put(GrammaticalConstruction.VERBS_IRREGULAR_RUSSIAN, true);
                 }
 
                 //recognize tag combinations
@@ -570,8 +570,8 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                     if(isInstrumental) constructionsToCount.put(GrammaticalConstruction.DETERMINER_INSTRUMENTAL, true);
                 }
                 if(isVerb){
-                    if(isInfinitive) constructionsToCount.put(GrammaticalConstruction.VERBFORM_INFINITIVE, true);
-                    if(isImperative) constructionsToCount.put(GrammaticalConstruction.IMPERATIVES, true);
+                    if(isInfinitive) constructionsToCount.put(GrammaticalConstruction.VERBFORM_INFINITIVE_RUSSIAN, true);
+                    if(isImperative) constructionsToCount.put(GrammaticalConstruction.IMPERATIVES_RUSSIAN, true);
                     //tenses
                     if(isPast) constructionsToCount.put(GrammaticalConstruction.TENSE_PAST, true);
                     if(isPresent) {
@@ -598,20 +598,20 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                     }
                     if(isPresentActive) {
                         constructionsToCount.put(GrammaticalConstruction.PARTICIPLE_PRESENT_ACTIVE, true);
-                        constructionsToCount.put(GrammaticalConstruction.VERBFORM_PARTICIPLE, true);
+                        constructionsToCount.put(GrammaticalConstruction.VERBFORM_PARTICIPLE_RUSSIAN, true);
                     }
                     if(isPresentPassive) {
                         constructionsToCount.put(GrammaticalConstruction.PARTICIPLE_PRESENT_PASSIVE, true);
-                        constructionsToCount.put(GrammaticalConstruction.VERBFORM_PARTICIPLE, true);
+                        constructionsToCount.put(GrammaticalConstruction.VERBFORM_PARTICIPLE_RUSSIAN, true);
                         constructionsToCount.put(GrammaticalConstruction.PASSIVE_VOICE, true);
                     }
                     if(isPastActive) {
                         constructionsToCount.put(GrammaticalConstruction.PARTICIPLE_PAST_ACTIVE, true);
-                        constructionsToCount.put(GrammaticalConstruction.VERBFORM_PARTICIPLE, true);
+                        constructionsToCount.put(GrammaticalConstruction.VERBFORM_PARTICIPLE_RUSSIAN, true);
                     }
                     if(isPastPassive) {
                         constructionsToCount.put(GrammaticalConstruction.PARTICIPLE_PAST_ACTIVE, true);
-                        constructionsToCount.put(GrammaticalConstruction.VERBFORM_PARTICIPLE, true);
+                        constructionsToCount.put(GrammaticalConstruction.VERBFORM_PARTICIPLE_RUSSIAN, true);
                         constructionsToCount.put(GrammaticalConstruction.PASSIVE_VOICE, true);
                     }
                     //verbal adverbs
@@ -667,10 +667,10 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
         if(hasQuestionMark){
             addConstructionByIndices(GrammaticalConstruction.QUESTIONS_DIRECT, sentenceStart, sentenceEnd);
             if(hasLi || !hasInterrogative){
-                addConstructionByIndices(GrammaticalConstruction.QUESTIONS_YESNO, sentenceStart, sentenceEnd);
+                addConstructionByIndices(GrammaticalConstruction.QUESTIONS_YESNO_RUSSIAN, sentenceStart, sentenceEnd);
             }
             if(hasInterrogativeBesidesLi){
-                addConstructionByIndices(GrammaticalConstruction.QUESTIONS_WH, sentenceStart, sentenceEnd);
+                addConstructionByIndices(GrammaticalConstruction.QUESTIONS_WH_RUSSIAN, sentenceStart, sentenceEnd);
             }
 
 	        //question words
