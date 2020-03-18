@@ -104,6 +104,7 @@
 						<flair:GrammaticalConstructionWeightSlider gram="NEGATION_NO_NOT_NEVER_RUSSIAN" parentLanguage="RUSSIAN"/>
 						<flair:GrammaticalConstructionWeightSlider gram="NEGATION_NOT" parentLanguage="RUSSIAN"/>
 						<flair:GrammaticalConstructionWeightSlider gram="NEGATION_PARTIAL" parentLanguage="RUSSIAN"/>
+						<flair:GrammaticalConstructionWeightSlider gram="NEGATION_PRONOUNS" parentLanguage="RUSSIAN"/>
 					</flair:GrammaticalConstructionPanelItem>
 					
 					<!-- Quantifiers -->
@@ -157,7 +158,6 @@
 						<flair:GrammaticalConstructionWeightSlider gram="PRONOUNS_INTERROGATIVE" parentLanguage="RUSSIAN"/>
 
 						<flair:GrammaticalConstructionWeightSlider gram="PRONOUNS_NEGATIVE" parentLanguage="RUSSIAN"/>
-						<flair:GrammaticalConstructionWeightSlider gram="NEGATION_PRONOUNS" parentLanguage="RUSSIAN"/>
 						<flair:GrammaticalConstructionWeightSlider gram="PRONOUNS_DEFINITE_RUSSIAN" parentLanguage="RUSSIAN"/>
 						<flair:GrammaticalConstructionWeightSlider gram="PRONOUNS_INDEFINITE_RUSSIAN" parentLanguage="RUSSIAN"/>
 
