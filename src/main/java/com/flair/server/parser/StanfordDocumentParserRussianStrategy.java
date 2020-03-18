@@ -701,7 +701,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
 			        isWhither |= isMatch(patternKuda, lemma);
 			        isWhatKind |= isMatch(patternKakov, lemma);
 		        }
-		        //TODO: if these booleans are 100% mutually exclusive, this next block can be optimized
+		        //TODO: since these booleans are 100% mutually exclusive, this next block can be optimized
 		        if(isWhat) addConstructionByIndices(GrammaticalConstruction.QUESTIONS_WHAT, plainWord.beginPosition(), plainWord.endPosition());
 		        if(isWho) addConstructionByIndices(GrammaticalConstruction.QUESTIONS_WHO, plainWord.beginPosition(), plainWord.endPosition());
 		        if(isHow) addConstructionByIndices(GrammaticalConstruction.QUESTIONS_HOW, plainWord.beginPosition(), plainWord.endPosition());

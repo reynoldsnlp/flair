@@ -448,7 +448,7 @@ _gram-helpText_	POSTPOSITION	<INSERT_HELP_TEXT***>
 _gram-name_	ADJECTIVE_LONG_RUSSIAN	<adjectiveLongRussian>
 _gram-path_	ADJECTIVE_LONG_RUSSIAN	<INSERT_PATH>
 _gram-helpText_	ADJECTIVE_LONG_RUSSIAN	<INSERT_HELP_TEXT>
-_gram-name_	ADJECTIVE_SHORT_RUSSIAN	<adjectiveLongRussian>
+_gram-name_	ADJECTIVE_SHORT_RUSSIAN	<adjectiveShortRussian>
 _gram-path_	ADJECTIVE_SHORT_RUSSIAN	<INSERT_PATH>
 _gram-helpText_	ADJECTIVE_SHORT_RUSSIAN	<INSERT_HELP_TEXT>
 _gram-name_	ADJECTIVE_COMPARATIVE_SHORT_RUSSIAN	<comparativeAdjShortRussian>

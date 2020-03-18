@@ -82,7 +82,7 @@ public enum GrammaticalConstruction
     QUESTIONS_INDIRECT("indirectQuestions", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), // Russian: ???????
     QUESTIONS_YESNO("yesNoQuestions", Language.ENGLISH, Language.GERMAN), // direct: "Are you ok?"
     QUESTIONS_WH("whQuestions", Language.ENGLISH, Language.GERMAN), // direct: "What do you do?"
-    QUESTIONS_TO_BE("toBeQuestions", Language.ENGLISH), // direct: "What's this?" //TODO: Russian. What. Graph regex?
+    QUESTIONS_TO_BE("toBeQuestions", Language.ENGLISH), // direct: "What's this?"
     QUESTIONS_TO_DO("toDoQuestions", Language.ENGLISH), // direct: "What do you do?"
     QUESTIONS_TO_HAVE("toHaveQuestions", Language.ENGLISH), // direct: "What have you done?"
     QUESTIONS_MODAL("modalQuestions", Language.ENGLISH), // direct: "Should I go?", "What should I do?"
@@ -308,7 +308,7 @@ public enum GrammaticalConstruction
     DETERMINER_SOME_RUSSIAN("someDetRussian", Language.RUSSIAN),
     DETERMINER_ANY_RUSSIAN("anyDetRussian", Language.RUSSIAN),
     DETERMINER_MUCH_RUSSIAN("muchDetRussian", Language.RUSSIAN),
-    NEGATION_NO_NOT_NEVER_RUSSIAN("noNotNeverRussian", Language.RUSSIAN), // нет, не, ни, никогда, никак, никуда, нигде, ниоткуда, нипочём, ничуть, нисколько, нисколечко
+    NEGATION_NO_NOT_NEVER_RUSSIAN("noNotNeverRussian", Language.RUSSIAN), // нет, не,DETERMINER_PREPOSITIONAL ни, никогда, никак, никуда, нигде, ниоткуда, нипочём, ничуть, нисколько, нисколечко
     CONDITIONALS_RUSSIAN("conditionalsRussian", Language.RUSSIAN),
 
     ;
