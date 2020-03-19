@@ -19,7 +19,6 @@ import javax.servlet.http.Part;
 
 import com.flair.server.interop.AuthTokenGenerator;
 import com.flair.server.raft.Raft;
-import com.flair.server.raft.Weka;
 import com.flair.server.utilities.ServerLogger;
 import com.flair.shared.interop.AuthToken;
 import com.flair.shared.interop.InvalidAuthTokenException;

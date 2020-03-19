@@ -1,8 +1,7 @@
 package com.integrationtests.raft;
 
-import com.flair.server.raft.Weka;
+import com.flair.server.utilities.Weka;
 
-import org.junit.Before;
 import org.junit.experimental.categories.Category;
 
 import type.IntegrationTest;

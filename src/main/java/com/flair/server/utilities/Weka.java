@@ -1,4 +1,4 @@
-package com.flair.server.raft;
+package com.flair.server.utilities;
 
 import java.io.FileNotFoundException;
 import java.io.FileInputStream;

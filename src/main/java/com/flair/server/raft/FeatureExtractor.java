@@ -175,8 +175,8 @@ public class FeatureExtractor {
 	 * and then assembles TreeMap lemmas and TreeMap lemmaFreqListMap. Calculates
 	 * wordCount and lexDiv.
 	 */
-	public void createLemmaList() 
-	{
+		public void createLemmaList()
+		{
 		/*if (madaOutput == null)
 		{
 			ServerLogger.get().error("madaOutput is null");
@@ -184,33 +184,33 @@ public class FeatureExtractor {
 		}
 		Elements words = madaOutput.getElementsByTag("word");*/
 
-		int wCount = 0; // word count (excluding punc, latin, and digit)
-		int tCount = 0; // token count
-		maxLemmaComplexity = 0;
-		boolean includeTokens;
+			int wCount = 0; // word count (excluding punc, latin, and digit)
+			int tCount = 0; // token count
+			maxLemmaComplexity = 0;
+			boolean includeTokens;
 
-		for (Word word : words) {
-			includeTokens = false;	// default to false, then include this batch of tokens if the corresponding
-									// lemma will also be included
+			for (Word word : words) {
+				includeTokens = false;	// default to false, then include this batch of tokens if the corresponding
+				// lemma will also be included
 
-			MorphFeatureSet morphFeatureSet = word.getAnalysis().get(0).getMorphFeatureSet();
-			String pos = morphFeatureSet.getPos();
-			String lemma = morphFeatureSet.getLemma();
+				MorphFeatureSet morphFeatureSet = word.getAnalysis().get(0).getMorphFeatureSet();
+				String pos = morphFeatureSet.getPos();
+				String lemma = morphFeatureSet.getLemma();
 
-			if (!pos.equals("punc") && !pos.equals("latin") && !pos.equals("digit") && !pos.equals("noun_prop")) {
-				includeTokens = true;
-				wCount++;
-				addToPOSMap(pos);
-				addToLemmaFreqListMap(lemma + ":::" + pos);
+				if (!pos.equals("punc") && !pos.equals("latin") && !pos.equals("digit") && !pos.equals("noun_prop")) {
+					includeTokens = true;
+					wCount++;
+					addToPOSMap(pos);
+					addToLemmaFreqListMap(lemma + ":::" + pos);
+				}
+
+				if (includeTokens) {
+					List<Tok> tokens = word.getTokenized().get(0).getTok();
+					if (tokens.size() > maxLemmaComplexity)
+						maxLemmaComplexity = tokens.size();
+					tCount += tokens.size();
+				}
 			}
-
-			if (includeTokens) {
-				List<Tok> tokens = word.getTokenized().get(0).getTok();
-				if (tokens.size() > maxLemmaComplexity)
-					maxLemmaComplexity = tokens.size();
-				tCount += tokens.size();
-			}
-		}
 
 		/*for (Element word : words)
 		{
@@ -522,7 +522,7 @@ public class FeatureExtractor {
 	public String getResult()
 	{
 		StringBuilder sb = new StringBuilder();
-		if (wordCount > 0 && frequencies.size() > 0) 
+		if (wordCount > 0 && frequencies.size() > 0)
 		{
 			// sb.append((double) wordCount);
 			// sb.append(",");

@@ -6,7 +6,7 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-import com.flair.server.raft.Weka;
+import com.flair.server.utilities.Weka;
 import com.flair.server.utilities.ServerLogger;
 
 import org.junit.Before;

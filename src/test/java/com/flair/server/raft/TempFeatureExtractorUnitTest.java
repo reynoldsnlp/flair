@@ -18,8 +18,8 @@ import type.UnitTest;
 
 @Category(UnitTest.class)
 
-public class FeatureExtractorUnitTest
-{
+public class TempFeatureExtractorUnitTest
+{/*
     private OldFeatureExtractor nullFeatureExtractor;
     private OldFeatureExtractor emptyFeatureExtractor;
     private OldFeatureExtractor shortFeatureExtractor;
@@ -399,5 +399,5 @@ public class FeatureExtractorUnitTest
         System.out.println(result);
         Assert.assertEquals("1.0,1.0,1.0,0.0,0.0,1,1.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,", result);
     }
-
+*/
 }

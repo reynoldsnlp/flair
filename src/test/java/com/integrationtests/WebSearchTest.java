@@ -9,7 +9,7 @@ import com.flair.server.parser.AbstractDocument;
 import com.flair.server.parser.DocumentCollection;
 import com.flair.server.parser.KeywordSearcherInput;
 import com.flair.server.raft.Raft;
-import com.flair.server.raft.Weka;
+import com.flair.server.utilities.Weka;
 import com.flair.server.taskmanager.MasterJobPipeline;
 import com.flair.server.taskmanager.SearchCrawlParseOperation;
 import com.flair.shared.grammar.Language;

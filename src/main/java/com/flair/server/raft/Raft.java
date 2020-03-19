@@ -3,7 +3,7 @@ package com.flair.server.raft;
 import java.io.File;
 
 import com.flair.server.utilities.ServerLogger;
-import com.flair.server.parser.MadamiraAPI;
+import com.flair.server.utilities.Weka;
 import edu.columbia.ccls.madamira.configuration.OutDoc;
 
 import java.io.UnsupportedEncodingException;
@@ -23,12 +23,11 @@ public class Raft
 	FeatureExtractor featureExtractor = null;
 	Boolean we_have_run_score_text = false;
 	//method used to be static
-	public int ScoreText(OutDoc outDoc) throws IOException, FileNotFoundException, ClassNotFoundException, UnsupportedEncodingException, InterruptedException, Exception
+	public int ScoreText(String webText) throws IOException, FileNotFoundException, ClassNotFoundException, UnsupportedEncodingException, InterruptedException, Exception
 	{
-		//TODO: Make MADAMIRA a singleton and grab the outdoc from it.
 		we_have_run_score_text = true;
 		int returnValue = 0;
-		featureExtractor = new FeatureExtractor(outDoc);
+		//featureExtractor = new FeatureExtractor(outDoc);
 		featureExtractor.createPOSMap();
 		//featureExtractor.lemmatizeText();
 		featureExtractor.createLemmaList();
@@ -105,6 +104,4 @@ public class Raft
 	}
 
 	public FeatureExtractor getFeatureExtractor() { return featureExtractor; }
-
-
 }

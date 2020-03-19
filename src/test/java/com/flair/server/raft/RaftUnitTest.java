@@ -7,12 +7,7 @@ import org.junit.experimental.categories.Category;
 
 import static org.junit.Assert.assertTrue;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import type.UnitTest;
-
-import com.flair.server.raft.Raft;
 
 @Category(UnitTest.class)
 public class RaftUnitTest

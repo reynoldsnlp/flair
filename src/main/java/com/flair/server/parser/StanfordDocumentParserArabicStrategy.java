@@ -5,24 +5,28 @@
  */
 package com.flair.server.parser;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-import com.flair.server.raft.Madamira;
-import com.flair.server.raft.Raft;
+import com.flair.server.utilities.Madamira;
+import com.flair.server.utilities.ServerLogger;
 import com.flair.shared.grammar.Language;
 import com.flair.shared.grammar.GrammaticalConstruction;
 
-import edu.columbia.ccls.madamira.configuration.MorphFeatureSet;
-import edu.columbia.ccls.madamira.configuration.OutDoc;
-import edu.columbia.ccls.madamira.configuration.Tok;
-import edu.columbia.ccls.madamira.configuration.Word;
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
+import edu.stanford.nlp.semgraph.SemanticGraph;
+import edu.stanford.nlp.semgraph.SemanticGraphCoreAnnotations;
 import edu.stanford.nlp.trees.Tree;
 import edu.stanford.nlp.trees.TreeCoreAnnotations;
+import edu.stanford.nlp.semgraph.semgrex.Alignment;
 import edu.stanford.nlp.util.CoreMap;
 import org.javatuples.Pair;
 import org.javatuples.Triplet;
@@ -33,7 +37,7 @@ import org.jsoup.select.Elements;
 
 
 class StanfordDocumentParserArabicStrategy extends BasicStanfordDocumentParserStrategy {
-	private AbstractDocument workingDoc;
+	private ArabicDocument workingDoc;
 	private int tokenCount;
 	private int wordCount;
 	private int characterCount;
@@ -41,16 +45,15 @@ class StanfordDocumentParserArabicStrategy extends BasicStanfordDocumentParserSt
 	private int depthCount;
 	private int dependencyCount;
 	private int adjCount;
-
-	//private List<Word> madamiraWords;
     
 	private static final String WORD_PATTERN = "[\\u0600-\\u06FF]+"; // TODO add Ёё and U+0300 and U+0301 and more? TODO test
 
     public StanfordDocumentParserArabicStrategy()
-	{
+    {
+
 	//pipeline = null;
     }
-    
+
     public void setPipeline(StanfordCoreNLP pipeline)
     {
     	assert pipeline != null;
@@ -70,11 +73,11 @@ class StanfordDocumentParserArabicStrategy extends BasicStanfordDocumentParserSt
 					+ " not supported (Strategy language: " + Language.ARABIC + ")");
 		}
 
-		workingDoc = doc;
+		workingDoc = (ArabicDocument) doc;
 	}
     
     private void resetState() {
-		/*wordCount = tokenCount = dependencyCount = sentenceCount = depthCount = characterCount = goingToFound = 0;
+    /*wordCount = tokenCount = dependencyCount = sentenceCount = depthCount = characterCount = goingToFound = 0;
 		treeOutput = null;
 		wordsOutput = null;
 		depsOutput = null;
@@ -82,7 +85,7 @@ class StanfordDocumentParserArabicStrategy extends BasicStanfordDocumentParserSt
 		usedFound = false;
 		comparativeMoreFound = false;
 		superlativeMostFound = false;*/
-    	wordCount = tokenCount = characterCount = sentenceCount = dependencyCount = depthCount = 0;
+		wordCount = tokenCount = characterCount = sentenceCount = dependencyCount = depthCount = 0;
 		pipeline = null;
 		workingDoc = null;
 	}
@@ -94,50 +97,43 @@ class StanfordDocumentParserArabicStrategy extends BasicStanfordDocumentParserSt
 		{
 			initializeState(docToParse);
 
-			Annotation docAnnotation = new Annotation(workingDoc.getText());
+			Annotation docAnnotation = new Annotation(workingDoc.getPageText());
 			pipeline.annotate(docAnnotation);
 
-			List<CoreMap> sentences = docAnnotation.get(CoreAnnotations.SentencesAnnotation.class);
-			for (CoreMap itr : sentences)
-			{
-				/*if(attempts % 20 == 0){
-					ServerLogger.get().info("Parsing " + docToParse.getDescription() + "...");
-				}*/
+			Document madaOutput = workingDoc.getMadaOutput();
 
-				if (itr.size() > 0)
-				{
-					Tree tree = itr.get(TreeCoreAnnotations.TreeAnnotation.class);
-					List<CoreLabel> words = itr.get(CoreAnnotations.TokensAnnotation.class);
-					/*Collection<TypedDependency> dependencies = itr
-							.get(SemanticGraphCoreAnnotations.CollapsedDependenciesAnnotation.class)
-							.typedDependencies();
-							*/
+			List<CoreMap> stanfordSents = docAnnotation.get(CoreAnnotations.SentencesAnnotation.class);
 
-					sentenceCount++;
-					//dependencyCount += dependencies.size();
-					//depthCount += tree.depth();
+			List<MadaToken> madaTokens = getMadaTokens(madaOutput);
+			List<String> tokens = new ArrayList<String>();
 
-					// changed: only count words (no punctuation)
-					for (CoreLabel cl : words)
-					{
-						tokenCount++;
-						if (!cl.tag().startsWith("$"))
-						{
-							dependencyCount += 1;
-						}		
-						if (cl.value().toLowerCase().matches(WORD_PATTERN))
-						{
-							wordCount++;
-							characterCount += cl.value().length();
-						}
-					}
-
-					// extract gram.structures
-					inspectSentence(words);
-				}
+			for (MadaToken madaToken: madaTokens) {
+				String token = madaToken.getToken().attr("form0").replaceAll("\\+", "");
+				tokens.add(Pattern.quote(token)/*
+					.replaceAll("^" + "ا",  "ا"+"?")
+					.replaceAll("-LRB-", "\\\\(")
+					.replaceAll("-RRB-", "\\\\)")*/);
 			}
 
-			// update doc properties
+			StringBuilder sb = new StringBuilder();
+			for (String token: tokens)
+				sb.append(token);
+
+			String joinedMadaTokens = sb.toString();
+
+			Annotation docAnnotation2 = new Annotation(joinedMadaTokens);
+			pipeline.annotate(docAnnotation2);
+
+			List<CoreMap> madaSents = docAnnotation2.get(CoreAnnotations.SentencesAnnotation.class);
+
+			for (int i = 0; i < stanfordSents.size(); i++) {
+
+			}
+
+
+			inspectText(madaTokens, stanfordSents, madaSents);
+
+			/*// update doc properties
 			workingDoc.setAvgSentenceLength((double) wordCount / (double) sentenceCount);
 			//workingDoc.setAvgTreeDepth((double) depthCount / (double) sentenceCount);
 			workingDoc.setAvgWordLength((double) characterCount / (double) wordCount);
@@ -147,7 +143,7 @@ class StanfordDocumentParserArabicStrategy extends BasicStanfordDocumentParserSt
 			workingDoc.setNumTokens(tokenCount);
 			workingDoc.setNumSentences(sentenceCount);
 			workingDoc.setNumCharacters(characterCount);
-			workingDoc.flagAsParsed();
+			workingDoc.flagAsParsed();*/
 		} finally
 		{
 			resetState();
@@ -156,13 +152,137 @@ class StanfordDocumentParserArabicStrategy extends BasicStanfordDocumentParserSt
         return true;
     }
 
-    private void inspectSentence(/*Tree tree,*/ List<CoreLabel> words/*, Collection<TypedDependency> deps*/) {
-		if (words == null || words.isEmpty())
-		{
-			return;
+    private List<MadaToken> getMadaTokens(Document madaOutput) {
+		//Create list of tuples containing each ATB4MT token and morph_feature_set of the word the token is in
+		ArrayList<MadaToken> madaTokens = new ArrayList<MadaToken>();
+
+		String preprocessed = madaOutput.getElementsByTag("preprocessed").text();
+		//System.out.println(preprocessed);
+/*
+		try {
+			BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
+					new FileOutputStream("theText.txt"), "UTF-8"));
+			writer.write(preprocessed);
+			for(int i = 0; i < madaTokens.size(); i++) {
+				//System.out.println(madaTokens.get(i).getValue0().getElementsByTag("form0").toString() + ".............." + stanfordWords.get(i).word());
+				String madaToken = madaTokens.get(i).getToken().attr("form0");
+				System.out.println(madaToken);
+				writer.write("\n" + madaToken);
+			}
+			System.out.println("theTxt.txt file written");
 		}
 
-	/*	for (CoreLabel word: words) {
+		catch (IOException e){}*/
+
+
+		Elements madaWords = madaOutput.getElementsByTag("word");
+		for(Element madaWord : madaWords) {
+			Elements tokenizeds = madaWord.getElementsByTag("tokenized");
+			for (Element tokenized: tokenizeds) {
+				Elements toks = tokenized.getElementsByTag("tok");
+				System.out.println(madaWord.attr("word"));
+				List<Element> analysis = madaWord.getElementsByTag("analysis");
+				if (analysis.size() > 0) {
+					Element morphFeatureSet = analysis.get(0).getElementsByTag("morph_feature_set").get(0);
+					for(Element tok: toks)
+						madaTokens.add(new MadaToken(tok, morphFeatureSet));
+				}
+				else {
+					for(Element tok: toks)
+						madaTokens.add(new MadaToken(tok, null));
+				}
+
+			}
+		}
+
+		return madaTokens;
+	}
+
+	private List<CoreLabel> getStanfordWords(List<CoreMap> sentences) {
+		List<CoreLabel> words = new ArrayList<CoreLabel>();
+
+		for(CoreMap itr: sentences) {
+			for (CoreLabel word: itr.get(CoreAnnotations.TokensAnnotation.class)) {
+				Character w = word.word().charAt(0);
+					words.add(word);
+			}
+		}
+
+		return words;
+	}
+
+    private void inspectText(/*Tree tree,*/ List<MadaToken> madaTokens, List<CoreMap> stanfordSents, List<CoreMap> madaSents/*, Collection<TypedDependency> deps*/) {
+		if (madaTokens == null || madaTokens.isEmpty() ||
+				stanfordSents == null || stanfordSents.isEmpty() ||
+				madaSents == null || madaSents.isEmpty())
+			return;
+
+		for (int i = 0; i < stanfordSents.size(); i++) {
+			SemanticGraph stanfordSemGraph = stanfordSents.get(i).get(SemanticGraphCoreAnnotations.EnhancedPlusPlusDependenciesAnnotation.class);
+			SemanticGraph madaSemGraph = madaSents.get(i).get(SemanticGraphCoreAnnotations.EnhancedPlusPlusDependenciesAnnotation.class);
+
+			Alignment alignment = Alignment.makeFromIndexArray(stanfordSemGraph, madaSemGraph,  );
+		}
+
+		/*String text = workingDoc.getPageText()
+				.replaceAll("ّ", "")
+				.replaceAll("َ", "")
+				.replaceAll("ِ", "")
+				.replaceAll("ُ", "")
+				.replaceAll("ً", "")
+				.replaceAll("ٍ", "")
+				.replaceAll("ْ", "")
+				.replaceAll("ٌ", "");*/
+
+
+
+/*
+		String joined = new StringBuilder()
+				.append("(")
+				.append(String.join(")\\s*(", tokens))
+				.append(")")
+				.toString();
+		System.out.println(joined);
+
+		try {
+			BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
+					new FileOutputStream("tokens.txt"), "UTF-8"));
+			writer.write(workingDoc.getPageText());
+			writer.write("\n" + joined);
+			System.out.println("tokens.txt file written");
+			writer.close();
+		}
+
+		catch (IOException e){}
+
+		Matcher matcher = Pattern.compile(joined).matcher(text);
+		String mask = matcher.replaceAll("+").replaceAll("[^+]", "-");
+
+		try {
+			BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
+					new FileOutputStream("mistakes.txt"), "UTF-8"));
+			writer.write(text);
+			writer.write(mask);
+			writer.close();
+		}
+
+		catch (IOException e){}
+
+		System.out.println(matcher.matches());
+
+		for (int i = 0; i < madaTokens.size() ; i++) {
+			String pos = madaTokens.get(i).getToken().attr("form5");
+			System.out.println(pos);
+			if (pos.substring(0,4).equals("PREP")) {
+				int start_index = matcher.start(i + 1);
+				int end_index = matcher.end(i + 1);
+				addConstructionByIndices(GrammaticalConstruction.PREPOSITIONS, start_index, end_index);
+			}
+		}*/
+
+		/**/
+		/*
+		for (CoreLabel word: words) {
 			String POS = word.get(CoreAnnotations.PartOfSpeechAnnotation.class);
 			//System.out.println(POS);
 			if (POS.equals("IN")) {
@@ -174,101 +294,39 @@ class StanfordDocumentParserArabicStrategy extends BasicStanfordDocumentParserSt
 			if (POS.equals("VBG")) {
 				addConstructionByIndices(GrammaticalConstruction.VERBAL_NOUN, word.beginPosition(), word.endPosition());
 			}
-		}
-		*/
-		// DO IT THIS WAY!!!
-		List <Word> madamiraWords = MadamiraAPI.getInstance().getOutDoc().getOutSeg().get(0).getWordInfo().getWord();
-		ArrayList<Pair<List<Tok>, MorphFeatureSet>> pairs = new ArrayList<Pair<List<Tok>, MorphFeatureSet>>();
-
-		for (int i = 0; i < madamiraWords.size() ; i++) {
-			Word word = madamiraWords.get(i);
-
-			//TODO: create list of tuples containing ATB tokens, BW pos tag, and madamira morph_feature_set
-			//We'll then be able access its indices from the aligned token with stanfordCoreNLP.
-
-			List<Tok> toks = word.getTokenized().get(0).getTok();
-			MorphFeatureSet morphFeatureSet = word.getAnalysis().get(0).getMorphFeatureSet();
-			pairs.add(new Pair<List<Tok>, MorphFeatureSet>(toks, morphFeatureSet));
-
-			/*String POS = word.getAnalysis().get(0).getMorphFeatureSet().getPos();
-			if (POS.equals("prep")) {
-				addConstructionByIndices(GrammaticalConstruction.PREPOSITIONS, 0, 0);
-			}
-			if (POS.equals("pron")) {
-				addConstructionByIndices(GrammaticalConstruction.PRONOUNS, 0, 0);
-			}*/
-
-		}
-
-
-		//NOT THIS WAY!
-		/*ArrayList<MadamiraWord> madamiraWords = new ArrayList<MadamiraWord>();
-
-		Document madaOutput = Raft.getInstance().getFeatureExtractor().getMadaOutput();
-
-		Elements myWords = madaOutput.getElementsByTag("word");
-		for (Element word : myWords) {
-			Attributes wordAttributes = word.attributes();
-			String myWord = wordAttributes.get("word");
-
-			ArrayList<MadamiraWord> tokens_in_this_word = new ArrayList<>();
-
-			Elements schemes = word.getElementsByTag("tokenized");
-			for (Element scheme: schemes)
-			{
-				Elements tokens = scheme.getElementsByTag("tok");
-				for (Element token : tokens)
-				{
-					MadamiraWord madamiraWord = new MadamiraWord();
-					String tokenString = token.attributes().get("form0");
-					tokenString.replaceAll("/+", "");
-					madamiraWord.setToken(tokenString);
-					tokens_in_this_word.add(madamiraWord);
-				}
-			}
-
-			Elements analysis = word.getElementsByTag("analysis");
-			for (Element item : analysis)
-			{
-				Elements morphs = item.getElementsByTag("morph_feature_set");
-				for (Element morph : morphs)
-				{
-					Attributes morphAttributes = morph.attributes();
-					*//*for(MadamiraWord madamiraWord : tokens_in_this_word)
-					{
-						madamiraWord.setPos(morphAttributes.get("pos"));
-					}*//*
-				}
-			}
-
-			for(MadamiraWord token : tokens_in_this_word)
-			{
-				madamiraWords.add(token);
-			}
-		}
-
-		for(int i = 0; i < madamiraWords.size(); i++)
-		{
-			String tok = madamiraWords.get(i).getToken();
-			String pos = madamiraWords.get(i).getPos();
-			int words_size = words.size();
-
-			if(pos != null) {
-				if (pos.equals("prep")) {
-					int start = words.get(i).beginPosition();
-					int end = words.get(i).endPosition();
-					addConstructionByIndices(GrammaticalConstruction.PREPOSITIONS, start, end);
-				}
-				if (pos.equals("pron")) {
-					int start = words.get(i).beginPosition();
-					int end = words.get(i).endPosition();
-					addConstructionByIndices(GrammaticalConstruction.PRONOUNS, start, end);
-				}
-			}
 		}*/
+
 	}
 
 	private void addConstructionByIndices(GrammaticalConstruction type, int startIndex, int endIndex){
 		workingDoc.getConstructionData(type).addOccurrence(startIndex, endIndex);
 	}
+
+}
+
+class MadaToken {
+	private Element token;
+	private Element morphFeatureSet;
+
+	MadaToken(Element token, Element morphFeatureSet) {
+		this.token = token;
+		this.morphFeatureSet = morphFeatureSet;
+	}
+
+	public Element getToken() {
+		return token;
+	}
+
+	public Element getMorphFeatureSet() {
+		return morphFeatureSet;
+	}
+
+	public void setToken(Element token) {
+		this.token = token;
+	}
+
+	public void setMorphFeatureSet(Element morphFeatureSet) {
+		this.morphFeatureSet = morphFeatureSet;
+	}
+
 }

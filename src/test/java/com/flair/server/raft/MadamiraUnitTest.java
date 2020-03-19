@@ -7,7 +7,7 @@ import java.io.OutputStream;
 import java.lang.Thread;
 import java.net.InetSocketAddress;
 
-import com.flair.server.raft.Madamira;
+import com.flair.server.utilities.Madamira;
 import com.flair.server.utilities.CustomFileReader;
 import com.flair.server.utilities.ServerLogger;
 import com.sun.net.httpserver.HttpExchange;
@@ -26,7 +26,7 @@ import type.UnitTest;
 
 public class MadamiraUnitTest 
 {
-    private Madamira madamiraWithConnection;
+    /*private Madamira madamiraWithConnection;
     private Madamira madamiraNoConnection;
     private String url;
     private String badUrl;
@@ -148,5 +148,5 @@ public class MadamiraUnitTest
     {
         serverThread.killServer();
     }
-
+*/
 }

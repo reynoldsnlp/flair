@@ -10,6 +10,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.TreeMap;
 
+import com.flair.server.utilities.Madamira;
 import com.flair.server.utilities.ServerLogger;
 
 import java.util.Map;
@@ -22,7 +23,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 public class OldFeatureExtractor {
-
+/*
 	public OldFeatureExtractor(String webText) {
 		try {
 			webText = webText.trim().replaceAll("&", "+");
@@ -119,11 +120,11 @@ public class OldFeatureExtractor {
 		return taskSalt;
 	}
 
-	/**
+	*//**
 	 * Creates XML input string for Madamira out of the body, saves it to
 	 * madamiraInput, sends it off to be lemmatized and saves output to
 	 * madamiraOutput.
-	 */
+	 *//*
 	public void lemmatizeText()
 	{
 		if (body != null) 
@@ -171,11 +172,11 @@ public class OldFeatureExtractor {
 		}
 	}
 
-	/**
+	*//**
 	 * Uses JSOUP to to extract words, lemmas and pos tags from the Madamira output
 	 * and then assembles TreeMap lemmas and TreeMap lemmaFreqListMap. Calculates
 	 * wordCount and lexDiv.
-	 */
+	 *//*
 	public void createLemmaList() 
 	{
 		if (madaOutput == null) 
@@ -386,9 +387,9 @@ public class OldFeatureExtractor {
 		frequencies.sort(null);
 	}
 
-	/**
+	*//**
 	 * helper for createFrequencies() reads freqList in from file and returns it
-	 */
+	 *//*
 	public TreeMap<String, Integer> readFreqList(String freqList) 
 	{
 		exceptionCaught = false;
@@ -435,10 +436,10 @@ public class OldFeatureExtractor {
 		return freqListMap;
 	}
 
-	/**
+	*//**
 	 * Sorts the entries in the lemmaFreqListMap into a sorted List to find the 95th
 	 * percentile, Then finds that lemma's frequency in the freqList
-	 */
+	 *//*
 	public void calcFreq95() 
 	{
 		int index95 = (int) (frequencies.size() * .95);
@@ -739,5 +740,5 @@ public class OldFeatureExtractor {
         input=input.replaceAll("\u0670", "");//ARABIC LETTER SUPERSCRIPT ALEF
 
         return input;
-	}
+	}*/
 }
