@@ -175,8 +175,7 @@ ConstructionSliderBundleRussian	pnlClauseTypesUI	TEST TEXT
 ConstructionSliderBundleRussian	pnlPartsOfSpeechUI	TEST TEXT
 ConstructionSliderBundleRussian	pnlVerbsUI	TEST TEXT
 ConstructionSliderBundleRussian	pnlVerbFormsUI	TEST TEXT
-ConstructionSliderBundleRussian	pnlTensesUI	TEST TEXT
-ConstructionSliderBundleRussian	pnlAspectUI	TEST TEXT
+ConstructionSliderBundleRussian	pnlAspectTenseUI	TEST TEXT
 ConstructionSliderBundleRussian	pnlNegationUI	TEST TEXT
 ConstructionSliderBundleRussian	pnlQuantifiersUI	TEST TEXT
 ConstructionSliderBundleRussian	pnlAdjectivesUI	TEST TEXT

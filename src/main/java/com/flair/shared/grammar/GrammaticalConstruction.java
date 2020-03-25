@@ -86,17 +86,16 @@ public enum GrammaticalConstruction
     QUESTIONS_TO_DO("toDoQuestions", Language.ENGLISH), // direct: "What do you do?"
     QUESTIONS_TO_HAVE("toHaveQuestions", Language.ENGLISH), // direct: "What have you done?"
     QUESTIONS_MODAL("modalQuestions", Language.ENGLISH), // direct: "Should I go?", "What should I do?"
-    //TODO: split the following russion question word constructions into their own, for localization
-    QUESTIONS_WHAT("what", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN),
-    QUESTIONS_WHO("who", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN),
-    QUESTIONS_HOW("how", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN),
-    QUESTIONS_WHY("why", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN),
-    QUESTIONS_WHERE("where", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN),
-    QUESTIONS_WHEN("when", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN),
-    QUESTIONS_WHOSE("whose", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN),
+    QUESTIONS_WHAT("what", Language.ENGLISH, Language.GERMAN),
+    QUESTIONS_WHO("who", Language.ENGLISH, Language.GERMAN),
+    QUESTIONS_HOW("how", Language.ENGLISH, Language.GERMAN),
+    QUESTIONS_WHY("why", Language.ENGLISH, Language.GERMAN),
+    QUESTIONS_WHERE("where", Language.ENGLISH, Language.GERMAN),
+    QUESTIONS_WHEN("when", Language.ENGLISH, Language.GERMAN),
+    QUESTIONS_WHOSE("whose", Language.ENGLISH, Language.GERMAN),
     QUESTIONS_WHOM("whom", Language.ENGLISH, Language.GERMAN),
-    QUESTIONS_WHICH("which", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN),
-    QUESTIONS_TAG("tagQuestions", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), // ", isn't it?" //*** ", (nje) tak (li)?" //TODO: come back to this
+    QUESTIONS_WHICH("which", Language.ENGLISH, Language.GERMAN),
+    QUESTIONS_TAG("tagQuestions", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), // ", isn't it?" //*** ", (nje) tak (li)?" //TODO
     
     // conditionals - check first, before tenses
     CONDITIONALS("conditionals", Language.ENGLISH),
@@ -254,7 +253,6 @@ public enum GrammaticalConstruction
 
     //RUSSIAN VERB FORMS
     VERBS_IRREGULAR_RUSSIAN("irregularVerbsRussian", Language.RUSSIAN),
-    VERBS_REGULAR_RUSSIAN("regularVerbsRussian", Language.RUSSIAN), //TODO: delete this
     VERB_REFLEXIVE("reflexiveVerb", Language.RUSSIAN),
     VERBAL_ADVERB("verbalAdverb", Language.RUSSIAN),
     VERBAL_ADVERB_PRESENT("verbalAdverbPresent", Language.RUSSIAN), //imperfective, "V", and "Adv" tags
@@ -267,28 +265,24 @@ public enum GrammaticalConstruction
     //RUSSIAN QUESTION WORDS
     QUESTIONS_YESNO_RUSSIAN("yesNoQuestionsRussian", Language.RUSSIAN), // direct: "Are you ok?" // Russian: (has li or no interrogative) and does have a '?'
     QUESTIONS_WH_RUSSIAN("whQuestionsRussian", Language.RUSSIAN), // direct: "What do you do?" // Russian: has "Interr" which is not 'li', and has a '?'
-    QUESTIONS_WHITHER("whither", Language.RUSSIAN),
-    QUESTIONS_WHAT_KIND("whatKind", Language.RUSSIAN),
+    QUESTIONS_WHAT_RUSSIAN("whatRussian", Language.RUSSIAN),
+    QUESTIONS_WHO_RUSSIAN("whoRussian", Language.RUSSIAN),
+    QUESTIONS_HOW_RUSSIAN("howRussian", Language.RUSSIAN),
+    QUESTIONS_WHY_RUSSIAN("whyRussian", Language.RUSSIAN),
+    QUESTIONS_WHERE_RUSSIAN("whereRussian", Language.RUSSIAN),
+    QUESTIONS_WHEN_RUSSIAN("whenRussian", Language.RUSSIAN),
+    QUESTIONS_WHOSE_RUSSIAN("whoseRussian", Language.RUSSIAN),
+    QUESTIONS_WHICH_RUSSIAN("whichRussian", Language.RUSSIAN),
+    QUESTIONS_WHITHER_RUSSIAN("whither", Language.RUSSIAN),
+    QUESTIONS_WHAT_KIND_RUSSIAN("whatKind", Language.RUSSIAN),
 
-    //RUSSIAN TENSES
-    TENSE_PAST("pastTense", Language.RUSSIAN),
-    TENSE_NON_PAST("nonpastTense", Language.RUSSIAN),
-    TENSE_PRESENT("presentTense", Language.RUSSIAN),
-    TENSE_FUTURE("futureTense", Language.RUSSIAN),
-
-    //VERBAL ASPECT
-    ASPECT_PERFECTIVE("perfective", Language.RUSSIAN),
-    ASPECT_IMPERFECTIVE("imperfective", Language.RUSSIAN),
+    //RUSSIAN TENSE AND ASPECT
     ASPECT_BIASPECTUAL("biaspectual", Language.RUSSIAN),
-
-    //TENSE AND ASPECT COMBINED
-    FUTURE_IMPERFECTIVE("futureImperfective", Language.RUSSIAN),
-    FUTURE_PERFECTIVE("futurePerfective", Language.RUSSIAN),
     PAST_PERFECTIVE("pastPerfective", Language.RUSSIAN),
     PAST_IMPERFECTIVE("pastImperfective", Language.RUSSIAN),
-    //TODO: add these 4 to the front end, along with present tense
-    //TODO: make the parser strategy count these 4
-    //TODO: remove the individual constructions that do past, future, aspect, etc
+    TENSE_PRESENT("presentTense", Language.RUSSIAN),
+    FUTURE_IMPERFECTIVE("futureImperfective", Language.RUSSIAN),
+    FUTURE_PERFECTIVE("futurePerfective", Language.RUSSIAN),
 
     //CONJUGATION CLASSES
 
@@ -310,6 +304,7 @@ public enum GrammaticalConstruction
     DETERMINER_MUCH_RUSSIAN("muchDetRussian", Language.RUSSIAN),
     NEGATION_NO_NOT_NEVER_RUSSIAN("noNotNeverRussian", Language.RUSSIAN), // нет, не,DETERMINER_PREPOSITIONAL ни, никогда, никак, никуда, нигде, ниоткуда, нипочём, ничуть, нисколько, нисколечко
     CONDITIONALS_RUSSIAN("conditionalsRussian", Language.RUSSIAN),
+
 
     ;
     

@@ -5,10 +5,6 @@
  */
 package com.flair.server.parser;
 
-import java.io.*;
-import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import com.flair.server.utilities.CgConv;
 import com.flair.server.utilities.HFSTAnalyser;
 import com.flair.server.utilities.HFSTAnalyser.TransducerStreamException;
@@ -30,6 +26,13 @@ import edu.stanford.nlp.semgraph.SemanticGraphEdge;
 import edu.stanford.nlp.semgraph.semgrex.SemgrexMatcher;
 import edu.stanford.nlp.semgraph.semgrex.SemgrexPattern;
 import edu.stanford.nlp.util.CoreMap;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import static com.flair.server.grammar.RussianGrammaticalPatterns.*;
 
 class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserStrategy {
@@ -572,26 +575,18 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                 if(isVerb){
                     if(isInfinitive) constructionsToCount.put(GrammaticalConstruction.VERBFORM_INFINITIVE_RUSSIAN, true);
                     if(isImperative) constructionsToCount.put(GrammaticalConstruction.IMPERATIVES_RUSSIAN, true);
-                    //tenses
-                    if(isPast) constructionsToCount.put(GrammaticalConstruction.TENSE_PAST, true);
-                    if(isPresent) {
-                        constructionsToCount.put(GrammaticalConstruction.TENSE_PRESENT, true);
-                        constructionsToCount.put(GrammaticalConstruction.TENSE_NON_PAST, true);
+                    //tenses and aspect
+                    if(isPast) {
+                        if(isPerfective) constructionsToCount.put(GrammaticalConstruction.PAST_PERFECTIVE, true);
+                        if(isImperfective) constructionsToCount.put(GrammaticalConstruction.PAST_IMPERFECTIVE, true);
                     }
+                    if(isPresent) constructionsToCount.put(GrammaticalConstruction.TENSE_PRESENT, true);
                     if(isFuture) {
-                        constructionsToCount.put(GrammaticalConstruction.TENSE_FUTURE, true);
-                        constructionsToCount.put(GrammaticalConstruction.TENSE_NON_PAST, true);
+                        if(isPerfective) constructionsToCount.put(GrammaticalConstruction.FUTURE_PERFECTIVE, true);
+                        if(isImperfective) constructionsToCount.put(GrammaticalConstruction.FUTURE_IMPERFECTIVE, true);
                     }
-                    //aspect
-                    if(isPerfective){
-                        constructionsToCount.put(GrammaticalConstruction.ASPECT_PERFECTIVE, true);
-                    }
-                    if(isImperfective){
-                        constructionsToCount.put(GrammaticalConstruction.ASPECT_IMPERFECTIVE, true);
-                        if(isPerfective){ //biaspectual
-                            constructionsToCount.put(GrammaticalConstruction.ASPECT_BIASPECTUAL, true);
-                        }
-                    }
+                    if(isPerfective && isImperfective) constructionsToCount.put(GrammaticalConstruction.ASPECT_BIASPECTUAL, true);
+
                     //participles
                     if(isPassive){
                         constructionsToCount.put(GrammaticalConstruction.PASSIVE_VOICE, true);
@@ -701,17 +696,16 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
 			        isWhither |= isMatch(patternKuda, lemma);
 			        isWhatKind |= isMatch(patternKakov, lemma);
 		        }
-		        //TODO: since these booleans are 100% mutually exclusive, this next block can be optimized
-		        if(isWhat) addConstructionByIndices(GrammaticalConstruction.QUESTIONS_WHAT, plainWord.beginPosition(), plainWord.endPosition());
-		        if(isWho) addConstructionByIndices(GrammaticalConstruction.QUESTIONS_WHO, plainWord.beginPosition(), plainWord.endPosition());
-		        if(isHow) addConstructionByIndices(GrammaticalConstruction.QUESTIONS_HOW, plainWord.beginPosition(), plainWord.endPosition());
-		        if(isWhy) addConstructionByIndices(GrammaticalConstruction.QUESTIONS_WHY, plainWord.beginPosition(), plainWord.endPosition());
-		        if(isWhere) addConstructionByIndices(GrammaticalConstruction.QUESTIONS_WHERE, plainWord.beginPosition(), plainWord.endPosition());
-		        if(isWhen) addConstructionByIndices(GrammaticalConstruction.QUESTIONS_WHEN, plainWord.beginPosition(), plainWord.endPosition());
-		        if(isWhose) addConstructionByIndices(GrammaticalConstruction.QUESTIONS_WHOSE, plainWord.beginPosition(), plainWord.endPosition());
-		        if(isWhich) addConstructionByIndices(GrammaticalConstruction.QUESTIONS_WHOSE, plainWord.beginPosition(), plainWord.endPosition());
-		        if(isWhither) addConstructionByIndices(GrammaticalConstruction.QUESTIONS_WHITHER, plainWord.beginPosition(), plainWord.endPosition());
-		        if(isWhatKind) addConstructionByIndices(GrammaticalConstruction.QUESTIONS_WHAT_KIND, plainWord.beginPosition(), plainWord.endPosition());
+		        if(isWhat) addConstructionByIndices(GrammaticalConstruction.QUESTIONS_WHAT_RUSSIAN, plainWord.beginPosition(), plainWord.endPosition());
+		        else if(isWho) addConstructionByIndices(GrammaticalConstruction.QUESTIONS_WHO_RUSSIAN, plainWord.beginPosition(), plainWord.endPosition());
+		        else if(isHow) addConstructionByIndices(GrammaticalConstruction.QUESTIONS_HOW_RUSSIAN, plainWord.beginPosition(), plainWord.endPosition());
+		        else if(isWhy) addConstructionByIndices(GrammaticalConstruction.QUESTIONS_WHY_RUSSIAN, plainWord.beginPosition(), plainWord.endPosition());
+		        else if(isWhere) addConstructionByIndices(GrammaticalConstruction.QUESTIONS_WHERE_RUSSIAN, plainWord.beginPosition(), plainWord.endPosition());
+		        else if(isWhen) addConstructionByIndices(GrammaticalConstruction.QUESTIONS_WHEN_RUSSIAN, plainWord.beginPosition(), plainWord.endPosition());
+		        else if(isWhose) addConstructionByIndices(GrammaticalConstruction.QUESTIONS_WHOSE_RUSSIAN, plainWord.beginPosition(), plainWord.endPosition());
+		        else if(isWhich) addConstructionByIndices(GrammaticalConstruction.QUESTIONS_WHOSE_RUSSIAN, plainWord.beginPosition(), plainWord.endPosition());
+		        else if(isWhither) addConstructionByIndices(GrammaticalConstruction.QUESTIONS_WHITHER_RUSSIAN, plainWord.beginPosition(), plainWord.endPosition());
+		        else if(isWhatKind) addConstructionByIndices(GrammaticalConstruction.QUESTIONS_WHAT_KIND_RUSSIAN, plainWord.beginPosition(), plainWord.endPosition());
 	        }
         }
         else{ //no question mark
