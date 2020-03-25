@@ -17,16 +17,16 @@
 						<flair:GrammaticalConstructionWeightSlider gram="QUESTIONS_YESNO_RUSSIAN" parentLanguage="RUSSIAN"/>
 						<flair:GrammaticalConstructionWeightSlider gram="QUESTIONS_WH_RUSSIAN" parentLanguage="RUSSIAN"/>
 
-						<flair:GrammaticalConstructionWeightSlider gram="QUESTIONS_WHAT" parentLanguage="RUSSIAN"/>
-						<flair:GrammaticalConstructionWeightSlider gram="QUESTIONS_WHO" parentLanguage="RUSSIAN"/>
-						<flair:GrammaticalConstructionWeightSlider gram="QUESTIONS_HOW" parentLanguage="RUSSIAN"/>
-						<flair:GrammaticalConstructionWeightSlider gram="QUESTIONS_WHY" parentLanguage="RUSSIAN"/>
-						<flair:GrammaticalConstructionWeightSlider gram="QUESTIONS_WHERE" parentLanguage="RUSSIAN"/>
-						<flair:GrammaticalConstructionWeightSlider gram="QUESTIONS_WHEN" parentLanguage="RUSSIAN"/>
-						<flair:GrammaticalConstructionWeightSlider gram="QUESTIONS_WHOSE" parentLanguage="RUSSIAN"/>
-						<flair:GrammaticalConstructionWeightSlider gram="QUESTIONS_WHICH" parentLanguage="RUSSIAN"/>
-						<flair:GrammaticalConstructionWeightSlider gram="QUESTIONS_WHITHER" parentLanguage="RUSSIAN"/>
-						<flair:GrammaticalConstructionWeightSlider gram="QUESTIONS_WHAT_KIND" parentLanguage="RUSSIAN"/>
+						<flair:GrammaticalConstructionWeightSlider gram="QUESTIONS_WHAT_RUSSIAN" parentLanguage="RUSSIAN"/>
+						<flair:GrammaticalConstructionWeightSlider gram="QUESTIONS_WHO_RUSSIAN" parentLanguage="RUSSIAN"/>
+						<flair:GrammaticalConstructionWeightSlider gram="QUESTIONS_HOW_RUSSIAN" parentLanguage="RUSSIAN"/>
+						<flair:GrammaticalConstructionWeightSlider gram="QUESTIONS_WHY_RUSSIAN" parentLanguage="RUSSIAN"/>
+						<flair:GrammaticalConstructionWeightSlider gram="QUESTIONS_WHERE_RUSSIAN" parentLanguage="RUSSIAN"/>
+						<flair:GrammaticalConstructionWeightSlider gram="QUESTIONS_WHEN_RUSSIAN" parentLanguage="RUSSIAN"/>
+						<flair:GrammaticalConstructionWeightSlider gram="QUESTIONS_WHOSE_RUSSIAN" parentLanguage="RUSSIAN"/>
+						<flair:GrammaticalConstructionWeightSlider gram="QUESTIONS_WHICH_RUSSIAN" parentLanguage="RUSSIAN"/>
+						<flair:GrammaticalConstructionWeightSlider gram="QUESTIONS_WHITHER_RUSSIAN" parentLanguage="RUSSIAN"/>
+						<flair:GrammaticalConstructionWeightSlider gram="QUESTIONS_WHAT_KIND_RUSSIAN" parentLanguage="RUSSIAN"/>
 					</flair:GrammaticalConstructionPanelItem>
 					
 					<!-- Sentence Types -->
@@ -61,7 +61,6 @@
 							<!-- Verb Forms -->
 							<flair:GrammaticalConstructionPanelItem ui:field="pnlVerbFormsUI" text="verb forms" iconType="EXPAND_MORE">
 								<flair:GrammaticalConstructionWeightSlider gram="VERBS_IRREGULAR_RUSSIAN" parentLanguage="RUSSIAN"/>
-								<flair:GrammaticalConstructionWeightSlider gram="VERBS_REGULAR_RUSSIAN" parentLanguage="RUSSIAN"/>
 
 								<flair:GrammaticalConstructionWeightSlider gram="VERBFORM_INFINITIVE_RUSSIAN" parentLanguage="RUSSIAN"/>
 
@@ -77,21 +76,16 @@
 								<flair:GrammaticalConstructionWeightSlider gram="PARTICIPLE_PAST_PASSIVE" parentLanguage="RUSSIAN"/>
 							</flair:GrammaticalConstructionPanelItem>			
 			
-							<!-- Tenses -->
-							<flair:GrammaticalConstructionPanelItem ui:field="pnlTensesUI" text="tenses" iconType="EXPAND_MORE">
-								<flair:GrammaticalConstructionWeightSlider gram="TENSE_PAST" parentLanguage="RUSSIAN"/>
-								<flair:GrammaticalConstructionWeightSlider gram="VERBS_IRREGULAR_PAST" parentLanguage="RUSSIAN"/>
-								
-								<flair:GrammaticalConstructionWeightSlider gram="TENSE_NON_PAST" parentLanguage="RUSSIAN"/>
-								<flair:GrammaticalConstructionWeightSlider gram="VERBS_IRREGULAR_NONPAST" parentLanguage="RUSSIAN"/>
+							<!-- Tenses and Aspect -->
+							<flair:GrammaticalConstructionPanelItem ui:field="pnlAspectTenseUI" text="tenses" iconType="EXPAND_MORE">
+								<flair:GrammaticalConstructionWeightSlider gram="PAST_PERFECTIVE" parentLanguage="RUSSIAN"/>
+								<flair:GrammaticalConstructionWeightSlider gram="PAST_IMPERFECTIVE" parentLanguage="RUSSIAN"/>
 								<flair:GrammaticalConstructionWeightSlider gram="TENSE_PRESENT" parentLanguage="RUSSIAN"/>
-								<flair:GrammaticalConstructionWeightSlider gram="TENSE_FUTURE" parentLanguage="RUSSIAN"/>
-							</flair:GrammaticalConstructionPanelItem>
-							<!-- TODO: combine the tense and aspect panels -->
-							<!-- Aspect -->
-							<flair:GrammaticalConstructionPanelItem ui:field="pnlAspectUI" text="aspect" iconType="EXPAND_MORE">
-								<flair:GrammaticalConstructionWeightSlider gram="ASPECT_PERFECTIVE" parentLanguage="RUSSIAN"/>
-								<flair:GrammaticalConstructionWeightSlider gram="ASPECT_IMPERFECTIVE" parentLanguage="RUSSIAN"/>
+								<flair:GrammaticalConstructionWeightSlider gram="FUTURE_PERFECTIVE" parentLanguage="RUSSIAN"/>
+								<flair:GrammaticalConstructionWeightSlider gram="FUTURE_IMPERFECTIVE" parentLanguage="RUSSIAN"/>
+
+								<flair:GrammaticalConstructionWeightSlider gram="VERBS_IRREGULAR_PAST" parentLanguage="RUSSIAN"/>
+								<flair:GrammaticalConstructionWeightSlider gram="VERBS_IRREGULAR_NONPAST" parentLanguage="RUSSIAN"/>
 								<flair:GrammaticalConstructionWeightSlider gram="ASPECT_BIASPECTUAL" parentLanguage="RUSSIAN"/>
 							</flair:GrammaticalConstructionPanelItem>
 

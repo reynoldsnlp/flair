@@ -12,14 +12,16 @@ import edu.stanford.nlp.util.CoreMap;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
 import java.util.List;
 import java.util.Properties;
 
-import static com.flair.server.grammar.RussianGrammaticalPatterns.*;
+import static com.flair.server.grammar.RussianGrammaticalPatterns.labelVerbNoSubject;
+import static com.flair.server.grammar.RussianGrammaticalPatterns.patternVerbNoSubject;
 
 public class StanfordDocumentParserRussianStrategyTest {
 
-	private final String stringToParse = "этот человек – мой отец. из-за чего ты здесь? в каком ты здании? В каком ты здании? Я приду, когда он придет. куда он делся?";
+	private final String stringToParse = "где ми этот человек? мой отец. из-за чего ты здесь? в каком ты здании? В каком ты здании? Я приду, когда он придет. куда он делся?";
 
 	//constants
 	private static final String RUSSIAN_POS_MODEL       = "edu/stanford/nlp/models/pos-tagger/russian-ud-pos.tagger";
