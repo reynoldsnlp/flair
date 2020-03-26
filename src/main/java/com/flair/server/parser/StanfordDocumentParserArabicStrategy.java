@@ -217,12 +217,26 @@ class StanfordDocumentParserArabicStrategy extends BasicStanfordDocumentParserSt
 				madaSents == null || madaSents.isEmpty())
 			return;
 
-		for (int i = 0; i < stanfordSents.size(); i++) {
+		for(MadaToken madaToken: madaTokens) {
+			StringBuilder sb = new StringBuilder(workingDoc.getText());
+			String token = madaToken.getToken().attr("form0");
+			madaToken.setIndices(sb.toString().indexOf(token));
+
+			for (int i = madaToken.getStartIndex(); i <= madaToken.getEndIndex(); i++)
+				sb.setCharAt(i, ' ');
+
+			if (madaToken.getMorphFeatureSet().attr("pos").equals("prep")) {
+				addConstructionByIndices(GrammaticalConstruction.PREPOSITIONS, madaToken.getStartIndex(), madaToken.getEndIndex());
+			}
+		}
+
+
+		/*for (int i = 0; i < stanfordSents.size(); i++) {
 			SemanticGraph stanfordSemGraph = stanfordSents.get(i).get(SemanticGraphCoreAnnotations.EnhancedPlusPlusDependenciesAnnotation.class);
 			SemanticGraph madaSemGraph = madaSents.get(i).get(SemanticGraphCoreAnnotations.EnhancedPlusPlusDependenciesAnnotation.class);
 
-			Alignment alignment = Alignment.makeFromIndexArray(stanfordSemGraph, madaSemGraph,  );
-		}
+
+		}*/
 
 		/*String text = workingDoc.getPageText()
 				.replaceAll("ّ", "")
@@ -307,6 +321,8 @@ class StanfordDocumentParserArabicStrategy extends BasicStanfordDocumentParserSt
 class MadaToken {
 	private Element token;
 	private Element morphFeatureSet;
+	private int startIndex;
+	private int endIndex;
 
 	MadaToken(Element token, Element morphFeatureSet) {
 		this.token = token;
@@ -327,6 +343,19 @@ class MadaToken {
 
 	public void setMorphFeatureSet(Element morphFeatureSet) {
 		this.morphFeatureSet = morphFeatureSet;
+	}
+
+	public void setIndices(int startIndex) {
+		this.startIndex = startIndex;
+		endIndex = startIndex + token.attr("form0").length() - 1;
+	}
+
+	public int getStartIndex() {
+		return startIndex;
+	}
+
+	public int getEndIndex() {
+		return getEndIndex();
 	}
 
 }
