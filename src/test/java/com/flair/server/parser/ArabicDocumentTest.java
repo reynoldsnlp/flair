@@ -4,7 +4,6 @@ import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.spy;
 
 import com.flair.server.raft.Raft;
-import com.flair.server.utilities.MadamiraAPI;
 import com.flair.server.utilities.ServerLogger;
 import com.flair.shared.grammar.Language;
 import com.flair.shared.parser.ArabicDocumentReadabilityLevel;
