@@ -95,7 +95,7 @@ public enum GrammaticalConstruction
     QUESTIONS_WHOSE("whose", Language.ENGLISH, Language.GERMAN),
     QUESTIONS_WHOM("whom", Language.ENGLISH, Language.GERMAN),
     QUESTIONS_WHICH("which", Language.ENGLISH, Language.GERMAN),
-    QUESTIONS_TAG("tagQuestions", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), // ", isn't it?" //*** ", (nje) tak (li)?" //TODO
+    QUESTIONS_TAG("tagQuestions", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), // ", isn't it?" //*** ", (nje) tak (li)?" //TODO (, AND ? ARE IMPORTANT)
     
     // conditionals - check first, before tenses
     CONDITIONALS("conditionals", Language.ENGLISH),
