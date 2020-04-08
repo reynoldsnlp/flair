@@ -682,7 +682,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
 	        	boolean isWhich = false;
 	        	boolean isWhither = false;
 	        	boolean isWhatKind = false;
-		        for(CgReading reading: word.getReadings()){ //TODO: optimize this so it asks if lemma.toLowerCase() is in the set of question words
+		        for(CgReading reading: word.getReadings()){
 			        String lemma = reading.getBaseForm();
 			        isWhat |= isMatch(patternChto, lemma);
 			        isWho |= isMatch(patternKto, lemma);
