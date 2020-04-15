@@ -445,3 +445,6 @@ _gram-helpText_	VERB_BRACKETS	Ich habe die Ärztin gesehen.
 _gram-name_	VERB_CLUSTER	Verbalkomplex
 _gram-path_	VERB_CLUSTER	Satzklammer > Verbalkomplex
 _gram-helpText_	VERB_CLUSTER	zu helfen gefragt worden sein
+_gram-name_	VERBAL_NOUN	VERBAL_NOUN
+_gram-path_	VERBAL_NOUN	VERBAL_NOUN
+_gram-helpText_	VERBAL_NOUN	<INSERT_HELP_TEXT>

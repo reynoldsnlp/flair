@@ -104,25 +104,11 @@ class StanfordDocumentParserArabicStrategy extends BasicStanfordDocumentParserSt
 			Document madaOutput = workingDoc.getMadaOutput();
 
 			List<CoreMap> stanfordSents = docAnnotation.get(CoreAnnotations.SentencesAnnotation.class);
-
+			List<CoreLabel> stanfordWords = getStanfordWords(stanfordSents);
 			List<MadaToken> madaTokens = getMadaTokens(madaOutput);
+			alignTokens(madaTokens, stanfordWords);
 
-			List<List<MadaToken>> madaSents = getMadaSents(madaTokens);
-
-			/*StringBuilder sb = new StringBuilder();
-			for(MadaToken madaToken: madaTokens) {
-				sb.append(madaToken);
-				sb.append(" ");
-			}*/
-
-			//String joinedMadaTokens = sb.toString();
-
-			//Annotation docAnnotation2 = new Annotation(joinedMadaTokens);
-			//getMadaPipeline().annotate(docAnnotation2);
-
-			//List<CoreMap> madaSents = docAnnotation2.get(CoreAnnotations.SentencesAnnotation.class);
-
-			inspectText(madaTokens, madaSents, stanfordSents);
+			inspectText(madaTokens, stanfordWords);
 
 			/*// update doc properties
 			workingDoc.setAvgSentenceLength((double) wordCount / (double) sentenceCount);
@@ -173,7 +159,6 @@ class StanfordDocumentParserArabicStrategy extends BasicStanfordDocumentParserSt
 			Elements tokenizeds = madaWord.getElementsByTag("tokenized");
 			for (Element tokenized: tokenizeds) {
 				Elements toks = tokenized.getElementsByTag("tok");
-				//System.out.println(madaWord.attr("word"));
 				List<Element> analysis = madaWord.getElementsByTag("analysis");
 				if (analysis.size() > 0) {
 					Element morphFeatureSet = analysis.get(0).getElementsByTag("morph_feature_set").get(0);
@@ -191,62 +176,303 @@ class StanfordDocumentParserArabicStrategy extends BasicStanfordDocumentParserSt
 		return madaTokens;
 	}
 
-	private List<List<MadaToken>> getMadaSents (List<MadaToken> madaTokens) {
-    	List<List<MadaToken>> sentences = new ArrayList<>();
-    	List<MadaToken> sentence = new ArrayList<>();
-    	for (MadaToken madaToken: madaTokens) {
-    		sentence.add(madaToken);
-    		if (madaToken.getWord().equals(".") ||
-				madaToken.getWord().equals("!") ||
-				madaToken.getWord().equals("?") ||
-				madaToken.getWord().equals("\\u061F")) {
-
-				sentences.add(sentence);
-				sentence = new ArrayList<>();
-			}
-		}
-    	return sentences;
-	}
-
 	private List<CoreLabel> getStanfordWords(List<CoreMap> sentences) {
 		List<CoreLabel> words = new ArrayList<CoreLabel>();
 
 		for(CoreMap itr: sentences) {
-			for (CoreLabel word: itr.get(CoreAnnotations.TokensAnnotation.class)) {
-				Character w = word.word().charAt(0);
-					words.add(word);
-			}
+			for (CoreLabel word: itr.get(CoreAnnotations.TokensAnnotation.class))
+				words.add(word);
 		}
 
 		return words;
 	}
 
-    private void inspectText(/*Tree tree,*/ List<MadaToken> madaTokens, List<List<MadaToken>> madaSents, List<CoreMap> stanfordSents/*, Collection<TypedDependency> deps*/) {
-		if (madaTokens == null || madaTokens.isEmpty() ||
-				stanfordSents == null || stanfordSents.isEmpty())
+	private void alignTokens(List<MadaToken> madaTokens, List<CoreLabel> stanfordWords) {
+    	int m = 0;
+		int s = 0;
+    	while (m < madaTokens.size() && s < stanfordWords.size()) {
+
+    		//System.out.println(m);
+    		/*if(m > 1035) {
+    			System.out.println("1");
+			}
+    		String mToken = madaTokens.get(m).getTok();
+    		String sWord = stanfordWords.get(s).word();*/
+
+			int start = stanfordWords.get(s).beginPosition();
+			int end = stanfordWords.get(s).endPosition();
+
+			String sCurrent = normalize(stanfordWords.get(s).word());
+			String sTokenAdding = sCurrent;
+			int sCounter = 0;
+
+    		String mCurrent = normalize(madaTokens.get(m).getTok());
+			String mTokenAdding = mCurrent;
+			int mCounter = 0;
+
+    		while (sCurrent.contains(mTokenAdding)) {
+    			mCounter++;
+    			mCurrent = mTokenAdding;
+    			if (m + mCounter < madaTokens.size())
+    				mTokenAdding += normalize(madaTokens.get(m + mCounter).getTok());
+    			else
+    				break;
+			}
+    		if (sCurrent.equals(mCurrent)) {
+    			for (int i = 0; i < mCounter; i++) {
+					madaTokens.get(m).setIndices(start, end);
+					m++;
+				}
+    			s++;
+    			continue;
+			}
+
+			while (mCurrent.contains(sTokenAdding)) {
+				sCounter++;
+				sCurrent = sTokenAdding;
+				if (s + sCounter < stanfordWords.size())
+					sTokenAdding += normalize(stanfordWords.get(s + sCounter).word());
+				else
+					break;
+			}
+			if (mCurrent.equals(sCurrent)) {
+				madaTokens.get(m).setIndices(start, stanfordWords.get(s += sCounter).endPosition());
+				m++;
+				continue;
+			}
+
+			String mNext = "";
+			String mNextNext = "";
+			if (m < madaTokens.size() - 1)
+				mNext = normalize(madaTokens.get(m + 1).getTok());
+			if (m < madaTokens.size() - 2)
+				mNextNext = normalize(madaTokens.get(m + 2).getTok());
+
+			String sNext = "";
+			String sNextNext = "";
+			if (s < stanfordWords.size() - 1)
+				sNext = normalize(stanfordWords.get(s + 1).word());
+			if (s < stanfordWords.size() - 2)
+				sNextNext = normalize(stanfordWords.get(s + 2).word());
+
+			int min = getMinimumPenalty(mCurrent + mNext + mNextNext, sCurrent);
+			String minType = "mnns";
+			int snnm = getMinimumPenalty(sCurrent + sNext + sNextNext, mCurrent);
+			if (snnm < min) {
+				min = snnm;
+				minType = "snnm";
+			}
+			int mns = getMinimumPenalty(mCurrent + mNext, sCurrent);
+			if (mns < min) {
+				min = mns;
+				minType = "mns";
+			}
+			int snm = getMinimumPenalty(sCurrent + sNext, mCurrent);
+			if (snm < min) {
+				min = snm;
+				minType = "snm";
+			}
+			int ms = getMinimumPenalty(mCurrent, sCurrent);
+			if (ms < min) {
+				min = ms;
+				minType = "ms";
+			}
+			if (min < 4) {
+				switch (minType) {
+					case "mnns":
+						madaTokens.get(m).setIndices(start, end);
+						if (++m < madaTokens.size())
+							madaTokens.get(m).setIndices(start, end);
+						if (++m < madaTokens.size())
+							madaTokens.get(m).setIndices(start, end);
+						break;
+					case "snnm":
+						if (++s < madaTokens.size())
+							madaTokens.get(m).setIndices(start, stanfordWords.get(s).endPosition());
+						break;
+					case "mns":
+						madaTokens.get(m).setIndices(start, end);
+						if (++m < madaTokens.size())
+							madaTokens.get(m).setIndices(start, end);
+						break;
+					case "snm":
+						if (++s < stanfordWords.size())
+							madaTokens.get(m).setIndices(start, stanfordWords.get(s).endPosition());
+						break;
+					case "ms":
+						madaTokens.get(m).setIndices(start, end);
+						break;
+				}
+				m++;
+				s++;
+			}
+			else {
+				Boolean matches = false;
+				for (int i = s; i < stanfordWords.size(); i++) {
+					for (int j = m; j < madaTokens.size(); j++) {
+						if (matches(madaTokens, stanfordWords, j, i)) {
+							matches = true;
+							m = j;
+							break;
+						}
+					}
+					if (matches) {
+						s = i;
+						break;
+					}
+				}
+			}
+		}
+	}
+
+	private Boolean matches(List<MadaToken> madaTokens, List<CoreLabel> stanfordWords, int m, int s) {
+    	String sCurrent = normalize(stanfordWords.get(s).word());
+		String sTokenAdding = sCurrent;
+		int sCounter = 0;
+
+		String mCurrent = normalize(madaTokens.get(m).getTok());
+		String mTokenAdding = mCurrent;
+		int mCounter = 0;
+
+		while (sCurrent.contains(mTokenAdding)) {
+			mCounter++;
+			mCurrent = mTokenAdding;
+			if (m + mCounter < madaTokens.size())
+				mTokenAdding += normalize(madaTokens.get(m + mCounter).getTok());
+			else
+				break;
+		}
+		if (sCurrent.equals(mCurrent))
+			return true;
+
+		while (mCurrent.contains(sTokenAdding)) {
+			sCounter++;
+			sCurrent = sTokenAdding;
+			if (s + sCounter < stanfordWords.size())
+				sTokenAdding += normalize(stanfordWords.get(s + sCounter).word());
+			else
+				break;
+		}
+		if (mCurrent.equals(sCurrent))
+			return true;
+
+		String mNext = "";
+		String mNextNext = "";
+		if (m < madaTokens.size() - 1)
+			mNext = normalize(madaTokens.get(m + 1).getTok());
+		if (m < madaTokens.size() - 2)
+			mNextNext = normalize(madaTokens.get(m + 2).getTok());
+
+		String sNext = "";
+		String sNextNext = "";
+		if (s < stanfordWords.size() - 1)
+			sNext = normalize(stanfordWords.get(s + 1).word());
+		if (s < stanfordWords.size() - 2)
+			sNextNext = normalize(stanfordWords.get(s + 2).word());
+
+		int threshold = 4;
+		int min = getMinimumPenalty(mCurrent + mNext + mNextNext, sCurrent);
+		int snnm = getMinimumPenalty(sCurrent + sNext + sNextNext, mCurrent);
+		if (snnm < min)
+			min = snnm;
+		int mns = getMinimumPenalty(mCurrent + mNext, sCurrent);
+		if (mns < min)
+			min = mns;
+		int snm = getMinimumPenalty(sCurrent + sNext, mCurrent);
+		if (snm < min)
+			min = snm;
+		int ms = getMinimumPenalty(mCurrent, sCurrent);
+		if (ms < min)
+			min = ms;
+		if (min < threshold)
+			return true;
+		return false;
+	}
+
+    private void inspectText(/*Tree tree,*/ List<MadaToken> madaTokens, List<CoreLabel> stanfordWords /*, Collection<TypedDependency> deps*/) {
+		if (madaTokens == null || madaTokens.isEmpty() || stanfordWords == null || stanfordWords.isEmpty())
 			return;
 
-		
-/*
-		try {
+		for (int i = 0; i < madaTokens.size(); i++) {
+			MadaToken madaToken = madaTokens.get(i);
+			int start = madaToken.getStartIndex();
+			int end = madaToken.getEndIndex();
+			if (start == -1 || end == -1)
+				continue;
+
+			Element morphFeatureSet = madaToken.getMorphFeatureSet();
+			if (morphFeatureSet == null)
+				continue;
+
+			String BWtag = madaToken.getToken().attr("form5"); // Buckwalter tag
+
+			String cas = morphFeatureSet.attr("cas"); // nominative, accusative, genitive
+			String stt = morphFeatureSet.attr("stt"); // definite, indefinite, construct
+			String num = morphFeatureSet.attr("num"); // singular, dual, plural
+			String gen = morphFeatureSet.attr("gen"); // masculine, feminine
+			String mod = morphFeatureSet.attr("mod"); // indicative, subjunctive, jussive
+			String vox = morphFeatureSet.attr("vox"); // active, passive
+			String asp = morphFeatureSet.attr("asp"); // perfective, imperfective, command/imperative
+			String per = morphFeatureSet.attr("per"); // 1st, 2nd, 3rd
+			String prc0 = morphFeatureSet.attr("prc0");
+			String prc1 = morphFeatureSet.attr("prc1");
+			String prc2 = morphFeatureSet.attr("prc2");
+			String prc3 = morphFeatureSet.attr("prc3");
+			String pos = morphFeatureSet.attr("pos"); // part of speech
+
+			//VERBS
+			if (pos.equals("verb")) {
+				/*if (asp.equals("p"))
+					addConstructionByIndices(GrammaticalConstruction.ASPECT_PERFECTIVE, start, end);*/
+				/*if (mod.equals("i"))
+					addConstructionByIndices(GrammaticalConstruction.MOOD_INDICATIVE, start, end);*/
+				/*else if (mod.equals("s"))
+					addConstructionByIndices(GrammaticalConstruction.MOOD_SUBJUNCTIVE, start, end);
+				else if (mod.equals("j"))
+					addConstructionByIndices(GrammaticalConstruction.MOOD_JUSSIVE, start, end);*/
+			}
+
+			if (BWtag.contains("PREP")) {
+				addConstructionByIndices(GrammaticalConstruction.PREPOSITIONS, start, end);
+			}
+			/*if (BWtag.contains("PRON")) {
+				addConstructionByIndices(GrammaticalConstruction.PRONOUNS, start, end);
+			}*/
+		}
+
+		for (CoreLabel word: stanfordWords) {
+			String pos = word.tag();
+			/*if(pos.equals("VBG"))
+				workingDoc.getConstructionData(GrammaticalConstruction.VERBAL_NOUN)
+						.addOccurrence(word.beginPosition(), word.endPosition());*/
+			/*if(pos.equals("PREP"))
+				workingDoc.getConstructionData(GrammaticalConstruction.PREPOSITIONS)
+						.addOccurrence(word.beginPosition(), word.endPosition());
+			else if(pos.equals("PRP"))
+				workingDoc.getConstructionData(GrammaticalConstruction.PRONOUNS)
+						.addOccurrence(word.beginPosition(), word.endPosition());*/
+		}
+
+		/*try {
 			BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
 					new FileOutputStream("stanfordMadaSents.txt"), "UTF-8"));
 
-			for(int i = 0; i < madaSents.size() || i < stanfordSents.size(); i++) {
+					writer.write(workingDoc.getPageText() + "\n\n");
+			for(int i = 0; i < madaSents.size() || i < otherStanfordSents.size(); i++) {
 				if (i < madaSents.size()) {
 					writer.write("Madamira: ");
 					for(MadaToken madaToken: madaSents.get(i)) {
-						writer.write(madaToken.getWord() + " ");
+						writer.write(madaToken.getTok() + " ");
 					}
-					writer.write("\t\t");
+					writer.write("\n");
 				}
 				if (i < stanfordSents.size()) {
 					writer.write("Stanford: ");
-					List<CoreLabel> sentence = stanfordSents.get(i).get(CoreAnnotations.TokensAnnotation.class);
-					for(CoreLabel label : sentence) {
-						writer.write(label.word() + " ");
+					List<String> sentence = otherStanfordSents.get(i);
+					for(String word : sentence) {
+						writer.write(word + " ");
 					}
-					writer.write("\n");
+					writer.write("\n\n");
 				}
 			}
 		}
@@ -384,18 +610,155 @@ class StanfordDocumentParserArabicStrategy extends BasicStanfordDocumentParserSt
 		workingDoc.getConstructionData(type).addOccurrence(startIndex, endIndex);
 	}
 
+	static int getMinimumPenalty(String x, String y)
+	{
+		int SUB = 5;
+		int INDEL = 1;
+		int i, j; // intialising variables
+
+		int m = x.length(); // length of token 1
+		int n = y.length(); // length of token 2
+
+		// table for storing optimal
+		// substructure answers
+		int dp[][] = new int[n + m + 1][n + m + 1];
+
+		for (int[] x1 : dp)
+			Arrays.fill(x1, 0);
+
+		// intialising the table
+		for (i = 0; i <= (n + m); i++)
+		{
+			dp[i][0] = i * INDEL;
+			dp[0][i] = i * INDEL;
+		}
+
+		// calcuting the
+		// minimum penalty
+		for (i = 1; i <= m; i++)
+		{
+			for (j = 1; j <= n; j++)
+			{
+				char xChar = x.charAt(i - 1);
+				char yChar = y.charAt(j - 1);
+
+				Boolean ta = (xChar == 'ت' && yChar == 'ة') || (xChar == 'ة' && yChar == 'ت');
+				Boolean alef = (xChar == 'ا' && yChar == 'أ') || (xChar == 'أ' && yChar == 'ا');
+				Boolean waw = (xChar == 'و' && yChar == 'ؤ') || (xChar == 'ؤ' && yChar == 'و');
+				Boolean ya = (xChar == 'ي' && (yChar == 'ئ' || yChar == 'ى')) ||
+								(xChar == 'ى' && (yChar == 'ئ'|| yChar == 'ي')) ||
+								(xChar == 'ئ' && (yChar == 'ي' || yChar == 'ى'));
+
+				if (xChar == yChar || ta || alef || waw || ya)
+				{
+					dp[i][j] = dp[i - 1][j - 1];
+				}
+				else
+				{
+					dp[i][j] = Math.min(Math.min(dp[i - 1][j - 1] + SUB ,
+							dp[i - 1][j] + INDEL) ,
+							dp[i][j - 1] + INDEL );
+				}
+			}
+		}
+
+		/*for(int q = 0; q < m; q++ ) {
+			for (int r = 0; r < n; r++) {
+				System.out.print(dp[q][r] + " ");
+			}
+			System.out.print("\n");
+		}
+		System.out.println("-------------------------------------");*/
+		return dp[m][n];
+	}
+
+	private String normalize(String input) {
+		//Remove honorific sign
+		input=input.replaceAll("\u0610", "");//ARABIC SIGN SALLALLAHOU ALAYHE WA SALLAM
+		input=input.replaceAll("\u0611", "");//ARABIC SIGN ALAYHE ASSALLAM
+		input=input.replaceAll("\u0612", "");//ARABIC SIGN RAHMATULLAH ALAYHE
+		input=input.replaceAll("\u0613", "");//ARABIC SIGN RADI ALLAHOU ANHU
+		input=input.replaceAll("\u0614", "");//ARABIC SIGN TAKHALLUS
+
+		//Remove koranic anotation
+		input=input.replaceAll("\u0615", "");//ARABIC SMALL HIGH TAH
+		input=input.replaceAll("\u0616", "");//ARABIC SMALL HIGH LIGATURE ALEF WITH LAM WITH YEH
+		input=input.replaceAll("\u0617", "");//ARABIC SMALL HIGH ZAIN
+		input=input.replaceAll("\u0618", "");//ARABIC SMALL FATHA
+		input=input.replaceAll("\u0619", "");//ARABIC SMALL DAMMA
+		input=input.replaceAll("\u061A", "");//ARABIC SMALL KASRA
+		input=input.replaceAll("\u06D6", "");//ARABIC SMALL HIGH LIGATURE SAD WITH LAM WITH ALEF MAKSURA
+		input=input.replaceAll("\u06D7", "");//ARABIC SMALL HIGH LIGATURE QAF WITH LAM WITH ALEF MAKSURA
+		input=input.replaceAll("\u06D8", "");//ARABIC SMALL HIGH MEEM INITIAL FORM
+		input=input.replaceAll("\u06D9", "");//ARABIC SMALL HIGH LAM ALEF
+		input=input.replaceAll("\u06DA", "");//ARABIC SMALL HIGH JEEM
+		input=input.replaceAll("\u06DB", "");//ARABIC SMALL HIGH THREE DOTS
+		input=input.replaceAll("\u06DC", "");//ARABIC SMALL HIGH SEEN
+		input=input.replaceAll("\u06DD", "");//ARABIC END OF AYAH
+		input=input.replaceAll("\u06DE", "");//ARABIC START OF RUB EL HIZB
+		input=input.replaceAll("\u06DF", "");//ARABIC SMALL HIGH ROUNDED ZERO
+		input=input.replaceAll("\u06E0", "");//ARABIC SMALL HIGH UPRIGHT RECTANGULAR ZERO
+		input=input.replaceAll("\u06E1", "");//ARABIC SMALL HIGH DOTLESS HEAD OF KHAH
+		input=input.replaceAll("\u06E2", "");//ARABIC SMALL HIGH MEEM ISOLATED FORM
+		input=input.replaceAll("\u06E3", "");//ARABIC SMALL LOW SEEN
+		input=input.replaceAll("\u06E4", "");//ARABIC SMALL HIGH MADDA
+		input=input.replaceAll("\u06E5", "");//ARABIC SMALL WAW
+		input=input.replaceAll("\u06E6", "");//ARABIC SMALL YEH
+		input=input.replaceAll("\u06E7", "");//ARABIC SMALL HIGH YEH
+		input=input.replaceAll("\u06E8", "");//ARABIC SMALL HIGH NOON
+		input=input.replaceAll("\u06E9", "");//ARABIC PLACE OF SAJDAH
+		input=input.replaceAll("\u06EA", "");//ARABIC EMPTY CENTRE LOW STOP
+		input=input.replaceAll("\u06EB", "");//ARABIC EMPTY CENTRE HIGH STOP
+		input=input.replaceAll("\u06EC", "");//ARABIC ROUNDED HIGH STOP WITH FILLED CENTRE
+		input=input.replaceAll("\u06ED", "");//ARABIC SMALL LOW MEEM
+
+		//Remove tatweel
+		input=input.replaceAll("\u0640", "");
+
+		//Remove tashkeel
+		input=input.replaceAll("\u064B", "");//ARABIC FATHATAN
+		input=input.replaceAll("\u064C", "");//ARABIC DAMMATAN
+		input=input.replaceAll("\u064D", "");//ARABIC KASRATAN
+		input=input.replaceAll("\u064E", "");//ARABIC FATHA
+		input=input.replaceAll("\u064F", "");//ARABIC DAMMA
+		input=input.replaceAll("\u0650", "");//ARABIC KASRA
+		input=input.replaceAll("\u0651", "");//ARABIC SHADDA
+		input=input.replaceAll("\u0652", "");//ARABIC SUKUN
+		input=input.replaceAll("\u0653", "");//ARABIC MADDAH ABOVE
+		input=input.replaceAll("\u0654", "");//ARABIC HAMZA ABOVE
+		input=input.replaceAll("\u0655", "");//ARABIC HAMZA BELOW
+		input=input.replaceAll("\u0656", "");//ARABIC SUBSCRIPT ALEF
+		input=input.replaceAll("\u0657", "");//ARABIC INVERTED DAMMA
+		input=input.replaceAll("\u0658", "");//ARABIC MARK NOON GHUNNA
+		input=input.replaceAll("\u0659", "");//ARABIC ZWARAKAY
+		input=input.replaceAll("\u065A", "");//ARABIC VOWEL SIGN SMALL V ABOVE
+		input=input.replaceAll("\u065B", "");//ARABIC VOWEL SIGN INVERTED SMALL V ABOVE
+		input=input.replaceAll("\u065C", "");//ARABIC VOWEL SIGN DOT BELOW
+		input=input.replaceAll("\u065D", "");//ARABIC REVERSED DAMMA
+		input=input.replaceAll("\u065E", "");//ARABIC FATHA WITH TWO DOTS
+		input=input.replaceAll("\u065F", "");//ARABIC WAVY HAMZA BELOW
+		input=input.replaceAll("\u0670", "");//ARABIC LETTER SUPERSCRIPT ALEF
+
+		return input;
+	}
+
 }
 
 class MadaToken {
 	private Element token;
-	private Element morphFeatureSet;
+	private Element morphFeatureSet = null;
 	private String word;
+	private String tok;
 	private int wordID;
-	private int startIndex;
-	private int endIndex;
+	private int startIndex = -1;
+	private int endIndex = -1;
 
 	MadaToken(Element token, Element morphFeatureSet, String word, int wordID) {
 		this.token = token;
+		tok = token.attr("form0")
+				.replaceAll("\\+", "")
+				.replaceAll("-LRB-", "(")
+				.replaceAll("-RRB-", ")");
 		this.morphFeatureSet = morphFeatureSet;
 		this.word = word;
 		this.wordID = wordID;
@@ -408,6 +771,8 @@ class MadaToken {
 	public Element getMorphFeatureSet() {
 		return morphFeatureSet;
 	}
+
+	public String getTok() { return tok; }
 
 	public String getWord() { return word; }
 
@@ -425,9 +790,9 @@ class MadaToken {
 
 	public void setWordID(int wordID) { this.wordID = wordID; }
 
-	public void setIndices(int startIndex) {
+	public void setIndices(int startIndex, int endIndex) {
 		this.startIndex = startIndex;
-		endIndex = startIndex + token.attr("form0").length();
+		this.endIndex = endIndex;
 	}
 
 	public int getStartIndex() {

@@ -71,7 +71,7 @@ DocumentCollectionVisualizer	chkAxisComplexityUI	Komplexität
 DocumentCollectionVisualizer	chkAxisKeywordsUI	Schlüsselwörter
 DocumentCollectionVisualizer	NO_FILTERED_DOCS	Die Ergebnisse wurden nicht gefiltert.
 DocumentCollectionVisualizer	DOCS_FILTERED	Gefilterte Ergebnisse
-		
+
 DocumentComparer	lblTitleUI	Ergebnisse vergleichen
 DocumentComparer	btnClearSelectionUI	Zwischenablage leeren
 DocumentComparer	lblPlaceholderUI	Die Zwischenablage ist leer

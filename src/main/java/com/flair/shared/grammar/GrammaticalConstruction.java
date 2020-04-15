@@ -52,7 +52,7 @@ public enum GrammaticalConstruction //TODO: separate lemma-based Constructions u
     OBJECT_DIRECT("directObject", Language.ENGLISH),	 // "give me" //*** in the graph, verb with Acc or negated verb with Gen
     OBJECT_INDIRECT("indirectObject", Language.ENGLISH),	 // "give it toPrep me" //*** in the graph, verb with Dat
     
-    PRONOUNS("pronouns", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN, Language.ARABIC),
+    PRONOUNS("pronouns", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN),
     PRONOUNS_PERSONAL("pronounsPersonal", Language.GERMAN, Language.RUSSIAN),
     PRONOUNS_RELATIVE("pronounsRelative", Language.GERMAN, Language.RUSSIAN),
     PRONOUNS_POSSESSIVE("pronounsPossessive", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), // /PRP$ ("", my, your, their)
@@ -163,6 +163,7 @@ public enum GrammaticalConstruction //TODO: separate lemma-based Constructions u
     PASSIVE_VOICE_SEIN("passiveVoiceSein", Language.GERMAN),
     
     ADJECTIVE_POSITIVE("positiveAdj", Language.ENGLISH, Language.GERMAN),// "nice"
+    //ADJECTIVE_COMPARATIVE("compartiveAdj", Language.ARABIC),
     ADJECTIVE_COMPARATIVE_SHORT("comparativeAdjShort", Language.ENGLISH),// "nicer"
     ADJECTIVE_SUPERLATIVE_SHORT("superlativeAdjShort", Language.ENGLISH),// "nicest"
     ADJECTIVE_COMPARATIVE_LONG("comparativeAdjLong", Language.ENGLISH),// "more beautiful"
@@ -261,7 +262,50 @@ public enum GrammaticalConstruction //TODO: separate lemma-based Constructions u
 
     //ARABIC
     //VERBAL_NOUN ("verbalNoun", Language.ARABIC),
+    //PARTICIPLES ("participles", Language.ARABIC),
+    //PSEUDO_VERBS ("pseudoVerbs", Language.ARABIC),
 
+    //MOOD
+    //MOOD_INDICATIVE ("verbInd", Language.ARABIC),
+    //MOOD_SUBJUNCTIVE ("verbSub", Language.ARABIC),
+    //MOOD_JUSSIVE ("verbJus", Language.ARABIC),
+
+    //VOICE
+    //VOICE_ACTIVE ("verbAct", Language.ARABIC),
+    //VOICE_PASSIVE ("verbPas", Language.ARABIC),
+
+    //ASPECT
+    //ASPECT_PERFECTIVE ("perfective", Language.ARABIC),
+    //ASPECT_IMPERFECTIVE ("imperfective", Language.ARABIC),
+
+    //NUMBER, PERSON, GENDER
+    //VERB_1_SINGULAR ("verb1Sg", Language.ARABIC),
+    //VERB_1_PLURAL ("verb1Pl", Language.ARABIC),
+    //VERB_2_SINGULAR_MASC ("verb2SgM", Language.ARABIC),
+    //VERB_2_SINGULAR_FEM ("verb2SgF", Language.ARABIC),
+    //VERB_2_DUAL_MASC ("verb2DuM", Language.ARABIC),
+    //VERB_2_DUAL_FEM ("verb2DuF", Language.ARABIC),
+    //VERB_2_PLURAL_MASC ("verb2PlM", Language.ARABIC),
+    //VERB_2_PLURAL_FEM ("verb2PlF", Language.ARABIC),
+    //VERB_3_SINGULAR_MASC ("verb3SgM", Language.ARABIC),
+    //VERB_3_SINGULAR_FEM ("verb3SgF", Language.ARABIC),
+    //VERB_3_DUAL_MASC ("verb3DuM", Language.ARABIC),
+    //VERB_3_DUAL_FEM ("verb3DuF", Language.ARABIC),
+    //VERB_3_PLURAL_MASC ("verb3PlM", Language.ARABIC),
+    //VERB_3_PLURAL_FEM ("verb3PlF", Language.ARABIC),
+
+    //NOUN_SG("nounSingular", Language.ARABIC),
+    //NOUN_PL("nounPlural", Language.ARABIC),
+    //NOUN_PL_MASC("nounPluralMasc", Language.ARABIC),
+    //NOUN_PL_FEM("nounPluralFem", Language.ARABIC),
+    //NOUN_PL_BROKEN("nounPluralBroken", Language.ARABIC),
+    //NOUN_PROPER_SG("nounProperSingualr", Language.ARABIC),
+    //NOUN_PROPER_PL("nounProperSingular", Language.ARABIC),
+
+    //QUANTIFIERS("quantifiers", Language.ARABIC),
+    //CONJUNCTIONS("conjunctions", Language.ARABIC),
+    //PARTICLES_PREPOSITIONS("particlesPrepositions", Language.ARABIC),
+    //PARTICLES_OTHER("particlesOther", Language.ARABIC)
     ;
     
 	

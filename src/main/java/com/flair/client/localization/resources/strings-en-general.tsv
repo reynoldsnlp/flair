@@ -26,7 +26,7 @@ _common-strings_	LANGUAGE_ARABIC	Arabic
 _common-strings_	ACADEMIC_VOCAB	Academic Vocabulary
 _common-strings_	KEYWORDS	Keywords
 _common-strings_	CUSTOM_VOCAB	Custom Vocabulary
-		
+
 _webrankercore_	ANALYSIS_COMPLETE	Analysis complete.
 _webrankercore_	SELECTED_FOR_COMPARISON	Selected for comparison
 _webrankercore_	CUSTOM_CORPUS_TITLE	Uploaded Files
@@ -146,7 +146,7 @@ ConstructionSliderBundleEnglish	pnlPronounsUI	Pronouns
 ConstructionSliderBundleEnglish	pnlConjunctionsUI	Conjunctions
 ConstructionSliderBundleEnglish	pnlPrepositionsUI	Prepositions
 ConstructionSliderBundleEnglish	pnlNounsUI	Nouns
-		
+
 ConstructionSliderBundleGerman	pnlSaetzeUI	Sentences
 ConstructionSliderBundleGerman	pnlFragenUI	Questions
 ConstructionSliderBundleGerman	pnlSatztypenUI	Sentence Types

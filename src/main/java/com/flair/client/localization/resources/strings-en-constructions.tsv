@@ -445,3 +445,6 @@ _gram-helpText_	VERB_CLUSTER	<INSERT_HELP_TEXT>
 _gram-name_	POSTPOSITION	POSTPOSITION
 _gram-path_	POSTPOSITION	POSTPOSITION
 _gram-helpText_	POSTPOSITION	<INSERT_HELP_TEXT>
+_gram-name_	VERBAL_NOUN	Verbal noun
+_gram-path_	VERBAL_NOUN	Verbs > Verb forms > Verbal noun
+_gram-helpText_	VERBAL_NOUN	<INSERT_HELP_TEXT>

@@ -519,7 +519,7 @@ public class DocumentCollectionVisualizer extends LocalizedComposite implements 
 			bdlEnglishSlidersUI.setVisible(false);
 			bdlGermanSlidersUI.setVisible(false);
 			bdlArabicSlidersUI.setVisible(false);
-			
+
 			resetSelectedAxes();
 			
 			// setup sliders
