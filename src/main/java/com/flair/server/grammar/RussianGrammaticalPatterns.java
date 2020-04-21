@@ -2,8 +2,9 @@ package com.flair.server.grammar;
 
 import edu.stanford.nlp.semgraph.semgrex.SemgrexPattern;
 
-import static java.util.regex.Pattern.CASE_INSENSITIVE;
 import java.util.regex.Pattern;
+
+import static java.util.regex.Pattern.CASE_INSENSITIVE;
 
 public class RussianGrammaticalPatterns {
 
@@ -57,17 +58,14 @@ public class RussianGrammaticalPatterns {
     public static final Pattern patternLjuboj = Pattern.compile(STR_LJUBOJ, CASE_INSENSITIVE);
     private static final String STR_MNOGO = "\\bмног(о|ий)\\b";
     public static final Pattern patternMnogo = Pattern.compile(STR_MNOGO, CASE_INSENSITIVE);
-    private static final String STR_VRJAD = "\\bвряд\\b";
-    public static final Pattern patternVrjad = Pattern.compile(STR_VRJAD, CASE_INSENSITIVE);
-    private static final String STR_REDKO = "\\bредко\\b";
-    public static final Pattern patternRedko = Pattern.compile(STR_REDKO, CASE_INSENSITIVE);
-    private static final String STR_JEDVA = "\\bедва\\b";
-    public static final Pattern patternJedva = Pattern.compile(STR_JEDVA, CASE_INSENSITIVE);
     //comparative and superlative
     private static final String STR_BOLJEJE = "\\bболее\\b";
     public static final Pattern patternBoljeje = Pattern.compile(STR_BOLJEJE, CASE_INSENSITIVE);
     private static final String STR_SAMYJ = "\\bсамый\\b";
     public static final Pattern patternSamyj = Pattern.compile(STR_SAMYJ, CASE_INSENSITIVE);
+    //partial negation
+    private static final String STR_PARTIAL_NEGATION_WORDS = "\\b((вряд)|(редко)|(едва)|(еле)|(еле-еле)|(не совсем)|(навряд)|(наврядли)|(едва-едва)|(нечасто)|(изредка)|(почти не)|(с трудом)|(чуть)|(чуть-чуть))\\b";
+    public static final Pattern patternPartialNegationWords = Pattern.compile(STR_PARTIAL_NEGATION_WORDS, CASE_INSENSITIVE);
 
 
     //QUESTION WORDS
@@ -94,6 +92,9 @@ public class RussianGrammaticalPatterns {
     public static final Pattern patternKuda = Pattern.compile(STR_KUDA, CASE_INSENSITIVE);
     private static final String STR_KAKOV = "\\bкаков\\b";
     public static final Pattern patternKakov = Pattern.compile(STR_KAKOV, CASE_INSENSITIVE);
+
+    private static final String STR_TAG_QUESTION = ",\\s*((не)?\\s+так(\\s+ли)?\\?)";
+    public static final Pattern patternTagQuestion = Pattern.compile(STR_TAG_QUESTION, CASE_INSENSITIVE);
 
 
     //VERB FORMS

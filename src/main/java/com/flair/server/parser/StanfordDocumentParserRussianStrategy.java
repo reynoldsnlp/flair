@@ -157,6 +157,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
 					ServerLogger.get().info("Parsing " + docToParse.getDescription() + "...");
 				}*/
                 if (itr.size() > 0) {
+                    //String plainSentence =
                     SemanticGraph graph = itr.get(SemanticGraphCoreAnnotations.EnhancedPlusPlusDependenciesAnnotation.class);
                     List<CoreLabel> words = itr.get(CoreAnnotations.TokensAnnotation.class);
 					/*Collection<TypedDependency> dependencies = itr
@@ -634,7 +635,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
 
             //look at the surface form
             String surfaceForm = word.getSurfaceForm();
-	        if(isMatch(patternVrjad, surfaceForm) || isMatch(patternRedko, surfaceForm) || isMatch(patternJedva, surfaceForm)){
+	        if(isMatch(patternPartialNegationWords, surfaceForm)){
 		        addSingleConstructionInstance(constructionInstances, GrammaticalConstruction.NEGATION_PARTIAL, word);
 		        addSingleConstructionInstance(constructionInstances, GrammaticalConstruction.NEGATION_ALL, word);
 	        }

@@ -51,6 +51,7 @@ public class StanfordDocumentParserRussianStrategyTest {
 		List<CoreMap> sentences = docAnnotation.get(CoreAnnotations.SentencesAnnotation.class);
 		for(CoreMap itr : sentences) {
 			if (itr.size() > 0) {
+				//TODO: GET THE SENTENCE PLAIN TEXT, TEST TAG QUESTION REGEX ON IT (USE GROUP INDEX 1, MAYBE)
 				SemanticGraph graph = itr.get(SemanticGraphCoreAnnotations.EnhancedPlusPlusDependenciesAnnotation.class);
 				List<CoreLabel> words = itr.get(CoreAnnotations.TokensAnnotation.class);
 

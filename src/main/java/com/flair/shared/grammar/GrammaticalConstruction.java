@@ -73,7 +73,7 @@ public enum GrammaticalConstruction
     NOUNS_UNG("ungNounForms", Language.GERMAN),
     
     NEGATION_ALL("negAll", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), // nobody, nowhere, etc.
-    NEGATION_PARTIAL("partialNegation", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), // rarely, barely, seldom, hardly, scarcely // Russian: вряд, редко, едва //TODO: еле, еле-еле, не совсем, навряд, наврядли, едва-едва, нечасто, изредка, почти не, с трудом, чуть, чуть-чуть
+    NEGATION_PARTIAL("partialNegation", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), // rarely, barely, seldom, hardly, scarcely // Russian: вряд, редко, едва, еле, еле-еле, не совсем, навряд, наврядли, едва-едва, нечасто, изредка, почти не, с трудом, чуть, чуть-чуть
     NEGATION_NO_NOT_NEVER("noNotNever", Language.ENGLISH, Language.GERMAN),
     NEGATION_NT("nt", Language.ENGLISH),
     NEGATION_NOT("not", Language.ENGLISH),
