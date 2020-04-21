@@ -93,7 +93,7 @@ public class RussianGrammaticalPatterns {
     private static final String STR_KAKOV = "\\bкаков\\b";
     public static final Pattern patternKakov = Pattern.compile(STR_KAKOV, CASE_INSENSITIVE);
 
-    private static final String STR_TAG_QUESTION = ",\\s*((не)?\\s+так(\\s+ли)?\\?)";
+    private static final String STR_TAG_QUESTION = ",\\s*(не)?\\s+так(\\s+ли)?\\?";
     public static final Pattern patternTagQuestion = Pattern.compile(STR_TAG_QUESTION, CASE_INSENSITIVE);
 
 

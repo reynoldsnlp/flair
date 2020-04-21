@@ -157,7 +157,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
 					ServerLogger.get().info("Parsing " + docToParse.getDescription() + "...");
 				}*/
                 if (itr.size() > 0) {
-                    //String plainSentence =
+                    String plainSentence = itr.get(CoreAnnotations.TextAnnotation.class);
                     SemanticGraph graph = itr.get(SemanticGraphCoreAnnotations.EnhancedPlusPlusDependenciesAnnotation.class);
                     List<CoreLabel> words = itr.get(CoreAnnotations.TokensAnnotation.class);
 					/*Collection<TypedDependency> dependencies = itr
@@ -165,7 +165,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
 							.typedDependencies();
 							*/
 
-                    inspectSentence(graph, words);
+                    inspectSentence(plainSentence, graph, words);
 
                     sentenceCount++;
                     //dependencyCount += dependencies.size();
@@ -239,7 +239,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
         addConstructionOccurrences(GrammaticalConstruction.PREPOSITIONS, prepositionCoreLabels);
     }
 
-    private void inspectSentence(SemanticGraph graph, List<CoreLabel> words) {
+    private void inspectSentence(String plainSentence, SemanticGraph graph, List<CoreLabel> words) {
         if (words == null || words.isEmpty()) {
             return;
         }
@@ -269,6 +269,13 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
 
         //count things based purely on surface forms, not readings
 
+        //tag questions
+        Matcher tagQuestionMatcher = patternTagQuestion.matcher(plainSentence);
+        while(tagQuestionMatcher.find()) {
+            int fullStart = words.get(0).beginPosition() + tagQuestionMatcher.start(0);
+            int fullEnd = fullStart + tagQuestionMatcher.group(0).length();
+            addConstructionByIndices(GrammaticalConstruction.QUESTIONS_TAG, fullStart, fullEnd);
+        }
         //есть
         List<CoreLabel> positiveExistentials = findMatches(patternJest, words);
         addConstructionOccurrences(GrammaticalConstruction.EXISTENTIAL_THERE, positiveExistentials);
