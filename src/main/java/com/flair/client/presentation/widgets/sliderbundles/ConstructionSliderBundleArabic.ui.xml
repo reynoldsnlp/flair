@@ -61,10 +61,7 @@
                         <flair:GrammaticalConstructionPanel accordion="true" popout="false">
                             <!-- Verb Forms -->
                             <flair:GrammaticalConstructionPanelItem ui:field="pnlVerbFormsUI" text="verb forms" iconType="EXPAND_MORE">
-                                <!--<flair:GrammaticalConstructionWeightSlider gram="VERBAL_NOUN" parentLanguage="ARABIC"/>-->
-
-                                <!--<flair:GrammaticalConstructionWeightSlider gram="PARTICIPLES" parentLanguage="ARABIC"/>-->
-                                <!--<flair:GrammaticalConstructionWeightSlider gram="PSEUDO_VERBS" parentLanguage="ARABIC"/>-->
+                                <flair:GrammaticalConstructionWeightSlider gram="VERBAL_NOUN" parentLanguage="ARABIC"/>
                             </flair:GrammaticalConstructionPanelItem>
 
                             <!-- Tenses -->
@@ -143,7 +140,6 @@
                     <!-- Pronouns -->
                     <flair:GrammaticalConstructionPanelItem ui:field="pnlPronounsUI" text="pronouns" iconType="EXPAND_MORE">
                         <flair:GrammaticalConstructionWeightSlider gram="PRONOUNS" parentLanguage="ARABIC"/>
-
                         <!--<flair:GrammaticalConstructionWeightSlider gram="PRONOUNS_DEMONSTRATIVE" parentLanguage="ARABIC"/>
                         <flair:GrammaticalConstructionWeightSlider gram="PRONOUNS_POSSESSIVE" parentLanguage="ARABIC"/>-->
                     </flair:GrammaticalConstructionPanelItem>
@@ -162,15 +158,6 @@
 
                     <!-- Nouns -->
                     <flair:GrammaticalConstructionPanelItem ui:field="pnlNounsUI" text="nouns" iconType="EXPAND_MORE">
-                        <!--<flair:GrammaticalConstructionWeightSlider gram="NOUN_SG" parentLanguage="ARABIC"/>
-
-                        <flair:GrammaticalConstructionWeightSlider gram="NOUN_PL" parentLanguage="ARABIC"/>
-
-                        <flair:GrammaticalConstructionWeightSlider gram="NOUN_PL_MASC" parentLanguage="ARABIC"/>
-
-                        <flair:GrammaticalConstructionWeightSlider gram="NOUN_PL_FEM" parentLanguage="ARABIC"/>
-
-                        <flair:GrammaticalConstructionWeightSlider gram="NOUN_PL_BROKEN" parentLanguage="ARABIC"/>-->
                     </flair:GrammaticalConstructionPanelItem>
                 </flair:GrammaticalConstructionPanel>
             </flair:GrammaticalConstructionPanelItem>

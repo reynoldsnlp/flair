@@ -442,9 +442,9 @@ class StanfordDocumentParserArabicStrategy extends BasicStanfordDocumentParserSt
 
 		for (CoreLabel word: stanfordWords) {
 			String pos = word.tag();
-			/*if(pos.equals("VBG"))
+			if(pos.equals("VBG"))
 				workingDoc.getConstructionData(GrammaticalConstruction.VERBAL_NOUN)
-						.addOccurrence(word.beginPosition(), word.endPosition());*/
+						.addOccurrence(word.beginPosition(), word.endPosition());
 			/*if(pos.equals("PREP"))
 				workingDoc.getConstructionData(GrammaticalConstruction.PREPOSITIONS)
 						.addOccurrence(word.beginPosition(), word.endPosition());
