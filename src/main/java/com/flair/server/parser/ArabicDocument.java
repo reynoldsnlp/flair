@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.TreeMap;
 
-import com.flair.server.raft.Raft;
+//import com.flair.server.raft.Raft;
 import com.flair.server.utilities.Madamira;
 import com.flair.server.utilities.ServerLogger;
 import com.flair.server.utilities.Weka;
@@ -23,7 +23,7 @@ import com.flair.shared.parser.ArabicDocumentReadabilityLevel;
 
 
 //import org.apache.cxf.common.i18n.Exception;
-import edu.columbia.ccls.madamira.configuration.OutDoc;
+//import edu.columbia.ccls.madamira.configuration.OutDoc;
 import org.jsoup.nodes.Attributes;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
