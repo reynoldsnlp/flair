@@ -261,7 +261,7 @@ public enum GrammaticalConstruction //TODO: separate lemma-based Constructions u
     VERB_REFLEXIVE("reflexiveVerb", Language.RUSSIAN),
 
     //ARABIC
-    //VERBAL_NOUN ("verbalNoun", Language.ARABIC),
+    VERBAL_NOUN ("verbalNoun", Language.ARABIC),
     //PARTICIPLES ("participles", Language.ARABIC),
     //PSEUDO_VERBS ("pseudoVerbs", Language.ARABIC),
 

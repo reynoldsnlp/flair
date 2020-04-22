@@ -1,3 +1,4 @@
+/*
 package com.flair.server.raft;
 
 import com.flair.server.utilities.ServerLogger;
@@ -18,14 +19,15 @@ import edu.columbia.ccls.madamira.configuration.*;
 public class FeatureExtractor {
 
 	public FeatureExtractor(OutDoc outDoc) {
-		/*try {
+try {
 			webText = webText.trim().replaceAll("&", "+");
 			webText = webText.trim().replaceAll("(\\s)+", "$1");
 			body = webText;
 		} catch (NullPointerException e) {
 			ServerLogger.get().error(e, e.getMessage());
 			body = null;
-		}*/
+		}
+
 		OutSeg outSeg = outDoc.getOutSeg().get(0);
 		this.words = outSeg.getWordInfo().getWord();
 		this.rawText = outSeg.getSegmentInfo().getPreprocessed();
@@ -118,12 +120,13 @@ public class FeatureExtractor {
 		return taskSalt;
 	}
 
-	/**
+*
 	 * Creates XML input string for Madamira out of the body, saves it to
 	 * madamiraInput, sends it off to be lemmatized and saves output to
 	 * madamiraOutput.
-	 */
-	/*public void lemmatizeText()
+
+
+public void lemmatizeText()
 	{
 		if (rawText != null)
 		{
@@ -168,21 +171,24 @@ public class FeatureExtractor {
 			ServerLogger.get().error("Body is null, creating new empty document");
 			madaOutput = new Document(""); // creates a new empty document
 		}
-	}*/
+	}
 
-	/**
+
+*
 	 * Uses JSOUP to to extract words, lemmas and pos tags from the Madamira output
 	 * and then assembles TreeMap lemmas and TreeMap lemmaFreqListMap. Calculates
 	 * wordCount and lexDiv.
-	 */
+
+
 		public void createLemmaList()
 		{
-		/*if (madaOutput == null)
+if (madaOutput == null)
 		{
 			ServerLogger.get().error("madaOutput is null");
 			return;
 		}
-		Elements words = madaOutput.getElementsByTag("word");*/
+		Elements words = madaOutput.getElementsByTag("word");
+
 
 			int wCount = 0; // word count (excluding punc, latin, and digit)
 			int tCount = 0; // token count
@@ -212,7 +218,7 @@ public class FeatureExtractor {
 				}
 			}
 
-		/*for (Element word : words)
+for (Element word : words)
 		{
 			includeTokens = false; // default to false, then include this batch of tokens if the corresponding
 									// lemma will also be included
@@ -257,7 +263,8 @@ public class FeatureExtractor {
 					tCount += tokens.size();
 				}
 			}
-		}*/
+		}
+
 		wordCount = wCount;
 		tokenCount = tCount;
 		lexDiv = (double) lemmaFreqListMap.size() / (double) wordCount;
@@ -413,9 +420,10 @@ public class FeatureExtractor {
 		frequencies.sort(null);
 	}
 
-	/**
+*
 	 * helper for createFrequencies() reads freqList in from file and returns it
-	 */
+
+
 	public TreeMap<String, Integer> readFreqList(String freqList) 
 	{
 		exceptionCaught = false;
@@ -462,10 +470,11 @@ public class FeatureExtractor {
 		return freqListMap;
 	}
 
-	/**
+*
 	 * Sorts the entries in the lemmaFreqListMap into a sorted List to find the 95th
 	 * percentile, Then finds that lemma's frequency in the freqList
-	 */
+
+
 	public void calcFreq95()
 	{
 		int index95 = (int) (frequencies.size() * .95);
@@ -592,7 +601,7 @@ public class FeatureExtractor {
 		return wordCount;
 	}
 
-	/*public Document getMadaOutput()
+public Document getMadaOutput()
 	{
 		return madaOutput;
 	}
@@ -600,7 +609,8 @@ public class FeatureExtractor {
 	public void setMadaOutput(Document madaOutput) 
 	{
 		this.madaOutput = madaOutput;
-	}*/
+	}
+
 
 	public int getTokenCount() 
 	{
@@ -768,3 +778,4 @@ public class FeatureExtractor {
         return input;
 	}
 }
+*/

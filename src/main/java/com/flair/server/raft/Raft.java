@@ -1,10 +1,11 @@
+/*
 package com.flair.server.raft;
 
 import java.io.File;
 
 import com.flair.server.utilities.ServerLogger;
 import com.flair.server.utilities.Weka;
-import edu.columbia.ccls.madamira.configuration.OutDoc;
+//import edu.columbia.ccls.madamira.configuration.OutDoc;
 
 import java.io.UnsupportedEncodingException;
 import java.io.IOException;
@@ -105,3 +106,4 @@ public class Raft
 
 	public FeatureExtractor getFeatureExtractor() { return featureExtractor; }
 }
+*/

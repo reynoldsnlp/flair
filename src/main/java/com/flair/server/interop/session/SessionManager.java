@@ -18,7 +18,7 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import com.flair.server.interop.AuthTokenGenerator;
-import com.flair.server.raft.Raft;
+//import com.flair.server.raft.Raft;
 import com.flair.server.utilities.ServerLogger;
 import com.flair.shared.interop.AuthToken;
 import com.flair.shared.interop.InvalidAuthTokenException;
@@ -139,8 +139,8 @@ public class SessionManager
 		ServerLogger.get().info("New session token generated. ID: " + newTok.getUuid());
 		
 		// build random forest model if need be 
-		Raft raft = new Raft();
-		raft.buildModel("RandomForest.model");
+		/*Raft raft = new Raft();
+		raft.buildModel("RandomForest.model");*/
 
 		// bind the token to the session
 		httpSession.setAttribute(newTok.toString(), newTok);

@@ -1,3 +1,4 @@
+/*
 package com.flair.server.raft;
 
 import org.junit.Assert;
@@ -41,7 +42,8 @@ public class RaftUnitTest
         exists = raft.modelExists(sourceName);
         Assert.assertFalse(exists);
     }
-    /* @Test 
+    */
+/* @Test
     public void testEmptyScoreText()
     {
         textScore = -1;
@@ -77,5 +79,6 @@ public class RaftUnitTest
         {
             assertTrue("Raft failed to set default score in testEmptyScoreText(), score is " + textScore, textScore == 0);
         }
-    } */
-}
+    } *//*
+
+}*/

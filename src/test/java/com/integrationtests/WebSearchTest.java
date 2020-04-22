@@ -8,7 +8,7 @@ import java.util.Arrays;
 import com.flair.server.parser.AbstractDocument;
 import com.flair.server.parser.DocumentCollection;
 import com.flair.server.parser.KeywordSearcherInput;
-import com.flair.server.raft.Raft;
+//import com.flair.server.raft.Raft;
 import com.flair.server.utilities.Weka;
 import com.flair.server.taskmanager.MasterJobPipeline;
 import com.flair.server.taskmanager.SearchCrawlParseOperation;
@@ -38,7 +38,7 @@ public class WebSearchTest
 	{
 		String pathToResources = this.getClass().getClassLoader().getResource("").getPath();
 		System.out.println("pathToResources: " + pathToResources);
-		Raft raft = new Raft();
+		/*Raft raft = new Raft();
 		if(!raft.modelExists("RandomForest.model")){
 			Weka randomForest = new Weka("model.arff");	
 			try {
@@ -48,7 +48,7 @@ public class WebSearchTest
 			} catch (Exception e) {
 				System.out.println(e.getMessage() + " Failed to build random forest model");
 			}
-		}
+		}*/
 	}
 
 	@Test(timeout = 90000)

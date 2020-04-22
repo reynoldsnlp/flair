@@ -1,3 +1,4 @@
+/*
 package com.flair.server.parser;
 
 import static org.mockito.Mockito.when;
@@ -19,7 +20,6 @@ import junit.framework.Assert;
 
 public class ArabicDocumentTest
 {
-/*
 
 
     private String sourceText = " موقعها الجغرافي.";
@@ -164,5 +164,6 @@ public class ArabicDocumentTest
     		caughtException = true;
     	}
     	Assert.assertTrue(caughtException);
-    }*/
+    }
 }
+*/

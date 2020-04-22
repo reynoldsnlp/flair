@@ -1,3 +1,4 @@
+/*
 package com.integrationtests.raft;
 
 import static org.junit.Assert.assertFalse;
@@ -21,7 +22,7 @@ import type.IntegrationTest;
 
 @Category(IntegrationTest.class)
 public class RaftIntegrationTest 
-{/*
+{
     private Raft raft;
     private String path;
     private String textSource;
@@ -143,5 +144,5 @@ public class RaftIntegrationTest
             textSource = "";
         }
         testDocument(raft, textSource, 1);
-    }*/
-}
+    }
+}*/
