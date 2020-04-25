@@ -15,13 +15,13 @@ import org.junit.Test;
 
 import java.util.List;
 import java.util.Properties;
-import java.util.regex.Matcher;
 
-import static com.flair.server.grammar.RussianGrammaticalPatterns.*;
+import static com.flair.server.grammar.RussianGrammaticalPatterns.labelVerbNoSubject;
+import static com.flair.server.grammar.RussianGrammaticalPatterns.patternVerbNoSubject;
 
 public class StanfordDocumentParserRussianStrategyTest {
 
-	private final String stringToParse = "Где? Он здес, так ли? где ми этот человек? мой отец. из-за чего ты здесь? в каком ты здании? В каком ты здании? Я приду, когда он придет. куда он делся?";
+	private final String stringToParse = "\"младший\" и он. Где? Он здес, так ли? где ми этот человек? мой отец. из-за чего ты здесь? в каком ты здании? В каком ты здании? Я приду, когда он придет. куда он делся?";
 
 	//constants
 	private static final String RUSSIAN_POS_MODEL       = "edu/stanford/nlp/models/pos-tagger/russian-ud-pos.tagger";
@@ -54,14 +54,6 @@ public class StanfordDocumentParserRussianStrategyTest {
 				String plainSentence = itr.get(CoreAnnotations.TextAnnotation.class);
 				SemanticGraph graph = itr.get(SemanticGraphCoreAnnotations.EnhancedPlusPlusDependenciesAnnotation.class);
 				List<CoreLabel> words = itr.get(CoreAnnotations.TokensAnnotation.class);
-
-				Matcher tagQuestionMatcher = patternTagQuestion.matcher(plainSentence);
-				if(tagQuestionMatcher.find()) {
-					int fullStart = words.get(0).beginPosition() + tagQuestionMatcher.start(0);
-					int fullEnd = fullStart + tagQuestionMatcher.group(0).length();
-					System.out.println("Tag question match from full text:");
-					System.out.println(stringToParse.substring(fullStart, fullEnd));
-				}
 
 				/*SemgrexMatcher questionMatcher = patternQuestionWordMainClause.matcher(graph);
 				while(questionMatcher.find()){

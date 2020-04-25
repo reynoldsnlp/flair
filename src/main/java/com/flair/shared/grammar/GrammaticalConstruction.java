@@ -205,7 +205,7 @@ public enum GrammaticalConstruction
     ADJECTIVE_SHORT_RUSSIAN("adjectiveShortRussian", Language.RUSSIAN), //Russian: short form adjectives (with "Pred" tag)
     ADJECTIVE_COMPARATIVE_SHORT_RUSSIAN("comparativeAdjShortRussian", Language.RUSSIAN),// Russian: "Cmpar" and "Pred" tags
     ADJECTIVE_COMPARATIVE_LONG_RUSSIAN("comparativeAdjLongRussian", Language.RUSSIAN),// Russian: 'более' then an adjective
-    ADJECTIVE_SUPERLATIVE_LONG_RUSSIAN("superlativeAdjLongRussian", Language.RUSSIAN),// Russian: 'самый' then an adjective //TODO: or any lemma that ends in -[^жшщч]ейший or -[жшщч]айший, or any lemma among: высший, низший, лучший, худший, старший, младший
+    ADJECTIVE_SUPERLATIVE_LONG_RUSSIAN("superlativeAdjLongRussian", Language.RUSSIAN),// Russian: 'самый' then an adjective, or any lemma that ends in -[^жшщч]ейший or -[жшщч]айший, or any lemma among: высший, низший, лучший, худший, старший, младший
 
     //CASES
 

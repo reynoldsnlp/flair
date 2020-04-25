@@ -63,6 +63,8 @@ public class RussianGrammaticalPatterns {
     public static final Pattern patternBoljeje = Pattern.compile(STR_BOLJEJE, CASE_INSENSITIVE);
     private static final String STR_SAMYJ = "\\bсамый\\b";
     public static final Pattern patternSamyj = Pattern.compile(STR_SAMYJ, CASE_INSENSITIVE);
+    private static final String STR_SUPERLATIVE_LONG_LEMMAS = "(([^жшщч]ейший)|([жшщч]айший)|(\\b((высший)|(низший)|(лучший)|(худший)|(старший)|(младший))))\\b";
+    public static final Pattern patternSuperlativeLongLemmas = Pattern.compile(STR_SUPERLATIVE_LONG_LEMMAS, CASE_INSENSITIVE);
     //partial negation
     private static final String STR_PARTIAL_NEGATION_WORDS = "\\b((вряд)|(редко)|(едва)|(еле)|(еле-еле)|(не совсем)|(навряд)|(наврядли)|(едва-едва)|(нечасто)|(изредка)|(почти не)|(с трудом)|(чуть)|(чуть-чуть))\\b";
     public static final Pattern patternPartialNegationWords = Pattern.compile(STR_PARTIAL_NEGATION_WORDS, CASE_INSENSITIVE);

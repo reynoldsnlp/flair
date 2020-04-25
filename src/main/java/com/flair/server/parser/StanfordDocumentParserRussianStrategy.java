@@ -462,7 +462,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                     isInterrogative = true;
                     hasInterrogative = true;
                     String lemma = reading.getBaseForm();
-                    if(!isMatch(patternLi, lemma)){
+                    if(!isPartialMatch(patternLi, lemma)){
                         hasInterrogativeBesidesLi = true;
                     }
                 }
@@ -472,36 +472,40 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                 //look at the lemma
                 String lemma = reading.getBaseForm();
                 //particles
-                if(isMatch(patternLi, lemma)){
+                if(isPartialMatch(patternLi, lemma)){
                     hasLi = true;
                 }
-                if(isMatch(patternBy, lemma)){
+                if(isPartialMatch(patternBy, lemma)){
                     hasBy = true;
                 }
+                //superlative long
+	            if(isPartialMatch(patternSuperlativeLongLemmas, lemma)){
+		            constructionsToCount.put(GrammaticalConstruction.ADJECTIVE_SUPERLATIVE_LONG_RUSSIAN, true);
+	            }
                 //determiners
-                if(isMatch(patternNjekotoryj, lemma)){
+                if(isPartialMatch(patternNjekotoryj, lemma)){
                     constructionsToCount.put(GrammaticalConstruction.DETERMINER_SOME_RUSSIAN, true);
                 }
-                if(isMatch(patternLjuboj, lemma)){
+                if(isPartialMatch(patternLjuboj, lemma)){
                     constructionsToCount.put(GrammaticalConstruction.DETERMINER_ANY_RUSSIAN, true);
                 }
-                if(isMatch(patternMnogo, lemma)){
+                if(isPartialMatch(patternMnogo, lemma)){
                     constructionsToCount.put(GrammaticalConstruction.DETERMINER_MUCH_RUSSIAN, true);
                 }
                 //conjunctions
-                if(isMatch(patternJesli, lemma)){
+                if(isPartialMatch(patternJesli, lemma)){
                     hasJesli = true;
                 }
                 //punctuation
-                if(isMatch(patternQuestionMark, lemma)){
+                if(isPartialMatch(patternQuestionMark, lemma)){
                     hasQuestionMark = true;
                 }
                 //irregular verbs
-                if(isMatch(patternIrregularPastVerb, lemma)){
+                if(isPartialMatch(patternIrregularPastVerb, lemma)){
                     isIrregularPast = true;
                     constructionsToCount.put(GrammaticalConstruction.VERBS_IRREGULAR_PAST, true);
                 }
-                if(isMatch(patternIrregularNonpastVerb, lemma)){
+                if(isPartialMatch(patternIrregularNonpastVerb, lemma)){
                     isIrregularNonpast = true;
                     constructionsToCount.put(GrammaticalConstruction.VERBS_IRREGULAR_NONPAST, true);
                 }
@@ -642,14 +646,14 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
 
             //look at the surface form
             String surfaceForm = word.getSurfaceForm();
-	        if(isMatch(patternPartialNegationWords, surfaceForm)){
+	        if(isPartialMatch(patternPartialNegationWords, surfaceForm)){
 		        addSingleConstructionInstance(constructionInstances, GrammaticalConstruction.NEGATION_PARTIAL, word);
 		        addSingleConstructionInstance(constructionInstances, GrammaticalConstruction.NEGATION_ALL, word);
 	        }
 
 	        //handle things dealing with adjacent words
-            boljejeEncountered = isMatch(patternBoljeje, surfaceForm);
-            samyjEncountered = isMatch(patternSamyj, surfaceForm);
+            boljejeEncountered = isPartialMatch(patternBoljeje, surfaceForm);
+            samyjEncountered = isPartialMatch(patternSamyj, surfaceForm);
             //save this word so we still have access to it on the next iteration of the loop
             previousWord = word;
         }
@@ -692,17 +696,17 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
 	        	boolean isWhatKind = false;
 		        for(CgReading reading: word.getReadings()){
 			        String lemma = reading.getBaseForm();
-			        isWhat |= isMatch(patternChto, lemma);
-			        isWho |= isMatch(patternKto, lemma);
-			        isHow |= isMatch(patternKak, lemma);
-			        isWhy |= isMatch(patternPochjemu, lemma);
-			        isWhy |= isMatch(patternZachjem, lemma);
-			        isWhere |= isMatch(patternGdje, lemma);
-			        isWhen |= isMatch(patternKogda, lemma);
-			        isWhose |= isMatch(patternChjej, lemma);
-			        isWhich |= isMatch(patternKakoj, lemma);
-			        isWhither |= isMatch(patternKuda, lemma);
-			        isWhatKind |= isMatch(patternKakov, lemma);
+			        isWhat |= isPartialMatch(patternChto, lemma);
+			        isWho |= isPartialMatch(patternKto, lemma);
+			        isHow |= isPartialMatch(patternKak, lemma);
+			        isWhy |= isPartialMatch(patternPochjemu, lemma);
+			        isWhy |= isPartialMatch(patternZachjem, lemma);
+			        isWhere |= isPartialMatch(patternGdje, lemma);
+			        isWhen |= isPartialMatch(patternKogda, lemma);
+			        isWhose |= isPartialMatch(patternChjej, lemma);
+			        isWhich |= isPartialMatch(patternKakoj, lemma);
+			        isWhither |= isPartialMatch(patternKuda, lemma);
+			        isWhatKind |= isPartialMatch(patternKakov, lemma);
 		        }
 		        if(isWhat) addConstructionByIndices(GrammaticalConstruction.QUESTIONS_WHAT_RUSSIAN, plainWord.beginPosition(), plainWord.endPosition());
 		        else if(isWho) addConstructionByIndices(GrammaticalConstruction.QUESTIONS_WHO_RUSSIAN, plainWord.beginPosition(), plainWord.endPosition());
@@ -861,9 +865,14 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
         return matches;
     }
 
-    private boolean isMatch(Pattern pattern, String value){
+    /*public static boolean isFullMatch(Pattern pattern, String value){
         Matcher m = pattern.matcher(value);
         return m.matches();
+    }*/
+
+    public static boolean isPartialMatch(Pattern pattern, String value){
+        Matcher m = pattern.matcher(value);
+        return m.find();
     }
 
     private void saveGrammaticalConstructionsToDocument(Map<GrammaticalConstruction, List<WordWithReadings>> constructionsMap, List<CoreLabel> originalLabels) {
