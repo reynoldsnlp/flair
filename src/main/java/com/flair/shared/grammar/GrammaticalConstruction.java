@@ -253,7 +253,7 @@ public enum GrammaticalConstruction
 
     //RUSSIAN VERB FORMS
     VERBS_IRREGULAR_RUSSIAN("irregularVerbsRussian", Language.RUSSIAN),
-    VERB_REFLEXIVE("reflexiveVerb", Language.RUSSIAN),
+    VERB_REFLEXIVE_RUSSIAN("reflexiveVerb", Language.RUSSIAN),
     VERBAL_ADVERB("verbalAdverb", Language.RUSSIAN),
     VERBAL_ADVERB_PRESENT("verbalAdverbPresent", Language.RUSSIAN), //imperfective, "V", and "Adv" tags
     VERBAL_ADVERB_PAST("verbalAdverbPast", Language.RUSSIAN), //perfective, "V", and "Adv" tags

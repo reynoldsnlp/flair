@@ -445,147 +445,147 @@ _gram-helpText_	VERB_CLUSTER	<INSERT_HELP_TEXT>
 _gram-name_	POSTPOSITION	POSTPOSITION
 _gram-path_	POSTPOSITION	POSTPOSITION
 _gram-helpText_	POSTPOSITION	<INSERT_HELP_TEXT***>
-_gram-name_	ADJECTIVE_LONG_RUSSIAN	<adjectiveLongRussian>
+_gram-name_	ADJECTIVE_LONG_RUSSIAN	Long-form
 _gram-path_	ADJECTIVE_LONG_RUSSIAN	<INSERT_PATH>
-_gram-helpText_	ADJECTIVE_LONG_RUSSIAN	<INSERT_HELP_TEXT>
-_gram-name_	ADJECTIVE_SHORT_RUSSIAN	<adjectiveShortRussian>
+_gram-helpText_	ADJECTIVE_LONG_RUSSIAN	Non-predicative adjectives
+_gram-name_	ADJECTIVE_SHORT_RUSSIAN	Short-form
 _gram-path_	ADJECTIVE_SHORT_RUSSIAN	<INSERT_PATH>
-_gram-helpText_	ADJECTIVE_SHORT_RUSSIAN	<INSERT_HELP_TEXT>
-_gram-name_	ADJECTIVE_COMPARATIVE_SHORT_RUSSIAN	<comparativeAdjShortRussian>
+_gram-helpText_	ADJECTIVE_SHORT_RUSSIAN	Predicative adjectives
+_gram-name_	ADJECTIVE_COMPARATIVE_SHORT_RUSSIAN	Comparative short-form
 _gram-path_	ADJECTIVE_COMPARATIVE_SHORT_RUSSIAN	<INSERT_PATH>
-_gram-helpText_	ADJECTIVE_COMPARATIVE_SHORT_RUSSIAN	<INSERT_HELP_TEXT>
-_gram-name_	ADJECTIVE_COMPARATIVE_LONG_RUSSIAN	<comparativeAdjLongRussian>
+_gram-helpText_	ADJECTIVE_COMPARATIVE_SHORT_RUSSIAN	Predicative comparative adjectives
+_gram-name_	ADJECTIVE_COMPARATIVE_LONG_RUSSIAN	Comparative long-form
 _gram-path_	ADJECTIVE_COMPARATIVE_LONG_RUSSIAN	<INSERT_PATH>
-_gram-helpText_	ADJECTIVE_COMPARATIVE_LONG_RUSSIAN	<INSERT_HELP_TEXT>
-_gram-name_	ADJECTIVE_SUPERLATIVE_LONG_RUSSIAN	<superlativeAdjLongRussian>
+_gram-helpText_	ADJECTIVE_COMPARATIVE_LONG_RUSSIAN	Adjectives preceded by "более"
+_gram-name_	ADJECTIVE_SUPERLATIVE_LONG_RUSSIAN	Superlative long-form
 _gram-path_	ADJECTIVE_SUPERLATIVE_LONG_RUSSIAN	<INSERT_PATH>
-_gram-helpText_	ADJECTIVE_SUPERLATIVE_LONG_RUSSIAN	<INSERT_HELP_TEXT>
-_gram-name_	NOUN_NOMINATIVE	<nounNominative>
+_gram-helpText_	ADJECTIVE_SUPERLATIVE_LONG_RUSSIAN	Adjectives preceded by "самый", as well as others such as ярчайший, высший, младший, etc.
+_gram-name_	NOUN_NOMINATIVE	Nominative
 _gram-path_	NOUN_NOMINATIVE	<INSERT_PATH>
-_gram-helpText_	NOUN_NOMINATIVE	<INSERT_HELP_TEXT>
-_gram-name_	ADJECTIVE_NOMINATIVE	<adjectiveNominative>
+_gram-helpText_	NOUN_NOMINATIVE	Nouns declined in the nominative case
+_gram-name_	ADJECTIVE_NOMINATIVE	Nominative
 _gram-path_	ADJECTIVE_NOMINATIVE	<INSERT_PATH>
-_gram-helpText_	ADJECTIVE_NOMINATIVE	<INSERT_HELP_TEXT>
-_gram-name_	PRONOUN_NOMINATIVE	<pronounNominative>
+_gram-helpText_	ADJECTIVE_NOMINATIVE	Adjectives declined in the nominative case
+_gram-name_	PRONOUN_NOMINATIVE	Nominative
 _gram-path_	PRONOUN_NOMINATIVE	<INSERT_PATH>
-_gram-helpText_	PRONOUN_NOMINATIVE	<INSERT_HELP_TEXT>
-_gram-name_	DETERMINER_NOMINATIVE	<determinerNominative>
+_gram-helpText_	PRONOUN_NOMINATIVE	Pronouns declined in the nominative case
+_gram-name_	DETERMINER_NOMINATIVE	Nominative
 _gram-path_	DETERMINER_NOMINATIVE	<INSERT_PATH>
-_gram-helpText_	DETERMINER_NOMINATIVE	<INSERT_HELP_TEXT>
-_gram-name_	PREPOSITION_NOMINATIVE	<prepositionNominative>
+_gram-helpText_	DETERMINER_NOMINATIVE	Determiners declined in the nominative case
+_gram-name_	PREPOSITION_NOMINATIVE	Nominative
 _gram-path_	PREPOSITION_NOMINATIVE	<INSERT_PATH>
-_gram-helpText_	PREPOSITION_NOMINATIVE	<INSERT_HELP_TEXT>
-_gram-name_	NOUN_ACCUSATIVE	<nounAccusative>
+_gram-helpText_	PREPOSITION_NOMINATIVE	Prepositions that govern the nominative case
+_gram-name_	NOUN_ACCUSATIVE	Accusative
 _gram-path_	NOUN_ACCUSATIVE	<INSERT_PATH>
-_gram-helpText_	NOUN_ACCUSATIVE	<INSERT_HELP_TEXT>
-_gram-name_	ADJECTIVE_ACCUSATIVE	<adjectiveAccusative>
+_gram-helpText_	NOUN_ACCUSATIVE	Nouns declined in the accusative case
+_gram-name_	ADJECTIVE_ACCUSATIVE	Accusative
 _gram-path_	ADJECTIVE_ACCUSATIVE	<INSERT_PATH>
-_gram-helpText_	ADJECTIVE_ACCUSATIVE	<INSERT_HELP_TEXT>
-_gram-name_	PRONOUN_ACCUSATIVE	<pronounAccusative>
+_gram-helpText_	ADJECTIVE_ACCUSATIVE	Adjectives declined in the accusative case
+_gram-name_	PRONOUN_ACCUSATIVE	Accusative
 _gram-path_	PRONOUN_ACCUSATIVE	<INSERT_PATH>
-_gram-helpText_	PRONOUN_ACCUSATIVE	<INSERT_HELP_TEXT>
-_gram-name_	DETERMINER_ACCUSATIVE	<determinerAccusative>
+_gram-helpText_	PRONOUN_ACCUSATIVE	Pronouns declined in the accusative case
+_gram-name_	DETERMINER_ACCUSATIVE	Accusative
 _gram-path_	DETERMINER_ACCUSATIVE	<INSERT_PATH>
-_gram-helpText_	DETERMINER_ACCUSATIVE	<INSERT_HELP_TEXT>
-_gram-name_	PREPOSITION_ACCUSATIVE	<prepositionAccusative>
+_gram-helpText_	DETERMINER_ACCUSATIVE	Determiners declined in the accusative case
+_gram-name_	PREPOSITION_ACCUSATIVE	Accusative
 _gram-path_	PREPOSITION_ACCUSATIVE	<INSERT_PATH>
-_gram-helpText_	PREPOSITION_ACCUSATIVE	<INSERT_HELP_TEXT>
-_gram-name_	NOUN_GENITIVE	<nounGenitive>
+_gram-helpText_	PREPOSITION_ACCUSATIVE	Prepositions that govern the accusative case
+_gram-name_	NOUN_GENITIVE	Genitive
 _gram-path_	NOUN_GENITIVE	<INSERT_PATH>
-_gram-helpText_	NOUN_GENITIVE	<INSERT_HELP_TEXT>
-_gram-name_	ADJECTIVE_GENITIVE	<adjectiveGenitive>
+_gram-helpText_	NOUN_GENITIVE	Nouns declined in the genitive case
+_gram-name_	ADJECTIVE_GENITIVE	Genitive
 _gram-path_	ADJECTIVE_GENITIVE	<INSERT_PATH>
-_gram-helpText_	ADJECTIVE_GENITIVE	<INSERT_HELP_TEXT>
-_gram-name_	PRONOUN_GENITIVE	<pronounGenitive>
+_gram-helpText_	ADJECTIVE_GENITIVE	Adjectives declined in the genitive case
+_gram-name_	PRONOUN_GENITIVE	Genitive
 _gram-path_	PRONOUN_GENITIVE	<INSERT_PATH>
-_gram-helpText_	PRONOUN_GENITIVE	<INSERT_HELP_TEXT>
-_gram-name_	DETERMINER_GENITIVE	<determinerGenitive>
+_gram-helpText_	PRONOUN_GENITIVE	Pronouns declined in the genitive case
+_gram-name_	DETERMINER_GENITIVE	Genitive
 _gram-path_	DETERMINER_GENITIVE	<INSERT_PATH>
-_gram-helpText_	DETERMINER_GENITIVE	<INSERT_HELP_TEXT>
-_gram-name_	PREPOSITION_GENITIVE	<prepositionGenitive>
+_gram-helpText_	DETERMINER_GENITIVE	Determiners declined in the genitive case
+_gram-name_	PREPOSITION_GENITIVE	Genitive
 _gram-path_	PREPOSITION_GENITIVE	<INSERT_PATH>
-_gram-helpText_	PREPOSITION_GENITIVE	<INSERT_HELP_TEXT>
-_gram-name_	NOUN_PREPOSITIONAL	<nounPrepositional>
+_gram-helpText_	PREPOSITION_GENITIVE	Prepositions that govern the genitive case
+_gram-name_	NOUN_PREPOSITIONAL	Prepositional
 _gram-path_	NOUN_PREPOSITIONAL	<INSERT_PATH>
-_gram-helpText_	NOUN_PREPOSITIONAL	<INSERT_HELP_TEXT>
-_gram-name_	ADJECTIVE_PREPOSITIONAL	<adjectivePrepositional>
+_gram-helpText_	NOUN_PREPOSITIONAL	Nouns declined in the prepositional case
+_gram-name_	ADJECTIVE_PREPOSITIONAL	Prepositional
 _gram-path_	ADJECTIVE_PREPOSITIONAL	<INSERT_PATH>
-_gram-helpText_	ADJECTIVE_PREPOSITIONAL	<INSERT_HELP_TEXT>
-_gram-name_	PRONOUN_PREPOSITIONAL	<pronounPrepositional>
+_gram-helpText_	ADJECTIVE_PREPOSITIONAL	Adjectives declined in the prepositional case
+_gram-name_	PRONOUN_PREPOSITIONAL	Prepositional
 _gram-path_	PRONOUN_PREPOSITIONAL	<INSERT_PATH>
-_gram-helpText_	PRONOUN_PREPOSITIONAL	<INSERT_HELP_TEXT>
-_gram-name_	DETERMINER_PREPOSITIONAL	<determinerPrepositional>
+_gram-helpText_	PRONOUN_PREPOSITIONAL	Pronouns declined in the prepositional case
+_gram-name_	DETERMINER_PREPOSITIONAL	Prepositional
 _gram-path_	DETERMINER_PREPOSITIONAL	<INSERT_PATH>
-_gram-helpText_	DETERMINER_PREPOSITIONAL	<INSERT_HELP_TEXT>
-_gram-name_	PREPOSITION_PREPOSITIONAL	<prepositionPrepositional>
+_gram-helpText_	DETERMINER_PREPOSITIONAL	Determiners declined in the prepositional case
+_gram-name_	PREPOSITION_PREPOSITIONAL	Prepositional
 _gram-path_	PREPOSITION_PREPOSITIONAL	<INSERT_PATH>
-_gram-helpText_	PREPOSITION_PREPOSITIONAL	<INSERT_HELP_TEXT>
-_gram-name_	NOUN_DATIVE	<nounDative>
+_gram-helpText_	PREPOSITION_PREPOSITIONAL	Prepositions which govern the prepositional case
+_gram-name_	NOUN_DATIVE	Dative
 _gram-path_	NOUN_DATIVE	<INSERT_PATH>
-_gram-helpText_	NOUN_DATIVE	<INSERT_HELP_TEXT>
-_gram-name_	ADJECTIVE_DATIVE	<adjectiveDative>
+_gram-helpText_	NOUN_DATIVE	Nouns declined in the dative case
+_gram-name_	ADJECTIVE_DATIVE	Dative
 _gram-path_	ADJECTIVE_DATIVE	<INSERT_PATH>
-_gram-helpText_	ADJECTIVE_DATIVE	<INSERT_HELP_TEXT>
-_gram-name_	PRONOUN_DATIVE	<pronounDative>
+_gram-helpText_	ADJECTIVE_DATIVE	Adjectives declined in the dative case
+_gram-name_	PRONOUN_DATIVE	Dative
 _gram-path_	PRONOUN_DATIVE	<INSERT_PATH>
-_gram-helpText_	PRONOUN_DATIVE	<INSERT_HELP_TEXT>
-_gram-name_	DETERMINER_DATIVE	<determinerDative>
+_gram-helpText_	PRONOUN_DATIVE	Pronouns declined in the dative case
+_gram-name_	DETERMINER_DATIVE	Dative
 _gram-path_	DETERMINER_DATIVE	<INSERT_PATH>
-_gram-helpText_	DETERMINER_DATIVE	<INSERT_HELP_TEXT>
-_gram-name_	PREPOSITION_DATIVE	<prepositionDative>
+_gram-helpText_	DETERMINER_DATIVE	Determiners declined in the dative case
+_gram-name_	PREPOSITION_DATIVE	Dative
 _gram-path_	PREPOSITION_DATIVE	<INSERT_PATH>
-_gram-helpText_	PREPOSITION_DATIVE	<INSERT_HELP_TEXT>
-_gram-name_	NOUN_INSTRUMENTAL	<nounInstrumental>
+_gram-helpText_	PREPOSITION_DATIVE	Prepositions which govern the dative case
+_gram-name_	NOUN_INSTRUMENTAL	Instrumental
 _gram-path_	NOUN_INSTRUMENTAL	<INSERT_PATH>
-_gram-helpText_	NOUN_INSTRUMENTAL	<INSERT_HELP_TEXT>
-_gram-name_	ADJECTIVE_INSTRUMENTAL	<adjectiveInstrumental>
+_gram-helpText_	NOUN_INSTRUMENTAL	Nouns declined in the instrumental case
+_gram-name_	ADJECTIVE_INSTRUMENTAL	Instrumental
 _gram-path_	ADJECTIVE_INSTRUMENTAL	<INSERT_PATH>
-_gram-helpText_	ADJECTIVE_INSTRUMENTAL	<INSERT_HELP_TEXT>
-_gram-name_	PRONOUN_INSTRUMENTAL	<pronounInstrumental>
+_gram-helpText_	ADJECTIVE_INSTRUMENTAL	Adjectives declined in the instrumental case
+_gram-name_	PRONOUN_INSTRUMENTAL	Instrumental
 _gram-path_	PRONOUN_INSTRUMENTAL	<INSERT_PATH>
-_gram-helpText_	PRONOUN_INSTRUMENTAL	<INSERT_HELP_TEXT>
-_gram-name_	DETERMINER_INSTRUMENTAL	<determinerInstrumental>
+_gram-helpText_	PRONOUN_INSTRUMENTAL	Pronouns declined in the instrumental case
+_gram-name_	DETERMINER_INSTRUMENTAL	Instrumental
 _gram-path_	DETERMINER_INSTRUMENTAL	<INSERT_PATH>
-_gram-helpText_	DETERMINER_INSTRUMENTAL	<INSERT_HELP_TEXT>
-_gram-name_	PREPOSITION_INSTRUMENTAL	<prepositionInstrumental>
+_gram-helpText_	DETERMINER_INSTRUMENTAL	Determiners declined in the instrumental case
+_gram-name_	PREPOSITION_INSTRUMENTAL	Instrumental
 _gram-path_	PREPOSITION_INSTRUMENTAL	<INSERT_PATH>
-_gram-helpText_	PREPOSITION_INSTRUMENTAL	<INSERT_HELP_TEXT>
-_gram-name_	PARTICIPLE_PRESENT_ACTIVE	<presentActiveParticiple>
+_gram-helpText_	PREPOSITION_INSTRUMENTAL	Prepositions which govern the instrumental case
+_gram-name_	PARTICIPLE_PRESENT_ACTIVE	Present Active Participle
 _gram-path_	PARTICIPLE_PRESENT_ACTIVE	<INSERT_PATH>
 _gram-helpText_	PARTICIPLE_PRESENT_ACTIVE	<INSERT_HELP_TEXT>
-_gram-name_	PARTICIPLE_PRESENT_PASSIVE	<presentPassiveParticiple>
+_gram-name_	PARTICIPLE_PRESENT_PASSIVE	Present Passive Participle
 _gram-path_	PARTICIPLE_PRESENT_PASSIVE	<INSERT_PATH>
 _gram-helpText_	PARTICIPLE_PRESENT_PASSIVE	<INSERT_HELP_TEXT>
-_gram-name_	PARTICIPLE_PAST_ACTIVE	<pastActiveParticiple>
+_gram-name_	PARTICIPLE_PAST_ACTIVE	Past Active Participle
 _gram-path_	PARTICIPLE_PAST_ACTIVE	<INSERT_PATH>
 _gram-helpText_	PARTICIPLE_PAST_ACTIVE	<INSERT_HELP_TEXT>
-_gram-name_	PARTICIPLE_PAST_PASSIVE	<pastPassiveParticiple>
+_gram-name_	PARTICIPLE_PAST_PASSIVE	Past Passive Participle
 _gram-path_	PARTICIPLE_PAST_PASSIVE	<INSERT_PATH>
 _gram-helpText_	PARTICIPLE_PAST_PASSIVE	<INSERT_HELP_TEXT>
-_gram-name_	VERB_REFLEXIVE	<reflexiveVerb>
-_gram-path_	VERB_REFLEXIVE	<INSERT_PATH>
-_gram-helpText_	VERB_REFLEXIVE	<INSERT_HELP_TEXT>
-_gram-name_	VERBAL_ADVERB	<verbalAdverb>
+_gram-name_	VERB_REFLEXIVE_RUSSIAN	Reflexive
+_gram-path_	VERB_REFLEXIVE_RUSSIAN	<INSERT_PATH>
+_gram-helpText_	VERB_REFLEXIVE_RUSSIAN	Verbs ending with "ся" or "сь"
+_gram-name_	VERBAL_ADVERB	Verbal Adverb
 _gram-path_	VERBAL_ADVERB	<INSERT_PATH>
 _gram-helpText_	VERBAL_ADVERB	<INSERT_HELP_TEXT>
-_gram-name_	VERBAL_ADVERB_PRESENT	<verbalAdverbPresent>
+_gram-name_	VERBAL_ADVERB_PRESENT	Present Verbal Adverb
 _gram-path_	VERBAL_ADVERB_PRESENT	<INSERT_PATH>
 _gram-helpText_	VERBAL_ADVERB_PRESENT	<INSERT_HELP_TEXT>
-_gram-name_	VERBAL_ADVERB_PAST	<verbalAdverbPast>
+_gram-name_	VERBAL_ADVERB_PAST	Past Verbal Adverb
 _gram-path_	VERBAL_ADVERB_PAST	<INSERT_PATH>
 _gram-helpText_	VERBAL_ADVERB_PAST	<INSERT_HELP_TEXT>
-_gram-name_	QUESTIONS_WHITHER_RUSSIAN	<whither>
+_gram-name_	QUESTIONS_WHITHER_RUSSIAN	"Куда" questions
 _gram-path_	QUESTIONS_WHITHER_RUSSIAN	<INSERT_PATH>
-_gram-helpText_	QUESTIONS_WHITHER_RUSSIAN	<INSERT_HELP_TEXT>
-_gram-name_	QUESTIONS_WHAT_KIND_RUSSIAN	<whatKind>
+_gram-helpText_	QUESTIONS_WHITHER_RUSSIAN	Questions starting with "куда". E.g., Куда ты идешь?
+_gram-name_	QUESTIONS_WHAT_KIND_RUSSIAN	"Каков" questions
 _gram-path_	QUESTIONS_WHAT_KIND_RUSSIAN	<INSERT_PATH>
-_gram-helpText_	QUESTIONS_WHAT_KIND_RUSSIAN	<INSERT_HELP_TEXT>
-_gram-name_	TENSE_PRESENT	<presentTense>
+_gram-helpText_	QUESTIONS_WHAT_KIND_RUSSIAN	Questions starting with "каков". E.g., Каков твой план?
+_gram-name_	TENSE_PRESENT	Present Tense
 _gram-path_	TENSE_PRESENT	<INSERT_PATH>
 _gram-helpText_	TENSE_PRESENT	<INSERT_HELP_TEXT>
-_gram-name_	ASPECT_BIASPECTUAL	<biaspectual>
+_gram-name_	ASPECT_BIASPECTUAL	Biaspectual
 _gram-path_	ASPECT_BIASPECTUAL	<INSERT_PATH>
-_gram-helpText_	ASPECT_BIASPECTUAL	<INSERT_HELP_TEXT>
+_gram-helpText_	ASPECT_BIASPECTUAL	Verb forms that can be both perfective and imperfective
 _gram-name_	VERBS_IRREGULAR_PAST	<verbsIrregularPast>
 _gram-path_	VERBS_IRREGULAR_PAST	<INSERT_PATH>
 _gram-helpText_	VERBS_IRREGULAR_PAST	<INSERT_HELP_TEXT>

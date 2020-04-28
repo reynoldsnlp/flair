@@ -228,7 +228,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
         List<CoreLabel> verbCoreLabels = indexedWordsToCoreLabels(verbs);
         //count constructions
         List<CoreLabel> reflexiveVerbs = findMatches(patternReflexiveVerb, verbCoreLabels);
-        addConstructionOccurrences(GrammaticalConstruction.VERB_REFLEXIVE, reflexiveVerbs);
+        addConstructionOccurrences(GrammaticalConstruction.VERB_REFLEXIVE_RUSSIAN, reflexiveVerbs);
     }
 
     private void inspectPrepositions(SemanticGraph graph){

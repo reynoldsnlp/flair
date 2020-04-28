@@ -64,7 +64,7 @@
 
 								<flair:GrammaticalConstructionWeightSlider gram="VERBFORM_INFINITIVE_RUSSIAN" parentLanguage="RUSSIAN"/>
 
-								<flair:GrammaticalConstructionWeightSlider gram="VERB_REFLEXIVE" parentLanguage="RUSSIAN"/>
+								<flair:GrammaticalConstructionWeightSlider gram="VERB_REFLEXIVE_RUSSIAN" parentLanguage="RUSSIAN"/>
 
 								<flair:GrammaticalConstructionWeightSlider gram="OBJECT_DIRECT" parentLanguage="RUSSIAN"/>
 								<flair:GrammaticalConstructionWeightSlider gram="OBJECT_INDIRECT_RUSSIAN" parentLanguage="RUSSIAN"/>
