@@ -445,6 +445,51 @@ _gram-helpText_	VERB_CLUSTER	<INSERT_HELP_TEXT>
 _gram-name_	POSTPOSITION	POSTPOSITION
 _gram-path_	POSTPOSITION	POSTPOSITION
 _gram-helpText_	POSTPOSITION	<INSERT_HELP_TEXT>
-_gram-name_	VERBAL_NOUN	<verbalNoun>
-_gram-path_	VERBAL_NOUN	<verbalNoun_PATH>
+_gram-name_	VERBAL_NOUN	Verbal Noun
+_gram-path_	VERBAL_NOUN	Verbs > Verb forms > Verbal noun
 _gram-helpText_	VERBAL_NOUN	<verbalNoun_HELP_TEXT>
+_gram-name_	ASPECT_PERFECTIVE	Perfective
+_gram-path_	ASPECT_PERFECTIVE	Verbs > Aspect > Perfective
+_gram-helpText_	ASPECT_PERFECTIVE	<Perfective_HELP_TEXT>
+_gram-name_	ASPECT_IMPERFECTIVE	Imperfective
+_gram-path_	ASPECT_IMPERFECTIVE	Verbs > Aspect > Imperfective
+_gram-helpText_	ASPECT_IMPERFECTIVE	<Imperfective_HELP_TEXT>
+_gram-name_	MOOD_INDICATIVE	Indicative
+_gram-path_	MOOD_INDICATIVE	Verbs > Mood > Indicative
+_gram-helpText_	MOOD_INDICATIVE	<Indicative_HELP_TEXT>
+_gram-name_	MOOD_SUBJUNCTIVE	Subjunctive
+_gram-path_	MOOD_SUBJUNCTIVE	Verbs > Mood > Subjunctive
+_gram-helpText_	MOOD_SUBJUNCTIVE	<Subjunctive_HELP_TEXT>
+_gram-name_	MOOD_JUSSIVE	Jussive
+_gram-path_	MOOD_JUSSIVE	Verbs > Mood > Jussive
+_gram-helpText_	MOOD_JUSSIVE	<Jussive_HELP_TEXT>
+_gram-name_	MOOD_IMPERATIVE	Imperative
+_gram-path_	MOOD_IMPERATIVE	Verbs > Mood > IMPERATIVE
+_gram-helpText_	MOOD_IMPERATIVE	<IMPERATIVE_HELP_TEXT>
+_gram-name_	VERB_FEM_PL	Feminine plural
+_gram-path_	VERB_FEM_PL	Verbs > Person and Number > Feminine plural
+_gram-helpText_	VERB_FEM_PL	<Feminine_plural_HELP_TEXT>
+_gram-name_	VERB_DUAL	Dual
+_gram-path_	VERB_DUAL	Verbs > Person and Number > Dual
+_gram-helpText_	VERB_DUAL	<Dual_HELP_TEXT>
+_gram-name_	CONSTRUCT	Construct
+_gram-path_	CONSTRUCT	Nouns > Construct > Construct
+_gram-helpText_	CONSTRUCT	(Idaafa)
+_gram-name_	NOUN_PL_MASC	Masculine plural
+_gram-path_	NOUN_PL_MASC	Nouns > Number > Masculine plural
+_gram-helpText_	NOUN_PL_MASC	<Masculine_plural_HELP_TEXT>
+_gram-name_	NOUN_PL_FEM	Feminine plural
+_gram-path_	NOUN_PL_FEM	Nouns > Number > Feminine plural
+_gram-helpText_	NOUN_PL_FEM	<Feminine_plural_HELP_TEXT>
+_gram-name_	NOUN_DUAL	Dual
+_gram-path_	NOUN_DUAL	Nouns > Number > Dual
+_gram-helpText_	NOUN_DUAL	<Dual_HELP_TEXT>
+_gram-name_	CASE_NOMINATIVE	Nominative
+_gram-path_	CASE_NOMINATIVE	Nouns > Case > Nominative
+_gram-helpText_	CASE_NOMINATIVE	<Nominative_HELP_TEXT>
+_gram-name_	CASE_ACCUSATIVE	Accusative
+_gram-path_	CASE_ACCUSATIVE	Nouns > Case > Accusative
+_gram-helpText_	CASE_ACCUSATIVE	<Accusative_HELP_TEXT>
+_gram-name_	CASE_GENITIVE	Genitive
+_gram-path_	CASE_GENITIVE	Nouns > Case > Genitive
+_gram-helpText_	CASE_GENITIVE	<Genitive_HELP_TEXT>

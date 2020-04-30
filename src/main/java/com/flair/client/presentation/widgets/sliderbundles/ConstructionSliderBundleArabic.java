@@ -49,10 +49,7 @@ public class ConstructionSliderBundleArabic extends LanguageSpecificConstruction
     GrammaticalConstructionPanelItem			pnlVerbsUI;
     @UiField
     @LocalizedField
-    GrammaticalConstructionPanelItem			pnlVerbFormsUI;
-    @UiField
-    @LocalizedField
-    GrammaticalConstructionPanelItem			pnlTensesUI;
+    GrammaticalConstructionPanelItem			pnlPersonAndNumberUI;
     @UiField
     @LocalizedField
     GrammaticalConstructionPanelItem			pnlAspectUI;
@@ -64,19 +61,7 @@ public class ConstructionSliderBundleArabic extends LanguageSpecificConstruction
     GrammaticalConstructionPanelItem			pnlVoiceUI;
     @UiField
     @LocalizedField
-    GrammaticalConstructionPanelItem			pnlPhrasalUI;
-    @UiField
-    @LocalizedField
-    GrammaticalConstructionPanelItem			pnlModalUI;
-    @UiField
-    @LocalizedField
-    GrammaticalConstructionPanelItem			pnlTransitiveUI;
-    @UiField
-    @LocalizedField
-    GrammaticalConstructionPanelItem			pnlImperativeUI;
-    @UiField
-    @LocalizedField
-    GrammaticalConstructionPanelItem			pnlNegationUI;
+    GrammaticalConstructionPanelItem			pnlMoodUI;
     @UiField
     @LocalizedField
     GrammaticalConstructionPanelItem			pnlArticlesUI;
@@ -101,6 +86,15 @@ public class ConstructionSliderBundleArabic extends LanguageSpecificConstruction
     @UiField
     @LocalizedField
     GrammaticalConstructionPanelItem			pnlNounsUI;
+    @UiField
+    @LocalizedField
+    GrammaticalConstructionPanelItem			pnlNumberUI;
+    @UiField
+    @LocalizedField
+    GrammaticalConstructionPanelItem			pnlConstructUI;
+    @UiField
+    @LocalizedField
+    GrammaticalConstructionPanelItem			pnlCaseUI;
     //New Stuff
 
     public ConstructionSliderBundleArabic()

@@ -266,19 +266,22 @@ public enum GrammaticalConstruction //TODO: separate lemma-based Constructions u
     //PSEUDO_VERBS ("pseudoVerbs", Language.ARABIC),
 
     //MOOD
-    //MOOD_INDICATIVE ("verbInd", Language.ARABIC),
-    //MOOD_SUBJUNCTIVE ("verbSub", Language.ARABIC),
-    //MOOD_JUSSIVE ("verbJus", Language.ARABIC),
+    MOOD_INDICATIVE ("verbInd", Language.ARABIC),
+    MOOD_SUBJUNCTIVE ("verbSub", Language.ARABIC),
+    MOOD_JUSSIVE ("verbJus", Language.ARABIC),
+    MOOD_IMPERATIVE ("verbImp", Language.ARABIC),
 
     //VOICE
     //VOICE_ACTIVE ("verbAct", Language.ARABIC),
     //VOICE_PASSIVE ("verbPas", Language.ARABIC),
 
     //ASPECT
-    //ASPECT_PERFECTIVE ("perfective", Language.ARABIC),
-    //ASPECT_IMPERFECTIVE ("imperfective", Language.ARABIC),
+    ASPECT_PERFECTIVE ("perfective", Language.ARABIC),
+    ASPECT_IMPERFECTIVE ("imperfective", Language.ARABIC),
 
     //NUMBER, PERSON, GENDER
+    VERB_DUAL ("verbDu", Language.ARABIC),
+    VERB_FEM_PL ("verbFemPl", Language.ARABIC),
     //VERB_1_SINGULAR ("verb1Sg", Language.ARABIC),
     //VERB_1_PLURAL ("verb1Pl", Language.ARABIC),
     //VERB_2_SINGULAR_MASC ("verb2SgM", Language.ARABIC),
@@ -294,13 +297,15 @@ public enum GrammaticalConstruction //TODO: separate lemma-based Constructions u
     //VERB_3_PLURAL_MASC ("verb3PlM", Language.ARABIC),
     //VERB_3_PLURAL_FEM ("verb3PlF", Language.ARABIC),
 
-    //NOUN_SG("nounSingular", Language.ARABIC),
-    //NOUN_PL("nounPlural", Language.ARABIC),
-    //NOUN_PL_MASC("nounPluralMasc", Language.ARABIC),
-    //NOUN_PL_FEM("nounPluralFem", Language.ARABIC),
-    //NOUN_PL_BROKEN("nounPluralBroken", Language.ARABIC),
-    //NOUN_PROPER_SG("nounProperSingualr", Language.ARABIC),
-    //NOUN_PROPER_PL("nounProperSingular", Language.ARABIC),
+    NOUN_PL_MASC ("nounPluralMasc", Language.ARABIC),
+    NOUN_PL_FEM ("nounPluralFem", Language.ARABIC),
+    NOUN_DUAL ("nounDual", Language.ARABIC),
+
+    CASE_NOMINATIVE ("caseNom", Language.ARABIC),
+    CASE_ACCUSATIVE ("caseAcc", Language.ARABIC),
+    CASE_GENITIVE ("caseGen", Language.ARABIC),
+
+    CONSTRUCT ("construct", Language.ARABIC),
 
     //QUANTIFIERS("quantifiers", Language.ARABIC),
     //CONJUNCTIONS("conjunctions", Language.ARABIC),

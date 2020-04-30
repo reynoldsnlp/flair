@@ -404,8 +404,10 @@ class StanfordDocumentParserArabicStrategy extends BasicStanfordDocumentParserSt
 			if (morphFeatureSet == null)
 				continue;
 
-			String BWtag = madaToken.getToken().attr("form5"); // Buckwalter tag
+			String BWwordTag = madaToken.getMorphFeatureSet().attr("bw");
+			String BWtokTag = madaToken.getToken().attr("form5"); // Buckwalter tag
 
+			String enc0 = morphFeatureSet.attr("enc0"); // enclictic (object and possesive pronouns)
 			String cas = morphFeatureSet.attr("cas"); // nominative, accusative, genitive
 			String stt = morphFeatureSet.attr("stt"); // definite, indefinite, construct
 			String num = morphFeatureSet.attr("num"); // singular, dual, plural
@@ -422,17 +424,67 @@ class StanfordDocumentParserArabicStrategy extends BasicStanfordDocumentParserSt
 
 			//VERBS
 			if (pos.equals("verb")) {
-				/*if (asp.equals("p"))
-					addConstructionByIndices(GrammaticalConstruction.ASPECT_PERFECTIVE, start, end);*/
-				/*if (mod.equals("i"))
-					addConstructionByIndices(GrammaticalConstruction.MOOD_INDICATIVE, start, end);*/
-				/*else if (mod.equals("s"))
+				if (asp.equals("p"))
+					addConstructionByIndices(GrammaticalConstruction.ASPECT_PERFECTIVE, start, end);
+				else if (asp.equals("i"))
+					addConstructionByIndices(GrammaticalConstruction.ASPECT_IMPERFECTIVE, start, end);
+				if (mod.equals("i"))
+					addConstructionByIndices(GrammaticalConstruction.MOOD_INDICATIVE, start, end);
+				else if (mod.equals("s"))
 					addConstructionByIndices(GrammaticalConstruction.MOOD_SUBJUNCTIVE, start, end);
 				else if (mod.equals("j"))
-					addConstructionByIndices(GrammaticalConstruction.MOOD_JUSSIVE, start, end);*/
+					addConstructionByIndices(GrammaticalConstruction.MOOD_JUSSIVE, start, end);
+				else if (asp.equals("c"))
+					addConstructionByIndices(GrammaticalConstruction.MOOD_IMPERATIVE, start, end);
+				if (num.equals("p") && gen.equals("f"))
+					addConstructionByIndices(GrammaticalConstruction.VERB_FEM_PL, start, end);
+				else if (num.equals("d"))
+					addConstructionByIndices(GrammaticalConstruction.VERB_DUAL, start, end);
 			}
 
-			if (BWtag.contains("PREP")) {
+			//NOUNS
+			if (pos.contains("noun") || pos.contains("adj")) {
+				if (cas.equals("n"))
+					addConstructionByIndices(GrammaticalConstruction.CASE_NOMINATIVE, start, end);
+				else if (cas.equals("a"))
+					addConstructionByIndices(GrammaticalConstruction.CASE_ACCUSATIVE, start, end);
+				else if (cas.equals("g"))
+					addConstructionByIndices(GrammaticalConstruction.CASE_GENITIVE, start, end);
+				if (BWwordTag.contains("NSUFF_MASC_PL"))
+						addConstructionByIndices(GrammaticalConstruction.NOUN_PL_MASC, start, end);
+				else if (BWwordTag.contains("NSUFF_FEM_PL"))
+						addConstructionByIndices(GrammaticalConstruction.NOUN_PL_FEM, start, end);
+				else if (num.equals("d"))
+					addConstructionByIndices(GrammaticalConstruction.NOUN_DUAL, start, end);
+
+				if(stt.equals("c")) {
+					int new_i = i;
+					String new_stt = stt;
+
+					while (new_stt.equals("c")) {
+						if (++new_i < madaTokens.size())
+							new_stt = madaTokens.get(new_i).getMorphFeatureSet().attr("stt");
+					}
+
+					String new_prc0 = madaTokens.get(new_i).getMorphFeatureSet().attr("prc0");
+					String new_prc1 = madaTokens.get(new_i).getMorphFeatureSet().attr("prc1");
+					String new_prc2 = madaTokens.get(new_i).getMorphFeatureSet().attr("prc2");
+					String new_prc3 = madaTokens.get(new_i).getMorphFeatureSet().attr("prc3");
+					Boolean valid_prc0 = new_prc0.equals("0") || new_prc0.equals("na") || new_prc0.equals("Al_det");
+					Boolean no_prc1 = new_prc1.equalsIgnoreCase("0") || new_prc1.equals("na");
+					Boolean no_prc2 = new_prc2.equalsIgnoreCase("0") || new_prc1.equals("na");
+					Boolean no_prc3 = new_prc3.equalsIgnoreCase("0") || new_prc1.equals("na");
+
+					if (valid_prc0 && no_prc1 && no_prc2 && no_prc3)
+						end = madaTokens.get(new_i).getEndIndex();
+					else
+						end = madaTokens.get(--new_i).getEndIndex();
+
+					addConstructionByIndices(GrammaticalConstruction.CONSTRUCT, start, end);
+				}
+			}
+
+			if (BWtokTag.contains("PREP")) {
 				addConstructionByIndices(GrammaticalConstruction.PREPOSITIONS, start, end);
 			}
 			/*if (BWtag.contains("PRON")) {
@@ -445,165 +497,7 @@ class StanfordDocumentParserArabicStrategy extends BasicStanfordDocumentParserSt
 			if(pos.equals("VBG")) {
 				addConstructionByIndices(GrammaticalConstruction.VERBAL_NOUN, word.beginPosition(), word.endPosition());
 			}
-			/*if(pos.equals("PREP"))
-				workingDoc.getConstructionData(GrammaticalConstruction.PREPOSITIONS)
-						.addOccurrence(word.beginPosition(), word.endPosition());
-			else if(pos.equals("PRP"))
-				workingDoc.getConstructionData(GrammaticalConstruction.PRONOUNS)
-						.addOccurrence(word.beginPosition(), word.endPosition());*/
 		}
-
-		/*try {
-			BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
-					new FileOutputStream("stanfordMadaSents.txt"), "UTF-8"));
-
-					writer.write(workingDoc.getPageText() + "\n\n");
-			for(int i = 0; i < madaSents.size() || i < otherStanfordSents.size(); i++) {
-				if (i < madaSents.size()) {
-					writer.write("Madamira: ");
-					for(MadaToken madaToken: madaSents.get(i)) {
-						writer.write(madaToken.getTok() + " ");
-					}
-					writer.write("\n");
-				}
-				if (i < stanfordSents.size()) {
-					writer.write("Stanford: ");
-					List<String> sentence = otherStanfordSents.get(i);
-					for(String word : sentence) {
-						writer.write(word + " ");
-					}
-					writer.write("\n\n");
-				}
-			}
-		}
-
-		catch (IOException e){}*/
-
-
-
-/*		//USING GET INDEX:
-		StringBuilder sb = new StringBuilder(workingDoc.getText());
-		for (int i = 0; i < madaTokens.size(); i++) {
-			MadaToken madaToken = madaTokens.get(i);
-			int wordID = madaToken.getWordID();
-			String BW = madaToken.getToken().attr("form5"); //get Buckwalter tag
-			String token = madaToken.getToken().attr("form0") //get token string
-					.replaceAll("\\+", ""); // strip '+'s from token strings
-			//remove alef from definite noun preceeded by preposition ل
-
-			String word = madaToken.getWord();
-			if (word.length() > 1 && word.substring(0,2).equals("لل")) {
-				if (madaTokens.get(i - 1).getToken().attr("form0").equals("ل" + "+")) {
-					if (BW.substring(0, 3).equals("DET") && token.substring(0, 2).equals("ال")) {
-						StringBuilder tokenSB = new StringBuilder(token);
-						tokenSB.deleteCharAt(0);
-						token = tokenSB.toString();
-					}
-				}
-			}
-			if (sb.toString().indexOf(token) == -1) {
-				System.out.println("token not found: " + token);
-				int start = sb.toString().indexOf(word);
-				if (start != -1) {
-					int end = start + word.length();
-					for (int j = start; j < end; j++)
-						sb.setCharAt(j,' ');
-				}
-				while(madaTokens.get(i).getWordID() == wordID)
-					i++;
-			continue;
-		}
-
-		madaToken.setIndices(sb.toString().indexOf(token));
-
-			for (int j = madaToken.getStartIndex(); j < madaToken.getEndIndex(); j++)
-				sb.setCharAt(j, ' ');
-
-			if (madaToken.getMorphFeatureSet() != null && BW.substring(0,4).equals("PREP")) {
-				addConstructionByIndices(GrammaticalConstruction.PREPOSITIONS, madaToken.getStartIndex(), madaToken.getEndIndex());
-			}
-		}
-		System.out.println("ALL TOKENS PROCESSED");*/
-
-		/*for (int i = 0; i < stanfordSents.size(); i++) {
-			SemanticGraph stanfordSemGraph = stanfordSents.get(i).get(SemanticGraphCoreAnnotations.EnhancedPlusPlusDependenciesAnnotation.class);
-			SemanticGraph madaSemGraph = madaSents.get(i).get(SemanticGraphCoreAnnotations.EnhancedPlusPlusDependenciesAnnotation.class);
-
-
-		}*/
-
-		/*String text = workingDoc.getPageText()
-				.replaceAll("ّ", "")
-				.replaceAll("َ", "")
-				.replaceAll("ِ", "")
-				.replaceAll("ُ", "")
-				.replaceAll("ً", "")
-				.replaceAll("ٍ", "")
-				.replaceAll("ْ", "")
-				.replaceAll("ٌ", "");*/
-
-
-
-/*
-		String joined = new StringBuilder()
-				.append("(")
-				.append(String.join(")\\s*(", tokens))
-				.append(")")
-				.toString();
-		System.out.println(joined);
-
-		try {
-			BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
-					new FileOutputStream("tokens.txt"), "UTF-8"));
-			writer.write(workingDoc.getPageText());
-			writer.write("\n" + joined);
-			System.out.println("tokens.txt file written");
-			writer.close();
-		}
-
-		catch (IOException e){}
-
-		Matcher matcher = Pattern.compile(joined).matcher(text);
-		String mask = matcher.replaceAll("+").replaceAll("[^+]", "-");
-
-		try {
-			BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
-					new FileOutputStream("mistakes.txt"), "UTF-8"));
-			writer.write(text);
-			writer.write(mask);
-			writer.close();
-		}
-
-		catch (IOException e){}
-
-		System.out.println(matcher.matches());
-
-		for (int i = 0; i < madaTokens.size() ; i++) {
-			String pos = madaTokens.get(i).getToken().attr("form5");
-			System.out.println(pos);
-			if (pos.substring(0,4).equals("PREP")) {
-				int start_index = matcher.start(i + 1);
-				int end_index = matcher.end(i + 1);
-				addConstructionByIndices(GrammaticalConstruction.PREPOSITIONS, start_index, end_index);
-			}
-		}*/
-
-		/**/
-		/*
-		for (CoreLabel word: words) {
-			String POS = word.get(CoreAnnotations.PartOfSpeechAnnotation.class);
-			//System.out.println(POS);
-			if (POS.equals("IN")) {
-				addConstructionByIndices(GrammaticalConstruction.PREPOSITIONS, word.beginPosition(), word.endPosition());
-			}
-			if (POS.equals("PRP")) {
-				addConstructionByIndices(GrammaticalConstruction.PRONOUNS, word.beginPosition(), word.endPosition());
-			}
-			if (POS.equals("VBG")) {
-				addConstructionByIndices(GrammaticalConstruction.VERBAL_NOUN, word.beginPosition(), word.endPosition());
-			}
-		}*/
-
 	}
 
 	private void addConstructionByIndices(GrammaticalConstruction type, int startIndex, int endIndex){

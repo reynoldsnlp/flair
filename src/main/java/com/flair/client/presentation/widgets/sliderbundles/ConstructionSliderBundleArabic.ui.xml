@@ -60,21 +60,18 @@
                     <flair:GrammaticalConstructionPanelItem ui:field="pnlVerbsUI" text="verbs" iconType="EXPAND_MORE">
                         <flair:GrammaticalConstructionPanel accordion="true" popout="false">
                             <!-- Verb Forms -->
-                            <flair:GrammaticalConstructionPanelItem ui:field="pnlVerbFormsUI" text="verb forms" iconType="EXPAND_MORE">
+                            <flair:GrammaticalConstructionPanelItem ui:field="pnlPersonAndNumberUI" text="person and number" iconType="EXPAND_MORE">
                                 <flair:GrammaticalConstructionWeightSlider gram="VERBAL_NOUN" parentLanguage="ARABIC"/>
-
+                                <flair:GrammaticalConstructionWeightSlider gram="VERB_DUAL" parentLanguage="ARABIC"/>
+                                <flair:GrammaticalConstructionWeightSlider gram="VERB_FEM_PL" parentLanguage="ARABIC"/>
                                 <!--<flair:GrammaticalConstructionWeightSlider gram="PARTICIPLES" parentLanguage="ARABIC"/>-->
                                 <!--<flair:GrammaticalConstructionWeightSlider gram="PSEUDO_VERBS" parentLanguage="ARABIC"/>-->
                             </flair:GrammaticalConstructionPanelItem>
 
-                            <!-- Tenses -->
-                            <flair:GrammaticalConstructionPanelItem ui:field="pnlTensesUI" text="tenses" iconType="EXPAND_MORE">
-                            </flair:GrammaticalConstructionPanelItem>
-
                             <!-- Aspect -->
                             <flair:GrammaticalConstructionPanelItem ui:field="pnlAspectUI" text="aspect" iconType="EXPAND_MORE">
-                                <!--<flair:GrammaticalConstructionWeightSlider gram="ASPECT_PERFECTIVE" parentLanguage="ARABIC"/>
-                                <flair:GrammaticalConstructionWeightSlider gram="ASPECT_IMPERFECTIVE" parentLanguage="ARABIC"/>-->
+                                <flair:GrammaticalConstructionWeightSlider gram="ASPECT_PERFECTIVE" parentLanguage="ARABIC"/>
+                                <flair:GrammaticalConstructionWeightSlider gram="ASPECT_IMPERFECTIVE" parentLanguage="ARABIC"/>
                             </flair:GrammaticalConstructionPanelItem>
 
                             <!-- Time -->
@@ -85,36 +82,14 @@
                             <flair:GrammaticalConstructionPanelItem ui:field="pnlVoiceUI" text="voice" iconType="EXPAND_MORE">
                                 <!--<flair:GrammaticalConstructionWeightSlider gram="PASSIVE_VOICE" parentLanguage="ARABIC"/>-->
                             </flair:GrammaticalConstructionPanelItem>
-
-                            <!-- Phrasal -->
-                            <flair:GrammaticalConstructionPanelItem ui:field="pnlPhrasalUI" text="phrasal" iconType="EXPAND_MORE">
-                                <!--<flair:GrammaticalConstructionWeightSlider gram="VERBS_PHRASAL" parentLanguage="ARABIC"/>-->
-                            </flair:GrammaticalConstructionPanelItem>
-
-                            <!-- Modal -->
-                            <flair:GrammaticalConstructionPanelItem ui:field="pnlModalUI" text="modal" iconType="EXPAND_MORE">
-                                <!--<flair:GrammaticalConstructionWeightSlider gram="MODALS_SIMPLE" parentLanguage="ARABIC"/>
-
-                                <flair:GrammaticalConstructionWeightSlider gram="MODALS_ADVANCED" parentLanguage="ARABIC"/>-->
-                            </flair:GrammaticalConstructionPanelItem>
-
-                            <!-- Transitive -->
-                            <flair:GrammaticalConstructionPanelItem ui:field="pnlTransitiveUI" text="transitive" iconType="EXPAND_MORE">
-                                <!--<flair:GrammaticalConstructionWeightSlider gram="MOOD_INDICATIVE" parentLanguage="ARABIC"/>-->
-                                <!--<flair:GrammaticalConstructionWeightSlider gram="MOOD_SUBJUNCTIVE" parentLanguage="ARABIC"/>
-
-                                <flair:GrammaticalConstructionWeightSlider gram="MOOD_JUSSIVE" parentLanguage="ARABIC"/>-->
-                            </flair:GrammaticalConstructionPanelItem>
-
-                            <!-- Imperative -->
-                            <flair:GrammaticalConstructionPanelItem ui:field="pnlImperativeUI" text="imperatives" iconType="EXPAND_MORE">
-                                <!--<flair:GrammaticalConstructionWeightSlider gram="IMPERATIVES" parentLanguage="ARABIC"/>-->
+<!-- Transitive -->
+                            <flair:GrammaticalConstructionPanelItem ui:field="pnlMoodUI" text="mood" iconType="EXPAND_MORE">
+                                <flair:GrammaticalConstructionWeightSlider gram="MOOD_INDICATIVE" parentLanguage="ARABIC"/>
+                                <flair:GrammaticalConstructionWeightSlider gram="MOOD_SUBJUNCTIVE" parentLanguage="ARABIC"/>
+                                <flair:GrammaticalConstructionWeightSlider gram="MOOD_JUSSIVE" parentLanguage="ARABIC"/>
+                                <flair:GrammaticalConstructionWeightSlider gram="MOOD_IMPERATIVE" parentLanguage="ARABIC"/>
                             </flair:GrammaticalConstructionPanelItem>
                         </flair:GrammaticalConstructionPanel>
-                    </flair:GrammaticalConstructionPanelItem>
-
-                    <!-- Negation -->
-                    <flair:GrammaticalConstructionPanelItem ui:field="pnlNegationUI" text="negation" iconType="EXPAND_MORE">
                     </flair:GrammaticalConstructionPanelItem>
 
                     <!-- Articles -->
@@ -143,7 +118,6 @@
                     <!-- Pronouns -->
                     <flair:GrammaticalConstructionPanelItem ui:field="pnlPronounsUI" text="pronouns" iconType="EXPAND_MORE">
                         <flair:GrammaticalConstructionWeightSlider gram="PRONOUNS" parentLanguage="ARABIC"/>
-
                         <!--<flair:GrammaticalConstructionWeightSlider gram="PRONOUNS_DEMONSTRATIVE" parentLanguage="ARABIC"/>
                         <flair:GrammaticalConstructionWeightSlider gram="PRONOUNS_POSSESSIVE" parentLanguage="ARABIC"/>-->
                     </flair:GrammaticalConstructionPanelItem>
@@ -162,15 +136,28 @@
 
                     <!-- Nouns -->
                     <flair:GrammaticalConstructionPanelItem ui:field="pnlNounsUI" text="nouns" iconType="EXPAND_MORE">
-                        <!--<flair:GrammaticalConstructionWeightSlider gram="NOUN_SG" parentLanguage="ARABIC"/>
+                        <flair:GrammaticalConstructionPanel accordion="true" popout="false">
+                            <flair:GrammaticalConstructionPanelItem ui:field="pnlNumberUI" text="number" iconType="EXPAND_MORE">
+                                <flair:GrammaticalConstructionWeightSlider gram="NOUN_PL_MASC" parentLanguage="ARABIC"/>
 
-                        <flair:GrammaticalConstructionWeightSlider gram="NOUN_PL" parentLanguage="ARABIC"/>
+                                <flair:GrammaticalConstructionWeightSlider gram="NOUN_PL_FEM" parentLanguage="ARABIC"/>
 
-                        <flair:GrammaticalConstructionWeightSlider gram="NOUN_PL_MASC" parentLanguage="ARABIC"/>
+                                <flair:GrammaticalConstructionWeightSlider gram="NOUN_DUAL" parentLanguage="ARABIC"/>
+                            </flair:GrammaticalConstructionPanelItem>
 
-                        <flair:GrammaticalConstructionWeightSlider gram="NOUN_PL_FEM" parentLanguage="ARABIC"/>
+                            <flair:GrammaticalConstructionPanelItem ui:field="pnlConstructUI" text="construct" iconType="EXPAND_MORE">
+                                <flair:GrammaticalConstructionWeightSlider gram="CONSTRUCT" parentLanguage="ARABIC"/>
+                                </flair:GrammaticalConstructionPanelItem>
 
-                        <flair:GrammaticalConstructionWeightSlider gram="NOUN_PL_BROKEN" parentLanguage="ARABIC"/>-->
+                            <flair:GrammaticalConstructionPanelItem ui:field="pnlCaseUI" text="case" iconType="EXPAND_MORE">
+                                <flair:GrammaticalConstructionWeightSlider gram="CASE_NOMINATIVE" parentLanguage="ARABIC"/>
+
+                                <flair:GrammaticalConstructionWeightSlider gram="CASE_ACCUSATIVE" parentLanguage="ARABIC"/>
+
+                                <flair:GrammaticalConstructionWeightSlider gram="CASE_GENITIVE" parentLanguage="ARABIC"/>
+
+                            </flair:GrammaticalConstructionPanelItem>
+                        </flair:GrammaticalConstructionPanel>
                     </flair:GrammaticalConstructionPanelItem>
                 </flair:GrammaticalConstructionPanel>
             </flair:GrammaticalConstructionPanelItem>
