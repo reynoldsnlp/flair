@@ -586,54 +586,54 @@ _gram-helpText_	TENSE_PRESENT	<INSERT_HELP_TEXT>
 _gram-name_	ASPECT_BIASPECTUAL	Biaspectual
 _gram-path_	ASPECT_BIASPECTUAL	<INSERT_PATH>
 _gram-helpText_	ASPECT_BIASPECTUAL	Verb forms that can be both perfective and imperfective
-_gram-name_	VERBS_IRREGULAR_PAST	<verbsIrregularPast>
+_gram-name_	VERBS_IRREGULAR_PAST	Irregular Past
 _gram-path_	VERBS_IRREGULAR_PAST	<INSERT_PATH>
-_gram-helpText_	VERBS_IRREGULAR_PAST	<INSERT_HELP_TEXT>
-_gram-name_	VERBS_IRREGULAR_NONPAST	<verbsIrregularNonpast>
+_gram-helpText_	VERBS_IRREGULAR_PAST	Verbs with irregular L-participle form (past tense)
+_gram-name_	VERBS_IRREGULAR_NONPAST	Irregular Present/Future
 _gram-path_	VERBS_IRREGULAR_NONPAST	<INSERT_PATH>
-_gram-helpText_	VERBS_IRREGULAR_NONPAST	<INSERT_HELP_TEXT>
-_gram-name_	PRONOUNS_NEGATIVE	<pronounsNegative>
+_gram-helpText_	VERBS_IRREGULAR_NONPAST	Verbs with irregular conjugations (non-past tense)
+_gram-name_	PRONOUNS_NEGATIVE	Negative
 _gram-path_	PRONOUNS_NEGATIVE	<INSERT_PATH>
-_gram-helpText_	PRONOUNS_NEGATIVE	<INSERT_HELP_TEXT>
-_gram-name_	NEGATION_PRONOUNS	<negationPronouns>
+_gram-helpText_	PRONOUNS_NEGATIVE	Negative pronouns. E.g., nobody, nothing
+_gram-name_	NEGATION_PRONOUNS	Pronouns
 _gram-path_	NEGATION_PRONOUNS	<INSERT_PATH>
-_gram-helpText_	NEGATION_PRONOUNS	<INSERT_HELP_TEXT>
-_gram-name_	OBJECT_INDIRECT_RUSSIAN	<indirectObjectRussian>
+_gram-helpText_	NEGATION_PRONOUNS	Negative pronouns. E.g., nobody, nothing
+_gram-name_	OBJECT_INDIRECT_RUSSIAN	Indirect Objects
 _gram-path_	OBJECT_INDIRECT_RUSSIAN	<INSERT_PATH>
 _gram-helpText_	OBJECT_INDIRECT_RUSSIAN	<INSERT_HELP_TEXT>
-_gram-name_	PRONOUNS_DEFINITE_RUSSIAN	<pronounsDefiniteRussian>
+_gram-name_	PRONOUNS_DEFINITE_RUSSIAN	Definite
 _gram-path_	PRONOUNS_DEFINITE_RUSSIAN	<INSERT_PATH>
-_gram-helpText_	PRONOUNS_DEFINITE_RUSSIAN	<INSERT_HELP_TEXT>
-_gram-name_	PRONOUNS_INDEFINITE_RUSSIAN	<pronounsIndefiniteRussian>
+_gram-helpText_	PRONOUNS_DEFINITE_RUSSIAN	Definite pronouns. E.g., этот, такой
+_gram-name_	PRONOUNS_INDEFINITE_RUSSIAN	Indefinite
 _gram-path_	PRONOUNS_INDEFINITE_RUSSIAN	<INSERT_PATH>
-_gram-helpText_	PRONOUNS_INDEFINITE_RUSSIAN	<INSERT_HELP_TEXT>
-_gram-name_	DETERMINER_SOME_RUSSIAN	<someDetRussian>
+_gram-helpText_	PRONOUNS_INDEFINITE_RUSSIAN	Indefinite pronouns. E.g., нечто, какие-либо
+_gram-name_	DETERMINER_SOME_RUSSIAN	Некоторый
 _gram-path_	DETERMINER_SOME_RUSSIAN	<someDetRussian_PATH>
 _gram-helpText_	DETERMINER_SOME_RUSSIAN	<someDetRussian_HELP_TEXT>
-_gram-name_	DETERMINER_ANY_RUSSIAN	<anyDetRussian>
+_gram-name_	DETERMINER_ANY_RUSSIAN	Любой
 _gram-path_	DETERMINER_ANY_RUSSIAN	<anyDetRussian_PATH>
 _gram-helpText_	DETERMINER_ANY_RUSSIAN	<anyDetRussian_HELP_TEXT>
-_gram-name_	DETERMINER_MUCH_RUSSIAN	<muchDetRussian>
+_gram-name_	DETERMINER_MUCH_RUSSIAN	Многий
 _gram-path_	DETERMINER_MUCH_RUSSIAN	<muchDetRussian_PATH>
 _gram-helpText_	DETERMINER_MUCH_RUSSIAN	<muchDetRussian_HELP_TEXT>
-_gram-name_	NEGATION_NO_NOT_NEVER_RUSSIAN	<noNotNeverRussian>
+_gram-name_	NEGATION_NO_NOT_NEVER_RUSSIAN	No Not Never
 _gram-path_	NEGATION_NO_NOT_NEVER_RUSSIAN	<noNotNeverRussian_PATH>
-_gram-helpText_	NEGATION_NO_NOT_NEVER_RUSSIAN	<noNotNeverRussian_HELP_TEXT>
-_gram-name_	QUESTIONS_YESNO_RUSSIAN	<yesNoQuestionsRussian>
+_gram-helpText_	NEGATION_NO_NOT_NEVER_RUSSIAN	General negation. E.g., Нет, не, ни, никогда, никак, etc.
+_gram-name_	QUESTIONS_YESNO_RUSSIAN	Yes/No questions
 _gram-path_	QUESTIONS_YESNO_RUSSIAN	<yesNoQuestionsRussian_PATH>
-_gram-helpText_	QUESTIONS_YESNO_RUSSIAN	<yesNoQuestionsRussian_HELP_TEXT>
-_gram-name_	QUESTIONS_WH_RUSSIAN	<whQuestionsRussian>
+_gram-helpText_	QUESTIONS_YESNO_RUSSIAN	Questions that use "ли" (and no other interrogative)
+_gram-name_	QUESTIONS_WH_RUSSIAN	"Wh-" questions
 _gram-path_	QUESTIONS_WH_RUSSIAN	<whQuestionsRussian_PATH>
-_gram-helpText_	QUESTIONS_WH_RUSSIAN	<whQuestionsRussian_HELP_TEXT>
-_gram-name_	CONDITIONALS_RUSSIAN	<conditionalsRussian>
+_gram-helpText_	QUESTIONS_WH_RUSSIAN	Questions with direct interrogatives (other than "ли"). E.g. что, как, почему, etc.
+_gram-name_	CONDITIONALS_RUSSIAN	Conditionals
 _gram-path_	CONDITIONALS_RUSSIAN	<conditionalsRussian_PATH>
-_gram-helpText_	CONDITIONALS_RUSSIAN	<conditionalsRussian_HELP_TEXT>
-_gram-name_	VERBFORM_INFINITIVE_RUSSIAN	<infinitiveFormsRussian>
+_gram-helpText_	CONDITIONALS_RUSSIAN	Sentences that use "бы"
+_gram-name_	VERBFORM_INFINITIVE_RUSSIAN	Infinitives
 _gram-path_	VERBFORM_INFINITIVE_RUSSIAN	<infinitiveFormsRussian_PATH>
-_gram-helpText_	VERBFORM_INFINITIVE_RUSSIAN	<infinitiveFormsRussian_HELP_TEXT>
-_gram-name_	VERBFORM_PARTICIPLE_RUSSIAN	<participleFormsRussian>
+_gram-helpText_	VERBFORM_INFINITIVE_RUSSIAN	Infinitive verbs
+_gram-name_	VERBFORM_PARTICIPLE_RUSSIAN	Participles
 _gram-path_	VERBFORM_PARTICIPLE_RUSSIAN	<participleFormsRussian_PATH>
-_gram-helpText_	VERBFORM_PARTICIPLE_RUSSIAN	<participleFormsRussian_HELP_TEXT>
+_gram-helpText_	VERBFORM_PARTICIPLE_RUSSIAN	Verbs as participles
 _gram-name_	VERBS_IRREGULAR_RUSSIAN	<irregularVerbsRussian>
 _gram-path_	VERBS_IRREGULAR_RUSSIAN	<irregularVerbsRussian_PATH>
 _gram-helpText_	VERBS_IRREGULAR_RUSSIAN	<irregularVerbsRussian_HELP_TEXT>
