@@ -698,26 +698,39 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
 			        String lemma = reading.getBaseForm();
 			        isWhat |= isPartialMatch(patternChto, lemma);
 			        isWho |= isPartialMatch(patternKto, lemma);
-			        isHow |= isPartialMatch(patternKak, lemma);
-			        isWhy |= isPartialMatch(patternPochjemu, lemma);
-			        isWhy |= isPartialMatch(patternZachjem, lemma);
-			        isWhere |= isPartialMatch(patternGdje, lemma);
-			        isWhen |= isPartialMatch(patternKogda, lemma);
-			        isWhose |= isPartialMatch(patternChjej, lemma);
-			        isWhich |= isPartialMatch(patternKakoj, lemma);
-			        isWhither |= isPartialMatch(patternKuda, lemma);
-			        isWhatKind |= isPartialMatch(patternKakov, lemma);
-		        }
-		        if(isWhat) addConstructionByIndices(GrammaticalConstruction.QUESTIONS_WHAT_RUSSIAN, plainWord.beginPosition(), plainWord.endPosition());
-		        else if(isWho) addConstructionByIndices(GrammaticalConstruction.QUESTIONS_WHO_RUSSIAN, plainWord.beginPosition(), plainWord.endPosition());
-		        else if(isHow) addConstructionByIndices(GrammaticalConstruction.QUESTIONS_HOW_RUSSIAN, plainWord.beginPosition(), plainWord.endPosition());
-		        else if(isWhy) addConstructionByIndices(GrammaticalConstruction.QUESTIONS_WHY_RUSSIAN, plainWord.beginPosition(), plainWord.endPosition());
-		        else if(isWhere) addConstructionByIndices(GrammaticalConstruction.QUESTIONS_WHERE_RUSSIAN, plainWord.beginPosition(), plainWord.endPosition());
-		        else if(isWhen) addConstructionByIndices(GrammaticalConstruction.QUESTIONS_WHEN_RUSSIAN, plainWord.beginPosition(), plainWord.endPosition());
-		        else if(isWhose) addConstructionByIndices(GrammaticalConstruction.QUESTIONS_WHOSE_RUSSIAN, plainWord.beginPosition(), plainWord.endPosition());
-		        else if(isWhich) addConstructionByIndices(GrammaticalConstruction.QUESTIONS_WHOSE_RUSSIAN, plainWord.beginPosition(), plainWord.endPosition());
-		        else if(isWhither) addConstructionByIndices(GrammaticalConstruction.QUESTIONS_WHITHER_RUSSIAN, plainWord.beginPosition(), plainWord.endPosition());
-		        else if(isWhatKind) addConstructionByIndices(GrammaticalConstruction.QUESTIONS_WHAT_KIND_RUSSIAN, plainWord.beginPosition(), plainWord.endPosition());
+                    isHow |= isPartialMatch(patternKak, lemma);
+                    isWhy |= isPartialMatch(patternPochjemu, lemma);
+                    isWhy |= isPartialMatch(patternZachjem, lemma);
+                    isWhere |= isPartialMatch(patternGdje, lemma);
+                    isWhen |= isPartialMatch(patternKogda, lemma);
+                    isWhose |= isPartialMatch(patternChjej, lemma);
+                    isWhich |= isPartialMatch(patternKakoj, lemma);
+                    isWhither |= isPartialMatch(patternKuda, lemma);
+                    isWhatKind |= isPartialMatch(patternKakov, lemma);
+                }
+                if (isWhat || isWho || isHow || isWhy || isWhere || isWhen || isWhose || isWhich || isWhither || isWhatKind) {
+                    addConstructionByIndices(GrammaticalConstruction.QUESTIONS_WH_RUSSIAN, plainWord.beginPosition(), plainWord.endPosition());
+                }
+                if (isWhat)
+                    addConstructionByIndices(GrammaticalConstruction.QUESTIONS_WHAT_RUSSIAN, plainWord.beginPosition(), plainWord.endPosition());
+                else if (isWho)
+                    addConstructionByIndices(GrammaticalConstruction.QUESTIONS_WHO_RUSSIAN, plainWord.beginPosition(), plainWord.endPosition());
+                else if (isHow)
+                    addConstructionByIndices(GrammaticalConstruction.QUESTIONS_HOW_RUSSIAN, plainWord.beginPosition(), plainWord.endPosition());
+                else if (isWhy)
+                    addConstructionByIndices(GrammaticalConstruction.QUESTIONS_WHY_RUSSIAN, plainWord.beginPosition(), plainWord.endPosition());
+                else if (isWhere)
+                    addConstructionByIndices(GrammaticalConstruction.QUESTIONS_WHERE_RUSSIAN, plainWord.beginPosition(), plainWord.endPosition());
+                else if (isWhen)
+                    addConstructionByIndices(GrammaticalConstruction.QUESTIONS_WHEN_RUSSIAN, plainWord.beginPosition(), plainWord.endPosition());
+                else if (isWhose)
+                    addConstructionByIndices(GrammaticalConstruction.QUESTIONS_WHOSE_RUSSIAN, plainWord.beginPosition(), plainWord.endPosition());
+                else if (isWhich)
+                    addConstructionByIndices(GrammaticalConstruction.QUESTIONS_WHOSE_RUSSIAN, plainWord.beginPosition(), plainWord.endPosition());
+                else if (isWhither)
+                    addConstructionByIndices(GrammaticalConstruction.QUESTIONS_WHITHER_RUSSIAN, plainWord.beginPosition(), plainWord.endPosition());
+                else if (isWhatKind)
+                    addConstructionByIndices(GrammaticalConstruction.QUESTIONS_WHAT_KIND_RUSSIAN, plainWord.beginPosition(), plainWord.endPosition());
 	        }
         }
         else{ //no question mark
@@ -777,7 +790,6 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                 Map<GrammaticalConstruction, Boolean> constructionsToCount = new HashMap<>();
                 for(CgReading reading: objectWithReadings.getReadings()) {
                     Set<String> tags = new HashSet<>(reading.getTags());
-                    if(tags.contains(NOMINATIVE_TAG)) constructionsToCount.put(GrammaticalConstruction.PREPOSITION_NOMINATIVE, true);
                     if(tags.contains(ACCUSATIVE_TAG)) constructionsToCount.put(GrammaticalConstruction.PREPOSITION_ACCUSATIVE, true);
                     if(tags.contains(GENITIVE_TAG)) constructionsToCount.put(GrammaticalConstruction.PREPOSITION_GENITIVE, true);
                     if(tags.contains(PREPOSITIONAL_TAG)) constructionsToCount.put(GrammaticalConstruction.PREPOSITION_PREPOSITIONAL, true);

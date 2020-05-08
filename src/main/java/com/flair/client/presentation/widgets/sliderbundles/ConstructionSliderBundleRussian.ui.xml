@@ -91,28 +91,38 @@
 
 						</flair:GrammaticalConstructionPanel>
 					</flair:GrammaticalConstructionPanelItem>
-				
+
 					<!-- Negation -->
-					<flair:GrammaticalConstructionPanelItem ui:field="pnlNegationUI" text="negation" iconType="EXPAND_MORE">
+					<flair:GrammaticalConstructionPanelItem ui:field="pnlNegationUI" text="negation"
+															iconType="EXPAND_MORE">
 						<flair:GrammaticalConstructionWeightSlider gram="NEGATION_ALL" parentLanguage="RUSSIAN"/>
-						<flair:GrammaticalConstructionWeightSlider gram="NEGATION_NO_NOT_NEVER_RUSSIAN" parentLanguage="RUSSIAN"/>
+						<flair:GrammaticalConstructionWeightSlider gram="NEGATION_NO_NOT_NEVER_RUSSIAN"
+																   parentLanguage="RUSSIAN"/>
 						<flair:GrammaticalConstructionWeightSlider gram="NEGATION_NOT" parentLanguage="RUSSIAN"/>
 						<flair:GrammaticalConstructionWeightSlider gram="NEGATION_PARTIAL" parentLanguage="RUSSIAN"/>
 						<flair:GrammaticalConstructionWeightSlider gram="NEGATION_PRONOUNS" parentLanguage="RUSSIAN"/>
 					</flair:GrammaticalConstructionPanelItem>
-					
-					<!-- Quantifiers -->
-					<flair:GrammaticalConstructionPanelItem ui:field="pnlQuantifiersUI" text="quantifiers" iconType="EXPAND_MORE">
-						<flair:GrammaticalConstructionWeightSlider gram="DETERMINER_SOME_RUSSIAN" parentLanguage="RUSSIAN"/>
-						<flair:GrammaticalConstructionWeightSlider gram="DETERMINER_ANY_RUSSIAN" parentLanguage="RUSSIAN"/>
-						<flair:GrammaticalConstructionWeightSlider gram="DETERMINER_MUCH_RUSSIAN" parentLanguage="RUSSIAN"/>
 
-						<flair:GrammaticalConstructionWeightSlider gram="DETERMINER_NOMINATIVE" parentLanguage="RUSSIAN"/>
-						<flair:GrammaticalConstructionWeightSlider gram="DETERMINER_ACCUSATIVE" parentLanguage="RUSSIAN"/>
+					<!-- Quantifiers -->
+					<flair:GrammaticalConstructionPanelItem ui:field="pnlDeterminersUI" text="determiners"
+															iconType="EXPAND_MORE">
+						<flair:GrammaticalConstructionWeightSlider gram="DETERMINER_SOME_RUSSIAN"
+																   parentLanguage="RUSSIAN"/>
+						<flair:GrammaticalConstructionWeightSlider gram="DETERMINER_ANY_RUSSIAN"
+																   parentLanguage="RUSSIAN"/>
+						<flair:GrammaticalConstructionWeightSlider gram="DETERMINER_MUCH_RUSSIAN"
+																   parentLanguage="RUSSIAN"/>
+
+						<flair:GrammaticalConstructionWeightSlider gram="DETERMINER_NOMINATIVE"
+																   parentLanguage="RUSSIAN"/>
+						<flair:GrammaticalConstructionWeightSlider gram="DETERMINER_ACCUSATIVE"
+																   parentLanguage="RUSSIAN"/>
 						<flair:GrammaticalConstructionWeightSlider gram="DETERMINER_GENITIVE" parentLanguage="RUSSIAN"/>
-						<flair:GrammaticalConstructionWeightSlider gram="DETERMINER_PREPOSITIONAL" parentLanguage="RUSSIAN"/>
+						<flair:GrammaticalConstructionWeightSlider gram="DETERMINER_PREPOSITIONAL"
+																   parentLanguage="RUSSIAN"/>
 						<flair:GrammaticalConstructionWeightSlider gram="DETERMINER_DATIVE" parentLanguage="RUSSIAN"/>
-						<flair:GrammaticalConstructionWeightSlider gram="DETERMINER_INSTRUMENTAL" parentLanguage="RUSSIAN"/>
+						<flair:GrammaticalConstructionWeightSlider gram="DETERMINER_INSTRUMENTAL"
+																   parentLanguage="RUSSIAN"/>
 					</flair:GrammaticalConstructionPanelItem>
 					
 					<!-- Adjectives -->
@@ -174,7 +184,6 @@
 					<flair:GrammaticalConstructionPanelItem ui:field="pnlPrepositionsUI" text="prepositions" iconType="EXPAND_MORE">
 						<flair:GrammaticalConstructionWeightSlider gram="PREPOSITIONS" parentLanguage="RUSSIAN"/>
 
-						<flair:GrammaticalConstructionWeightSlider gram="PREPOSITION_NOMINATIVE" parentLanguage="RUSSIAN"/>
 						<flair:GrammaticalConstructionWeightSlider gram="PREPOSITION_ACCUSATIVE" parentLanguage="RUSSIAN"/>
 						<flair:GrammaticalConstructionWeightSlider gram="PREPOSITION_GENITIVE" parentLanguage="RUSSIAN"/>
 						<flair:GrammaticalConstructionWeightSlider gram="PREPOSITION_PREPOSITIONAL" parentLanguage="RUSSIAN"/>

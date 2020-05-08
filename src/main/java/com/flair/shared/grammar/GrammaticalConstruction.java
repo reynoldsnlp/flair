@@ -213,7 +213,6 @@ public enum GrammaticalConstruction
     ADJECTIVE_NOMINATIVE("adjectiveNominative", Language.RUSSIAN),
     PRONOUN_NOMINATIVE("pronounNominative", Language.RUSSIAN),
     DETERMINER_NOMINATIVE("determinerNominative", Language.RUSSIAN),
-    PREPOSITION_NOMINATIVE("prepositionNominative", Language.RUSSIAN),
 
     NOUN_ACCUSATIVE("nounAccusative", Language.RUSSIAN),
     ADJECTIVE_ACCUSATIVE("adjectiveAccusative", Language.RUSSIAN),

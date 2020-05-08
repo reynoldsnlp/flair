@@ -21,11 +21,11 @@ import static com.flair.server.grammar.RussianGrammaticalPatterns.patternVerbNoS
 
 public class StanfordDocumentParserRussianStrategyTest {
 
-	private final String stringToParse = "\"младший\" и он. Где? Он здес, так ли? где ми этот человек? мой отец. из-за чего ты здесь? в каком ты здании? В каком ты здании? Я приду, когда он придет. куда он делся?";
+	private final String stringToParse = "Он хочет есть. У него есть ручки. \"младший\" и он. Где? Он здес, так ли? где ми этот человек? мой отец. из-за чего ты здесь? в каком ты здании? В каком ты здании? Я приду, когда он придет. куда он делся?";
 
 	//constants
-	private static final String RUSSIAN_POS_MODEL       = "edu/stanford/nlp/models/pos-tagger/russian-ud-pos.tagger";
-	private static final String RUSSIAN_DEPPARSE_MODEL  = "edu/stanford/nlp/models/parser/nndep/nndep.rus.model.wiki.txt.gz";
+	private static final String RUSSIAN_POS_MODEL = "edu/stanford/nlp/models/pos-tagger/russian-ud-pos.tagger";
+	private static final String RUSSIAN_DEPPARSE_MODEL = "edu/stanford/nlp/models/parser/nndep/nndep.rus.model.wiki.txt.gz";
 	//members
 	private StanfordCoreNLP pipeline;
 	private Properties pipelineProps;

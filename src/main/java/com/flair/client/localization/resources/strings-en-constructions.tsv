@@ -205,7 +205,7 @@ _gram-helpText_	PLURAL_IRREGULAR	e.g., people, children, women
 _gram-name_	PLURAL_REGULAR	Plural regular
 _gram-path_	PLURAL_REGULAR	Nouns > Regular plural form of nouns
 _gram-helpText_	PLURAL_REGULAR	e.g., texts, flowers, settings
-_gram-name_	PREPOSITIONS	Prepositions
+_gram-name_	PREPOSITIONS	All Prepositions
 _gram-path_	PREPOSITIONS	Prepositions > All prepositions
 _gram-helpText_	PREPOSITIONS	e.g., in, on, between, under
 _gram-name_	PREPOSITIONS_ADVANCED	Advanced
@@ -217,7 +217,7 @@ _gram-helpText_	PREPOSITIONS_COMPLEX	Prepositions consisting of two or more word
 _gram-name_	PREPOSITIONS_SIMPLE	Simple
 _gram-path_	PREPOSITIONS_SIMPLE	Prepositions > Simple preposition
 _gram-helpText_	PREPOSITIONS_SIMPLE	The following prepositions: at, on, in, to, with, after
-_gram-name_	PRONOUNS	Pronouns
+_gram-name_	PRONOUNS	All Pronouns
 _gram-path_	PRONOUNS	Pronouns > All pronouns
 _gram-helpText_	PRONOUNS	Personal, possessive, indefinite, interrogative, reflexive, relative, demonstrative pronouns
 _gram-name_	PRONOUNS_DEMONSTRATIVE	Demonstrative
@@ -459,7 +459,7 @@ _gram-path_	ADJECTIVE_COMPARATIVE_LONG_RUSSIAN	<INSERT_PATH>
 _gram-helpText_	ADJECTIVE_COMPARATIVE_LONG_RUSSIAN	Adjectives preceded by "более"
 _gram-name_	ADJECTIVE_SUPERLATIVE_LONG_RUSSIAN	Superlative long-form
 _gram-path_	ADJECTIVE_SUPERLATIVE_LONG_RUSSIAN	<INSERT_PATH>
-_gram-helpText_	ADJECTIVE_SUPERLATIVE_LONG_RUSSIAN	Adjectives preceded by "самый", as well as others such as ярчайший, высший, младший, etc.
+_gram-helpText_	ADJECTIVE_SUPERLATIVE_LONG_RUSSIAN	Adjectives preceded by "самый", as well as others such as высший, младший, ярчайший, etc.
 _gram-name_	NOUN_NOMINATIVE	Nominative
 _gram-path_	NOUN_NOMINATIVE	<INSERT_PATH>
 _gram-helpText_	NOUN_NOMINATIVE	Nouns declined in the nominative case
@@ -472,9 +472,6 @@ _gram-helpText_	PRONOUN_NOMINATIVE	Pronouns declined in the nominative case
 _gram-name_	DETERMINER_NOMINATIVE	Nominative
 _gram-path_	DETERMINER_NOMINATIVE	<INSERT_PATH>
 _gram-helpText_	DETERMINER_NOMINATIVE	Determiners declined in the nominative case
-_gram-name_	PREPOSITION_NOMINATIVE	Nominative
-_gram-path_	PREPOSITION_NOMINATIVE	<INSERT_PATH>
-_gram-helpText_	PREPOSITION_NOMINATIVE	Prepositions that govern the nominative case
 _gram-name_	NOUN_ACCUSATIVE	Accusative
 _gram-path_	NOUN_ACCUSATIVE	<INSERT_PATH>
 _gram-helpText_	NOUN_ACCUSATIVE	Nouns declined in the accusative case
@@ -622,9 +619,9 @@ _gram-helpText_	NEGATION_NO_NOT_NEVER_RUSSIAN	General negation. E.g., Нет, н
 _gram-name_	QUESTIONS_YESNO_RUSSIAN	Yes/No questions
 _gram-path_	QUESTIONS_YESNO_RUSSIAN	<yesNoQuestionsRussian_PATH>
 _gram-helpText_	QUESTIONS_YESNO_RUSSIAN	Questions that use "ли" (and no other interrogative)
-_gram-name_	QUESTIONS_WH_RUSSIAN	"Wh-" questions
+_gram-name_	QUESTIONS_WH_RUSSIAN	"К-" questions
 _gram-path_	QUESTIONS_WH_RUSSIAN	<whQuestionsRussian_PATH>
-_gram-helpText_	QUESTIONS_WH_RUSSIAN	Questions with direct interrogatives (other than "ли"). E.g. что, как, почему, etc.
+_gram-helpText_	QUESTIONS_WH_RUSSIAN	Questions with direct interrogatives (other than "ли") often starting with "К-". E.g. как, когда, куда, где, etc.
 _gram-name_	CONDITIONALS_RUSSIAN	Conditionals
 _gram-path_	CONDITIONALS_RUSSIAN	<conditionalsRussian_PATH>
 _gram-helpText_	CONDITIONALS_RUSSIAN	Sentences that use "бы"
@@ -634,45 +631,45 @@ _gram-helpText_	VERBFORM_INFINITIVE_RUSSIAN	Infinitive verbs
 _gram-name_	VERBFORM_PARTICIPLE_RUSSIAN	Participles
 _gram-path_	VERBFORM_PARTICIPLE_RUSSIAN	<participleFormsRussian_PATH>
 _gram-helpText_	VERBFORM_PARTICIPLE_RUSSIAN	Verbs as participles
-_gram-name_	VERBS_IRREGULAR_RUSSIAN	<irregularVerbsRussian>
+_gram-name_	VERBS_IRREGULAR_RUSSIAN	Irregular
 _gram-path_	VERBS_IRREGULAR_RUSSIAN	<irregularVerbsRussian_PATH>
-_gram-helpText_	VERBS_IRREGULAR_RUSSIAN	<irregularVerbsRussian_HELP_TEXT>
-_gram-name_	IMPERATIVES_RUSSIAN	<imperativesRussian>
+_gram-helpText_	VERBS_IRREGULAR_RUSSIAN	Verbs with irregular forms in any tense. E.g., расти, бежать, etc.
+_gram-name_	IMPERATIVES_RUSSIAN	Imperatives
 _gram-path_	IMPERATIVES_RUSSIAN	<imperativesRussian_PATH>
-_gram-helpText_	IMPERATIVES_RUSSIAN	<imperativesRussian_HELP_TEXT>
-_gram-name_	FUTURE_IMPERFECTIVE	<futureImperfective>
+_gram-helpText_	IMPERATIVES_RUSSIAN	Imperative verbs
+_gram-name_	FUTURE_IMPERFECTIVE	Future Imperfective
 _gram-path_	FUTURE_IMPERFECTIVE	<futureImperfective_PATH>
-_gram-helpText_	FUTURE_IMPERFECTIVE	<futureImperfective_HELP_TEXT>
-_gram-name_	FUTURE_PERFECTIVE	<futurePerfective>
+_gram-helpText_	FUTURE_IMPERFECTIVE	Imperfective verbs used as future tense
+_gram-name_	FUTURE_PERFECTIVE	Future Perfective
 _gram-path_	FUTURE_PERFECTIVE	<futurePerfective_PATH>
-_gram-helpText_	FUTURE_PERFECTIVE	<futurePerfective_HELP_TEXT>
-_gram-name_	PAST_PERFECTIVE	<pastPerfective>
+_gram-helpText_	FUTURE_PERFECTIVE	Perfective verbs used as future tense
+_gram-name_	PAST_PERFECTIVE	Past Perfective
 _gram-path_	PAST_PERFECTIVE	<pastPerfective_PATH>
-_gram-helpText_	PAST_PERFECTIVE	<pastPerfective_HELP_TEXT>
-_gram-name_	PAST_IMPERFECTIVE	<pastImperfective>
+_gram-helpText_	PAST_PERFECTIVE	Perfective verbs used in past tense
+_gram-name_	PAST_IMPERFECTIVE	Past Imperfective
 _gram-path_	PAST_IMPERFECTIVE	<pastImperfective_PATH>
-_gram-helpText_	PAST_IMPERFECTIVE	<pastImperfective_HELP_TEXT***>
-_gram-name_	QUESTIONS_WHAT_RUSSIAN	<whatRussian>
+_gram-helpText_	PAST_IMPERFECTIVE	Imperfective verbs used in past tense
+_gram-name_	QUESTIONS_WHAT_RUSSIAN	"Что" questions
 _gram-path_	QUESTIONS_WHAT_RUSSIAN	<whatRussian_PATH>
-_gram-helpText_	QUESTIONS_WHAT_RUSSIAN	<whatRussian_HELP_TEXT>
-_gram-name_	QUESTIONS_WHO_RUSSIAN	<whoRussian>
+_gram-helpText_	QUESTIONS_WHAT_RUSSIAN	Questions starting with "что". E.g.,
+_gram-name_	QUESTIONS_WHO_RUSSIAN	"Кто" questions
 _gram-path_	QUESTIONS_WHO_RUSSIAN	<whoRussian_PATH>
-_gram-helpText_	QUESTIONS_WHO_RUSSIAN	<whoRussian_HELP_TEXT>
-_gram-name_	QUESTIONS_HOW_RUSSIAN	<howRussian>
+_gram-helpText_	QUESTIONS_WHO_RUSSIAN	Questions starting with "кто". E.g.,
+_gram-name_	QUESTIONS_HOW_RUSSIAN	"Как" questions
 _gram-path_	QUESTIONS_HOW_RUSSIAN	<howRussian_PATH>
-_gram-helpText_	QUESTIONS_HOW_RUSSIAN	<howRussian_HELP_TEXT>
-_gram-name_	QUESTIONS_WHY_RUSSIAN	<whyRussian>
+_gram-helpText_	QUESTIONS_HOW_RUSSIAN	Questions starting with "как". E.g.,
+_gram-name_	QUESTIONS_WHY_RUSSIAN	"Почему" and "Зачем" questions
 _gram-path_	QUESTIONS_WHY_RUSSIAN	<whyRussian_PATH>
-_gram-helpText_	QUESTIONS_WHY_RUSSIAN	<whyRussian_HELP_TEXT>
-_gram-name_	QUESTIONS_WHERE_RUSSIAN	<whereRussian>
+_gram-helpText_	QUESTIONS_WHY_RUSSIAN	Questions starting with "почему" or "зачем". E.g.,
+_gram-name_	QUESTIONS_WHERE_RUSSIAN	"Где" questions
 _gram-path_	QUESTIONS_WHERE_RUSSIAN	<whereRussian_PATH>
-_gram-helpText_	QUESTIONS_WHERE_RUSSIAN	<whereRussian_HELP_TEXT>
-_gram-name_	QUESTIONS_WHEN_RUSSIAN	<whenRussian>
+_gram-helpText_	QUESTIONS_WHERE_RUSSIAN	Questions starting with "где". E.g.,
+_gram-name_	QUESTIONS_WHEN_RUSSIAN	"Когда" questions
 _gram-path_	QUESTIONS_WHEN_RUSSIAN	<whenRussian_PATH>
-_gram-helpText_	QUESTIONS_WHEN_RUSSIAN	<whenRussian_HELP_TEXT>
-_gram-name_	QUESTIONS_WHOSE_RUSSIAN	<whoseRussian>
+_gram-helpText_	QUESTIONS_WHEN_RUSSIAN	Questions starting with "когда". E.g.,
+_gram-name_	QUESTIONS_WHOSE_RUSSIAN	"Чей" questions
 _gram-path_	QUESTIONS_WHOSE_RUSSIAN	<whoseRussian_PATH>
-_gram-helpText_	QUESTIONS_WHOSE_RUSSIAN	<whoseRussian_HELP_TEXT>
-_gram-name_	QUESTIONS_WHICH_RUSSIAN	<whichRussian>
+_gram-helpText_	QUESTIONS_WHOSE_RUSSIAN	Questions starting with "чей". E.g.,
+_gram-name_	QUESTIONS_WHICH_RUSSIAN	"Какой" questions
 _gram-path_	QUESTIONS_WHICH_RUSSIAN	<whichRussian_PATH>
-_gram-helpText_	QUESTIONS_WHICH_RUSSIAN	<whichRussian_HELP_TEXT>
+_gram-helpText_	QUESTIONS_WHICH_RUSSIAN	Questions starting with "Questions starting with "что". E.g.,". E.g.,
