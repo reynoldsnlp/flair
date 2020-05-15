@@ -31,10 +31,10 @@ public enum GrammaticalConstruction
     PREPOSITIONS_SIMPLE("simplePrepositions", Language.ENGLISH, Language.GERMAN),
     PREPOSITIONS_COMPLEX("complexPrepositions", Language.ENGLISH),
     PREPOSITIONS_ADVANCED("advancedPrepositions", Language.ENGLISH),
-    
+
     // sentence structure
     CLAUSE_SUBORDINATE("subordinateClause", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN),
-    CLAUSE_RELATIVE("relativeClause", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN),
+	CLAUSE_RELATIVE("relativeClause", Language.ENGLISH, Language.GERMAN),
     CLAUSE_RELATIVE_REDUCED("relativeClauseReduced", Language.ENGLISH),
     CLAUSE_ADVERBIAL("adverbialClause", Language.ENGLISH, Language.GERMAN),
     CLAUSE_THAT("thatClause", Language.GERMAN),
@@ -43,7 +43,7 @@ public enum GrammaticalConstruction
     SENTENCE_COMPOUND("compoundSentence", Language.ENGLISH, Language.GERMAN),
     SENTENCE_INCOMPLETE("incompleteSentence", Language.ENGLISH, Language.GERMAN),
     
-    OBJECT_DIRECT("directObject", Language.ENGLISH, Language.RUSSIAN),
+    OBJECT_DIRECT("directObject", Language.ENGLISH),
     OBJECT_INDIRECT("indirectObject", Language.ENGLISH),
     
     PRONOUNS("pronouns", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN),
@@ -295,7 +295,6 @@ public enum GrammaticalConstruction
     //OTHER
     PRONOUNS_NEGATIVE("pronounsNegative", Language.RUSSIAN),
     NEGATION_PRONOUNS("negationPronouns", Language.RUSSIAN),
-    OBJECT_INDIRECT_RUSSIAN("indirectObjectRussian", Language.RUSSIAN),
     PRONOUNS_DEFINITE_RUSSIAN("pronounsDefiniteRussian", Language.RUSSIAN),
     PRONOUNS_INDEFINITE_RUSSIAN("pronounsIndefiniteRussian", Language.RUSSIAN),
     DETERMINER_SOME_RUSSIAN("someDetRussian", Language.RUSSIAN),
@@ -304,6 +303,13 @@ public enum GrammaticalConstruction
     NEGATION_NO_NOT_NEVER_RUSSIAN("noNotNeverRussian", Language.RUSSIAN), // нет, не,DETERMINER_PREPOSITIONAL ни, никогда, никак, никуда, нигде, ниоткуда, нипочём, ничуть, нисколько, нисколечко
     CONDITIONALS_RUSSIAN("conditionalsRussian", Language.RUSSIAN),
 
+	//NEW NEW NEW
+	CLAUSE_RELATIVE_RUSSIAN("relativeClauseRussian", Language.RUSSIAN),
+    VERB_WITH_ACCUSATIVE("verbWithAccusative", Language.RUSSIAN),
+    VERB_WITH_GENITIVE("verbWithGenitive", Language.RUSSIAN),
+    VERB_WITH_DATIVE("verbWithDative", Language.RUSSIAN),
+    VERB_WITH_PREPOSITIONAL("verbWithPrepositional", Language.RUSSIAN),
+    VERB_WITH_INSTRUMENTAL("verbWithInstrumental", Language.RUSSIAN),
 
     ;
     

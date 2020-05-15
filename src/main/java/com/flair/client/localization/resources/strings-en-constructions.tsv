@@ -565,9 +565,9 @@ _gram-helpText_	VERB_REFLEXIVE_RUSSIAN	Verbs ending with "ся" or "сь"
 _gram-name_	VERBAL_ADVERB	Verbal Adverb
 _gram-path_	VERBAL_ADVERB	Adverbs > Verbal Adverb
 _gram-helpText_	VERBAL_ADVERB	<INSERT_HELP_TEXT>
-_gram-name_	VERBAL_ADVERB_PRESENT	Present Verbal Adverb
-_gram-path_	VERBAL_ADVERB_PRESENT	Adverbs > Present Verbal Adverb
-_gram-helpText_	VERBAL_ADVERB_PRESENT	<INSERT_HELP_TEXT>
+_gram-name_	VERBAL_ADVERB_PRESENT	Present Verbal Adverb (Gerund)
+_gram-path_	VERBAL_ADVERB_PRESENT	Adverbs > Present Verbal Adverb (Gerund)
+_gram-helpText_	VERBAL_ADVERB_PRESENT	TODO: ADD EXAMPLE (also add "Gerund" to other verbal adverbs)
 _gram-name_	VERBAL_ADVERB_PAST	Past Verbal Adverb
 _gram-path_	VERBAL_ADVERB_PAST	Adverbs > Past Verbal Adverb
 _gram-helpText_	VERBAL_ADVERB_PAST	<INSERT_HELP_TEXT>
@@ -595,9 +595,6 @@ _gram-helpText_	PRONOUNS_NEGATIVE	Negative pronouns. E.g., nobody, nothing
 _gram-name_	NEGATION_PRONOUNS	Pronouns
 _gram-path_	NEGATION_PRONOUNS	Negation > Pronouns
 _gram-helpText_	NEGATION_PRONOUNS	Negative pronouns. E.g., nobody, nothing
-_gram-name_	OBJECT_INDIRECT_RUSSIAN	Indirect Objects
-_gram-path_	OBJECT_INDIRECT_RUSSIAN	Verbs > Verb forms > Indirect Objects
-_gram-helpText_	OBJECT_INDIRECT_RUSSIAN	<INSERT_HELP_TEXT>
 _gram-name_	PRONOUNS_DEFINITE_RUSSIAN	Definite
 _gram-path_	PRONOUNS_DEFINITE_RUSSIAN	Pronouns > Definite
 _gram-helpText_	PRONOUNS_DEFINITE_RUSSIAN	Definite pronouns. E.g., этот, такой
@@ -618,7 +615,7 @@ _gram-path_	NEGATION_NO_NOT_NEVER_RUSSIAN	Negation > No Not Never
 _gram-helpText_	NEGATION_NO_NOT_NEVER_RUSSIAN	General negation. E.g., Нет, не, ни, никогда, никак, etc.
 _gram-name_	QUESTIONS_YESNO_RUSSIAN	Yes/No questions
 _gram-path_	QUESTIONS_YESNO_RUSSIAN	Questions > Yes/No questions
-_gram-helpText_	QUESTIONS_YESNO_RUSSIAN	Questions that use "ли" (and no other interrogative)
+_gram-helpText_	QUESTIONS_YESNO_RUSSIAN	Questions that use "ли" or have no interrogative
 _gram-name_	QUESTIONS_WH_RUSSIAN	"К-" questions
 _gram-path_	QUESTIONS_WH_RUSSIAN	Questions > "К-" questions
 _gram-helpText_	QUESTIONS_WH_RUSSIAN	Questions with direct interrogatives (other than "ли") often starting with "К-". E.g. как, когда, куда, где, etc.
@@ -633,7 +630,7 @@ _gram-path_	VERBFORM_PARTICIPLE_RUSSIAN	Verbs > Verb forms > Participles
 _gram-helpText_	VERBFORM_PARTICIPLE_RUSSIAN	Verbs as participles
 _gram-name_	VERBS_IRREGULAR_RUSSIAN	Irregular
 _gram-path_	VERBS_IRREGULAR_RUSSIAN	Verbs > Verb forms > Irregular
-_gram-helpText_	VERBS_IRREGULAR_RUSSIAN	Verbs with irregular forms in any tense. E.g., расти, бежать, etc.
+_gram-helpText_	VERBS_IRREGULAR_RUSSIAN	Verbs with irregular forms in any tense. E.g., есть, хотеть, расти, etc.
 _gram-name_	IMPERATIVES_RUSSIAN	Imperatives
 _gram-path_	IMPERATIVES_RUSSIAN	Verbs > Verb forms > Imperatives
 _gram-helpText_	IMPERATIVES_RUSSIAN	Imperative verbs
@@ -673,3 +670,21 @@ _gram-helpText_	QUESTIONS_WHOSE_RUSSIAN	Questions starting with "чей". E.g.,
 _gram-name_	QUESTIONS_WHICH_RUSSIAN	"Какой" questions
 _gram-path_	QUESTIONS_WHICH_RUSSIAN	Questions > "Какой" questions
 _gram-helpText_	QUESTIONS_WHICH_RUSSIAN	Questions starting with "Questions starting with "что". E.g.,". E.g.,
+_gram-name_	CLAUSE_RELATIVE_RUSSIAN	Relative
+_gram-path_	CLAUSE_RELATIVE_RUSSIAN	Clauses > Relative clause
+_gram-helpText_	CLAUSE_RELATIVE_RUSSIAN	A subordinate clause that defines a noun phrase and starts with a relativizer (который, кто, etc.). E.g., <example>
+_gram-name_	VERB_WITH_ACCUSATIVE	<verbWithAccusative>
+_gram-path_	VERB_WITH_ACCUSATIVE	<verbWithAccusative_PATH>
+_gram-helpText_	VERB_WITH_ACCUSATIVE	<verbWithAccusative_HELP_TEXT>
+_gram-name_	VERB_WITH_GENITIVE	<verbWithGenitive>
+_gram-path_	VERB_WITH_GENITIVE	<verbWithGenitive_PATH>
+_gram-helpText_	VERB_WITH_GENITIVE	<verbWithGenitive_HELP_TEXT>
+_gram-name_	VERB_WITH_DATIVE	<verbWithDative>
+_gram-path_	VERB_WITH_DATIVE	<verbWithDative_PATH>
+_gram-helpText_	VERB_WITH_DATIVE	<verbWithDative_HELP_TEXT>
+_gram-name_	VERB_WITH_PREPOSITIONAL	<verbWithPrepositional>
+_gram-path_	VERB_WITH_PREPOSITIONAL	<verbWithPrepositional_PATH>
+_gram-helpText_	VERB_WITH_PREPOSITIONAL	<verbWithPrepositional_HELP_TEXT>
+_gram-name_	VERB_WITH_INSTRUMENTAL	<verbWithInstrumental>
+_gram-path_	VERB_WITH_INSTRUMENTAL	<verbWithInstrumental_PATH>
+_gram-helpText_	VERB_WITH_INSTRUMENTAL	<verbWithInstrumental_HELP_TEXT>

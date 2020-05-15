@@ -47,7 +47,7 @@
 					<!-- Clause Types -->
 					<flair:GrammaticalConstructionPanelItem ui:field="pnlClauseTypesUI" text="clause types" iconType="EXPAND_MORE">
 						<flair:GrammaticalConstructionWeightSlider gram="CLAUSE_SUBORDINATE" parentLanguage="RUSSIAN"/>
-						<flair:GrammaticalConstructionWeightSlider gram="CLAUSE_RELATIVE" parentLanguage="RUSSIAN"/>
+						<flair:GrammaticalConstructionWeightSlider gram="CLAUSE_RELATIVE_RUSSIAN" parentLanguage="RUSSIAN"/>
 					</flair:GrammaticalConstructionPanelItem>
 				</flair:GrammaticalConstructionPanel>
 			</flair:GrammaticalConstructionPanelItem>
@@ -66,14 +66,17 @@
 
 								<flair:GrammaticalConstructionWeightSlider gram="VERB_REFLEXIVE_RUSSIAN" parentLanguage="RUSSIAN"/>
 
-								<flair:GrammaticalConstructionWeightSlider gram="OBJECT_DIRECT" parentLanguage="RUSSIAN"/>
-								<flair:GrammaticalConstructionWeightSlider gram="OBJECT_INDIRECT_RUSSIAN" parentLanguage="RUSSIAN"/>
-
 								<flair:GrammaticalConstructionWeightSlider gram="VERBFORM_PARTICIPLE_RUSSIAN" parentLanguage="RUSSIAN"/>
 								<flair:GrammaticalConstructionWeightSlider gram="PARTICIPLE_PRESENT_ACTIVE" parentLanguage="RUSSIAN"/>
 								<flair:GrammaticalConstructionWeightSlider gram="PARTICIPLE_PRESENT_PASSIVE" parentLanguage="RUSSIAN"/>
 								<flair:GrammaticalConstructionWeightSlider gram="PARTICIPLE_PAST_ACTIVE" parentLanguage="RUSSIAN"/>
 								<flair:GrammaticalConstructionWeightSlider gram="PARTICIPLE_PAST_PASSIVE" parentLanguage="RUSSIAN"/>
+
+								<flair:GrammaticalConstructionWeightSlider gram="VERB_WITH_ACCUSATIVE" parentLanguage="RUSSIAN"/>
+								<flair:GrammaticalConstructionWeightSlider gram="VERB_WITH_GENITIVE" parentLanguage="RUSSIAN"/>
+								<flair:GrammaticalConstructionWeightSlider gram="VERB_WITH_DATIVE" parentLanguage="RUSSIAN"/>
+								<flair:GrammaticalConstructionWeightSlider gram="VERB_WITH_PREPOSITIONAL" parentLanguage="RUSSIAN"/>
+								<flair:GrammaticalConstructionWeightSlider gram="VERB_WITH_INSTRUMENTAL" parentLanguage="RUSSIAN"/>
 							</flair:GrammaticalConstructionPanelItem>			
 			
 							<!-- Tenses and Aspect -->

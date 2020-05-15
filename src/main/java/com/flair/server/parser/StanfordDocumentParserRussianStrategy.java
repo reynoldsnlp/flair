@@ -603,7 +603,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                     if(isPassive){
                         constructionsToCount.put(GrammaticalConstruction.PASSIVE_VOICE, true);
                     }
-                    if(isPresentActive) {
+                    if(isPresentActive) { //TODO: only without adverb tag "Adv"
                         constructionsToCount.put(GrammaticalConstruction.PARTICIPLE_PRESENT_ACTIVE, true);
                         constructionsToCount.put(GrammaticalConstruction.VERBFORM_PARTICIPLE_RUSSIAN, true);
                     }
@@ -612,7 +612,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                         constructionsToCount.put(GrammaticalConstruction.VERBFORM_PARTICIPLE_RUSSIAN, true);
                         constructionsToCount.put(GrammaticalConstruction.PASSIVE_VOICE, true);
                     }
-                    if(isPastActive) {
+                    if(isPastActive) { //TODO: only without adverb tag "Adv"
                         constructionsToCount.put(GrammaticalConstruction.PARTICIPLE_PAST_ACTIVE, true);
                         constructionsToCount.put(GrammaticalConstruction.VERBFORM_PARTICIPLE_RUSSIAN, true);
                     }
@@ -633,7 +633,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                     }
                 }
                 if(isSubordinateClause) constructionsToCount.put(GrammaticalConstruction.CLAUSE_SUBORDINATE, true);
-                if(isRelativeClause) constructionsToCount.put(GrammaticalConstruction.CLAUSE_RELATIVE, true);
+                if(isRelativeClause) constructionsToCount.put(GrammaticalConstruction.CLAUSE_RELATIVE_RUSSIAN, true);
                 if(isNegative) constructionsToCount.put(GrammaticalConstruction.NEGATION_ALL, true);
             }
 
@@ -806,13 +806,13 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
 
     private Map<GrammaticalConstruction, List<WordWithReadings>> countVerbalObjectConstructions(List<WordWithReadings> wordsWithReadings, SemanticGraph graph){
         Map<GrammaticalConstruction, List<WordWithReadings>> constructionInstances = new HashMap<>();
-        //find all prepositions
+        //find all verbs
         List<IndexedWord> verbs = graph.getAllNodesByPartOfSpeechPattern(VERB_GRAPH_LABEL);
         for(IndexedWord verb: verbs){
-            List<SemanticGraphEdge> edqes = graph.getIncomingEdgesSorted(verb);
+            List<SemanticGraphEdge> edqes = graph.getOutEdgesSorted(verb);
             for(SemanticGraphEdge edge: edqes){
                 //get the object of the verb
-                IndexedWord objectOfVerb = edge.getSource();
+                IndexedWord objectOfVerb = edge.getTarget();
                 int objectIndex = objectOfVerb.index() - 1;
                 WordWithReadings objectWithReadings = wordsWithReadings.get(objectIndex);
 
@@ -820,9 +820,11 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                 Map<GrammaticalConstruction, Boolean> constructionsToCount = new HashMap<>();
                 for(CgReading reading: objectWithReadings.getReadings()) {
                     Set<String> tags = new HashSet<>(reading.getTags());
-                    if(tags.contains(ACCUSATIVE_TAG)) constructionsToCount.put(GrammaticalConstruction.OBJECT_DIRECT, true);
-                    if(tags.contains(GENITIVE_TAG)) constructionsToCount.put(GrammaticalConstruction.OBJECT_DIRECT, true);
-                    if(tags.contains(DATIVE_TAG)) constructionsToCount.put(GrammaticalConstruction.OBJECT_INDIRECT_RUSSIAN, true);
+                    if(tags.contains(ACCUSATIVE_TAG)) constructionsToCount.put(GrammaticalConstruction.VERB_WITH_ACCUSATIVE, true);
+                    if(tags.contains(GENITIVE_TAG)) constructionsToCount.put(GrammaticalConstruction.VERB_WITH_GENITIVE, true);
+                    if(tags.contains(DATIVE_TAG)) constructionsToCount.put(GrammaticalConstruction.VERB_WITH_DATIVE, true);
+                    if(tags.contains(PREPOSITIONAL_TAG)) constructionsToCount.put(GrammaticalConstruction.VERB_WITH_PREPOSITIONAL, true);
+                    if(tags.contains(INSTRUMENTAL_TAG)) constructionsToCount.put(GrammaticalConstruction.VERB_WITH_INSTRUMENTAL, true);
                 }
 
                 //count this word towards the appropriate constructions

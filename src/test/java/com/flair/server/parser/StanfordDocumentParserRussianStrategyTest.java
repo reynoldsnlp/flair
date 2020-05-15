@@ -7,21 +7,16 @@ import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import edu.stanford.nlp.semgraph.SemanticGraph;
 import edu.stanford.nlp.semgraph.SemanticGraphCoreAnnotations;
-import edu.stanford.nlp.semgraph.semgrex.SemgrexMatcher;
+import edu.stanford.nlp.semgraph.SemanticGraphEdge;
 import edu.stanford.nlp.util.CoreMap;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.List;
-import java.util.Properties;
-
-import static com.flair.server.grammar.RussianGrammaticalPatterns.labelVerbNoSubject;
-import static com.flair.server.grammar.RussianGrammaticalPatterns.patternVerbNoSubject;
+import java.util.*;
 
 public class StanfordDocumentParserRussianStrategyTest {
-
-	private final String stringToParse = "Он хочет есть. У него есть ручки. \"младший\" и он. Где? Он здес, так ли? где ми этот человек? мой отец. из-за чего ты здесь? в каком ты здании? В каком ты здании? Я приду, когда он придет. куда он делся?";
+	private final String stringToParse = "Он вывел себя из системы самодержавия и имперскости, став ее разрушителем. Он дал нам возможность решать свою судьбу. Он дал нам кое что. Порадовать Finale может и тем, что поддерживается большое количество форматов экспорта.";
+	//private final String stringToParse = "Он хочет есть. У него есть ручки. \"младший\" и он. Где? Он здес, так ли? где ми этот человек? мой отец. из-за чего ты здесь? в каком ты здании? В каком ты здании? Я приду, когда он придет. куда он делся?";
 
 	//constants
 	private static final String RUSSIAN_POS_MODEL = "edu/stanford/nlp/models/pos-tagger/russian-ud-pos.tagger";
@@ -55,17 +50,31 @@ public class StanfordDocumentParserRussianStrategyTest {
 				SemanticGraph graph = itr.get(SemanticGraphCoreAnnotations.EnhancedPlusPlusDependenciesAnnotation.class);
 				List<CoreLabel> words = itr.get(CoreAnnotations.TokensAnnotation.class);
 
+				//find all verbs
+				List<IndexedWord> verbs = graph.getAllNodesByPartOfSpeechPattern("VERB");
+				for(IndexedWord verb: verbs){
+					List<SemanticGraphEdge> edqes = graph.getOutEdgesSorted(verb); //TODO: DATIVE OBJECTS?
+					for(SemanticGraphEdge edge: edqes){
+						//get the object of the verb
+						IndexedWord objectOfVerb = edge.getSource();
+						int objectIndex = objectOfVerb.index() - 1;
+						CoreLabel word = words.get(objectIndex + 1);
+
+						System.out.println("break");
+					}
+				}
+
 				/*SemgrexMatcher questionMatcher = patternQuestionWordMainClause.matcher(graph);
 				while(questionMatcher.find()){
 					IndexedWord questionWord = questionMatcher.getNode(labelQuestionWordMainClause);
 					System.out.println("Child node: \"" + questionWord.value() + "\" with index " + questionWord.index());
 				}*/
 
-				SemgrexMatcher verbNoSubjectMatcher = patternVerbNoSubject.matcher(graph);
+				/*SemgrexMatcher verbNoSubjectMatcher = patternVerbNoSubject.matcher(graph);
 				while(verbNoSubjectMatcher.find()){
 					IndexedWord child = verbNoSubjectMatcher.getNode(labelVerbNoSubject);
 					System.out.println("Subjectless verb node: \"" + child.value() + "\" with index " + child.index());
-				}
+				}*/
 			}
 		}
 	}
