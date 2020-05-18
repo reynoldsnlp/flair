@@ -131,4 +131,7 @@ public class RussianGrammaticalPatterns {
 
     public static final String labelVerbNoSubject = "verbNoSubject";
     public static final SemgrexPattern patternVerbNoSubject = SemgrexPattern.compile(String.format("{tag:VERB}=%s [ !>nsubj {} ]", labelVerbNoSubject));
+
+    public static final String labelObjectOfVerbNoPreposition = "labelObjectOfVerbNoPreposition"; //TODO
+    public static final SemgrexPattern patternObjectOfVerbNoPreposition = SemgrexPattern.compile(String.format("{}=%s [ <obl {tag:VERB} & !>case {tag:ADP}]", labelObjectOfVerbNoPreposition));
 }

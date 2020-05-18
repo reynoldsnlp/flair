@@ -736,6 +736,10 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
         else{ //no question mark
             if(hasLi || hasInterrogative){
                 //NB: this will recognize situations such as "скажу ему, когда ты придешь" //TODO: FIX THIS (find using a list of verbs that can introduce indirect speech then an interrogative)
+                //starter lists
+                //telling: сказать говорить
+                //knowing: знать объяснить объяснять
+                //asking: спрашивать спросить
                 addConstructionByIndices(GrammaticalConstruction.QUESTIONS_INDIRECT, sentenceStart, sentenceEnd);
             }
         }
@@ -807,6 +811,29 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
     private Map<GrammaticalConstruction, List<WordWithReadings>> countVerbalObjectConstructions(List<WordWithReadings> wordsWithReadings, SemanticGraph graph){
         Map<GrammaticalConstruction, List<WordWithReadings>> constructionInstances = new HashMap<>();
         //find all verbs
+	    //TODO: refactor! find all children of verbs that don't have a preposition as their own child; check case tags
+        SemgrexMatcher verbObjectMatcher = patternObjectOfVerbNoPreposition.matcher(graph);
+        while(verbObjectMatcher.find()){
+            IndexedWord objectOfVerb = verbObjectMatcher.getNode(labelObjectOfVerbNoPreposition);
+            int objectIndex = objectOfVerb.index() - 1;
+            WordWithReadings objectWithReadings = wordsWithReadings.get(objectIndex);
+
+            //recognize which tags are present in this word's readings
+            Map<GrammaticalConstruction, Boolean> constructionsToCount = new HashMap<>();
+            for(CgReading reading: objectWithReadings.getReadings()) {
+                Set<String> tags = new HashSet<>(reading.getTags());
+                if(tags.contains(ACCUSATIVE_TAG)) constructionsToCount.put(GrammaticalConstruction.VERB_WITH_ACCUSATIVE, true);
+                if(tags.contains(GENITIVE_TAG)) constructionsToCount.put(GrammaticalConstruction.VERB_WITH_GENITIVE, true);
+                if(tags.contains(DATIVE_TAG)) constructionsToCount.put(GrammaticalConstruction.VERB_WITH_DATIVE, true);
+                if(tags.contains(PREPOSITIONAL_TAG)) constructionsToCount.put(GrammaticalConstruction.VERB_WITH_PREPOSITIONAL, true);
+                if(tags.contains(INSTRUMENTAL_TAG)) constructionsToCount.put(GrammaticalConstruction.VERB_WITH_INSTRUMENTAL, true);
+            }
+
+            //count this word's parent (the verb) towards the appropriate constructions
+            IndexedWord verb = graph.getParent(objectOfVerb);
+            countWordInConstructions(wordsWithReadings, constructionInstances, verb, constructionsToCount);
+        }
+
         List<IndexedWord> verbs = graph.getAllNodesByPartOfSpeechPattern(VERB_GRAPH_LABEL);
         for(IndexedWord verb: verbs){
             List<SemanticGraphEdge> edqes = graph.getOutEdgesSorted(verb);

@@ -283,8 +283,8 @@ public enum GrammaticalConstruction
     FUTURE_IMPERFECTIVE("futureImperfective", Language.RUSSIAN),
     FUTURE_PERFECTIVE("futurePerfective", Language.RUSSIAN),
 
-    //CONJUGATION CLASSES
-
+    //TODO:
+	//CONJUGATION CLASSES
     //DECLENSION CLASSES
 
     //IRREGULAR VERBS
