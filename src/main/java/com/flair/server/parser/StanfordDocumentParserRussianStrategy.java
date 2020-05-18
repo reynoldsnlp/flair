@@ -810,8 +810,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
 
     private Map<GrammaticalConstruction, List<WordWithReadings>> countVerbalObjectConstructions(List<WordWithReadings> wordsWithReadings, SemanticGraph graph){
         Map<GrammaticalConstruction, List<WordWithReadings>> constructionInstances = new HashMap<>();
-        //find all verbs
-	    //TODO: refactor! find all children of verbs that don't have a preposition as their own child; check case tags
+	    //find all children of verbs that don't have a preposition as their own child; check case tags
         SemgrexMatcher verbObjectMatcher = patternObjectOfVerbNoPreposition.matcher(graph);
         while(verbObjectMatcher.find()){
             IndexedWord objectOfVerb = verbObjectMatcher.getNode(labelObjectOfVerbNoPreposition);
@@ -834,30 +833,6 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
             countWordInConstructions(wordsWithReadings, constructionInstances, verb, constructionsToCount);
         }
 
-        List<IndexedWord> verbs = graph.getAllNodesByPartOfSpeechPattern(VERB_GRAPH_LABEL);
-        for(IndexedWord verb: verbs){
-            List<SemanticGraphEdge> edqes = graph.getOutEdgesSorted(verb);
-            for(SemanticGraphEdge edge: edqes){
-                //get the object of the verb
-                IndexedWord objectOfVerb = edge.getTarget();
-                int objectIndex = objectOfVerb.index() - 1;
-                WordWithReadings objectWithReadings = wordsWithReadings.get(objectIndex);
-
-                //recognize which tags are present in this word's readings
-                Map<GrammaticalConstruction, Boolean> constructionsToCount = new HashMap<>();
-                for(CgReading reading: objectWithReadings.getReadings()) {
-                    Set<String> tags = new HashSet<>(reading.getTags());
-                    if(tags.contains(ACCUSATIVE_TAG)) constructionsToCount.put(GrammaticalConstruction.VERB_WITH_ACCUSATIVE, true);
-                    if(tags.contains(GENITIVE_TAG)) constructionsToCount.put(GrammaticalConstruction.VERB_WITH_GENITIVE, true);
-                    if(tags.contains(DATIVE_TAG)) constructionsToCount.put(GrammaticalConstruction.VERB_WITH_DATIVE, true);
-                    if(tags.contains(PREPOSITIONAL_TAG)) constructionsToCount.put(GrammaticalConstruction.VERB_WITH_PREPOSITIONAL, true);
-                    if(tags.contains(INSTRUMENTAL_TAG)) constructionsToCount.put(GrammaticalConstruction.VERB_WITH_INSTRUMENTAL, true);
-                }
-
-                //count this word towards the appropriate constructions
-                countWordInConstructions(wordsWithReadings, constructionInstances, verb, constructionsToCount);
-            }
-        }
         return constructionInstances;
     }
 
