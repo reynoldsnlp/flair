@@ -244,6 +244,12 @@ public enum GrammaticalConstruction
     DETERMINER_INSTRUMENTAL("determinerInstrumental", Language.RUSSIAN),
     PREPOSITION_INSTRUMENTAL("prepositionInstrumental", Language.RUSSIAN),
 
+    VERB_WITH_ACCUSATIVE("verbWithAccusative", Language.RUSSIAN),
+    VERB_WITH_GENITIVE("verbWithGenitive", Language.RUSSIAN),
+    VERB_WITH_DATIVE("verbWithDative", Language.RUSSIAN),
+    VERB_WITH_PREPOSITIONAL("verbWithPrepositional", Language.RUSSIAN),
+    VERB_WITH_INSTRUMENTAL("verbWithInstrumental", Language.RUSSIAN),
+
     //RUSSIAN PARTICIPLES
     PARTICIPLE_PRESENT_ACTIVE("presentActiveParticiple", Language.RUSSIAN),
     PARTICIPLE_PRESENT_PASSIVE("presentPassiveParticiple", Language.RUSSIAN),
@@ -302,14 +308,26 @@ public enum GrammaticalConstruction
     DETERMINER_MUCH_RUSSIAN("muchDetRussian", Language.RUSSIAN),
     NEGATION_NO_NOT_NEVER_RUSSIAN("noNotNeverRussian", Language.RUSSIAN), // нет, не,DETERMINER_PREPOSITIONAL ни, никогда, никак, никуда, нигде, ниоткуда, нипочём, ничуть, нисколько, нисколечко
     CONDITIONALS_RUSSIAN("conditionalsRussian", Language.RUSSIAN),
+    CLAUSE_RELATIVE_RUSSIAN("relativeClauseRussian", Language.RUSSIAN),
 
 	//NEW NEW NEW
-	CLAUSE_RELATIVE_RUSSIAN("relativeClauseRussian", Language.RUSSIAN),
-    VERB_WITH_ACCUSATIVE("verbWithAccusative", Language.RUSSIAN),
-    VERB_WITH_GENITIVE("verbWithGenitive", Language.RUSSIAN),
-    VERB_WITH_DATIVE("verbWithDative", Language.RUSSIAN),
-    VERB_WITH_PREPOSITIONAL("verbWithPrepositional", Language.RUSSIAN),
-    VERB_WITH_INSTRUMENTAL("verbWithInstrumental", Language.RUSSIAN),
+
+    VERBS_CONJUGATION_1_RUSSIAN("verbsConjugation1Russian", Language.RUSSIAN),
+    VERBS_CONJUGATION_2_RUSSIAN("verbsConjugation2Russian", Language.RUSSIAN),
+    VERBS_CONJUGATION_3_RUSSIAN("verbsConjugation3Russian", Language.RUSSIAN),
+    VERBS_CONJUGATION_4_RUSSIAN("verbsConjugation4Russian", Language.RUSSIAN),
+    VERBS_CONJUGATION_5_RUSSIAN("verbsConjugation5Russian", Language.RUSSIAN),
+    VERBS_CONJUGATION_6_RUSSIAN("verbsConjugation6Russian", Language.RUSSIAN),
+    VERBS_CONJUGATION_7_RUSSIAN("verbsConjugation7Russian", Language.RUSSIAN),
+    VERBS_CONJUGATION_8_RUSSIAN("verbsConjugation8Russian", Language.RUSSIAN),
+    VERBS_CONJUGATION_9_RUSSIAN("verbsConjugation9Russian", Language.RUSSIAN),
+    VERBS_CONJUGATION_10_RUSSIAN("verbsConjugation10Russian", Language.RUSSIAN),
+    VERBS_CONJUGATION_11_RUSSIAN("verbsConjugation11Russian", Language.RUSSIAN),
+    VERBS_CONJUGATION_12_RUSSIAN("verbsConjugation12Russian", Language.RUSSIAN),
+    VERBS_CONJUGATION_13_RUSSIAN("verbsConjugation13Russian", Language.RUSSIAN),
+    VERBS_CONJUGATION_14_RUSSIAN("verbsConjugation14Russian", Language.RUSSIAN),
+    VERBS_CONJUGATION_15_RUSSIAN("verbsConjugation15Russian", Language.RUSSIAN),
+    VERBS_CONJUGATION_16_RUSSIAN("verbsConjugation16Russian", Language.RUSSIAN),
 
     ;
     
@@ -369,4 +387,3 @@ public enum GrammaticalConstruction
 		return out;
 	}
 }
-

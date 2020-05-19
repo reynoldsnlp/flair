@@ -13,6 +13,8 @@ import com.flair.server.utilities.VislCg3;
 import com.flair.server.utilities.cg3parser.Cg3Parser;
 import com.flair.server.utilities.cg3parser.model.CgReading;
 import com.flair.server.utilities.cg3parser.model.WordWithReadings;
+import com.flair.server.utilities.lemmacategorizer.LemmaCategorizer;
+import com.flair.server.utilities.lemmacategorizer.RussianConjugationClasses;
 import com.flair.shared.grammar.GrammaticalConstruction;
 import com.flair.shared.grammar.Language;
 import edu.stanford.nlp.ling.CoreAnnotations;
@@ -38,6 +40,7 @@ import static com.flair.server.grammar.RussianGrammaticalPatterns.*;
 class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserStrategy {
     private static final String RUSSIAN_TRANSDUCER_HFSTOL = "/analyser-gt-desc.hfstol";
     private static HFSTAnalyser analyser;
+    private static RussianConjugationClasses conjugationClasses = new RussianConjugationClasses();
     private AbstractDocument workingDoc;
     private int tokenCount;
     private int wordCount;
@@ -102,6 +105,11 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
             analyser = new HFSTAnalyser(russianTransducerStream);
         } catch (TransducerStreamException e) {
             ServerLogger.get().error(e, "Russian Strategy could not initialize the HFSTAnalyser");
+        }
+        try {
+            conjugationClasses.load();
+        } catch (IOException e) {
+            ServerLogger.get().error(e, "Russian Strategy could not load the conjugation classes");
         }
     }
 
@@ -470,7 +478,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                 if(tags.contains(COMPARATIVE_TAG)) isComparative = true;
 
                 //look at the lemma
-                String lemma = reading.getBaseForm();
+                String lemma = reading.getBaseForm().replace("\"", "");
                 //particles
                 if(isPartialMatch(patternLi, lemma)){
                     hasLi = true;
@@ -587,6 +595,12 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                 if(isVerb){
                     if(isInfinitive) constructionsToCount.put(GrammaticalConstruction.VERBFORM_INFINITIVE_RUSSIAN, true);
                     if(isImperative) constructionsToCount.put(GrammaticalConstruction.IMPERATIVES_RUSSIAN, true);
+                    //conjugation classes
+                    int conjugationClassCategory = conjugationClasses.getCategory(lemma);
+                    if(conjugationClassCategory != LemmaCategorizer.NULL_CATEGORY) {
+                        GrammaticalConstruction conjugationClassConstruction = RussianConjugationClasses.getConstructionFromCategory(conjugationClassCategory);
+                        constructionsToCount.put(conjugationClassConstruction, true);
+                    }
                     //tenses and aspect
                     if(isPast) {
                         if(isPerfective) constructionsToCount.put(GrammaticalConstruction.PAST_PERFECTIVE, true);
@@ -603,7 +617,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                     if(isPassive){
                         constructionsToCount.put(GrammaticalConstruction.PASSIVE_VOICE, true);
                     }
-                    if(isPresentActive) { //TODO: only without adverb tag "Adv"
+                    if(isPresentActive && !isAdverb) {
                         constructionsToCount.put(GrammaticalConstruction.PARTICIPLE_PRESENT_ACTIVE, true);
                         constructionsToCount.put(GrammaticalConstruction.VERBFORM_PARTICIPLE_RUSSIAN, true);
                     }
@@ -612,7 +626,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                         constructionsToCount.put(GrammaticalConstruction.VERBFORM_PARTICIPLE_RUSSIAN, true);
                         constructionsToCount.put(GrammaticalConstruction.PASSIVE_VOICE, true);
                     }
-                    if(isPastActive) { //TODO: only without adverb tag "Adv"
+                    if(isPastActive && !isAdverb) {
                         constructionsToCount.put(GrammaticalConstruction.PARTICIPLE_PAST_ACTIVE, true);
                         constructionsToCount.put(GrammaticalConstruction.VERBFORM_PARTICIPLE_RUSSIAN, true);
                     }
