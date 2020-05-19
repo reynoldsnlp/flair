@@ -289,9 +289,26 @@ public enum GrammaticalConstruction
     FUTURE_IMPERFECTIVE("futureImperfective", Language.RUSSIAN),
     FUTURE_PERFECTIVE("futurePerfective", Language.RUSSIAN),
 
-    //TODO:
 	//CONJUGATION CLASSES
+	VERBS_CONJUGATION_1_RUSSIAN("verbsConjugation1Russian", Language.RUSSIAN),
+    VERBS_CONJUGATION_2_RUSSIAN("verbsConjugation2Russian", Language.RUSSIAN),
+    VERBS_CONJUGATION_3_RUSSIAN("verbsConjugation3Russian", Language.RUSSIAN),
+    VERBS_CONJUGATION_4_RUSSIAN("verbsConjugation4Russian", Language.RUSSIAN),
+    VERBS_CONJUGATION_5_RUSSIAN("verbsConjugation5Russian", Language.RUSSIAN),
+    VERBS_CONJUGATION_6_RUSSIAN("verbsConjugation6Russian", Language.RUSSIAN),
+    VERBS_CONJUGATION_7_RUSSIAN("verbsConjugation7Russian", Language.RUSSIAN),
+    VERBS_CONJUGATION_8_RUSSIAN("verbsConjugation8Russian", Language.RUSSIAN),
+    VERBS_CONJUGATION_9_RUSSIAN("verbsConjugation9Russian", Language.RUSSIAN),
+    VERBS_CONJUGATION_10_RUSSIAN("verbsConjugation10Russian", Language.RUSSIAN),
+    VERBS_CONJUGATION_11_RUSSIAN("verbsConjugation11Russian", Language.RUSSIAN),
+    VERBS_CONJUGATION_12_RUSSIAN("verbsConjugation12Russian", Language.RUSSIAN),
+    VERBS_CONJUGATION_13_RUSSIAN("verbsConjugation13Russian", Language.RUSSIAN),
+    VERBS_CONJUGATION_14_RUSSIAN("verbsConjugation14Russian", Language.RUSSIAN),
+    VERBS_CONJUGATION_15_RUSSIAN("verbsConjugation15Russian", Language.RUSSIAN),
+    VERBS_CONJUGATION_16_RUSSIAN("verbsConjugation16Russian", Language.RUSSIAN),
+	
     //DECLENSION CLASSES
+	//TODO
 
     //IRREGULAR VERBS
     //(ся|сь) may be attached to the end of any infinitive (for the purpose of recognizing these verbs)
@@ -310,24 +327,6 @@ public enum GrammaticalConstruction
     CONDITIONALS_RUSSIAN("conditionalsRussian", Language.RUSSIAN),
     CLAUSE_RELATIVE_RUSSIAN("relativeClauseRussian", Language.RUSSIAN),
 
-	//NEW NEW NEW
-
-    VERBS_CONJUGATION_1_RUSSIAN("verbsConjugation1Russian", Language.RUSSIAN),
-    VERBS_CONJUGATION_2_RUSSIAN("verbsConjugation2Russian", Language.RUSSIAN),
-    VERBS_CONJUGATION_3_RUSSIAN("verbsConjugation3Russian", Language.RUSSIAN),
-    VERBS_CONJUGATION_4_RUSSIAN("verbsConjugation4Russian", Language.RUSSIAN),
-    VERBS_CONJUGATION_5_RUSSIAN("verbsConjugation5Russian", Language.RUSSIAN),
-    VERBS_CONJUGATION_6_RUSSIAN("verbsConjugation6Russian", Language.RUSSIAN),
-    VERBS_CONJUGATION_7_RUSSIAN("verbsConjugation7Russian", Language.RUSSIAN),
-    VERBS_CONJUGATION_8_RUSSIAN("verbsConjugation8Russian", Language.RUSSIAN),
-    VERBS_CONJUGATION_9_RUSSIAN("verbsConjugation9Russian", Language.RUSSIAN),
-    VERBS_CONJUGATION_10_RUSSIAN("verbsConjugation10Russian", Language.RUSSIAN),
-    VERBS_CONJUGATION_11_RUSSIAN("verbsConjugation11Russian", Language.RUSSIAN),
-    VERBS_CONJUGATION_12_RUSSIAN("verbsConjugation12Russian", Language.RUSSIAN),
-    VERBS_CONJUGATION_13_RUSSIAN("verbsConjugation13Russian", Language.RUSSIAN),
-    VERBS_CONJUGATION_14_RUSSIAN("verbsConjugation14Russian", Language.RUSSIAN),
-    VERBS_CONJUGATION_15_RUSSIAN("verbsConjugation15Russian", Language.RUSSIAN),
-    VERBS_CONJUGATION_16_RUSSIAN("verbsConjugation16Russian", Language.RUSSIAN),
 
     ;
     
