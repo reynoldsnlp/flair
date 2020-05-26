@@ -682,9 +682,6 @@ _gram-helpText_	VERB_WITH_GENITIVE	<verbWithGenitive_HELP_TEXT>
 _gram-name_	VERB_WITH_DATIVE	<verbWithDative>
 _gram-path_	VERB_WITH_DATIVE	<verbWithDative_PATH>
 _gram-helpText_	VERB_WITH_DATIVE	<verbWithDative_HELP_TEXT>
-_gram-name_	VERB_WITH_PREPOSITIONAL	<verbWithPrepositional>
-_gram-path_	VERB_WITH_PREPOSITIONAL	<verbWithPrepositional_PATH>
-_gram-helpText_	VERB_WITH_PREPOSITIONAL	<verbWithPrepositional_HELP_TEXT>
 _gram-name_	VERB_WITH_INSTRUMENTAL	<verbWithInstrumental>
 _gram-path_	VERB_WITH_INSTRUMENTAL	<verbWithInstrumental_PATH>
 _gram-helpText_	VERB_WITH_INSTRUMENTAL	<verbWithInstrumental_HELP_TEXT>

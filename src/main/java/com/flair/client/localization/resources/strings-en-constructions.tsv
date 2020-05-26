@@ -432,7 +432,7 @@ _gram-path_	VERBTYP_AUXILIARIES	Verbs > Verb forms > Auxiliary verbs
 _gram-helpText_	VERBTYP_AUXILIARIES	Full and contracted forms of "be" and "have". E.g., am, 's, have, 're
 _gram-name_	VERBTYP_MAIN	VERBTYP_MAIN
 _gram-path_	VERBTYP_MAIN	VERBTYP_MAIN
-_gram-helpText_	VERBTYP_MAIN	<INSERT_HELP_TEXT>/
+_gram-helpText_	VERBTYP_MAIN	<INSERT_HELP_TEXT>
 _gram-name_	VERBTYP_MODAL	VERBTYP_MODAL
 _gram-path_	VERBTYP_MODAL	VERBTYP_MODAL
 _gram-helpText_	VERBTYP_MODAL	<INSERT_HELP_TEXT>
@@ -549,28 +549,28 @@ _gram-path_	PREPOSITION_INSTRUMENTAL	Prepositions > Instrumental
 _gram-helpText_	PREPOSITION_INSTRUMENTAL	Prepositions which govern the instrumental case
 _gram-name_	PARTICIPLE_PRESENT_ACTIVE	Present Active Participle
 _gram-path_	PARTICIPLE_PRESENT_ACTIVE	Verbs > Verb forms > Present Active Participle
-_gram-helpText_	PARTICIPLE_PRESENT_ACTIVE	<INSERT_HELP_TEXT>
+_gram-helpText_	PARTICIPLE_PRESENT_ACTIVE	E.g. следующий, трудящийся
 _gram-name_	PARTICIPLE_PRESENT_PASSIVE	Present Passive Participle
 _gram-path_	PARTICIPLE_PRESENT_PASSIVE	Verbs > Verb forms > Present Passive Participle
-_gram-helpText_	PARTICIPLE_PRESENT_PASSIVE	<INSERT_HELP_TEXT>
+_gram-helpText_	PARTICIPLE_PRESENT_PASSIVE	E.g. любимый, незабываемый
 _gram-name_	PARTICIPLE_PAST_ACTIVE	Past Active Participle
 _gram-path_	PARTICIPLE_PAST_ACTIVE	Verbs > Verb forms > Past Active Participle
-_gram-helpText_	PARTICIPLE_PAST_ACTIVE	<INSERT_HELP_TEXT>
+_gram-helpText_	PARTICIPLE_PAST_ACTIVE	E.g. бывший, неудавшийся
 _gram-name_	PARTICIPLE_PAST_PASSIVE	Past Passive Participle
 _gram-path_	PARTICIPLE_PAST_PASSIVE	Verbs > Verb forms > Past Passive Participle
-_gram-helpText_	PARTICIPLE_PAST_PASSIVE	<INSERT_HELP_TEXT>
+_gram-helpText_	PARTICIPLE_PAST_PASSIVE	E.g. убитый, написанный
 _gram-name_	VERB_REFLEXIVE_RUSSIAN	Reflexive
 _gram-path_	VERB_REFLEXIVE_RUSSIAN	Verbs > Verb forms > Reflexive
 _gram-helpText_	VERB_REFLEXIVE_RUSSIAN	Verbs ending with "ся" or "сь"
 _gram-name_	VERBAL_ADVERB	Verbal Adverb
 _gram-path_	VERBAL_ADVERB	Adverbs > Verbal Adverb
-_gram-helpText_	VERBAL_ADVERB	<INSERT_HELP_TEXT>
+_gram-helpText_	VERBAL_ADVERB	E.g. читая, молясь
 _gram-name_	VERBAL_ADVERB_PRESENT	Present Verbal Adverb (Gerund)
 _gram-path_	VERBAL_ADVERB_PRESENT	Adverbs > Present Verbal Adverb (Gerund)
 _gram-helpText_	VERBAL_ADVERB_PRESENT	TODO: ADD EXAMPLE (also add "Gerund" to other verbal adverbs)
 _gram-name_	VERBAL_ADVERB_PAST	Past Verbal Adverb
 _gram-path_	VERBAL_ADVERB_PAST	Adverbs > Past Verbal Adverb
-_gram-helpText_	VERBAL_ADVERB_PAST	<INSERT_HELP_TEXT>
+_gram-helpText_	VERBAL_ADVERB_PAST	E.g. прочитав, помолившись, обжёгшись
 _gram-name_	QUESTIONS_WHITHER_RUSSIAN	"Куда" questions
 _gram-path_	QUESTIONS_WHITHER_RUSSIAN	Questions > "Куда" questions
 _gram-helpText_	QUESTIONS_WHITHER_RUSSIAN	Questions starting with "куда". E.g., Куда ты идешь?
@@ -579,7 +579,7 @@ _gram-path_	QUESTIONS_WHAT_KIND_RUSSIAN	Questions > "Каков" questions
 _gram-helpText_	QUESTIONS_WHAT_KIND_RUSSIAN	Questions starting with "каков". E.g., Каков твой план?
 _gram-name_	TENSE_PRESENT	Present Tense
 _gram-path_	TENSE_PRESENT	Verbs > Tenses and Aspect > Present Tense
-_gram-helpText_	TENSE_PRESENT	<INSERT_HELP_TEXT>
+_gram-helpText_	TENSE_PRESENT	E.g. бегаю, читаешь
 _gram-name_	ASPECT_BIASPECTUAL	Biaspectual
 _gram-path_	ASPECT_BIASPECTUAL	Verbs > Tenses and Aspect > Biaspectual
 _gram-helpText_	ASPECT_BIASPECTUAL	Verb forms that can be both perfective and imperfective
@@ -673,21 +673,18 @@ _gram-helpText_	QUESTIONS_WHICH_RUSSIAN	Questions starting with "Questions start
 _gram-name_	CLAUSE_RELATIVE_RUSSIAN	Relative
 _gram-path_	CLAUSE_RELATIVE_RUSSIAN	Clauses > Relative clause
 _gram-helpText_	CLAUSE_RELATIVE_RUSSIAN	A subordinate clause that defines a noun phrase and starts with a relativizer (который, кто, etc.). E.g., <example>
-_gram-name_	VERB_WITH_ACCUSATIVE	<verbWithAccusative>
-_gram-path_	VERB_WITH_ACCUSATIVE	<verbWithAccusative_PATH>
-_gram-helpText_	VERB_WITH_ACCUSATIVE	<verbWithAccusative_HELP_TEXT>
-_gram-name_	VERB_WITH_GENITIVE	<verbWithGenitive>
-_gram-path_	VERB_WITH_GENITIVE	<verbWithGenitive_PATH>
-_gram-helpText_	VERB_WITH_GENITIVE	<verbWithGenitive_HELP_TEXT>
-_gram-name_	VERB_WITH_DATIVE	<verbWithDative>
-_gram-path_	VERB_WITH_DATIVE	<verbWithDative_PATH>
-_gram-helpText_	VERB_WITH_DATIVE	<verbWithDative_HELP_TEXT>
-_gram-name_	VERB_WITH_PREPOSITIONAL	<verbWithPrepositional>
-_gram-path_	VERB_WITH_PREPOSITIONAL	<verbWithPrepositional_PATH>
-_gram-helpText_	VERB_WITH_PREPOSITIONAL	<verbWithPrepositional_HELP_TEXT>
-_gram-name_	VERB_WITH_INSTRUMENTAL	<verbWithInstrumental>
-_gram-path_	VERB_WITH_INSTRUMENTAL	<verbWithInstrumental_PATH>
-_gram-helpText_	VERB_WITH_INSTRUMENTAL	<verbWithInstrumental_HELP_TEXT>
+_gram-name_	VERB_WITH_ACCUSATIVE	With accusative
+_gram-path_	VERB_WITH_ACCUSATIVE	Verbs > Verb forms > With accusative
+_gram-helpText_	VERB_WITH_ACCUSATIVE	Verbs with accusative objects, E.g. "Я читаю книгу"
+_gram-name_	VERB_WITH_GENITIVE	With genitive
+_gram-path_	VERB_WITH_GENITIVE	Verbs > Verb forms > With genitive
+_gram-helpText_	VERB_WITH_GENITIVE	Verbs with genitive objects, E.g. "Я боюсь пауков"
+_gram-name_	VERB_WITH_DATIVE	With dative
+_gram-path_	VERB_WITH_DATIVE	Verbs > Verb forms > With dative
+_gram-helpText_	VERB_WITH_DATIVE	Verbs with dative objects, E.g. "Я верю тебе"
+_gram-name_	VERB_WITH_INSTRUMENTAL	With instrumental
+_gram-path_	VERB_WITH_INSTRUMENTAL	Verbs > Verb forms > With instrumental
+_gram-helpText_	VERB_WITH_INSTRUMENTAL	Verbs with instrumental objects, E.g. "Я стану президентом"
 _gram-name_	VERBS_CONJUGATION_1_RUSSIAN	<verbsConjugation1Russian>
 _gram-path_	VERBS_CONJUGATION_1_RUSSIAN	<verbsConjugation1Russian_PATH>
 _gram-helpText_	VERBS_CONJUGATION_1_RUSSIAN	<verbsConjugation1Russian_HELP_TEXT>

@@ -284,13 +284,9 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
             int fullEnd = fullStart + tagQuestionMatcher.group(0).length();
             addConstructionByIndices(GrammaticalConstruction.QUESTIONS_TAG, fullStart, fullEnd);
         }
-        //есть
-        List<CoreLabel> positiveExistentials = findMatches(patternJest, words);
-        addConstructionOccurrences(GrammaticalConstruction.EXISTENTIAL_THERE, positiveExistentials);
         //нет
-        List<CoreLabel> negativeExistentials = findMatches(patternNjet, words);
-        addConstructionOccurrences(GrammaticalConstruction.EXISTENTIAL_THERE, negativeExistentials);
-        addConstructionOccurrences(GrammaticalConstruction.NEGATION_NO_NOT_NEVER_RUSSIAN, negativeExistentials);
+        List<CoreLabel> negationsNjet = findMatches(patternNjet, words);
+        addConstructionOccurrences(GrammaticalConstruction.NEGATION_NO_NOT_NEVER_RUSSIAN, negationsNjet);
         //не
         List<CoreLabel> negationsNe = findMatches(patternNe, words);
         addConstructionOccurrences(GrammaticalConstruction.NEGATION_ALL, negationsNe);
@@ -353,6 +349,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
         boolean hasInterrogative = false;
         boolean hasInterrogativeBesidesLi = false;
         boolean hasQuestionMark = false;
+        boolean hasFiniteVerb = false;
         int sentenceStart = -1;
         int sentenceEnd = -1;
         if(words.size() != 0){
@@ -428,11 +425,23 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                 if(tags.contains(PERFECTIVE_TAG)) isPerfective = true;
                 if(tags.contains(IMPERFECTIVE_TAG)) isImperfective = true;
                 //tense
-                if(tags.contains(PAST_TAG)) isPast = true;
-                if(tags.contains(PRESENT_TAG)) isPresent = true;
-                if(tags.contains(FUTURE_TAG)) isFuture = true;
-                if(tags.contains(INFINITIVE_TAG)) isInfinitive = true;
-                if(tags.contains(IMPERATIVE_TAG)) isImperative = true;
+                if(tags.contains(PAST_TAG)) {
+                	isPast = true;
+                	hasFiniteVerb = true;
+                }
+                if(tags.contains(PRESENT_TAG)) {
+                	isPresent = true;
+                	hasFiniteVerb = true;
+                }
+                if(tags.contains(FUTURE_TAG)) {
+                	isFuture = true;
+	                hasFiniteVerb = true;
+                }
+                if(tags.contains(IMPERATIVE_TAG)) {
+                	isImperative = true;
+	                hasFiniteVerb = true;
+                }
+	            if(tags.contains(INFINITIVE_TAG)) isInfinitive = true;
                 //participles
                 if(tags.contains(PASSIVE_TAG)) isPassive = true;
                 if(tags.contains(P_PRESENT_ACTIVE_TAG)) isPresentActive = true;
@@ -681,6 +690,16 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
             addConstructionByIndices(GrammaticalConstruction.SENTENCE_SIMPLE, sentenceStart, sentenceEnd);
         }
 
+        if(!hasFiniteVerb){
+        	//TODO: improve this so it looks for instances of jest' with no finite verb in the same *clause* (currently this does sentence)
+	        //есть
+	        List<CoreLabel> positiveExistentials = findMatches(patternJest, words);
+	        addConstructionOccurrences(GrammaticalConstruction.EXISTENTIAL_THERE, positiveExistentials); //TODO: this doesn't happen since jest' has a reading of a finite verb
+	        //нет
+	        List<CoreLabel> negativeExistentials = findMatches(patternNjet, words);
+	        addConstructionOccurrences(GrammaticalConstruction.EXISTENTIAL_THERE, negativeExistentials);
+        }
+
         if(hasJesli && hasBy){
             addConstructionByIndices(GrammaticalConstruction.CONDITIONALS_UNREAL, sentenceStart, sentenceEnd);
         }
@@ -838,7 +857,6 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                 if(tags.contains(ACCUSATIVE_TAG)) constructionsToCount.put(GrammaticalConstruction.VERB_WITH_ACCUSATIVE, true);
                 if(tags.contains(GENITIVE_TAG)) constructionsToCount.put(GrammaticalConstruction.VERB_WITH_GENITIVE, true);
                 if(tags.contains(DATIVE_TAG)) constructionsToCount.put(GrammaticalConstruction.VERB_WITH_DATIVE, true);
-                if(tags.contains(PREPOSITIONAL_TAG)) constructionsToCount.put(GrammaticalConstruction.VERB_WITH_PREPOSITIONAL, true);
                 if(tags.contains(INSTRUMENTAL_TAG)) constructionsToCount.put(GrammaticalConstruction.VERB_WITH_INSTRUMENTAL, true);
             }
 

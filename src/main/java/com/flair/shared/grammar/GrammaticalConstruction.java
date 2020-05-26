@@ -247,7 +247,6 @@ public enum GrammaticalConstruction
     VERB_WITH_ACCUSATIVE("verbWithAccusative", Language.RUSSIAN),
     VERB_WITH_GENITIVE("verbWithGenitive", Language.RUSSIAN),
     VERB_WITH_DATIVE("verbWithDative", Language.RUSSIAN),
-    VERB_WITH_PREPOSITIONAL("verbWithPrepositional", Language.RUSSIAN),
     VERB_WITH_INSTRUMENTAL("verbWithInstrumental", Language.RUSSIAN),
 
     //RUSSIAN PARTICIPLES

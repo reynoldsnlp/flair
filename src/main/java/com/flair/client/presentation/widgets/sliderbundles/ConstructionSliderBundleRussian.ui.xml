@@ -75,7 +75,6 @@
 								<flair:GrammaticalConstructionWeightSlider gram="VERB_WITH_ACCUSATIVE" parentLanguage="RUSSIAN"/>
 								<flair:GrammaticalConstructionWeightSlider gram="VERB_WITH_GENITIVE" parentLanguage="RUSSIAN"/>
 								<flair:GrammaticalConstructionWeightSlider gram="VERB_WITH_DATIVE" parentLanguage="RUSSIAN"/>
-								<flair:GrammaticalConstructionWeightSlider gram="VERB_WITH_PREPOSITIONAL" parentLanguage="RUSSIAN"/>
 								<flair:GrammaticalConstructionWeightSlider gram="VERB_WITH_INSTRUMENTAL" parentLanguage="RUSSIAN"/>
 							</flair:GrammaticalConstructionPanelItem>			
 			
