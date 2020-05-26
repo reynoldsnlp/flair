@@ -180,7 +180,7 @@
 		<outputDirectory>${project.build.directory}/${project.build.finalName}/WEB-INF/classes</outputDirectory>
 
 		<plugins>
-			<plugin> <!-- TODO: add version number into this tag -->
+			<plugin>
 				<version>3.2.3</version>
 				<artifactId>maven-war-plugin</artifactId>
 				<!-- runs war:exploded with the mvn install goal, comment out <executions>...</executions> below to 
