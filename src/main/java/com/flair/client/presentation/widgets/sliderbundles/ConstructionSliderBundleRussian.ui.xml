@@ -11,7 +11,7 @@
 					<!-- Questions -->
 					<flair:GrammaticalConstructionPanelItem ui:field="pnlQuestionsUI" text="questions" iconType="EXPAND_MORE">
 						<flair:GrammaticalConstructionWeightSlider gram="QUESTIONS_DIRECT" parentLanguage="RUSSIAN"/>
-						<flair:GrammaticalConstructionWeightSlider gram="QUESTIONS_INDIRECT" parentLanguage="RUSSIAN"/>
+						<!--flair:GrammaticalConstructionWeightSlider gram="QUESTIONS_INDIRECT" parentLanguage="RUSSIAN"/-->
 						<flair:GrammaticalConstructionWeightSlider gram="QUESTIONS_TAG" parentLanguage="RUSSIAN"/>
 
 						<flair:GrammaticalConstructionWeightSlider gram="QUESTIONS_YESNO_RUSSIAN" parentLanguage="RUSSIAN"/>
@@ -93,6 +93,9 @@
 
                             <!-- Conjugation classes -->
                             <flair:GrammaticalConstructionPanelItem ui:field="pnlConjugationClassesUI" text="conjugation classes" iconType="EXPAND_MORE">
+								<flair:GrammaticalConstructionWeightSlider gram="VERBS_CONJUGATION_FIRST_RUSSIAN" parentLanguage="RUSSIAN"/>
+								<flair:GrammaticalConstructionWeightSlider gram="VERBS_CONJUGATION_SECOND_RUSSIAN" parentLanguage="RUSSIAN"/>
+
                                 <flair:GrammaticalConstructionWeightSlider gram="VERBS_CONJUGATION_1_RUSSIAN" parentLanguage="RUSSIAN"/>
 								<flair:GrammaticalConstructionWeightSlider gram="VERBS_CONJUGATION_2_RUSSIAN" parentLanguage="RUSSIAN"/>
 								<flair:GrammaticalConstructionWeightSlider gram="VERBS_CONJUGATION_3_RUSSIAN" parentLanguage="RUSSIAN"/>

@@ -562,14 +562,14 @@ _gram-helpText_	PARTICIPLE_PAST_PASSIVE	E.g. убитый, написанный
 _gram-name_	VERB_REFLEXIVE_RUSSIAN	Reflexive
 _gram-path_	VERB_REFLEXIVE_RUSSIAN	Verbs > Verb forms > Reflexive
 _gram-helpText_	VERB_REFLEXIVE_RUSSIAN	Verbs ending with "ся" or "сь"
-_gram-name_	VERBAL_ADVERB	Verbal Adverb
-_gram-path_	VERBAL_ADVERB	Adverbs > Verbal Adverb
-_gram-helpText_	VERBAL_ADVERB	E.g. читая, молясь
+_gram-name_	VERBAL_ADVERB	Verbal Adverb (Gerund)
+_gram-path_	VERBAL_ADVERB	Adverbs > Verbal Adverb (Gerund)
+_gram-helpText_	VERBAL_ADVERB	E.g. читая, молясь, прочитав
 _gram-name_	VERBAL_ADVERB_PRESENT	Present Verbal Adverb (Gerund)
 _gram-path_	VERBAL_ADVERB_PRESENT	Adverbs > Present Verbal Adverb (Gerund)
-_gram-helpText_	VERBAL_ADVERB_PRESENT	TODO: ADD EXAMPLE (also add "Gerund" to other verbal adverbs)
-_gram-name_	VERBAL_ADVERB_PAST	Past Verbal Adverb
-_gram-path_	VERBAL_ADVERB_PAST	Adverbs > Past Verbal Adverb
+_gram-helpText_	VERBAL_ADVERB_PRESENT	E.g. читая, молясь
+_gram-name_	VERBAL_ADVERB_PAST	Past Verbal Adverb (Gerund)
+_gram-path_	VERBAL_ADVERB_PAST	Adverbs > Past Verbal Adverb (Gerund)
 _gram-helpText_	VERBAL_ADVERB_PAST	E.g. прочитав, помолившись, обжёгшись
 _gram-name_	QUESTIONS_WHITHER_RUSSIAN	"Куда" questions
 _gram-path_	QUESTIONS_WHITHER_RUSSIAN	Questions > "Куда" questions
@@ -733,3 +733,9 @@ _gram-helpText_	VERBS_CONJUGATION_15_RUSSIAN	<verbsConjugation15Russian_HELP_TEX
 _gram-name_	VERBS_CONJUGATION_16_RUSSIAN	<verbsConjugation16Russian>
 _gram-path_	VERBS_CONJUGATION_16_RUSSIAN	<verbsConjugation16Russian_PATH>
 _gram-helpText_	VERBS_CONJUGATION_16_RUSSIAN	<verbsConjugation16Russian_HELP_TEXT>
+_gram-name_	VERBS_CONJUGATION_FIRST_RUSSIAN	<verbsConjugationFirstRussian>
+_gram-path_	VERBS_CONJUGATION_FIRST_RUSSIAN	<verbsConjugationFirstRussian_PATH>
+_gram-helpText_	VERBS_CONJUGATION_FIRST_RUSSIAN	<verbsConjugationFirstRussian_HELP_TEXT>
+_gram-name_	VERBS_CONJUGATION_SECOND_RUSSIAN	<verbsConjugationSecondRussian>
+_gram-path_	VERBS_CONJUGATION_SECOND_RUSSIAN	<verbsConjugationSecondRussian_PATH>
+_gram-helpText_	VERBS_CONJUGATION_SECOND_RUSSIAN	<verbsConjugationSecondRussian_HELP_TEXT>

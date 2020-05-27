@@ -79,7 +79,7 @@ public enum GrammaticalConstruction
     NEGATION_NOT("not", Language.ENGLISH),
 
     QUESTIONS_DIRECT("directQuestions", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), // Russian: ends in a '?'
-    QUESTIONS_INDIRECT("indirectQuestions", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), // Russian: ???????
+    QUESTIONS_INDIRECT("indirectQuestions", Language.ENGLISH, Language.GERMAN/*, Language.RUSSIAN*/), // TODO: is this useful for Russian?
     QUESTIONS_YESNO("yesNoQuestions", Language.ENGLISH, Language.GERMAN), // direct: "Are you ok?"
     QUESTIONS_WH("whQuestions", Language.ENGLISH, Language.GERMAN), // direct: "What do you do?"
     QUESTIONS_TO_BE("toBeQuestions", Language.ENGLISH), // direct: "What's this?"
@@ -261,7 +261,6 @@ public enum GrammaticalConstruction
     VERBAL_ADVERB("verbalAdverb", Language.RUSSIAN),
     VERBAL_ADVERB_PRESENT("verbalAdverbPresent", Language.RUSSIAN), //imperfective, "V", and "Adv" tags
     VERBAL_ADVERB_PAST("verbalAdverbPast", Language.RUSSIAN), //perfective, "V", and "Adv" tags
-    //TODO make sure localization describing verbal adverbs also uses the word 'gerund'
     VERBFORM_INFINITIVE_RUSSIAN("infinitiveFormsRussian", Language.RUSSIAN),
     VERBFORM_PARTICIPLE_RUSSIAN("participleFormsRussian", Language.RUSSIAN),
     IMPERATIVES_RUSSIAN("imperativesRussian", Language.RUSSIAN),
@@ -289,6 +288,8 @@ public enum GrammaticalConstruction
     FUTURE_PERFECTIVE("futurePerfective", Language.RUSSIAN),
 
 	//CONJUGATION CLASSES
+    VERBS_CONJUGATION_FIRST_RUSSIAN("verbsConjugationFirstRussian", Language.RUSSIAN),
+    VERBS_CONJUGATION_SECOND_RUSSIAN("verbsConjugationSecondRussian", Language.RUSSIAN),
 	VERBS_CONJUGATION_1_RUSSIAN("verbsConjugation1Russian", Language.RUSSIAN),
     VERBS_CONJUGATION_2_RUSSIAN("verbsConjugation2Russian", Language.RUSSIAN),
     VERBS_CONJUGATION_3_RUSSIAN("verbsConjugation3Russian", Language.RUSSIAN),

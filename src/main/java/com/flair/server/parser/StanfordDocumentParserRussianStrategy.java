@@ -607,8 +607,17 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                     //conjugation classes
                     int conjugationClassCategory = conjugationClasses.getCategory(lemma);
                     if(conjugationClassCategory != LemmaCategorizer.NULL_CATEGORY) {
+                        //individual conjugation class
                         GrammaticalConstruction conjugationClassConstruction = RussianConjugationClasses.getConstructionFromCategory(conjugationClassCategory);
                         constructionsToCount.put(conjugationClassConstruction, true);
+                        //overarching group
+                        switch(conjugationClassCategory){
+                            case 4: case 5:
+                                constructionsToCount.put(GrammaticalConstruction.VERBS_CONJUGATION_SECOND_RUSSIAN, true);
+                                break;
+                            default:
+                                constructionsToCount.put(GrammaticalConstruction.VERBS_CONJUGATION_FIRST_RUSSIAN, true);
+                        }
                     }
                     //tenses and aspect
                     if(isPast) {
@@ -766,7 +775,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                     addConstructionByIndices(GrammaticalConstruction.QUESTIONS_WHAT_KIND_RUSSIAN, plainWord.beginPosition(), plainWord.endPosition());
 	        }
         }
-        else{ //no question mark
+        /*else{ //no question mark
             if(hasLi || hasInterrogative){
                 //NB: this will recognize situations such as "скажу ему, когда ты придешь" //TODO: FIX THIS (find using a list of verbs that can introduce indirect speech then an interrogative)
                 //starter lists
@@ -775,7 +784,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                 //asking: спрашивать спросить
                 addConstructionByIndices(GrammaticalConstruction.QUESTIONS_INDIRECT, sentenceStart, sentenceEnd);
             }
-        }
+        }*/
 
         //using Semgrex
 
