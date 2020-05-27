@@ -349,7 +349,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
         boolean hasInterrogative = false;
         boolean hasInterrogativeBesidesLi = false;
         boolean hasQuestionMark = false;
-        boolean hasFiniteVerb = false;
+        boolean hasFiniteVerbBesidesJest = false;
         int sentenceStart = -1;
         int sentenceEnd = -1;
         if(words.size() != 0){
@@ -366,6 +366,8 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
 
             //recognize which tags and lemmas are present in this word's readings
             for(CgReading reading: word.getReadings()){
+                String lemma = reading.getBaseForm().replace("\"", "");
+
                 boolean isNoun = false;
                 boolean isAdjective = false;
                 boolean isAdverb = false;
@@ -425,22 +427,24 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                 if(tags.contains(PERFECTIVE_TAG)) isPerfective = true;
                 if(tags.contains(IMPERFECTIVE_TAG)) isImperfective = true;
                 //tense
+                boolean hasFiniteTag = false;
                 if(tags.contains(PAST_TAG)) {
                 	isPast = true;
-                	hasFiniteVerb = true;
+                	hasFiniteTag = true;
                 }
                 if(tags.contains(PRESENT_TAG)) {
                 	isPresent = true;
-                	hasFiniteVerb = true;
+                	hasFiniteTag = true;
                 }
                 if(tags.contains(FUTURE_TAG)) {
                 	isFuture = true;
-	                hasFiniteVerb = true;
+	                hasFiniteTag = true;
                 }
                 if(tags.contains(IMPERATIVE_TAG)) {
                 	isImperative = true;
-	                hasFiniteVerb = true;
+	                hasFiniteTag = true;
                 }
+                if(hasFiniteTag && !isPartialMatch(patternJest, lemma)) hasFiniteVerbBesidesJest = true;
 	            if(tags.contains(INFINITIVE_TAG)) isInfinitive = true;
                 //participles
                 if(tags.contains(PASSIVE_TAG)) isPassive = true;
@@ -478,16 +482,12 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                 if(tags.contains(INTERROGATIVE_TAG)) {
                     isInterrogative = true;
                     hasInterrogative = true;
-                    String lemma = reading.getBaseForm();
-                    if(!isPartialMatch(patternLi, lemma)){
-                        hasInterrogativeBesidesLi = true;
-                    }
+                    if(!isPartialMatch(patternLi, lemma)) hasInterrogativeBesidesLi = true;
                 }
                 if(tags.contains(NEGATIVE_TAG)) isNegative = true;
                 if(tags.contains(COMPARATIVE_TAG)) isComparative = true;
 
                 //look at the lemma
-                String lemma = reading.getBaseForm().replace("\"", "");
                 //particles
                 if(isPartialMatch(patternLi, lemma)){
                     hasLi = true;
@@ -699,7 +699,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
             addConstructionByIndices(GrammaticalConstruction.SENTENCE_SIMPLE, sentenceStart, sentenceEnd);
         }
 
-        if(!hasFiniteVerb){
+        if(!hasFiniteVerbBesidesJest){
         	//TODO: improve this so it looks for instances of jest' with no finite verb in the same *clause* (currently this does sentence)
 	        //есть
 	        List<CoreLabel> positiveExistentials = findMatches(patternJest, words);
