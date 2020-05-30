@@ -1,9 +1,7 @@
 package com.flair.server.grammar;
 
 import edu.stanford.nlp.semgraph.semgrex.SemgrexPattern;
-
 import java.util.regex.Pattern;
-
 import static java.util.regex.Pattern.CASE_INSENSITIVE;
 
 public class RussianGrammaticalPatterns {
@@ -134,4 +132,10 @@ public class RussianGrammaticalPatterns {
 
     public static final String labelObjectOfVerbNoPreposition = "labelObjectOfVerbNoPreposition";
     public static final SemgrexPattern patternObjectOfVerbNoPreposition = SemgrexPattern.compile(String.format("{}=%s [ <obl {tag:VERB} & !>case {tag:ADP}]", labelObjectOfVerbNoPreposition));
+
+    public static final String labelExistentialJest = "labelExistentialJest";
+    public static final SemgrexPattern patternExistentialJest = SemgrexPattern.compile(String.format("{word:есть}=%s !< {tag:VERB}", labelExistentialJest));
+
+    public static final String labelExistentialNjet = "labelExistentialNjet";
+    public static final SemgrexPattern patternExistentialNjet = SemgrexPattern.compile(String.format("{word:нет}=%s !< {tag:VERB}", labelExistentialNjet));
 }

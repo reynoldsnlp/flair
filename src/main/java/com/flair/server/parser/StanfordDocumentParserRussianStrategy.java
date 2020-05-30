@@ -28,13 +28,11 @@ import edu.stanford.nlp.semgraph.SemanticGraphEdge;
 import edu.stanford.nlp.semgraph.semgrex.SemgrexMatcher;
 import edu.stanford.nlp.semgraph.semgrex.SemgrexPattern;
 import edu.stanford.nlp.util.CoreMap;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import static com.flair.server.grammar.RussianGrammaticalPatterns.*;
 
 class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserStrategy {
@@ -699,15 +697,15 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
             addConstructionByIndices(GrammaticalConstruction.SENTENCE_SIMPLE, sentenceStart, sentenceEnd);
         }
 
-        if(!hasFiniteVerbBesidesJest){
-        	//TODO: improve this so it looks for instances of jest' with no finite verb in the same *clause* (currently this does sentence)
+        /*if(!hasFiniteVerbBesidesJest){
+        	//improve this so it looks for instances of jest' with no finite verb in the same *clause* (currently this does sentence)
 	        //есть
 	        List<CoreLabel> positiveExistentials = findMatches(patternJest, words);
 	        addConstructionOccurrences(GrammaticalConstruction.EXISTENTIAL_THERE, positiveExistentials);
 	        //нет
 	        List<CoreLabel> negativeExistentials = findMatches(patternNjet, words);
 	        addConstructionOccurrences(GrammaticalConstruction.EXISTENTIAL_THERE, negativeExistentials);
-        }
+        }*/
 
         if(hasJesli && hasBy){
             addConstructionByIndices(GrammaticalConstruction.CONDITIONALS_UNREAL, sentenceStart, sentenceEnd);
@@ -801,6 +799,20 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
 			    }
 		    }
 	    }
+
+        //find existential jest' and njet by looking for that word when it isn't the descendant of a verb
+        SemgrexMatcher existentialJestMatcher = patternExistentialJest.matcher(graph);
+        while(existentialJestMatcher.find()){
+            IndexedWord jestInstance = existentialJestMatcher.getNode(labelExistentialJest);
+            //WordWithReadings jestWithReadings = wordsWithReadings.get(jestInstance.index() - 1);
+            addConstructionByIndices(GrammaticalConstruction.EXISTENTIAL_THERE, jestInstance.beginPosition(), jestInstance.endPosition());
+        }
+
+        SemgrexMatcher existentialNjetMatcher = patternExistentialNjet.matcher(graph);
+        while(existentialNjetMatcher.find()){
+            IndexedWord njetInstance = existentialNjetMatcher.getNode(labelExistentialNjet);
+            addConstructionByIndices(GrammaticalConstruction.EXISTENTIAL_THERE, njetInstance.beginPosition(), njetInstance.endPosition());
+        }
 
         //preposition things using the graph
         Map<GrammaticalConstruction, List<WordWithReadings>> prepositionConstructionCounts = countPrepositionConstructions(wordsWithReadings, graph);

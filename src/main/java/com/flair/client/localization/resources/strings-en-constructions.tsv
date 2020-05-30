@@ -734,8 +734,8 @@ _gram-name_	VERBS_CONJUGATION_16_RUSSIAN	-ть (жить, плыть)
 _gram-path_	VERBS_CONJUGATION_16_RUSSIAN	Verbs > Conjugation Classes > TODO
 _gram-helpText_	VERBS_CONJUGATION_16_RUSSIAN	1st conjugation verbs with underlying в- TODO
 _gram-name_	VERBS_CONJUGATION_FIRST_RUSSIAN	1st conjugation verbs (-е-)
-_gram-path_	VERBS_CONJUGATION_FIRST_RUSSIAN	<verbsConjugationFirstRussian_PATH>
+_gram-path_	VERBS_CONJUGATION_FIRST_RUSSIAN	Verbs > Conjugation Classes > 1st conjugation
 _gram-helpText_	VERBS_CONJUGATION_FIRST_RUSSIAN	Verbs with endings -у/ю, -ешь, -ет, -ем, -ете, -ут/ют
 _gram-name_	VERBS_CONJUGATION_SECOND_RUSSIAN	2nd conjugation verbs (-и-)
-_gram-path_	VERBS_CONJUGATION_SECOND_RUSSIAN	<verbsConjugationSecondRussian_PATH>
+_gram-path_	VERBS_CONJUGATION_SECOND_RUSSIAN	Verbs > Conjugation Classes > 2nd conjugation
 _gram-helpText_	VERBS_CONJUGATION_SECOND_RUSSIAN	Verbs with endings -ю, -ишь, -ит, -им, -ите, -ят
