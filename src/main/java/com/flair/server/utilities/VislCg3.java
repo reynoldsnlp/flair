@@ -6,7 +6,7 @@ import java.nio.charset.StandardCharsets;
 public class VislCg3 {
     //constants
     private static final String VISLCG3 = "vislcg3";
-    private static final String DISAMBIGUATOR_RELATIVE = "/disambiguator-ru.cg3";
+    private static final String DISAMBIGUATOR_RELATIVE = "disambiguator-ru.cg3";
     private static final File DISAMBIGUATOR_FILE = new File(VislCg3.class.getClassLoader().getResource(DISAMBIGUATOR_RELATIVE).getPath());
 
     //functions

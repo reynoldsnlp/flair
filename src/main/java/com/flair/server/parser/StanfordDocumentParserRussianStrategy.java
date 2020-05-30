@@ -365,6 +365,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
             Map<GrammaticalConstruction, Boolean> constructionsToCount = new HashMap<>();
 
             //recognize which tags and lemmas are present in this word's readings
+            String surfaceForm = word.getSurfaceForm();
             for(CgReading reading: word.getReadings()){
                 String lemma = reading.getBaseForm().replace("\"", "");
 
@@ -444,7 +445,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                 	isImperative = true;
 	                hasFiniteTag = true;
                 }
-                if(hasFiniteTag && !isPartialMatch(patternJest, lemma)) hasFiniteVerbBesidesJest = true;
+                if(hasFiniteTag && !isPartialMatch(patternJest, surfaceForm)) hasFiniteVerbBesidesJest = true;
 	            if(tags.contains(INFINITIVE_TAG)) isInfinitive = true;
                 //participles
                 if(tags.contains(PASSIVE_TAG)) isPassive = true;
@@ -677,7 +678,6 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
             }
 
             //look at the surface form
-            String surfaceForm = word.getSurfaceForm();
 	        if(isPartialMatch(patternPartialNegationWords, surfaceForm)){
 		        addSingleConstructionInstance(constructionInstances, GrammaticalConstruction.NEGATION_PARTIAL, word);
 		        addSingleConstructionInstance(constructionInstances, GrammaticalConstruction.NEGATION_ALL, word);
@@ -703,7 +703,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
         	//TODO: improve this so it looks for instances of jest' with no finite verb in the same *clause* (currently this does sentence)
 	        //есть
 	        List<CoreLabel> positiveExistentials = findMatches(patternJest, words);
-	        addConstructionOccurrences(GrammaticalConstruction.EXISTENTIAL_THERE, positiveExistentials); //TODO: this doesn't happen since jest' has a reading of a finite verb
+	        addConstructionOccurrences(GrammaticalConstruction.EXISTENTIAL_THERE, positiveExistentials);
 	        //нет
 	        List<CoreLabel> negativeExistentials = findMatches(patternNjet, words);
 	        addConstructionOccurrences(GrammaticalConstruction.EXISTENTIAL_THERE, negativeExistentials);
