@@ -617,6 +617,11 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                             default:
                                 constructionsToCount.put(GrammaticalConstruction.VERBS_CONJUGATION_FIRST_RUSSIAN, true);
                         }
+                        switch(conjugationClassCategory){
+                            case 14: case 15: case 16:
+                                constructionsToCount.put(GrammaticalConstruction.VERBS_CONJUGATION_14_15_16_RUSSIAN, true);
+                                break;
+                        }
                     }
                     //tenses and aspect
                     if(isPast) {
@@ -811,7 +816,26 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
         SemgrexMatcher existentialNjetMatcher = patternExistentialNjet.matcher(graph);
         while(existentialNjetMatcher.find()){
             IndexedWord njetInstance = existentialNjetMatcher.getNode(labelExistentialNjet);
-            addConstructionByIndices(GrammaticalConstruction.EXISTENTIAL_THERE, njetInstance.beginPosition(), njetInstance.endPosition());
+            //check to make sure this njet has a genitive child
+            List<SemanticGraphEdge> edqes = graph.getOutEdgesSorted(njetInstance);
+            for(SemanticGraphEdge edge: edqes){
+                //get the children of njet
+                IndexedWord childOfNjet = edge.getTarget();
+                int childIndex = childOfNjet.index() - 1;
+                WordWithReadings childWithReadings = wordsWithReadings.get(childIndex);
+                //check if the Genitive tag is present in this word's readings
+                boolean foundGenitive = false;
+                for(CgReading reading: childWithReadings.getReadings()) {
+                    Set<String> tags = new HashSet<>(reading.getTags());
+                    if(tags.contains(GENITIVE_TAG)) {
+                        //count this word towards the appropriate constructions
+                        addConstructionByIndices(GrammaticalConstruction.EXISTENTIAL_THERE, njetInstance.beginPosition(), njetInstance.endPosition());
+                        foundGenitive = true;
+                        break;
+                    }
+                }
+                if(foundGenitive) break;
+            }
         }
 
         //preposition things using the graph

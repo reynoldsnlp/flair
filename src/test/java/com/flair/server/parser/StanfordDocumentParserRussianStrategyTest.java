@@ -135,6 +135,49 @@ public class StanfordDocumentParserRussianStrategyTest {
 	}
 
 	@Test
+	public void existentialNjetSimpleNegativeTest3() {
+		String stringToParse = "А остальным подтягиваться до уровня! И это тоже стимул, разве нет?";
+		AbstractDocument parsedDocument = getParsedDocument(stringToParse);
+		int existentialCount = parsedDocument.getConstructionData(GrammaticalConstruction.EXISTENTIAL_THERE).getFrequency();
+		Assert.assertEquals(0, existentialCount);
+	}
+	@Test
+	public void existentialNjetSimpleNegativeTest4() {
+		String stringToParse = "Нет. С 7 утра до 7 вечера. Получается 12 часов.";
+		AbstractDocument parsedDocument = getParsedDocument(stringToParse);
+		int existentialCount = parsedDocument.getConstructionData(GrammaticalConstruction.EXISTENTIAL_THERE).getFrequency();
+		Assert.assertEquals(0, existentialCount);
+	}
+	@Test
+	public void existentialNjetSimpleNegativeTest5() {
+		String stringToParse = "Нет, конечно, можно сначала делать а потом думать: «Ё-маё, что ж я сделал-то?";
+		AbstractDocument parsedDocument = getParsedDocument(stringToParse);
+		int existentialCount = parsedDocument.getConstructionData(GrammaticalConstruction.EXISTENTIAL_THERE).getFrequency();
+		Assert.assertEquals(0, existentialCount);
+	}
+	@Test
+	public void existentialNjetSimpleNegativeTest6() {
+		String stringToParse = "Нет, ну почему? Можно, к примеру, Диогеном поработать!";
+		AbstractDocument parsedDocument = getParsedDocument(stringToParse);
+		int existentialCount = parsedDocument.getConstructionData(GrammaticalConstruction.EXISTENTIAL_THERE).getFrequency();
+		Assert.assertEquals(0, existentialCount);
+	}
+	@Test
+	public void existentialNjetSimpleNegativeTest7() {
+		String stringToParse = "Но нет, просто моет…";
+		AbstractDocument parsedDocument = getParsedDocument(stringToParse);
+		int existentialCount = parsedDocument.getConstructionData(GrammaticalConstruction.EXISTENTIAL_THERE).getFrequency();
+		Assert.assertEquals(0, existentialCount);
+	}
+	@Test
+	public void existentialNjetSimpleNegativeTest8() {
+		String stringToParse = "К сожалению, нет, но оочень хотелось увидеть одним глазком, как говорится.";
+		AbstractDocument parsedDocument = getParsedDocument(stringToParse);
+		int existentialCount = parsedDocument.getConstructionData(GrammaticalConstruction.EXISTENTIAL_THERE).getFrequency();
+		Assert.assertEquals(0, existentialCount);
+	}
+
+	@Test
 	public void existentialNjetComplexPositiveTest1() { //TODO: FAILS because 'иду' happens to be the parent of 'нет'
 		String stringToParse = "Я иду, но у меня нет денег";
 		AbstractDocument parsedDocument = getParsedDocument(stringToParse);

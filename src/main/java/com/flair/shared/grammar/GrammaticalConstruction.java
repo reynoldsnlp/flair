@@ -100,7 +100,7 @@ public enum GrammaticalConstruction
     // conditionals - check first, before tenses
     CONDITIONALS("conditionals", Language.ENGLISH),
     CONDITIONALS_REAL("condReal", Language.ENGLISH),
-    CONDITIONALS_UNREAL("condUnreal", Language.ENGLISH, Language.RUSSIAN), //TODO: verify that this is a thing (Rob)
+    CONDITIONALS_UNREAL("condUnreal", Language.ENGLISH, Language.RUSSIAN), //usefulness is questionable for Russian
     
     // tenses - only if not conditional
     TENSE_PRESENT_SIMPLE("presentSimple", Language.ENGLISH),
@@ -303,6 +303,7 @@ public enum GrammaticalConstruction
     VERBS_CONJUGATION_11_RUSSIAN("verbsConjugation11Russian", Language.RUSSIAN),
     VERBS_CONJUGATION_12_RUSSIAN("verbsConjugation12Russian", Language.RUSSIAN),
     VERBS_CONJUGATION_13_RUSSIAN("verbsConjugation13Russian", Language.RUSSIAN),
+    VERBS_CONJUGATION_14_15_16_RUSSIAN("verbsConjugation14-15-16Russian", Language.RUSSIAN),
     VERBS_CONJUGATION_14_RUSSIAN("verbsConjugation14Russian", Language.RUSSIAN),
     VERBS_CONJUGATION_15_RUSSIAN("verbsConjugation15Russian", Language.RUSSIAN),
     VERBS_CONJUGATION_16_RUSSIAN("verbsConjugation16Russian", Language.RUSSIAN),
@@ -323,7 +324,7 @@ public enum GrammaticalConstruction
     DETERMINER_SOME_RUSSIAN("someDetRussian", Language.RUSSIAN),
     DETERMINER_ANY_RUSSIAN("anyDetRussian", Language.RUSSIAN),
     DETERMINER_MUCH_RUSSIAN("muchDetRussian", Language.RUSSIAN),
-    NEGATION_NO_NOT_NEVER_RUSSIAN("noNotNeverRussian", Language.RUSSIAN), // нет, не,DETERMINER_PREPOSITIONAL ни, никогда, никак, никуда, нигде, ниоткуда, нипочём, ничуть, нисколько, нисколечко
+    NEGATION_NO_NOT_NEVER_RUSSIAN("noNotNeverRussian", Language.RUSSIAN), // нет, не, ни, никогда, никак, никуда, нигде, ниоткуда, нипочём, ничуть, нисколько, нисколечко
     CONDITIONALS_RUSSIAN("conditionalsRussian", Language.RUSSIAN),
     CLAUSE_RELATIVE_RUSSIAN("relativeClauseRussian", Language.RUSSIAN),
 

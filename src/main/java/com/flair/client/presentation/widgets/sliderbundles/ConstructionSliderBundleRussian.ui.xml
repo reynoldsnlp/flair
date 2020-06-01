@@ -37,7 +37,7 @@
 						<flair:GrammaticalConstructionWeightSlider gram="EXISTENTIAL_THERE" parentLanguage="RUSSIAN"/>
 
 						<flair:GrammaticalConstructionWeightSlider gram="CONDITIONALS_RUSSIAN" parentLanguage="RUSSIAN"/>
-						<flair:GrammaticalConstructionWeightSlider gram="CONDITIONALS_UNREAL" parentLanguage="RUSSIAN"/>
+						<!--<flair:GrammaticalConstructionWeightSlider gram="CONDITIONALS_UNREAL" parentLanguage="RUSSIAN"/>-->
 
 						<flair:GrammaticalConstructionWeightSlider gram="IMPERATIVES_RUSSIAN" parentLanguage="RUSSIAN"/>
 
@@ -92,15 +92,12 @@
 							</flair:GrammaticalConstructionPanelItem>
 
                             <!-- Conjugation classes -->
-                            <flair:GrammaticalConstructionPanelItem ui:field="pnlConjugationClassesUI" text="conjugation classes" iconType="EXPAND_MORE">
+                            <flair:GrammaticalConstructionPanelItem ui:field="pnl1stConjugationClassesUI" text="1st conjugation classes" iconType="EXPAND_MORE">
 								<flair:GrammaticalConstructionWeightSlider gram="VERBS_CONJUGATION_FIRST_RUSSIAN" parentLanguage="RUSSIAN"/>
-								<flair:GrammaticalConstructionWeightSlider gram="VERBS_CONJUGATION_SECOND_RUSSIAN" parentLanguage="RUSSIAN"/>
 
                                 <flair:GrammaticalConstructionWeightSlider gram="VERBS_CONJUGATION_1_RUSSIAN" parentLanguage="RUSSIAN"/>
 								<flair:GrammaticalConstructionWeightSlider gram="VERBS_CONJUGATION_2_RUSSIAN" parentLanguage="RUSSIAN"/>
 								<flair:GrammaticalConstructionWeightSlider gram="VERBS_CONJUGATION_3_RUSSIAN" parentLanguage="RUSSIAN"/>
-								<flair:GrammaticalConstructionWeightSlider gram="VERBS_CONJUGATION_4_RUSSIAN" parentLanguage="RUSSIAN"/>
-								<flair:GrammaticalConstructionWeightSlider gram="VERBS_CONJUGATION_5_RUSSIAN" parentLanguage="RUSSIAN"/>
 								<flair:GrammaticalConstructionWeightSlider gram="VERBS_CONJUGATION_6_RUSSIAN" parentLanguage="RUSSIAN"/>
 								<flair:GrammaticalConstructionWeightSlider gram="VERBS_CONJUGATION_7_RUSSIAN" parentLanguage="RUSSIAN"/>
 								<flair:GrammaticalConstructionWeightSlider gram="VERBS_CONJUGATION_8_RUSSIAN" parentLanguage="RUSSIAN"/>
@@ -109,10 +106,17 @@
 								<flair:GrammaticalConstructionWeightSlider gram="VERBS_CONJUGATION_11_RUSSIAN" parentLanguage="RUSSIAN"/>
 								<flair:GrammaticalConstructionWeightSlider gram="VERBS_CONJUGATION_12_RUSSIAN" parentLanguage="RUSSIAN"/>
 								<flair:GrammaticalConstructionWeightSlider gram="VERBS_CONJUGATION_13_RUSSIAN" parentLanguage="RUSSIAN"/>
-								<flair:GrammaticalConstructionWeightSlider gram="VERBS_CONJUGATION_14_RUSSIAN" parentLanguage="RUSSIAN"/>
+								<flair:GrammaticalConstructionWeightSlider gram="VERBS_CONJUGATION_14_15_16_RUSSIAN" parentLanguage="RUSSIAN"/>
+								<!--<flair:GrammaticalConstructionWeightSlider gram="VERBS_CONJUGATION_14_RUSSIAN" parentLanguage="RUSSIAN"/>
 								<flair:GrammaticalConstructionWeightSlider gram="VERBS_CONJUGATION_15_RUSSIAN" parentLanguage="RUSSIAN"/>
-								<flair:GrammaticalConstructionWeightSlider gram="VERBS_CONJUGATION_16_RUSSIAN" parentLanguage="RUSSIAN"/>
+								<flair:GrammaticalConstructionWeightSlider gram="VERBS_CONJUGATION_16_RUSSIAN" parentLanguage="RUSSIAN"/>-->
                             </flair:GrammaticalConstructionPanelItem>
+							<flair:GrammaticalConstructionPanelItem ui:field="pnl2ndConjugationClassesUI" text="2nd conjugation classes" iconType="EXPAND_MORE">
+								<flair:GrammaticalConstructionWeightSlider gram="VERBS_CONJUGATION_SECOND_RUSSIAN" parentLanguage="RUSSIAN"/>
+
+								<flair:GrammaticalConstructionWeightSlider gram="VERBS_CONJUGATION_4_RUSSIAN" parentLanguage="RUSSIAN"/>
+								<flair:GrammaticalConstructionWeightSlider gram="VERBS_CONJUGATION_5_RUSSIAN" parentLanguage="RUSSIAN"/>
+							</flair:GrammaticalConstructionPanelItem>
 
 						</flair:GrammaticalConstructionPanel>
 					</flair:GrammaticalConstructionPanelItem>

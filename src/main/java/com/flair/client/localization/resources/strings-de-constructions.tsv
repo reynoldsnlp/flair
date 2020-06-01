@@ -724,6 +724,9 @@ _gram-helpText_	VERBS_CONJUGATION_12_RUSSIAN	<verbsConjugation12Russian_HELP_TEX
 _gram-name_	VERBS_CONJUGATION_13_RUSSIAN	<verbsConjugation13Russian>
 _gram-path_	VERBS_CONJUGATION_13_RUSSIAN	<verbsConjugation13Russian_PATH>
 _gram-helpText_	VERBS_CONJUGATION_13_RUSSIAN	<verbsConjugation13Russian_HELP_TEXT>
+_gram-name_	VERBS_CONJUGATION_14_15_16_RUSSIAN	<verbsConjugation14-15-16Russian>
+_gram-path_	VERBS_CONJUGATION_14_15_16_RUSSIAN	<verbsConjugation14-15-16Russian_PATH>
+_gram-helpText_	VERBS_CONJUGATION_14_15_16_RUSSIAN	<verbsConjugation14-15-16Russian_HELP_TEXT>
 _gram-name_	VERBS_CONJUGATION_14_RUSSIAN	<verbsConjugation14Russian>
 _gram-path_	VERBS_CONJUGATION_14_RUSSIAN	<verbsConjugation14Russian_PATH>
 _gram-helpText_	VERBS_CONJUGATION_14_RUSSIAN	<verbsConjugation14Russian_HELP_TEXT>
