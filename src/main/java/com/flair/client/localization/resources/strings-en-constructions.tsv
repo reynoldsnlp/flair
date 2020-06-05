@@ -686,55 +686,55 @@ _gram-name_	VERB_WITH_INSTRUMENTAL	With instrumental
 _gram-path_	VERB_WITH_INSTRUMENTAL	Verbs > Verb forms > With instrumental
 _gram-helpText_	VERB_WITH_INSTRUMENTAL	Verbs with instrumental objects, e.g. "Я стану президентом"
 _gram-name_	VERBS_CONJUGATION_1_RUSSIAN	-ать/-ять/-еть
-_gram-path_	VERBS_CONJUGATION_1_RUSSIAN	Verbs > Conjugation Classes > TODO
+_gram-path_	VERBS_CONJUGATION_1_RUSSIAN	Verbs > Conjugation Classes > -ать/-ять/-еть
 _gram-helpText_	VERBS_CONJUGATION_1_RUSSIAN	1st conjugation verbs with underlying ай-/яй-/ей-, e.g. читать, менять, иметь
 _gram-name_	VERBS_CONJUGATION_2_RUSSIAN	-овать/-евать
-_gram-path_	VERBS_CONJUGATION_2_RUSSIAN	Verbs > Conjugation Classes > TODO
+_gram-path_	VERBS_CONJUGATION_2_RUSSIAN	Verbs > Conjugation Classes > -овать/-евать
 _gram-helpText_	VERBS_CONJUGATION_2_RUSSIAN	1st conjugation verbs with underlying ова-/ева-, e.g. чувствовать, воевать
 _gram-name_	VERBS_CONJUGATION_3_RUSSIAN	-нуть
-_gram-path_	VERBS_CONJUGATION_3_RUSSIAN	Verbs > Conjugation Classes > TODO
+_gram-path_	VERBS_CONJUGATION_3_RUSSIAN	Verbs > Conjugation Classes > -нуть
 _gram-helpText_	VERBS_CONJUGATION_3_RUSSIAN	1st conjugation verbs with underlying ну-, e.g. отдохнуть
 _gram-name_	VERBS_CONJUGATION_4_RUSSIAN	-ить
-_gram-path_	VERBS_CONJUGATION_4_RUSSIAN	Verbs > Conjugation Classes > TODO
+_gram-path_	VERBS_CONJUGATION_4_RUSSIAN	Verbs > Conjugation Classes > -ить
 _gram-helpText_	VERBS_CONJUGATION_4_RUSSIAN	2nd conjugation verbs with underlying и-, e.g. говорить
 _gram-name_	VERBS_CONJUGATION_5_RUSSIAN	-ать/-оять/-еть
-_gram-path_	VERBS_CONJUGATION_5_RUSSIAN	Verbs > Conjugation Classes > TODO
+_gram-path_	VERBS_CONJUGATION_5_RUSSIAN	Verbs > Conjugation Classes > -ать/-оять/-еть
 _gram-helpText_	VERBS_CONJUGATION_5_RUSSIAN	2nd conjugation verbs with underlying а-/оя-/е-, e.g. слышать, смотреть, стоять
 _gram-name_	VERBS_CONJUGATION_6_RUSSIAN	-ать/-ять (сказать)
-_gram-path_	VERBS_CONJUGATION_6_RUSSIAN	Verbs > Conjugation Classes > TODO
+_gram-path_	VERBS_CONJUGATION_6_RUSSIAN	Verbs > Conjugation Classes > -ать/-ять (сказать)
 _gram-helpText_	VERBS_CONJUGATION_6_RUSSIAN	1st conjugation verbs with underlying а-/я-, e.g. сказать, надеяться
 _gram-name_	VERBS_CONJUGATION_7_RUSSIAN	-зть/-зти/-сть/-сти
-_gram-path_	VERBS_CONJUGATION_7_RUSSIAN	Verbs > Conjugation Classes > TODO
+_gram-path_	VERBS_CONJUGATION_7_RUSSIAN	Verbs > Conjugation Classes > -зть/-зти/-сть/-сти
 _gram-helpText_	VERBS_CONJUGATION_7_RUSSIAN	1st conjugation verbs with underlying б-/д-/з-/с-/ст-/т-, e.g. лезть, везти, класть, расти
 _gram-name_	VERBS_CONJUGATION_8_RUSSIAN	-чь
-_gram-path_	VERBS_CONJUGATION_8_RUSSIAN	Verbs > Conjugation Classes > TODO
+_gram-path_	VERBS_CONJUGATION_8_RUSSIAN	Verbs > Conjugation Classes > -чь
 _gram-helpText_	VERBS_CONJUGATION_8_RUSSIAN	1st conjugation verbs with underlying г-/к-, e.g. мочь, печь
 _gram-name_	VERBS_CONJUGATION_9_RUSSIAN	-ереть
-_gram-path_	VERBS_CONJUGATION_9_RUSSIAN	Verbs > Conjugation Classes > TODO
+_gram-path_	VERBS_CONJUGATION_9_RUSSIAN	Verbs > Conjugation Classes > -ереть
 _gram-helpText_	VERBS_CONJUGATION_9_RUSSIAN	1st conjugation verbs with underlying TODO, e.g. умереть
 _gram-name_	VERBS_CONJUGATION_10_RUSSIAN	-олоть/-ороть
-_gram-path_	VERBS_CONJUGATION_10_RUSSIAN	Verbs > Conjugation Classes > TODO
+_gram-path_	VERBS_CONJUGATION_10_RUSSIAN	Verbs > Conjugation Classes > -олоть/-ороть
 _gram-helpText_	VERBS_CONJUGATION_10_RUSSIAN	1st conjugation verbs with underlying TODO, e.g. колоть, бороться
 _gram-name_	VERBS_CONJUGATION_11_RUSSIAN	-ить (пить)
-_gram-path_	VERBS_CONJUGATION_11_RUSSIAN	Verbs > Conjugation Classes > TODO
+_gram-path_	VERBS_CONJUGATION_11_RUSSIAN	Verbs > Conjugation Classes > -ить (пить)
 _gram-helpText_	VERBS_CONJUGATION_11_RUSSIAN	1st conjugation verbs with underlying C + fleeting vowel + й TODO, e.g. бить, вить, лить, пить, шить
 _gram-name_	VERBS_CONJUGATION_12_RUSSIAN	-ыть/-уть/-ить
-_gram-path_	VERBS_CONJUGATION_12_RUSSIAN	Verbs > Conjugation Classes > TODO
+_gram-path_	VERBS_CONJUGATION_12_RUSSIAN	Verbs > Conjugation Classes > -ыть/-уть/-ить
 _gram-helpText_	VERBS_CONJUGATION_12_RUSSIAN	1st conjugation verbs with underlying TODO, e.g. мыть, дуть, брить
 _gram-name_	VERBS_CONJUGATION_13_RUSSIAN	-авать
-_gram-path_	VERBS_CONJUGATION_13_RUSSIAN	Verbs > Conjugation Classes > TODO
+_gram-path_	VERBS_CONJUGATION_13_RUSSIAN	Verbs > Conjugation Classes > -авать
 _gram-helpText_	VERBS_CONJUGATION_13_RUSSIAN	1st conjugation verbs with underlying авай-, e.g. давать
-_gram-name_	VERBS_CONJUGATION_14_15_16_RUSSIAN	<verbsConjugation14-15-16Russian>
-_gram-path_	VERBS_CONJUGATION_14_15_16_RUSSIAN	<verbsConjugation14-15-16Russian_PATH>
-_gram-helpText_	VERBS_CONJUGATION_14_15_16_RUSSIAN	<verbsConjugation14-15-16Russian_HELP_TEXT>
+_gram-name_	VERBS_CONJUGATION_14_15_16_RUSSIAN	Other
+_gram-path_	VERBS_CONJUGATION_14_15_16_RUSSIAN	Verbs > Conjugation Classes > Other
+_gram-helpText_	VERBS_CONJUGATION_14_15_16_RUSSIAN	1st conjugation verbs with underlying м-/н- TODO, plus деть, стать, жить, плыть
 _gram-name_	VERBS_CONJUGATION_14_RUSSIAN	-ать/-ять (взять, жать, занять)
-_gram-path_	VERBS_CONJUGATION_14_RUSSIAN	Verbs > Conjugation Classes > TODO
+_gram-path_	VERBS_CONJUGATION_14_RUSSIAN	Verbs > Conjugation Classes > -ать/-ять (взять, жать, занять)
 _gram-helpText_	VERBS_CONJUGATION_14_RUSSIAN	1st conjugation verbs with underlying м-/н- TODO
 _gram-name_	VERBS_CONJUGATION_15_RUSSIAN	-ть (деть, стать)
-_gram-path_	VERBS_CONJUGATION_15_RUSSIAN	Verbs > Conjugation Classes > TODO
+_gram-path_	VERBS_CONJUGATION_15_RUSSIAN	Verbs > Conjugation Classes > -ть (деть, стать)
 _gram-helpText_	VERBS_CONJUGATION_15_RUSSIAN	1st conjugation verbs with underlying н- TODO
 _gram-name_	VERBS_CONJUGATION_16_RUSSIAN	-ть (жить, плыть)
-_gram-path_	VERBS_CONJUGATION_16_RUSSIAN	Verbs > Conjugation Classes > TODO
+_gram-path_	VERBS_CONJUGATION_16_RUSSIAN	Verbs > Conjugation Classes > -ть (жить, плыть)
 _gram-helpText_	VERBS_CONJUGATION_16_RUSSIAN	1st conjugation verbs with underlying в- TODO
 _gram-name_	VERBS_CONJUGATION_FIRST_RUSSIAN	All 1st conjugation verbs (-е-)
 _gram-path_	VERBS_CONJUGATION_FIRST_RUSSIAN	Verbs > Conjugation Classes > 1st conjugation
