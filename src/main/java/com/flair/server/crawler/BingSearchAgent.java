@@ -14,6 +14,8 @@ import com.flair.shared.grammar.Language;
  */
 class BingSearchAgent extends CachingSearchAgent
 {
+	private boolean usePresetWebsites = false; //TODO: let the user set the value of this through the UI
+
 	private static String PROD_API_KEY;
 	private static boolean isKeySet = false;
 
@@ -40,7 +42,6 @@ class BingSearchAgent extends CachingSearchAgent
 	};
 
 	private final AzureWebSearch pipeline;
-	private boolean usePresetWebsites = true; //TODO: let the user set the value of this through the UI
 
 	public BingSearchAgent(Language lang, String query)
 	{
