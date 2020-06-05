@@ -1612,7 +1612,7 @@ public class WebRankerCore implements AbstractWebRankerCore, Window.ClosingHandl
 
 		settings.setSettingsChangedHandler(() -> onSettingsChanged());
 		settings.setResetAllHandler(() -> onSettingsReset());
-		search.setSearchHandler((l, q, n) -> onWebSearch(l, q, n));
+		search.setSearchHandler((l, q, r, n) -> onWebSearch(l, q, r, n));
 		preview.setShowHideEventHandler(v -> {
 			if (!v)
 				results.clearSelection();
@@ -1761,7 +1761,7 @@ public class WebRankerCore implements AbstractWebRankerCore, Window.ClosingHandl
 		eventEndProc.raiseEvent(new EndOperation(d.type, d.lang, success));
 	}
 	
-	private void onWebSearch(Language lang, String query, int numResults)
+	private void onWebSearch(Language lang, String query, boolean useRestrictedDomains, int numResults)
 	{
 		if (query.length() == 0)
 		{
@@ -1780,7 +1780,7 @@ public class WebRankerCore implements AbstractWebRankerCore, Window.ClosingHandl
 		proc.setKeywords(keywords.getCustomKeywords());
 
 		presenter.showLoaderOverlay(true);
-		service.beginWebSearch(token, lang, query, numResults, new ArrayList<>(keywords.getCustomKeywords()),
+		service.beginWebSearch(token, lang, query, useRestrictedDomains, numResults, new ArrayList<>(keywords.getCustomKeywords()),
 				FuncCallback.get(e -> {
 					// ### hide the loader overlay before the process starts
 					// ### otherwise, the progress bar doesn't show

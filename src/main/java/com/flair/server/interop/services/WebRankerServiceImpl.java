@@ -18,12 +18,13 @@ public class WebRankerServiceImpl extends AbstractRemoteService implements WebRa
 	public void beginWebSearch(AuthToken token,
 							Language lang,
 							String query,
+							boolean useRestrictedDomains,
 							int numResults,
 							ArrayList<String> keywords)
 	{
 		try{
 			ServerAuthenticationToken authToken = validateToken(token);
-			SessionManager.get().getSessionState(authToken).searchCrawlParse(query, lang, numResults, keywords);
+			SessionManager.get().getSessionState(authToken).searchCrawlParse(query, lang, useRestrictedDomains, numResults, keywords);
 		}
 		catch (NullPointerException ex){
 			ServerLogger.get().error(ex, "NullPointerException in beginWebSearch:");

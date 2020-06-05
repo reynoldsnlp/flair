@@ -116,6 +116,8 @@ SettingsExporter	lblTitleUI	Einstellungen exportieren
 SettingsExporter	lblTitleUI_Desc	Sie können diesen Link benutzen, um Ihre derzeigen Einstellungen auf zukünftige Suchen anzuwenden.
 		
 WebSearchModal	txtSearchBoxUI	Suchbegriff eingeben
+WebSearchModal	selRestrictedDomainYes	Ausgewählte Domänen
+WebSearchModal	selRestrictedDomainNo	Beliebige Domain
 WebSearchModal	selResultCountItm1UI	1 Ergebnis
 WebSearchModal	selResultCountItm10UI	10 Ergebnisse
 WebSearchModal	selResultCountItm20UI	20 Ergebnisse

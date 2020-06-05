@@ -116,6 +116,8 @@ SettingsExporter	lblTitleUI	Export Settings
 SettingsExporter	lblTitleUI_Desc	You can use this link to apply your current settings to future searches.
 		
 WebSearchModal	txtSearchBoxUI	Enter a query
+WebSearchModal	selRestrictedDomainYes	Curated Domains
+WebSearchModal	selRestrictedDomainNo	Any Domain
 WebSearchModal	selResultCountItm1UI	1 Result
 WebSearchModal	selResultCountItm10UI	10 Results
 WebSearchModal	selResultCountItm20UI	20 Results

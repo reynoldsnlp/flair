@@ -48,15 +48,17 @@ public abstract class WebSearchAgent
     public static final ArrayList<String>	BLACKLISTED_URLS = new ArrayList<>();
     
     protected final Language			lang;
-    protected final String			query;
+    protected final String			    query;
+    protected final boolean             useRestrictedDomains;
 
-    public WebSearchAgent(Language lang, String query)
+    public WebSearchAgent(Language lang, String query, boolean useRestrictedDomains)
     {
-	if (query.length() == 0)
-	    throw new IllegalArgumentException("Invalid/empty query");
-	
-	this.lang = lang;
-	this.query = query;
+		if (query.length() == 0)
+		    throw new IllegalArgumentException("Invalid/empty query");
+
+		this.lang = lang;
+		this.query = query;
+		this.useRestrictedDomains = useRestrictedDomains;
     }
     
     public String getQuery() {

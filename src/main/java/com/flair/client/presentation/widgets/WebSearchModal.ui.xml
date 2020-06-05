@@ -21,10 +21,16 @@
 						<m.html:Option ui:field="selResultLangItmDeUI" text="German" value="GERMAN" />
 						<m.html:Option ui:field="selResultLangItmRuUI" text="Russian" value="RUSSIAN" />
 						<m.html:Option ui:field="selResultLangItmArUI" text="Arabic" value="ARABIC" />
-						<!--<m.html:Option ui:field="selResultLangItmDeUI" text="Russian" value="GERMAN" />-->
 					</m:MaterialListBox>
 				</m:MaterialColumn>
-				
+
+				<m:MaterialColumn grid="l3 m3 s12">
+					<m:MaterialListBox ui:field="selRestrictedDomain" multipleSelect="false">
+						<m.html:Option ui:field="selRestrictedDomainYes" text="Curated Domains" value="true" />
+						<m.html:Option ui:field="selRestrictedDomainNo" text="Any Domain" value="false" />
+					</m:MaterialListBox>
+				</m:MaterialColumn>
+
 				<m:MaterialColumn grid="l3 m3 s12">
 					<m:MaterialListBox ui:field="selResultCountUI" multipleSelect="false">
 						<m.html:Option ui:field="selResultCountItm1UI" text="1" value="1" />	

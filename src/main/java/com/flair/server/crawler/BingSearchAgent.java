@@ -14,8 +14,6 @@ import com.flair.shared.grammar.Language;
  */
 class BingSearchAgent extends CachingSearchAgent
 {
-	private boolean usePresetWebsites = false; //TODO: let the user set the value of this through the UI
-
 	private static String PROD_API_KEY;
 	private static boolean isKeySet = false;
 
@@ -43,9 +41,9 @@ class BingSearchAgent extends CachingSearchAgent
 
 	private final AzureWebSearch pipeline;
 
-	public BingSearchAgent(Language lang, String query)
+	public BingSearchAgent(Language lang, String query, boolean useRestrictedDomains)
 	{
-		super(lang, query, MAX_API_REQUESTS);
+		super(lang, query, useRestrictedDomains, MAX_API_REQUESTS);
 		this.pipeline = new AzureWebSearch();
 
 		try{
@@ -92,7 +90,7 @@ class BingSearchAgent extends CachingSearchAgent
 
 		String totalQueryString = query + qPostfix;
 
-		if(usePresetWebsites){
+		if(this.useRestrictedDomains){
 			String[] websitesToSearch;
 			switch(lang){
 				case RUSSIAN:

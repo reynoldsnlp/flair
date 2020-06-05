@@ -39,12 +39,38 @@ public class WebSearchModal extends LocalizedComposite implements WebSearchServi
 	@UiField
 	@LocalizedField(type=LocalizedFieldType.TEXTBOX_LABEL)
 	MaterialTextBox								txtSearchBoxUI;
+
+	@UiField
+	MaterialListBox								selResultLangUI;
+	@UiField
+	@LocalizedCommonField(tag=CommonLocalizationTags.LANGUAGE_ENGLISH, type=LocalizedFieldType.LISTBOX_OPTION)
+	Option										selResultLangItmEnUI;
+	@UiField
+	@LocalizedCommonField(tag=CommonLocalizationTags.LANGUAGE_GERMAN, type=LocalizedFieldType.LISTBOX_OPTION) //setting german to russian
+			Option										selResultLangItmDeUI;
+	@UiField
+	@LocalizedCommonField(tag=CommonLocalizationTags.LANGUAGE_RUSSIAN, type=LocalizedFieldType.LISTBOX_OPTION)
+	Option										selResultLangItmRuUI;
+	@UiField
+	@LocalizedCommonField(tag=CommonLocalizationTags.LANGUAGE_ARABIC, type=LocalizedFieldType.LISTBOX_OPTION) //setting german to russian
+			Option										selResultLangItmArUI;
+	/*@LocalizedCommonField(tag=CommonLocalizationTags.LANGUAGE_RUSSIAN, type=LocalizedFieldType.LISTBOX_OPTION)
+	Option										selResultLangItmRuUI;*/
+
+	@UiField
+	MaterialListBox								selRestrictedDomain;
+	@UiField
+	@LocalizedField(type=LocalizedFieldType.LISTBOX_OPTION)
+	Option										selRestrictedDomainYes;
+	@UiField
+	@LocalizedField(type=LocalizedFieldType.LISTBOX_OPTION)
+	Option										selRestrictedDomainNo;
+
 	@UiField
 	MaterialListBox								selResultCountUI;
 	@UiField
 	@LocalizedField(type=LocalizedFieldType.LISTBOX_OPTION)
 	Option										selResultCountItm1UI;
-	
 	@UiField									
 	@LocalizedField(type=LocalizedFieldType.LISTBOX_OPTION)
 	Option										selResultCountItm10UI;
@@ -63,22 +89,6 @@ public class WebSearchModal extends LocalizedComposite implements WebSearchServi
 	Option										selResultCountItm50UI;
 	*/
 	@UiField
-	MaterialListBox								selResultLangUI;
-	@UiField
-	@LocalizedCommonField(tag=CommonLocalizationTags.LANGUAGE_ENGLISH, type=LocalizedFieldType.LISTBOX_OPTION)
-	Option										selResultLangItmEnUI;
-	@UiField
-	@LocalizedCommonField(tag=CommonLocalizationTags.LANGUAGE_GERMAN, type=LocalizedFieldType.LISTBOX_OPTION) //setting german to russian
-	Option										selResultLangItmDeUI;
-	@UiField
-	@LocalizedCommonField(tag=CommonLocalizationTags.LANGUAGE_RUSSIAN, type=LocalizedFieldType.LISTBOX_OPTION) 
-	Option										selResultLangItmRuUI;
-	@UiField
-	@LocalizedCommonField(tag=CommonLocalizationTags.LANGUAGE_ARABIC, type=LocalizedFieldType.LISTBOX_OPTION) //setting german to russian
-	Option										selResultLangItmArUI;
-	/*@LocalizedCommonField(tag=CommonLocalizationTags.LANGUAGE_RUSSIAN, type=LocalizedFieldType.LISTBOX_OPTION) 
-	Option										selResultLangItmRuUI;*/
-	@UiField
 	@LocalizedCommonField(tag=CommonLocalizationTags.SEARCH, type=LocalizedFieldType.TEXT_BUTTON)
 	MaterialButton								btnSearchUI;
 	@UiField
@@ -89,11 +99,12 @@ public class WebSearchModal extends LocalizedComposite implements WebSearchServi
 	
 	private void invokeSearch()
 	{
-		int resultCount = Integer.parseInt(selResultCountUI.getSelectedValue());
-		Language searchLang = Language.fromString(selResultLangUI.getSelectedValue());
 		String query = txtSearchBoxUI.getText();
+		Language searchLang = Language.fromString(selResultLangUI.getSelectedValue());
+		boolean useRestrictedDomains = Boolean.parseBoolean(selRestrictedDomain.getSelectedValue());
+		int resultCount = Integer.parseInt(selResultCountUI.getSelectedValue());
 		
-		searchHandler.handle(searchLang, query, resultCount);
+		searchHandler.handle(searchLang, query, useRestrictedDomains, resultCount);
 	}
 	
 	private void initHandlers()

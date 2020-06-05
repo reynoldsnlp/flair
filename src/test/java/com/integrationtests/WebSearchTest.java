@@ -74,6 +74,7 @@ public class WebSearchTest
 		 */
 		SearchCrawlParseOperation operation = MasterJobPipeline.get().doSearchCrawlParse(lang,
 				query,
+				false,
 				numResults,
 				new KeywordSearcherInput(Arrays.asList(keywords)));
 		
@@ -132,6 +133,7 @@ public class WebSearchTest
 		 */
 		SearchCrawlParseOperation operation = MasterJobPipeline.get().doSearchCrawlParse(lang,
 				query,
+				false,
 				numResults,
 				new KeywordSearcherInput(Arrays.asList(keywords)));
 		
@@ -190,6 +192,7 @@ public class WebSearchTest
 		 */
 		SearchCrawlParseOperation operation = MasterJobPipeline.get().doSearchCrawlParse(lang,
 				query,
+				false,
 				numResults,
 				new KeywordSearcherInput(Arrays.asList(keywords)));
 		
@@ -248,6 +251,7 @@ public class WebSearchTest
 		 */
 		SearchCrawlParseOperation operation = MasterJobPipeline.get().doSearchCrawlParse(lang,
 				query,
+				false,
 				numResults,
 				new KeywordSearcherInput(Arrays.asList(keywords)));
 		

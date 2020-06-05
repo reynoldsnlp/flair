@@ -482,9 +482,9 @@ public class SessionState
 			cache.corpusData.uploaded.add(itr);
 	}
 
-	public synchronized void searchCrawlParse(String query, Language lang, int numResults, List<String> keywords)
+	public synchronized void searchCrawlParse(String query, Language lang, boolean useRestrictedDomains, int numResults, List<String> keywords)
 	{		//this is where the search crawl parse begins
-		ServerLogger.get().info("Begin search-crawl-parse -> Query: " + query + ", Language: " + lang.toString() + ", Results: " + numResults);
+		ServerLogger.get().info("Begin search-crawl-parse -> Query: " + query + ", Language: " + lang.toString() + ", Use restricted domains: " + useRestrictedDomains + ", Results: " + numResults);
 		
 		if (hasOperation())
 		{
@@ -499,7 +499,7 @@ public class SessionState
 			k = new KeywordSearcherInput(keywords);
 
 		ServerLogger.get().info("Creating search crawl parse operation");
-		SearchCrawlParseOperation op = MasterJobPipeline.get().doSearchCrawlParse(lang, query, numResults, k);
+		SearchCrawlParseOperation op = MasterJobPipeline.get().doSearchCrawlParse(lang, query, useRestrictedDomains, numResults, k);
 		//do we ever get past here?
 		ServerLogger.get().info("finished creating search crawl parse operation");
 		op.setCrawlCompleteHandler(e -> {
