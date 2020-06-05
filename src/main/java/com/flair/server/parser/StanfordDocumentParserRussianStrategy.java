@@ -606,9 +606,6 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                     //conjugation classes
                     int conjugationClassCategory = conjugationClasses.getCategory(lemma);
                     if(conjugationClassCategory != LemmaCategorizer.NULL_CATEGORY) {
-                        //individual conjugation class
-                        GrammaticalConstruction conjugationClassConstruction = RussianConjugationClasses.getConstructionFromCategory(conjugationClassCategory);
-                        constructionsToCount.put(conjugationClassConstruction, true);
                         //overarching group
                         switch(conjugationClassCategory){
                             case 4: case 5:
@@ -617,9 +614,15 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
                             default:
                                 constructionsToCount.put(GrammaticalConstruction.VERBS_CONJUGATION_FIRST_RUSSIAN, true);
                         }
+                        //individual conjugation class
                         switch(conjugationClassCategory){
                             case 14: case 15: case 16:
-                                constructionsToCount.put(GrammaticalConstruction.VERBS_CONJUGATION_14_15_16_RUSSIAN, true);
+                                //don't have individual constructions for 14, 15, 16
+                                //constructionsToCount.put(GrammaticalConstruction.VERBS_CONJUGATION_14_15_16_RUSSIAN, true);
+                                break;
+                            default:
+                                GrammaticalConstruction conjugationClassConstruction = RussianConjugationClasses.getConstructionFromCategory(conjugationClassCategory);
+                                if(conjugationClassConstruction != null) constructionsToCount.put(conjugationClassConstruction, true);
                                 break;
                         }
                     }
@@ -712,9 +715,9 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
 	        addConstructionOccurrences(GrammaticalConstruction.EXISTENTIAL_THERE, negativeExistentials);
         }*/
 
-        if(hasJesli && hasBy){
+        /*if(hasJesli && hasBy){
             addConstructionByIndices(GrammaticalConstruction.CONDITIONALS_UNREAL, sentenceStart, sentenceEnd);
-        }
+        }*/
 
         if(hasQuestionMark){
             addConstructionByIndices(GrammaticalConstruction.QUESTIONS_DIRECT, sentenceStart, sentenceEnd);

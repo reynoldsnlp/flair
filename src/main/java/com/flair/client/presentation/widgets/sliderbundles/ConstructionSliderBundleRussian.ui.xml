@@ -106,8 +106,8 @@
 								<flair:GrammaticalConstructionWeightSlider gram="VERBS_CONJUGATION_11_RUSSIAN" parentLanguage="RUSSIAN"/>
 								<flair:GrammaticalConstructionWeightSlider gram="VERBS_CONJUGATION_12_RUSSIAN" parentLanguage="RUSSIAN"/>
 								<flair:GrammaticalConstructionWeightSlider gram="VERBS_CONJUGATION_13_RUSSIAN" parentLanguage="RUSSIAN"/>
-								<flair:GrammaticalConstructionWeightSlider gram="VERBS_CONJUGATION_14_15_16_RUSSIAN" parentLanguage="RUSSIAN"/>
-								<!--<flair:GrammaticalConstructionWeightSlider gram="VERBS_CONJUGATION_14_RUSSIAN" parentLanguage="RUSSIAN"/>
+	                            <!--<flair:GrammaticalConstructionWeightSlider gram="VERBS_CONJUGATION_14_15_16_RUSSIAN" parentLanguage="RUSSIAN"/>
+								<flair:GrammaticalConstructionWeightSlider gram="VERBS_CONJUGATION_14_RUSSIAN" parentLanguage="RUSSIAN"/>
 								<flair:GrammaticalConstructionWeightSlider gram="VERBS_CONJUGATION_15_RUSSIAN" parentLanguage="RUSSIAN"/>
 								<flair:GrammaticalConstructionWeightSlider gram="VERBS_CONJUGATION_16_RUSSIAN" parentLanguage="RUSSIAN"/>-->
                             </flair:GrammaticalConstructionPanelItem>

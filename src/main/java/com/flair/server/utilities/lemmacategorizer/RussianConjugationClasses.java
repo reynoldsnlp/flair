@@ -29,12 +29,14 @@ public class RussianConjugationClasses extends LemmaCategorizer {
 		categoryToConstruction.put(11, GrammaticalConstruction.VERBS_CONJUGATION_11_RUSSIAN);
 		categoryToConstruction.put(12, GrammaticalConstruction.VERBS_CONJUGATION_12_RUSSIAN);
 		categoryToConstruction.put(13, GrammaticalConstruction.VERBS_CONJUGATION_13_RUSSIAN);
-		categoryToConstruction.put(14, GrammaticalConstruction.VERBS_CONJUGATION_14_RUSSIAN);
+		/*categoryToConstruction.put(14, GrammaticalConstruction.VERBS_CONJUGATION_14_RUSSIAN);
 		categoryToConstruction.put(15, GrammaticalConstruction.VERBS_CONJUGATION_15_RUSSIAN);
-		categoryToConstruction.put(16, GrammaticalConstruction.VERBS_CONJUGATION_16_RUSSIAN);
+		categoryToConstruction.put(16, GrammaticalConstruction.VERBS_CONJUGATION_16_RUSSIAN);*/
 	}
 
-	public static GrammaticalConstruction getConstructionFromCategory(int category) { return categoryToConstruction.get(category); }
+	public static GrammaticalConstruction getConstructionFromCategory(int category) {
+		return categoryToConstruction.getOrDefault(category, null);
+	}
 
 	public void load() throws IOException {
 		InputStream russianConjugationClassesStream = this.getClass().getResourceAsStream(VERBS_CONJUGATION_CLASSES_RU);

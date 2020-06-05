@@ -100,7 +100,7 @@ public enum GrammaticalConstruction
     // conditionals - check first, before tenses
     CONDITIONALS("conditionals", Language.ENGLISH),
     CONDITIONALS_REAL("condReal", Language.ENGLISH),
-    CONDITIONALS_UNREAL("condUnreal", Language.ENGLISH, Language.RUSSIAN), //usefulness is questionable for Russian
+    CONDITIONALS_UNREAL("condUnreal", Language.ENGLISH/*, Language.RUSSIAN*/), //usefulness is questionable for Russian
     
     // tenses - only if not conditional
     TENSE_PRESENT_SIMPLE("presentSimple", Language.ENGLISH),
@@ -303,10 +303,10 @@ public enum GrammaticalConstruction
     VERBS_CONJUGATION_11_RUSSIAN("verbsConjugation11Russian", Language.RUSSIAN),
     VERBS_CONJUGATION_12_RUSSIAN("verbsConjugation12Russian", Language.RUSSIAN),
     VERBS_CONJUGATION_13_RUSSIAN("verbsConjugation13Russian", Language.RUSSIAN),
-    VERBS_CONJUGATION_14_15_16_RUSSIAN("verbsConjugation14-15-16Russian", Language.RUSSIAN),
+    /*VERBS_CONJUGATION_14_15_16_RUSSIAN("verbsConjugation14-15-16Russian", Language.RUSSIAN),
     VERBS_CONJUGATION_14_RUSSIAN("verbsConjugation14Russian", Language.RUSSIAN),
     VERBS_CONJUGATION_15_RUSSIAN("verbsConjugation15Russian", Language.RUSSIAN),
-    VERBS_CONJUGATION_16_RUSSIAN("verbsConjugation16Russian", Language.RUSSIAN),
+    VERBS_CONJUGATION_16_RUSSIAN("verbsConjugation16Russian", Language.RUSSIAN),*/
 	
     //DECLENSION CLASSES
 	//TODO
