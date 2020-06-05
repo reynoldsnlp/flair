@@ -15,7 +15,7 @@
 					<m:MaterialTextBox ui:field="txtSearchBoxUI" iconType="SEARCH"/>					
 				</m:MaterialColumn>
 				
-				<m:MaterialColumn grid="l3 m3 s12">
+				<m:MaterialColumn grid="l2 m2 s12">
 					<m:MaterialListBox ui:field="selResultLangUI" multipleSelect="false">
 						<m.html:Option ui:field="selResultLangItmEnUI" text="English" value="ENGLISH" />
 						<m.html:Option ui:field="selResultLangItmDeUI" text="German" value="GERMAN" />
@@ -24,14 +24,14 @@
 					</m:MaterialListBox>
 				</m:MaterialColumn>
 
-				<m:MaterialColumn grid="l3 m3 s12">
+				<m:MaterialColumn grid="l2 m2 s12">
 					<m:MaterialListBox ui:field="selRestrictedDomain" multipleSelect="false">
 						<m.html:Option ui:field="selRestrictedDomainYes" text="Curated Domains" value="true" />
 						<m.html:Option ui:field="selRestrictedDomainNo" text="Any Domain" value="false" />
 					</m:MaterialListBox>
 				</m:MaterialColumn>
 
-				<m:MaterialColumn grid="l3 m3 s12">
+				<m:MaterialColumn grid="l2 m2 s12">
 					<m:MaterialListBox ui:field="selResultCountUI" multipleSelect="false">
 						<m.html:Option ui:field="selResultCountItm1UI" text="1" value="1" />	
 						<m.html:Option ui:field="selResultCountItm10UI" text="10" value="10" />
