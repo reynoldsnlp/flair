@@ -79,7 +79,7 @@ public enum GrammaticalConstruction
     NEGATION_NOT("not", Language.ENGLISH),
 
     QUESTIONS_DIRECT("directQuestions", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), // Russian: ends in a '?'
-    QUESTIONS_INDIRECT("indirectQuestions", Language.ENGLISH, Language.GERMAN/*, Language.RUSSIAN*/), // TODO: is this useful for Russian?
+    QUESTIONS_INDIRECT("indirectQuestions", Language.ENGLISH, Language.GERMAN/*, Language.RUSSIAN*/),
     QUESTIONS_YESNO("yesNoQuestions", Language.ENGLISH, Language.GERMAN), // direct: "Are you ok?"
     QUESTIONS_WH("whQuestions", Language.ENGLISH, Language.GERMAN), // direct: "What do you do?"
     QUESTIONS_TO_BE("toBeQuestions", Language.ENGLISH), // direct: "What's this?"
@@ -308,8 +308,7 @@ public enum GrammaticalConstruction
     VERBS_CONJUGATION_15_RUSSIAN("verbsConjugation15Russian", Language.RUSSIAN),
     VERBS_CONJUGATION_16_RUSSIAN("verbsConjugation16Russian", Language.RUSSIAN),*/
 	
-    //DECLENSION CLASSES
-	//TODO
+    //DECLENSION CLASSES (yet to implement)
 
     //IRREGULAR VERBS
     //(ся|сь) may be attached to the end of any infinitive (for the purpose of recognizing these verbs)

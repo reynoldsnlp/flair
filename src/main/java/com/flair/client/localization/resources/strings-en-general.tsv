@@ -116,6 +116,7 @@ SettingsExporter	lblTitleUI	Export Settings
 SettingsExporter	lblTitleUI_Desc	You can use this link to apply your current settings to future searches.
 		
 WebSearchModal	txtSearchBoxUI	Enter a query
+WebSearchModal	txtSearchBoxHelp	For custom domains, select "Any Domain" and use search keyword "site:", e.g. "tennis site:wikipedia.org", "Novak (site:espn.com/tennis OR site:wikipedia.org)"
 WebSearchModal	selRestrictedDomainYes	Curated Domains
 WebSearchModal	selRestrictedDomainNo	Any Domain
 WebSearchModal	selResultCountItm1UI	1 Result

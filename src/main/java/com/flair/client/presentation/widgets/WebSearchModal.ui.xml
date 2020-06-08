@@ -12,7 +12,9 @@
 			<!-- Minimum absolute height to prevent the result count dropdown from clipping -->
 			<m:MaterialRow height="170px">
 				<m:MaterialColumn grid="l6 m6 s12">
-					<m:MaterialTextBox ui:field="txtSearchBoxUI" iconType="SEARCH"/>					
+					<m:MaterialTextBox ui:field="txtSearchBoxUI" iconType="SEARCH"/>
+					<m:MaterialLabel ui:field="txtSearchBoxHelp"/>
+					<!--<m:MaterialLabel ui:field="txtSearchBoxHelp"/>-->
 				</m:MaterialColumn>
 				
 				<m:MaterialColumn grid="l2 m2 s12">
@@ -26,8 +28,8 @@
 
 				<m:MaterialColumn grid="l2 m2 s12">
 					<m:MaterialListBox ui:field="selRestrictedDomain" multipleSelect="false">
-						<m.html:Option ui:field="selRestrictedDomainYes" text="Curated Domains" value="true" />
-						<m.html:Option ui:field="selRestrictedDomainNo" text="Any Domain" value="false" />
+						<m.html:Option ui:field="selRestrictedDomainYes" text="Curated" value="true" />
+						<m.html:Option ui:field="selRestrictedDomainNo" text="Any" value="false" />
 					</m:MaterialListBox>
 				</m:MaterialColumn>
 

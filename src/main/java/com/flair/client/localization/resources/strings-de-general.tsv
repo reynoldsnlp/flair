@@ -116,6 +116,7 @@ SettingsExporter	lblTitleUI	Einstellungen exportieren
 SettingsExporter	lblTitleUI_Desc	Sie können diesen Link benutzen, um Ihre derzeigen Einstellungen auf zukünftige Suchen anzuwenden.
 		
 WebSearchModal	txtSearchBoxUI	Suchbegriff eingeben
+WebSearchModal	txtSearchBoxHelp	Wählen Sie für benutzerdefinierte Domains "Beliebige Domain" aus und verwenden Sie das Suchschlüsselwort "site:", z. "tennis site:wikipedia.org", "Novak (site:espn.com/tennis OR site:wikipedia.org)"
 WebSearchModal	selRestrictedDomainYes	Ausgewählte Domänen
 WebSearchModal	selRestrictedDomainNo	Beliebige Domain
 WebSearchModal	selResultCountItm1UI	1 Ergebnis

@@ -783,7 +783,7 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
         }
         /*else{ //no question mark
             if(hasLi || hasInterrogative){
-                //NB: this will recognize situations such as "скажу ему, когда ты придешь" //TODO: FIX THIS (find using a list of verbs that can introduce indirect speech then an interrogative)
+                //NB: this will recognize situations such as "скажу ему, когда ты придешь" //FIX THIS (find using a list of verbs that can introduce indirect speech then an interrogative)
                 //starter lists
                 //telling: сказать говорить
                 //knowing: знать объяснить объяснять
@@ -996,4 +996,3 @@ class StanfordDocumentParserRussianStrategy extends BasicStanfordDocumentParserS
         workingDoc.getConstructionData(type).addOccurrence(startIndex, endIndex);
     }
 }
-

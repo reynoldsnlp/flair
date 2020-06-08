@@ -21,12 +21,12 @@ class BingSearchAgent extends CachingSearchAgent
 	private static final int		MAX_API_REQUESTS	= 2;
 
 	private static final String[] WEBSITES_RUSSIAN = new String[]{
-		"klepa.ru/klep-news",
+		//"klepa.ru/klep-news",
 		"read-ka.cofe.ru",
 		"filipoc.ru",
 		"unnaturalist.ru",
 		"kvantik.com",
-		"murzilka.org/izba-chitalnya/interesting/murzilka-i-aeroekspress",
+		"murzilka.org/izba-chitalnya",
 		"bbc.com/russian",
 		"lenta.ru",
 	};
