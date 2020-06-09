@@ -1,6 +1,7 @@
 package com.flair.client.presentation.widgets;
 
 import com.flair.client.localization.CommonLocalizationTags;
+import com.flair.client.localization.DisplayLanguage;
 import com.flair.client.localization.LocalizedComposite;
 import com.flair.client.localization.LocalizedFieldType;
 import com.flair.client.localization.annotations.LocalizedCommonField;
@@ -140,7 +141,7 @@ public class WebSearchModal extends LocalizedComposite implements WebSearchServi
 	}
 	
 	@Override
-	public void setLocale(Language lang)
+	public void setLocale(DisplayLanguage lang)
 	{
 		super.setLocale(lang);
 
@@ -153,7 +154,7 @@ public class WebSearchModal extends LocalizedComposite implements WebSearchServi
 		case GERMAN:
 			selResultLangUI.setValue(selResultLangItmDeUI.getValue());
 			break;
-		case RUSSIAN:
+		/*case RUSSIAN:
 			//selResultLangUI.setValue("RUSSIAN");
 			selResultLangUI.setValue(selResultLangItmEnUI.getValue());
 			ClientLogger.get().error("Setting search language to russian");
@@ -162,7 +163,7 @@ public class WebSearchModal extends LocalizedComposite implements WebSearchServi
 			//selResultLangUI.setValue("RUSSIAN");
 			selResultLangUI.setValue(selResultLangItmEnUI.getValue());
 			ClientLogger.get().error("Setting search language to arabic");
-			break;
+			break;*/
 		}
 		
 		// ### need to do this to force update the strings in the listboxes

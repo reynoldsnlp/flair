@@ -8,11 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.flair.client.localization.CommonLocalizationTags;
-import com.flair.client.localization.DefaultLocalizationProviders;
-import com.flair.client.localization.GrammaticalConstructionLocalizationProvider;
-import com.flair.client.localization.LocalizedComposite;
-import com.flair.client.localization.LocalizedFieldType;
+import com.flair.client.localization.*;
 import com.flair.client.localization.annotations.LocalizedCommonField;
 import com.flair.client.localization.annotations.LocalizedField;
 import com.flair.client.localization.interfaces.LocalizationBinder;
@@ -443,7 +439,7 @@ public class DocumentCollectionVisualizer extends LocalizedComposite implements 
 					 if (gram != null)
 					 {
 						 // get the localized string and format it a bit
-						 String name = GrammaticalConstructionLocalizationProvider.getName(gram);
+						 String name = GrammaticalConstructionLocalizationProvider.getName(gram, displayLanguage);
 						 int delimiter = name.indexOf("(");
 						 if (delimiter == -1)
 							 return name;
@@ -771,7 +767,7 @@ public class DocumentCollectionVisualizer extends LocalizedComposite implements 
 	}
 	
 	@Override
-	public void setLocale(Language lang)
+	public void setLocale(DisplayLanguage lang)
 	{
 		super.setLocale(lang);
 		

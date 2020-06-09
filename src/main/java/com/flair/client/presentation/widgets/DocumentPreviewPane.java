@@ -5,11 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import com.flair.client.ClientEndPoint;
-import com.flair.client.localization.CommonLocalizationTags;
-import com.flair.client.localization.DefaultLocalizationProviders;
-import com.flair.client.localization.GrammaticalConstructionLocalizationProvider;
-import com.flair.client.localization.LocalizedComposite;
-import com.flair.client.localization.LocalizedFieldType;
+import com.flair.client.localization.*;
 import com.flair.client.localization.annotations.LocalizedField;
 import com.flair.client.localization.interfaces.LocalizationBinder;
 import com.flair.client.presentation.interfaces.AbstractDocumentPreviewPane;
@@ -158,7 +154,7 @@ public class DocumentPreviewPane extends LocalizedComposite implements AbstractD
 			this.customKeyword = customKeyword;
 		}
 		
-		public String getLocalizedName(Language lang)
+		public String getLocalizedName(DisplayLanguage lang)
 		{
 			if (keyword)
 			{
@@ -167,7 +163,7 @@ public class DocumentPreviewPane extends LocalizedComposite implements AbstractD
 							CommonLocalizationTags.ACADEMIC_VOCAB.toString(), lang);
 			}
 			else
-				return GrammaticalConstructionLocalizationProvider.getPath(gram);
+				return GrammaticalConstructionLocalizationProvider.getPath(gram, lang);
 		}
 	}
 	
@@ -564,7 +560,7 @@ public class DocumentPreviewPane extends LocalizedComposite implements AbstractD
 	}
 		
 	@Override
-	public void setLocale(Language lang)
+	public void setLocale(DisplayLanguage lang)
 	{
 		super.setLocale(lang);
 		state.reload(false);

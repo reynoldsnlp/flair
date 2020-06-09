@@ -12,11 +12,7 @@ import java.util.Set;
 
 import com.flair.client.ClientEndPoint;
 import com.flair.client.interop.FuncCallback;
-import com.flair.client.localization.CommonLocalizationTags;
-import com.flair.client.localization.DefaultLocalizationProviders;
-import com.flair.client.localization.GrammaticalConstructionLocalizationProvider;
-import com.flair.client.localization.LocalizationEngine;
-import com.flair.client.localization.LocalizationStringTable;
+import com.flair.client.localization.*;
 import com.flair.client.model.interfaces.AbstractDocumentAnnotator;
 import com.flair.client.model.interfaces.AbstractDocumentRanker;
 import com.flair.client.model.interfaces.AbstractWebRankerCore;
@@ -537,6 +533,8 @@ public class WebRankerCore implements AbstractWebRankerCore, Window.ClosingHandl
 	
 	private final class RankPreviewModule
 	{
+		private DisplayLanguage displayLanguage = DisplayLanguage.ENGLISH;
+
 		final class RankerInput implements DocumentRankerInput.Rank
 		{
 			private final Set<GrammaticalConstruction> langConstructions;
@@ -687,7 +685,7 @@ public class WebRankerCore implements AbstractWebRankerCore, Window.ClosingHandl
 
 			@Override
 			public String getConstructionTitle(GrammaticalConstruction gram) {
-				return GrammaticalConstructionLocalizationProvider.getName(gram);
+				return GrammaticalConstructionLocalizationProvider.getName(gram, displayLanguage);
 			}
 
 			@Override
@@ -951,8 +949,9 @@ public class WebRankerCore implements AbstractWebRankerCore, Window.ClosingHandl
 				results.setSelection(lastSelection);
 		}
 		
-		void refreshLocalization(Language l)
+		void refreshLocalization(DisplayLanguage l)
 		{
+			displayLanguage = l;
 			refreshResultsTitle();
 		}
 		
@@ -1875,7 +1874,7 @@ public class WebRankerCore implements AbstractWebRankerCore, Window.ClosingHandl
 
 	private String getLocalizedString(String provider, String tag)
 	{
-		Language lang = LocalizationEngine.get().getLanguage();
+		DisplayLanguage lang = LocalizationEngine.get().getLanguage();
 		return LocalizationStringTable.get().getLocalizedString(provider, tag, lang);
 	}
 	

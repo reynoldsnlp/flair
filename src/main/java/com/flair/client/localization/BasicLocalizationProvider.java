@@ -6,7 +6,6 @@ import java.util.HashMap;
 import com.flair.client.localization.interfaces.LocalizationDataCache;
 import com.flair.client.localization.interfaces.LocalizationProvider;
 import com.flair.client.utilities.ClientLogger;
-import com.flair.shared.grammar.Language;
 
 /*
  * Simple key-value data store that maps a descriptor to its localized string (for every supported language)
@@ -15,10 +14,10 @@ public class BasicLocalizationProvider implements LocalizationProvider
 {
 	private static final String			PLACEHOLDER_STRING = "<LOCALIZED STRING NOT FOUND>";
 	
-	private static class Entry extends EnumMap<Language, String>
+	private static class Entry extends EnumMap<DisplayLanguage, String>
 	{
 		public Entry() {
-			super(Language.class);
+			super(DisplayLanguage.class);
 		}
 	}
 	
@@ -37,7 +36,7 @@ public class BasicLocalizationProvider implements LocalizationProvider
 	}
 
 	@Override
-	public void setLocalizedString(String tag, Language lang, String localizedStr)
+	public void setLocalizedString(String tag, DisplayLanguage lang, String localizedStr)
 	{
 		Entry e = data.get(tag);
 		if (e == null)
@@ -52,7 +51,7 @@ public class BasicLocalizationProvider implements LocalizationProvider
 	}
 
 	@Override
-	public String getLocalizedString(String tag, Language lang)
+	public String getLocalizedString(String tag, DisplayLanguage lang)
 	{
 		Entry e = data.get(tag);
 		if (e != null && e.containsKey(lang))
@@ -71,7 +70,7 @@ public class BasicLocalizationProvider implements LocalizationProvider
 		{
 			String tag = itr.getKey();
 			Entry entry = itr.getValue();
-			for (Language l : Language.values())
+			for (DisplayLanguage l : DisplayLanguage.values())
 			{
 				// naive replacement
 				String toReplace = entry.get(l);

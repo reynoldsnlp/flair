@@ -1,8 +1,8 @@
 package com.flair.client.localization.wrappers;
 
+import com.flair.client.localization.DisplayLanguage;
 import com.flair.client.localization.interfaces.LocalizableEntity;
 import com.flair.client.localization.interfaces.LocalizationDataCache;
-import com.flair.shared.grammar.Language;
 import com.google.gwt.user.client.ui.Widget;
 
 /*
@@ -17,7 +17,7 @@ public class SimpleLocalizedWidget<T> implements LocalizableEntity
 	
 	// the handler fully controls how the localized string is resolved
 	public interface UpdateableManual<T> {
-		public void update(T widget, String provider, String tag, Language lang, LocalizationDataCache data);
+		public void update(T widget, String provider, String tag, DisplayLanguage lang, LocalizationDataCache data);
 	}
 
 	public final T						w;
@@ -55,7 +55,7 @@ public class SimpleLocalizedWidget<T> implements LocalizableEntity
 	}
 	
 	@Override
-	public final void setLocale(Language lang, LocalizationDataCache data)
+	public final void setLocale(DisplayLanguage lang, LocalizationDataCache data)
 	{
 		if (auto == null && manual == null)
 			throw new RuntimeException("No update method specified");

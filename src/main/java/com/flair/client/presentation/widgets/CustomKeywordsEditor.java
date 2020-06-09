@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.flair.client.localization.CommonLocalizationTags;
+import com.flair.client.localization.DisplayLanguage;
 import com.flair.client.localization.LocalizedComposite;
 import com.flair.client.localization.LocalizedFieldType;
 import com.flair.client.localization.annotations.LocalizedCommonField;
@@ -110,7 +111,7 @@ public class CustomKeywordsEditor extends LocalizedComposite implements CustomKe
 	}
 
 	@Override
-	public void setLocale(Language lang)
+	public void setLocale(DisplayLanguage lang)
 	{
 		super.setLocale(lang);
 		

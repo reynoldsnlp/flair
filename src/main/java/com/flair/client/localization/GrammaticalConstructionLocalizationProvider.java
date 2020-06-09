@@ -25,7 +25,7 @@ public class GrammaticalConstructionLocalizationProvider
 		});
 	}
 	
-	public static String getName(GrammaticalConstruction gram) {
+	/*public static String getName(GrammaticalConstruction gram) {
 		return getName(gram, activeLang);
 	}
 	
@@ -35,17 +35,17 @@ public class GrammaticalConstructionLocalizationProvider
 	
 	public static String getHelpText(GrammaticalConstruction gram) {
 		return getHelpText(gram, activeLang);
-	}
+	}*/
 	
-	public static String getName(GrammaticalConstruction gram, Language lang) {
+	public static String getName(GrammaticalConstruction gram, DisplayLanguage lang) {
 		return LocalizationStringTable.get().getLocalizedString(DefaultLocalizationProviders.GRAMMATICAL_CONSTRUCTION_NAME.toString(), gram.name(), lang);
 	}
 	
-	public static String getPath(GrammaticalConstruction gram, Language lang) {
+	public static String getPath(GrammaticalConstruction gram, DisplayLanguage lang) {
 		return LocalizationStringTable.get().getLocalizedString(DefaultLocalizationProviders.GRAMMATICAL_CONSTRUCTION_PATH.toString(), gram.name(), lang);
 	}
 	
-	public static String getHelpText(GrammaticalConstruction gram, Language lang) {
+	public static String getHelpText(GrammaticalConstruction gram, DisplayLanguage lang) {
 		return LocalizationStringTable.get().getLocalizedString(DefaultLocalizationProviders.GRAMMATICAL_CONSTRUCTION_HELPTEXT.toString(), gram.name(), lang);
 	}
 }

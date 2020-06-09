@@ -1,9 +1,6 @@
 package com.flair.client.presentation.widgets;
 
-import com.flair.client.localization.CommonLocalizationTags;
-import com.flair.client.localization.GrammaticalConstructionLocalizationProvider;
-import com.flair.client.localization.LocalizedComposite;
-import com.flair.client.localization.LocalizedFieldType;
+import com.flair.client.localization.*;
 import com.flair.client.localization.annotations.LocalizedCommonField;
 import com.flair.client.localization.annotations.LocalizedField;
 import com.flair.client.localization.interfaces.LocalizationBinder;
@@ -101,7 +98,7 @@ public class GrammaticalConstructionWeightSlider extends LocalizedComposite impl
 	}
 
 	@Override
-	public void setLocale(Language lang)
+	public void setLocale(DisplayLanguage lang)
 	{
 		super.setLocale(lang);
 		
@@ -113,8 +110,8 @@ public class GrammaticalConstructionWeightSlider extends LocalizedComposite impl
 		}
 		else
 		{
-			setToggleText(GrammaticalConstructionLocalizationProvider.getName(gramConstruction, parentLang));
-			icoHelpTextUI.setTooltip(GrammaticalConstructionLocalizationProvider.getHelpText(gramConstruction, parentLang));
+			setToggleText(GrammaticalConstructionLocalizationProvider.getName(gramConstruction, lang));
+			icoHelpTextUI.setTooltip(GrammaticalConstructionLocalizationProvider.getHelpText(gramConstruction, lang));
 		}
 	}
 	
