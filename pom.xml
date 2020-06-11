@@ -52,15 +52,15 @@
 			<artifactId>jaxb-xjc</artifactId>
 			<version>2.2.6</version>
 		</dependency>
-		<!--<dependency>
-			<groupId>commons-beanutils</groupId>
-			<artifactId>commons-beanutils</artifactId>
-			<version>1.8.3</version>
-		</dependency>
 		<dependency>
 			<groupId>commons-lang</groupId>
 			<artifactId>commons-lang</artifactId>
 			<version>2.6</version>
+		</dependency>
+		<!--<dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+			<version>1.8.3</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-logging</groupId>
@@ -212,11 +212,11 @@
 			<artifactId>MADAMIRA-release</artifactId>
 			<version>20170403-2.1</version>
 		</dependency>-->
-		<dependency>
+		<!--<dependency>
 			<groupId>org.javatuples</groupId>
 			<artifactId>javatuples</artifactId>
 			<version>1.2</version>
-		</dependency>
+		</dependency>-->
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpcore</artifactId>

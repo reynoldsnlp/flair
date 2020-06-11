@@ -5,33 +5,17 @@
  */
 package com.flair.server.parser;
 
-import java.io.*;
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import com.flair.server.utilities.Madamira;
-import com.flair.server.utilities.ServerLogger;
 import com.flair.shared.grammar.Language;
 import com.flair.shared.grammar.GrammaticalConstruction;
-
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
-import edu.stanford.nlp.semgraph.SemanticGraph;
-import edu.stanford.nlp.semgraph.SemanticGraphCoreAnnotations;
-import edu.stanford.nlp.trees.Tree;
-import edu.stanford.nlp.trees.TreeCoreAnnotations;
-import edu.stanford.nlp.semgraph.semgrex.Alignment;
 import edu.stanford.nlp.util.CoreMap;
-import org.javatuples.Pair;
-import org.javatuples.Triplet;
-import org.jsoup.nodes.Attributes;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-
 
 class StanfordDocumentParserArabicStrategy extends BasicStanfordDocumentParserStrategy {
 	private ArabicDocument workingDoc;
