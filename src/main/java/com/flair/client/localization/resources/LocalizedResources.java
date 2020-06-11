@@ -1,6 +1,6 @@
 package com.flair.client.localization.resources;
 
-import com.flair.shared.grammar.Language;
+import com.flair.client.localization.DisplayLanguage;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.resources.client.ClientBundle;
 import com.google.gwt.resources.client.TextResource;
@@ -42,7 +42,7 @@ public class LocalizedResources
 		germanStrings = GWT.create(GermanStrings.class);
 	}
 	
-	public TextResource getGramConstructionStrings(Language lang)
+	public TextResource getGramConstructionStrings(DisplayLanguage lang)
 	{
 		switch (lang)
 		{
@@ -50,18 +50,18 @@ public class LocalizedResources
 			return englishStrings.getGramConstructionStrings();
 		case GERMAN:
 			return germanStrings.getGramConstructionStrings();
-		case RUSSIAN:
+		/*case RUSSIAN:
 			return englishStrings.getGramConstructionStrings();
 		case ARABIC:
 			return englishStrings.getGramConstructionStrings();
 		case TEST:
-			return englishStrings.getGramConstructionStrings(); 
+			return englishStrings.getGramConstructionStrings();*/
 		default:
 			throw new RuntimeException("No localized gramconst strings for language " + lang);
 		}
 	}
 	
-	public TextResource getGeneralStrings(Language lang)
+	public TextResource getGeneralStrings(DisplayLanguage lang)
 	{
 		switch (lang)
 		{
@@ -69,12 +69,12 @@ public class LocalizedResources
 			return englishStrings.getGeneralStrings();
 		case GERMAN:
 			return germanStrings.getGeneralStrings();
-		case RUSSIAN:
+		/*case RUSSIAN:
 			return englishStrings.getGeneralStrings();
 		case ARABIC:
 			return englishStrings.getGeneralStrings();
 		case TEST:
-			return englishStrings.getGeneralStrings();
+			return englishStrings.getGeneralStrings();*/
 		default:
 			throw new RuntimeException("No localized general strings for language " + lang);
 		}

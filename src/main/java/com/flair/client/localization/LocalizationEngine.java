@@ -2,9 +2,7 @@ package com.flair.client.localization;
 
 import java.util.HashSet;
 import java.util.Set;
-
 import com.flair.client.localization.interfaces.LocalizedUI;
-import com.flair.shared.grammar.Language;
 import com.flair.shared.utilities.GenericEventSource;
 
 /*
@@ -12,9 +10,9 @@ import com.flair.shared.utilities.GenericEventSource;
  */
 public class LocalizationEngine
 {
-	public static class LanguageChanged
+	public static class DisplayLanguageChanged
 	{
-		public Language newLang;
+		public DisplayLanguage newLang;
 	}
 	
 	private static final LocalizationEngine	INSTANCE = new LocalizationEngine();
@@ -22,13 +20,13 @@ public class LocalizationEngine
 		return INSTANCE;
 	}
 	
-	private Language									currentLang;
+	private DisplayLanguage									currentLang;
 	private final Set<LocalizedUI>						activeLocalizedViews;
-	private final GenericEventSource<LanguageChanged>	langChangeListeners;
+	private final GenericEventSource<DisplayLanguageChanged>	langChangeListeners;
 	
 	private LocalizationEngine()
 	{
-		this.currentLang = Language.ENGLISH;
+		this.currentLang = DisplayLanguage.ENGLISH;
 		this.activeLocalizedViews = new HashSet<>();
 		this.langChangeListeners = new GenericEventSource<>();
 	}
@@ -41,16 +39,16 @@ public class LocalizationEngine
 	
 	private void notifyLanguageChange()
 	{
-		LanguageChanged e = new LanguageChanged();
+		DisplayLanguageChanged e = new DisplayLanguageChanged();
 		e.newLang = currentLang;
 		langChangeListeners.raiseEvent(e);
 	}
 	
-	public Language getLanguage() {
+	public DisplayLanguage getLanguage() {
 		return currentLang;
 	}
 	
-	public void setLanguage(Language lang)
+	public void setLanguage(DisplayLanguage lang)
 	{
 		if (lang != currentLang)
 		{
@@ -68,7 +66,7 @@ public class LocalizationEngine
 		activeLocalizedViews.remove(view);
 	}
 	
-	public void addLanguageChangeHandler(GenericEventSource.EventHandler<LanguageChanged> handler) {
+	public void addLanguageChangeHandler(GenericEventSource.EventHandler<DisplayLanguageChanged> handler) {
 		langChangeListeners.addHandler(handler);
 	}
 	

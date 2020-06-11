@@ -116,6 +116,9 @@ SettingsExporter	lblTitleUI	Export Settings
 SettingsExporter	lblTitleUI_Desc	You can use this link to apply your current settings to future searches.
 		
 WebSearchModal	txtSearchBoxUI	Enter a query
+WebSearchModal	txtSearchBoxHelp	For custom domains, select "Any Domain" and use search keyword "site:", e.g. "tennis site:wikipedia.org", "Novak (site:espn.com/tennis OR site:wikipedia.org)"
+WebSearchModal	selRestrictedDomainYes	Curated Domains
+WebSearchModal	selRestrictedDomainNo	Any Domain
 WebSearchModal	selResultCountItm1UI	1 Result
 WebSearchModal	selResultCountItm10UI	10 Results
 WebSearchModal	selResultCountItm20UI	20 Results
@@ -167,3 +170,24 @@ ConstructionSliderBundleGerman	pnlPraepositionenUI	Prepositions
 ConstructionSliderBundleGerman	pnlNomenUI	Nouns
 ConstructionSliderBundleGerman	pnlNominalisierungenUI	Nominalization
 ConstructionSliderBundleGerman	pnlAttributeUI	Attribute
+
+ConstructionSliderBundleRussian	pnlSentencesUI	Sentences
+ConstructionSliderBundleRussian	pnlQuestionsUI	Questions
+ConstructionSliderBundleRussian	pnlSentenceTypesUI	Sentence types
+ConstructionSliderBundleRussian	pnlClauseTypesUI	Clause types
+ConstructionSliderBundleRussian	pnlPartsOfSpeechUI	Parts of speech
+ConstructionSliderBundleRussian	pnlVerbsUI	Verbs
+ConstructionSliderBundleRussian	pnlVerbFormsUI	Verb forms
+ConstructionSliderBundleRussian	pnlAspectTenseUI	Tenses and Aspect
+ConstructionSliderBundleRussian	pnl1stConjugationClassesUI	1st Conjugation
+ConstructionSliderBundleRussian	pnl2ndConjugationClassesUI	2nd Conjugation
+ConstructionSliderBundleRussian	pnlNegationUI	Negation
+ConstructionSliderBundleRussian	pnlDeterminersUI	Determiners
+ConstructionSliderBundleRussian	pnlAdjectivesUI	Adjectives
+ConstructionSliderBundleRussian	pnlAdjectiveCasesUI	Adjectival cases
+ConstructionSliderBundleRussian	pnlAdverbsUI	Adverbs
+ConstructionSliderBundleRussian	pnlPronounsUI	Pronouns
+ConstructionSliderBundleRussian	pnlConjunctionsUI	Conjunctions
+ConstructionSliderBundleRussian	pnlPrepositionsUI	Prepositions
+ConstructionSliderBundleRussian	pnlNounsUI	Nouns
+ConstructionSliderBundleRussian	pnlPronounCasesUI	Pronominal cases

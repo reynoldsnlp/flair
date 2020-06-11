@@ -8,7 +8,7 @@ import com.flair.shared.grammar.Language;
 public interface WebSearchService
 {
 	public interface SearchHandler {
-		public void handle(Language lang, String query, int numResults);
+		public void handle(Language lang, String query, boolean useRestrictedDomains, int numResults);
 	}
 	
 	public void		show();

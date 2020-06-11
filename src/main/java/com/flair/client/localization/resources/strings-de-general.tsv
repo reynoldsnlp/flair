@@ -116,6 +116,9 @@ SettingsExporter	lblTitleUI	Einstellungen exportieren
 SettingsExporter	lblTitleUI_Desc	Sie können diesen Link benutzen, um Ihre derzeigen Einstellungen auf zukünftige Suchen anzuwenden.
 		
 WebSearchModal	txtSearchBoxUI	Suchbegriff eingeben
+WebSearchModal	txtSearchBoxHelp	Wählen Sie für benutzerdefinierte Domains "Beliebige Domain" aus und verwenden Sie das Suchschlüsselwort "site:", z. "tennis site:wikipedia.org", "Novak (site:espn.com/tennis OR site:wikipedia.org)"
+WebSearchModal	selRestrictedDomainYes	Ausgewählte Domänen
+WebSearchModal	selRestrictedDomainNo	Beliebige Domain
 WebSearchModal	selResultCountItm1UI	1 Ergebnis
 WebSearchModal	selResultCountItm10UI	10 Ergebnisse
 WebSearchModal	selResultCountItm20UI	20 Ergebnisse
@@ -167,3 +170,24 @@ ConstructionSliderBundleGerman	pnlPraepositionenUI	Präpositionen
 ConstructionSliderBundleGerman	pnlNomenUI	Nomen
 ConstructionSliderBundleGerman	pnlNominalisierungenUI	Nominalisierungen
 ConstructionSliderBundleGerman	pnlAttributeUI	Attribute
+
+ConstructionSliderBundleRussian	pnlSentencesUI	<pnlSentencesUI>
+ConstructionSliderBundleRussian	pnlQuestionsUI	<pnlQuestionsUI>
+ConstructionSliderBundleRussian	pnlSentenceTypesUI	<pnlSentenceTypesUI>
+ConstructionSliderBundleRussian	pnlClauseTypesUI	<pnlClauseTypesUI>
+ConstructionSliderBundleRussian	pnlPartsOfSpeechUI	<pnlPartsOfSpeechUI>
+ConstructionSliderBundleRussian	pnlVerbsUI	<pnlVerbsUI>
+ConstructionSliderBundleRussian	pnlVerbFormsUI	<pnlVerbFormsUI>
+ConstructionSliderBundleRussian	pnlAspectTenseUI	<pnlAspectTenseUI>
+ConstructionSliderBundleRussian	pnl1stConjugationClassesUI	<pnl1stConjugationClassesUI>
+ConstructionSliderBundleRussian	pnl2ndConjugationClassesUI	<pnl2ndConjugationClassesUI>
+ConstructionSliderBundleRussian	pnlNegationUI	<pnlNegationUI>
+ConstructionSliderBundleRussian	pnlDeterminersUI	<pnlDeterminersUI>
+ConstructionSliderBundleRussian	pnlAdjectivesUI	<pnlAdjectivesUI>
+ConstructionSliderBundleRussian	pnlAdjectiveCasesUI	<pnlAdjectiveCasesUI>
+ConstructionSliderBundleRussian	pnlAdverbsUI	<pnlAdverbsUI>
+ConstructionSliderBundleRussian	pnlPronounsUI	<pnlPronounsUI>
+ConstructionSliderBundleRussian	pnlConjunctionsUI	<pnlConjunctionsUI>
+ConstructionSliderBundleRussian	pnlPrepositionsUI	<pnlPrepositionsUI>
+ConstructionSliderBundleRussian	pnlNounsUI	<pnlNounsUI>
+ConstructionSliderBundleRussian	pnlPronounCasesUI	<pnlPronounCasesUI>

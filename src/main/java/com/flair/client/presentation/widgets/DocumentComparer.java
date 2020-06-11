@@ -4,10 +4,7 @@ import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
 
-import com.flair.client.localization.CommonLocalizationTags;
-import com.flair.client.localization.DefaultLocalizationProviders;
-import com.flair.client.localization.LocalizedComposite;
-import com.flair.client.localization.LocalizedFieldType;
+import com.flair.client.localization.*;
 import com.flair.client.localization.annotations.LocalizedCommonField;
 import com.flair.client.localization.annotations.LocalizedField;
 import com.flair.client.localization.interfaces.LocalizationBinder;
@@ -207,7 +204,7 @@ public class DocumentComparer extends LocalizedComposite implements DocumentComp
 	}
 
 	@Override
-	public void setLocale(Language lang)
+	public void setLocale(DisplayLanguage lang)
 	{
 		super.setLocale(lang);
 		

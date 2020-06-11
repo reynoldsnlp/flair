@@ -179,6 +179,7 @@ public final class MasterJobPipeline
 
 	public SearchCrawlParseOperation doSearchCrawlParse(Language lang,
 													String query,
+													boolean useRestrictedDomains,
 													int numResults,
 													KeywordSearcherInput keywords)
 	{
@@ -187,6 +188,7 @@ public final class MasterJobPipeline
 		try{
 			SearchCrawlParseJobInput jobParams = new SearchCrawlParseJobInput(lang,
 			query,
+			useRestrictedDomains,
 			numResults,
 			webSearchExecutor,
 			webCrawlExecutor,

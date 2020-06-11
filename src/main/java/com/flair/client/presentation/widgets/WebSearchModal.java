@@ -1,6 +1,7 @@
 package com.flair.client.presentation.widgets;
 
 import com.flair.client.localization.CommonLocalizationTags;
+import com.flair.client.localization.DisplayLanguage;
 import com.flair.client.localization.LocalizedComposite;
 import com.flair.client.localization.LocalizedFieldType;
 import com.flair.client.localization.annotations.LocalizedCommonField;
@@ -15,10 +16,7 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Widget;
 
-import gwt.material.design.client.ui.MaterialButton;
-import gwt.material.design.client.ui.MaterialListBox;
-import gwt.material.design.client.ui.MaterialModal;
-import gwt.material.design.client.ui.MaterialTextBox;
+import gwt.material.design.client.ui.*;
 import gwt.material.design.client.ui.html.Option;
 
 public class WebSearchModal extends LocalizedComposite implements WebSearchService
@@ -40,11 +38,40 @@ public class WebSearchModal extends LocalizedComposite implements WebSearchServi
 	@LocalizedField(type=LocalizedFieldType.TEXTBOX_LABEL)
 	MaterialTextBox								txtSearchBoxUI;
 	@UiField
+	@LocalizedField(type=LocalizedFieldType.TEXT_BASIC)
+	MaterialLabel                             txtSearchBoxHelp;
+
+	@UiField
+	MaterialListBox								selResultLangUI;
+	@UiField
+	@LocalizedCommonField(tag=CommonLocalizationTags.LANGUAGE_ENGLISH, type=LocalizedFieldType.LISTBOX_OPTION)
+	Option										selResultLangItmEnUI;
+	@UiField
+	@LocalizedCommonField(tag=CommonLocalizationTags.LANGUAGE_GERMAN, type=LocalizedFieldType.LISTBOX_OPTION) //setting german to russian
+	Option										selResultLangItmDeUI;
+	@UiField
+	@LocalizedCommonField(tag=CommonLocalizationTags.LANGUAGE_RUSSIAN, type=LocalizedFieldType.LISTBOX_OPTION)
+	Option										selResultLangItmRuUI;
+	@UiField
+	@LocalizedCommonField(tag=CommonLocalizationTags.LANGUAGE_ARABIC, type=LocalizedFieldType.LISTBOX_OPTION) //setting german to russian
+	Option										selResultLangItmArUI;
+	/*@LocalizedCommonField(tag=CommonLocalizationTags.LANGUAGE_RUSSIAN, type=LocalizedFieldType.LISTBOX_OPTION)
+	Option										selResultLangItmRuUI;*/
+
+	@UiField
+	MaterialListBox								selRestrictedDomain;
+	@UiField
+	@LocalizedField(type=LocalizedFieldType.LISTBOX_OPTION)
+	Option										selRestrictedDomainYes;
+	@UiField
+	@LocalizedField(type=LocalizedFieldType.LISTBOX_OPTION)
+	Option										selRestrictedDomainNo;
+
+	@UiField
 	MaterialListBox								selResultCountUI;
 	@UiField
 	@LocalizedField(type=LocalizedFieldType.LISTBOX_OPTION)
 	Option										selResultCountItm1UI;
-	
 	@UiField									
 	@LocalizedField(type=LocalizedFieldType.LISTBOX_OPTION)
 	Option										selResultCountItm10UI;
@@ -63,22 +90,6 @@ public class WebSearchModal extends LocalizedComposite implements WebSearchServi
 	Option										selResultCountItm50UI;
 	*/
 	@UiField
-	MaterialListBox								selResultLangUI;
-	@UiField
-	@LocalizedCommonField(tag=CommonLocalizationTags.LANGUAGE_ENGLISH, type=LocalizedFieldType.LISTBOX_OPTION)
-	Option										selResultLangItmEnUI;
-	@UiField
-	@LocalizedCommonField(tag=CommonLocalizationTags.LANGUAGE_GERMAN, type=LocalizedFieldType.LISTBOX_OPTION) //setting german to russian
-	Option										selResultLangItmDeUI;
-	@UiField
-	@LocalizedCommonField(tag=CommonLocalizationTags.LANGUAGE_RUSSIAN, type=LocalizedFieldType.LISTBOX_OPTION) 
-	Option										selResultLangItmRuUI;
-	@UiField
-	@LocalizedCommonField(tag=CommonLocalizationTags.LANGUAGE_ARABIC, type=LocalizedFieldType.LISTBOX_OPTION) //setting german to russian
-	Option										selResultLangItmArUI;
-	/*@LocalizedCommonField(tag=CommonLocalizationTags.LANGUAGE_RUSSIAN, type=LocalizedFieldType.LISTBOX_OPTION) 
-	Option										selResultLangItmRuUI;*/
-	@UiField
 	@LocalizedCommonField(tag=CommonLocalizationTags.SEARCH, type=LocalizedFieldType.TEXT_BUTTON)
 	MaterialButton								btnSearchUI;
 	@UiField
@@ -89,11 +100,12 @@ public class WebSearchModal extends LocalizedComposite implements WebSearchServi
 	
 	private void invokeSearch()
 	{
-		int resultCount = Integer.parseInt(selResultCountUI.getSelectedValue());
-		Language searchLang = Language.fromString(selResultLangUI.getSelectedValue());
 		String query = txtSearchBoxUI.getText();
+		Language searchLang = Language.fromString(selResultLangUI.getSelectedValue());
+		boolean useRestrictedDomains = Boolean.parseBoolean(selRestrictedDomain.getSelectedValue());
+		int resultCount = Integer.parseInt(selResultCountUI.getSelectedValue());
 		
-		searchHandler.handle(searchLang, query, resultCount);
+		searchHandler.handle(searchLang, query, useRestrictedDomains, resultCount);
 	}
 	
 	private void initHandlers()
@@ -122,34 +134,14 @@ public class WebSearchModal extends LocalizedComposite implements WebSearchServi
 	{
 		initWidget(uiBinder.createAndBindUi(this));
 		initLocale(localeBinder.bind(this));
-		
-		//createRussianButton();
 
 		searchHandler = null;
 		initHandlers();
 
 	}
-
-	public void createRussianButton()
-	{
-		Option russianOption = new Option();
-		russianOption.setText("Russian");
-		russianOption.setValue("RUSSIAN");
-		//russianOption.setField()
-		selResultLangUI.add(russianOption);
-	}
-
-	public void create1SearchOption()
-	{
-		Option russianOption = new Option();
-		russianOption.setText("Search 1");
-		russianOption.setValue("1");
-		//russianOption.setField()
-		selResultCountUI.add(russianOption);
-	}
 	
 	@Override
-	public void setLocale(Language lang)
+	public void setLocale(DisplayLanguage lang)
 	{
 		super.setLocale(lang);
 
@@ -162,7 +154,7 @@ public class WebSearchModal extends LocalizedComposite implements WebSearchServi
 		case GERMAN:
 			selResultLangUI.setValue(selResultLangItmDeUI.getValue());
 			break;
-		case RUSSIAN:
+		/*case RUSSIAN:
 			//selResultLangUI.setValue("RUSSIAN");
 			selResultLangUI.setValue(selResultLangItmEnUI.getValue());
 			ClientLogger.get().error("Setting search language to russian");
@@ -171,11 +163,11 @@ public class WebSearchModal extends LocalizedComposite implements WebSearchServi
 			//selResultLangUI.setValue("RUSSIAN");
 			selResultLangUI.setValue(selResultLangItmEnUI.getValue());
 			ClientLogger.get().error("Setting search language to arabic");
-			break;
+			break;*/
 		}
 		
 		// ### need to do this to force update the strings in the listboxes
-		// the language listbox is taken care of above, so just select the default result count
+		selRestrictedDomain.setValue(selRestrictedDomainYes.getValue());
 		selResultCountUI.setValue(selResultCountItm1UI.getValue());
 	}
 
@@ -195,5 +187,4 @@ public class WebSearchModal extends LocalizedComposite implements WebSearchServi
 		searchHandler = handler;
 	}
 
-	
 }

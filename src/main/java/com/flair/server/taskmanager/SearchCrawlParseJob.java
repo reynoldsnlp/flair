@@ -80,7 +80,8 @@ final class SearchCrawlParseJob extends AbstractJob<SearchCrawlParseJobOutput, S
 
 		searchAgent = WebSearchAgentFactory.create(WebSearchAgentFactory.SearchAgent.BING,
 												input.sourceLanguage,
-												input.query);
+												input.query,
+												input.useRestrictedDomains);
 
 		queueWebSearchTask(searchAgent, input.numResults);
 		flagStarted();
@@ -190,6 +191,7 @@ final class SearchCrawlParseJobInput
 {
 	public final Language						sourceLanguage;
 	public final String							query;
+	public final Boolean                        useRestrictedDomains;
 	public final int							numResults;
 	
 	public final WebSearchTask.Executor			webSearchExecutor;
@@ -203,6 +205,7 @@ final class SearchCrawlParseJobInput
 
 	public SearchCrawlParseJobInput(Language sourceLanguage,
 									String query,
+									boolean useRestrictedDomains,
 									int numResults,
 									WebSearchTask.Executor webSearchExecutor,
 									WebCrawlTask.Executor webCrawlExecutor,
@@ -215,6 +218,7 @@ final class SearchCrawlParseJobInput
 		ServerLogger.get().info("Start of SearchCrawlParseJobInput()");
 		this.sourceLanguage = sourceLanguage;
 		this.query = query;
+		this.useRestrictedDomains = useRestrictedDomains;
 		this.numResults = numResults;
 		
 		this.webCrawlExecutor = webCrawlExecutor;

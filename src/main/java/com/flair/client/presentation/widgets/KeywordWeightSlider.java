@@ -1,9 +1,6 @@
 package com.flair.client.presentation.widgets;
 
-import com.flair.client.localization.CommonLocalizationTags;
-import com.flair.client.localization.DefaultLocalizationProviders;
-import com.flair.client.localization.LocalizedComposite;
-import com.flair.client.localization.LocalizedFieldType;
+import com.flair.client.localization.*;
 import com.flair.client.localization.annotations.LocalizedField;
 import com.flair.client.localization.interfaces.LocalizationBinder;
 import com.flair.client.presentation.interfaces.AbstractWeightSlider;
@@ -101,7 +98,7 @@ public class KeywordWeightSlider extends LocalizedComposite implements AbstractW
 	}
 
 	@Override
-	public void setLocale(Language lang)
+	public void setLocale(DisplayLanguage lang)
 	{
 		super.setLocale(lang);
 		

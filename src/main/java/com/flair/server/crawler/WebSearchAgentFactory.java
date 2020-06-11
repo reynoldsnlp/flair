@@ -18,14 +18,14 @@ public class WebSearchAgentFactory
 	BING, FAROO
     }
     
-    public static WebSearchAgent create(SearchAgent type, Language lang, String query)
+    public static WebSearchAgent create(SearchAgent type, Language lang, String query, boolean useRestrictedDomains)
     {
 	switch (type)
 	{
 	    case BING:
-		return new BingSearchAgent(lang, query);
+		return new BingSearchAgent(lang, query, useRestrictedDomains);
 	    case FAROO:
-		return new FarooSearchAgent(lang, query);
+		return new FarooSearchAgent(lang, query); //TODO: implement restricted domains
 	}
 	
 	return null;

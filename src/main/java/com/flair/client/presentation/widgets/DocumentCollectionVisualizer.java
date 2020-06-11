@@ -8,17 +8,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.flair.client.localization.CommonLocalizationTags;
-import com.flair.client.localization.DefaultLocalizationProviders;
-import com.flair.client.localization.GrammaticalConstructionLocalizationProvider;
-import com.flair.client.localization.LocalizedComposite;
-import com.flair.client.localization.LocalizedFieldType;
+import com.flair.client.localization.*;
 import com.flair.client.localization.annotations.LocalizedCommonField;
 import com.flair.client.localization.annotations.LocalizedField;
 import com.flair.client.localization.interfaces.LocalizationBinder;
 import com.flair.client.presentation.interfaces.VisualizerService;
 import com.flair.client.presentation.widgets.sliderbundles.ConstructionSliderBundleEnglish;
 import com.flair.client.presentation.widgets.sliderbundles.ConstructionSliderBundleGerman;
+import com.flair.client.presentation.widgets.sliderbundles.ConstructionSliderBundleRussian;
 import com.flair.shared.grammar.GrammaticalConstruction;
 import com.flair.shared.grammar.Language;
 import com.flair.shared.interop.RankableDocument;
@@ -442,7 +439,7 @@ public class DocumentCollectionVisualizer extends LocalizedComposite implements 
 					 if (gram != null)
 					 {
 						 // get the localized string and format it a bit
-						 String name = GrammaticalConstructionLocalizationProvider.getName(gram);
+						 String name = GrammaticalConstructionLocalizationProvider.getName(gram, displayLanguage);
 						 int delimiter = name.indexOf("(");
 						 if (delimiter == -1)
 							 return name;
@@ -517,23 +514,23 @@ public class DocumentCollectionVisualizer extends LocalizedComposite implements 
 			
 			bdlEnglishSlidersUI.setVisible(false);
 			bdlGermanSlidersUI.setVisible(false);
+			bdlRussianSlidersUI.setVisible(false);
 			
 			resetSelectedAxes();
 			
 			// setup sliders
 			switch (input.getSliders().getLanguage())
 			{
-			case ENGLISH:
-				toggles = bdlEnglishSlidersUI;
-				break;
-			case GERMAN:
-				toggles = bdlGermanSlidersUI;
-				break;
-			case RUSSIAN:
-				toggles = bdlEnglishSlidersUI;
-			case ARABIC:
-				toggles = bdlEnglishSlidersUI;	
-				break;
+				case ARABIC:
+				case ENGLISH:
+					toggles = bdlEnglishSlidersUI;
+					break;
+				case GERMAN:
+					toggles = bdlGermanSlidersUI;
+					break;
+				case RUSSIAN:
+					toggles = bdlRussianSlidersUI;
+					break;
 			}
 			
 			toggles.setVisible(true);
@@ -709,6 +706,8 @@ public class DocumentCollectionVisualizer extends LocalizedComposite implements 
 	@UiField
 	ConstructionSliderBundleGerman		bdlGermanSlidersUI;
 	@UiField
+	ConstructionSliderBundleRussian		bdlRussianSlidersUI;
+	@UiField
 	@LocalizedCommonField(tag=CommonLocalizationTags.FILTER, type=LocalizedFieldType.TEXT_BUTTON)
 	MaterialButton				btnApplyUI;
 		
@@ -768,7 +767,7 @@ public class DocumentCollectionVisualizer extends LocalizedComposite implements 
 	}
 	
 	@Override
-	public void setLocale(Language lang)
+	public void setLocale(DisplayLanguage lang)
 	{
 		super.setLocale(lang);
 		

@@ -89,6 +89,7 @@
 					<!-- Weight Sliders -->
 					<flair.pak:ConstructionSliderBundleEnglish ui:field="bdlEnglishSlidersUI"/>
 					<flair.pak:ConstructionSliderBundleGerman ui:field="bdlGermanSlidersUI"/>
+					<flair.pak:ConstructionSliderBundleRussian ui:field="bdlRussianSlidersUI"/>
 				</m:MaterialCard>
 			</m:MaterialRow>
 				

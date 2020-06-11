@@ -1,6 +1,7 @@
 package com.flair.client.presentation.widgets;
 
 import com.flair.client.localization.CommonLocalizationTags;
+import com.flair.client.localization.DisplayLanguage;
 import com.flair.client.localization.LocalizedComposite;
 import com.flair.client.localization.LocalizedFieldType;
 import com.flair.client.localization.annotations.LocalizedCommonField;
@@ -186,7 +187,7 @@ public class DocumentResultDisplayItem extends LocalizedComposite
 	}
 	
 	@Override
-	public void setLocale(Language lang)
+	public void setLocale(DisplayLanguage lang)
 	{
 		super.setLocale(lang);
 		

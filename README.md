@@ -34,7 +34,7 @@ https://maven.apache.org/.
 
 ## Using Bing API
 
-FLAIR utlizes the Bing search api. In order to access Bing's services, you must
+FLAIR utilizes the Bing search api. In order to access Bing's services, you must
 create an account with Microsoft Azure. You can sign up for a free Microsoft
 account here
 https://azure.microsoft.com/en-us/services/cognitive-services/bing-web-search-api/.
@@ -53,7 +53,7 @@ dependencies which are not supported by maven. Follow this
 [link](https://stanfordnlp.github.io/CoreNLP/model-zoo.html) and download the
 jar file corresponding with the Russian CoreNLP. Although the stanford website
 says that the latest github code is needed to run the Russian models, we have
-found that version `3.9.2` is recent enough. After dowloading the Russian
+found that version `3.9.2` is recent enough. After downloading the Russian
 language models, you will need to add them to your local repository. Maven
 provides documentation on how to accomplish this
 [here](https://maven.apache.org/guides/mini/guide-3rd-party-jars-local.html).
@@ -68,3 +68,25 @@ dependencies below.
       <version>master-SNAPSHOT</version>
    </dependency> 
 ```
+
+### Cg3
+
+The following command-line tools are needed:
+- `vislcg3`
+- `cg-conv`
+
+To install on linux use `apt-get install cg3`
+
+To install on Mac use `brew install homebrew/science/vislcg3`
+
+To install on Windows:
+
+1. Go to https://apertium.projectjj.com/win32/nightly/
+
+2. Download `cg3-latest.zip`
+
+3. Decompress/extract the zip file
+
+4. In the extracted directory you'll find a `cg3` directory; move this directory to `C:\Program Files`
+
+5. Add `C:\Program Files\cg3\bin` to the `PATH` system environment variable
