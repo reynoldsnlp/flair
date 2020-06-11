@@ -1,18 +1,16 @@
 package com.flair.client.presentation.widgets;
 
-import com.flair.client.localization.CommonLocalizationTags;
-import com.flair.client.localization.DefaultLocalizationProviders;
-import com.flair.client.localization.LocalizedComposite;
-import com.flair.client.localization.LocalizedFieldType;
+import com.flair.client.localization.*;
 import com.flair.client.localization.annotations.LocalizedCommonField;
 import com.flair.client.localization.annotations.LocalizedField;
 import com.flair.client.localization.interfaces.LocalizationBinder;
 import com.flair.client.model.interfaces.DocumentRankerOutput;
 import com.flair.client.model.interfaces.DocumentRankerOutput.Rank;
 import com.flair.client.presentation.interfaces.AbstractRankerSettingsPane;
-import com.flair.client.presentation.widgets.sliderbundles.ConstructionSliderBundleArabic;
 import com.flair.client.presentation.widgets.sliderbundles.ConstructionSliderBundleEnglish;
 import com.flair.client.presentation.widgets.sliderbundles.ConstructionSliderBundleGerman;
+import com.flair.client.presentation.widgets.sliderbundles.ConstructionSliderBundleRussian;
+import com.flair.client.presentation.widgets.sliderbundles.ConstructionSliderBundleArabic;
 import com.flair.client.utilities.ClientLogger;
 import com.flair.shared.grammar.GrammaticalConstruction;
 import com.flair.shared.grammar.Language;
@@ -37,23 +35,23 @@ public class RankerSettingsPane extends LocalizedComposite implements AbstractRa
 	public interface ShowHideHandler {
 		public void handle(boolean visible);
 	}
-	
+
 	private static RankerSettingsPaneUiBinder uiBinder = GWT.create(RankerSettingsPaneUiBinder.class);
 
 	interface RankerSettingsPaneUiBinder extends UiBinder<Widget, RankerSettingsPane>
 	{
 	}
-	
+
 	private static RankerSettingsPaneLocalizationBinder localeBinder = GWT.create(RankerSettingsPaneLocalizationBinder.class);
 	interface RankerSettingsPaneLocalizationBinder extends LocalizationBinder<RankerSettingsPane> {}
-	
+
 	static enum LocalizationTags
 	{
 		FILTERED,
 	}
-	
+
 	private static final int				PANEL_WIDTH = 400;
-	
+
 	@UiField
 	MaterialRow								pnlSettingsContainerUI;
 	@UiField
@@ -94,6 +92,8 @@ public class RankerSettingsPane extends LocalizedComposite implements AbstractRa
 	@UiField
 	ConstructionSliderBundleGerman			bdlGermanSlidersUI;
 	@UiField
+	ConstructionSliderBundleRussian			bdlRussianSlidersUI;
+	@UiField
 	ConstructionSliderBundleArabic 			bdlArabicSlidersUI;
 	@UiField
 	@LocalizedField
@@ -119,13 +119,13 @@ public class RankerSettingsPane extends LocalizedComposite implements AbstractRa
 	@UiField
 	MaterialCheckBox						chkTextLevel4;
 	@UiField
-	MaterialBadge							bdgTextLevel4CountUI;	
+	MaterialBadge							bdgTextLevel4CountUI;
 	*/
-	
+
 	State				state;
 	ShowHideHandler		showhideHandler;
 	boolean				visible;
-	
+
 	private final class State
 	{
 		Language					sliderLanguage;
@@ -135,14 +135,14 @@ public class RankerSettingsPane extends LocalizedComposite implements AbstractRa
 		EventHandler				exportHandler;
 		EventHandler				resetHandler;
 
-		
+
 		State()
 		{
 			sliderLanguage = Language.ENGLISH;
 			rankData = null;
 			changeHandler = visualizeHandler = exportHandler = resetHandler = null;
 		}
-		private void showArabicLevels() 
+		private void showArabicLevels()
 		{
 			chkTextLevelAor1UI.setText("Level 1");
 			chkTextLevelBor2UI.setText("Level 2");
@@ -154,7 +154,7 @@ public class RankerSettingsPane extends LocalizedComposite implements AbstractRa
 		private void showDefaultLevels()
 		{
 			ClientLogger.get().info("showDefaultLevels()");
-			
+
 			chkTextLevelAor1UI.setText("A1-A2");
 			chkTextLevelBor2UI.setText("B1-B2");
 			chkTextLevelCor3UI.setText("C1-C2");
@@ -168,41 +168,44 @@ public class RankerSettingsPane extends LocalizedComposite implements AbstractRa
 			if (changeHandler != null)
 				changeHandler.handle();
 		}
-		
+
 		private void onVisualize()
 		{
 			if (visualizeHandler != null)
 				visualizeHandler.handle();
 		}
-		
+
 		private void onExport()
 		{
 			if (exportHandler != null)
 				exportHandler.handle();
 		}
-		
+
 		private void onReset()
 		{
 			if (resetHandler != null)
 				resetHandler.handle();
 		}
-		
+
 		private void hideSliderBundles()
 		{
 			bdlEnglishSlidersUI.setVisible(false);
 			bdlGermanSlidersUI.setVisible(false);
+			bdlRussianSlidersUI.setVisible(false);
+			bdlArabicSlidersUI.setVisible(false);
 		}
-		
+
 		public void resetUI()
 		{
 			ClientLogger.get().info("Calling resetUI");
+			ClientLogger.get().info("Language is " + sliderLanguage.toString());
+			if (sliderLanguage == Language.ARABIC) showArabicLevels();
+			else showDefaultLevels();
 			switch(sliderLanguage) {
-				case ARABIC:
 				case ENGLISH:
 				case GERMAN:
 				case RUSSIAN:
-					if (sliderLanguage == Language.ARABIC) showArabicLevels();
-					else showDefaultLevels();
+				case ARABIC:
 					hideSliderBundles();
 					if (getSliderBundle() != null) {
 						getSliderBundle().setVisible(true);
@@ -222,13 +225,13 @@ public class RankerSettingsPane extends LocalizedComposite implements AbstractRa
 			*/
 
 		}
-		
+
 		public void init(DocumentRankerOutput.Rank rankerData)
 		{
 			rankData = rankerData;
 			reloadUI();
 		}
-		
+
 		public void reloadUI()
 		{
 			ClientLogger.get().info("reloadUI");
@@ -253,114 +256,114 @@ public class RankerSettingsPane extends LocalizedComposite implements AbstractRa
 				levelBor2 = (int)rankData.getDocLevelDf(DocumentReadabilityLevel.LEVEL_B);
 				levelCor3 = (int)rankData.getDocLevelDf(DocumentReadabilityLevel.LEVEL_C);
 			}
-			
-			
+
+
 			lblDocCountUI.setText(resultCount + " " + getLocalizedString(DefaultLocalizationProviders.COMMON.toString(),
-																		CommonLocalizationTags.RESULTS.toString()) +
-								" (" + rankData.getNumFilteredDocuments() + " " + getLocalizedString(LocalizationTags.FILTERED.toString()) + ")");
-			
+					CommonLocalizationTags.RESULTS.toString()) +
+					" (" + rankData.getNumFilteredDocuments() + " " + getLocalizedString(LocalizationTags.FILTERED.toString()) + ")");
+
 			//setting the text level count
 			bdgTextLevelAor1CountUI.setText(levelAor1 + " / " + resultCount);
 			bdgTextLevelBor2CountUI.setText(levelBor2 + " / " + resultCount);
 			bdgTextLevelCor3CountUI.setText(levelCor3 + " / " + resultCount);
-			if(sliderLanguage.toString().equals("ARABIC")) 
+			if(sliderLanguage.toString().equals("ARABIC"))
 				bdgTextLevel4CountUI.setText(level4 + " / " + resultCount);
 
-			
-			
+
+
 			LanguageSpecificConstructionSliderBundle current = getSliderBundle();
 			current.forEachWeightSlider(s -> {
 				int df = (int)rankData.getConstructionDf(s.getGram());
 				s.setResultCount(df, resultCount);
 			});
 		}
-		
+
 		public void setSliderBundle(Language lang)
 		{
 			hideSliderBundles();
 			sliderLanguage = lang;
-			
+
 			getSliderBundle().setVisible(false);	//should be true to show out lblsliders
 			getSliderBundle().refreshLocale();
 		}
-		
+
 		public LanguageSpecificConstructionSliderBundle getSliderBundle()
 		{
 			switch (sliderLanguage)
 			{
-			case ENGLISH:
-				return bdlEnglishSlidersUI;
-			case GERMAN:
-				return bdlGermanSlidersUI;
-			case RUSSIAN:
-				return bdlEnglishSlidersUI;
-			case ARABIC:
-				return bdlArabicSlidersUI;
-			default:
-				return null;
+				case ENGLISH:
+					return bdlEnglishSlidersUI;
+				case GERMAN:
+					return bdlGermanSlidersUI;
+				case RUSSIAN:
+					return bdlEnglishSlidersUI;
+				case ARABIC:
+					return bdlArabicSlidersUI;
+				default:
+					return null;
 			}
 		}
-		
+
 		public void resetAll()
 		{
 			pnlDocLengthUI.resetState(false);
 			sldKeywordsUI.resetState(false);
 			getSliderBundle().resetState(false);
-			
+
 			chkTextLevelAor1UI.setValue(true, false);
 			chkTextLevelBor2UI.setValue(true, false);
 			chkTextLevelCor3UI.setValue(true, false);
 			chkTextLevel4UI.setValue(true, false);
-			
+
 			onReset();
 			onSettingChange();
 		}
-		
+
 		public void setChangeHandler(EventHandler h) {
 			changeHandler = h;
 		}
-		
+
 		public void setVisualizeHandler(EventHandler h) {
 			visualizeHandler = h;
 		}
-		
+
 		public void setExportHandler(EventHandler h) {
 			exportHandler = h;
 		}
-		
+
 		public void setResetHandler(EventHandler h) {
 			resetHandler = h;
 		}
 	}
-	
+
 	private void setPanelLeft(double l) {
 		pnlSettingsContainerUI.setLeft(l);
 	}
-	
+
 	private void setContainerVisible(boolean visible)
 	{
 		this.visible = visible;
 		setPanelLeft(visible ? 0 : -PANEL_WIDTH);
 	}
-	
+
 	private void initHandlers()
 	{
 		btnVisualizeUI.addClickHandler(e -> state.onVisualize());
 		btnExportSettingsUI.addClickHandler(e -> state.onExport());
-		
+
 		pnlDocLengthUI.setWeightChangeHandler((v) -> state.onSettingChange());
-		
+
 		sldKeywordsUI.setWeightChangeHandler((w, v) -> state.onSettingChange());
 		sldKeywordsUI.setToggleHandler((w, v) -> state.onSettingChange());
-		
+
 		btnResetAllUI.addClickHandler(e -> state.resetAll());
-		
+
 		chkTextLevelAor1UI.addValueChangeHandler(e -> state.onSettingChange());
 		chkTextLevelBor2UI.addValueChangeHandler(e -> state.onSettingChange());
 		chkTextLevelCor3UI.addValueChangeHandler(e -> state.onSettingChange());
 		chkTextLevel4UI.addValueChangeHandler(e -> state.onSettingChange());
 	}
-	
+
 	private void initUI()
 	{
 		ClientLogger.get().info("Calling initUI");
@@ -368,12 +371,12 @@ public class RankerSettingsPane extends LocalizedComposite implements AbstractRa
 		state.resetUI();
 		hide();
 	}
-	
+
 	public RankerSettingsPane()
 	{
 		initWidget(uiBinder.createAndBindUi(this));
 		initLocale(localeBinder.bind(this));
-		
+
 		this.state = new State();
 		showhideHandler = null;
 		visible = false;
@@ -383,9 +386,9 @@ public class RankerSettingsPane extends LocalizedComposite implements AbstractRa
 		initHandlers();
 		initUI();
 	}
-	
+
 	@Override
-	public void setLocale(Language lang)
+	public void setLocale(DisplayLanguage lang)
 	{
 		super.setLocale(lang);
 		state.reloadUI();
@@ -405,22 +408,22 @@ public class RankerSettingsPane extends LocalizedComposite implements AbstractRa
 	public void show()
 	{
 		setContainerVisible(true);
-		
-		if (showhideHandler != null)
-			showhideHandler.handle(visible);
-	}
-	
-	@Override
-	public void hide()
-	{
-		setContainerVisible(false);
-		
+
 		if (showhideHandler != null)
 			showhideHandler.handle(visible);
 	}
 
 	@Override
-	public void refresh() 
+	public void hide()
+	{
+		setContainerVisible(false);
+
+		if (showhideHandler != null)
+			showhideHandler.handle(visible);
+	}
+
+	@Override
+	public void refresh()
 	{
 		state.resetUI();
 		state.reloadUI();
@@ -434,25 +437,19 @@ public class RankerSettingsPane extends LocalizedComposite implements AbstractRa
 	public void setSettingsChangedHandler(EventHandler handler)
 	{
 		// update here as the sliders themselves aren't be available during the construction of the panel
-		bdlEnglishSlidersUI.forEachWeightSlider(s -> {
-			s.setWeightChangeHandler((w, v) -> state.onSettingChange());
-			s.setToggleHandler((w, v) -> state.onSettingChange());
-			s.refreshLocale();
-		});
-		
-		bdlGermanSlidersUI.forEachWeightSlider(s -> {
-			s.setWeightChangeHandler((w, v) -> state.onSettingChange());
-			s.setToggleHandler((w, v) -> state.onSettingChange());
-			s.refreshLocale();
-		});
-
-		bdlArabicSlidersUI.forEachWeightSlider(s -> {
-			s.setWeightChangeHandler((w, v) -> state.onSettingChange());
-			s.setToggleHandler((w, v) -> state.onSettingChange());
-			s.refreshLocale();
-		});
+		updateSlider(bdlEnglishSlidersUI);
+		updateSlider(bdlGermanSlidersUI);
+		updateSlider(bdlRussianSlidersUI);
 
 		state.setChangeHandler(handler);
+	}
+
+	private void updateSlider(LanguageSpecificConstructionSliderBundle slider){
+		slider.forEachWeightSlider(s -> {
+			s.setWeightChangeHandler((w, v) -> state.onSettingChange());
+			s.setToggleHandler((w, v) -> state.onSettingChange());
+			s.refreshLocale();
+		});
 	}
 
 	@Override
@@ -482,46 +479,46 @@ public class RankerSettingsPane extends LocalizedComposite implements AbstractRa
 
 	@Override
 	public boolean isDocLevelEnabled(DocumentReadabilityLevel level)	//Checks to see if we are goingo to display a certain doc level
-	{	
+	{
 		switch (level)
 		{
-		case LEVEL_A:
-			return chkTextLevelAor1UI.getValue();
-		case LEVEL_B:
-			return chkTextLevelBor2UI.getValue();
-		case LEVEL_C:
-			return chkTextLevelCor3UI.getValue();
-		default:
-			return false;
+			case LEVEL_A:
+				return chkTextLevelAor1UI.getValue();
+			case LEVEL_B:
+				return chkTextLevelBor2UI.getValue();
+			case LEVEL_C:
+				return chkTextLevelCor3UI.getValue();
+			default:
+				return false;
 		}
 	}
 
 	@Override
 	public boolean isArabicDocLevelEnabled(ArabicDocumentReadabilityLevel level)	//Checks to see if we are goingo to display a certain doc level
-	{	
+	{
 		switch (level)
 		{
-		case LEVEL_1:
-			ClientLogger.get().info("Level_1 enabled : " + chkTextLevelAor1UI.getValue());
-			return chkTextLevelAor1UI.getValue();
-		case LEVEL_2:
-			ClientLogger.get().info("Level_2 enabled : " + chkTextLevelBor2UI.getValue());
-			return chkTextLevelBor2UI.getValue();
-		case LEVEL_3:
-			ClientLogger.get().info("Level_3 enabled : " + chkTextLevelCor3UI.getValue());
-			return chkTextLevelCor3UI.getValue();
-		case LEVEL_4:
-			ClientLogger.get().info("Level_4 enabled : " + chkTextLevel4UI.getValue());
-			return chkTextLevel4UI.getValue();
-		default:
-			return false;
+			case LEVEL_1:
+				ClientLogger.get().info("Level_1 enabled : " + chkTextLevelAor1UI.getValue());
+				return chkTextLevelAor1UI.getValue();
+			case LEVEL_2:
+				ClientLogger.get().info("Level_2 enabled : " + chkTextLevelBor2UI.getValue());
+				return chkTextLevelBor2UI.getValue();
+			case LEVEL_3:
+				ClientLogger.get().info("Level_3 enabled : " + chkTextLevelCor3UI.getValue());
+				return chkTextLevelCor3UI.getValue();
+			case LEVEL_4:
+				ClientLogger.get().info("Level_4 enabled : " + chkTextLevel4UI.getValue());
+				return chkTextLevel4UI.getValue();
+			default:
+				return false;
 		}
 	}
 
 	public int getWidth() {
 		return PANEL_WIDTH;
 	}
-	
+
 	@Override
 	public boolean isVisible() {
 		return visible;
@@ -538,11 +535,11 @@ public class RankerSettingsPane extends LocalizedComposite implements AbstractRa
 		chkTextLevelAor1UI.setValue(profile.isDocLevelEnabled(DocumentReadabilityLevel.LEVEL_A), false);
 		chkTextLevelBor2UI.setValue(profile.isDocLevelEnabled(DocumentReadabilityLevel.LEVEL_B), false);
 		chkTextLevelCor3UI.setValue(profile.isDocLevelEnabled(DocumentReadabilityLevel.LEVEL_C), false);
-		
+
 		pnlDocLengthUI.setWeight(profile.getDocLengthWeight(), false);
 		sldKeywordsUI.setEnabled(profile.isKeywordsEnabled(), false);
 		sldKeywordsUI.setWeight(profile.getKeywordsWeight(), false);
-		
+
 		for (GrammaticalConstruction itr : GrammaticalConstruction.getForLanguage(getSliderBundle().getLanguage()))
 		{
 			GrammaticalConstructionWeightSlider slider = getSliderBundle().getWeightSlider(itr);
@@ -552,7 +549,7 @@ public class RankerSettingsPane extends LocalizedComposite implements AbstractRa
 				slider.setEnabled(profile.isConstructionEnabled(itr), false);
 			}
 		}
-		
+
 		if (fireEvents)
 			state.onSettingChange();
 	}
@@ -561,21 +558,21 @@ public class RankerSettingsPane extends LocalizedComposite implements AbstractRa
 	public ConstructionSettingsProfile generateSettingsProfile()
 	{
 		ConstructionSettingsProfileImpl out = new ConstructionSettingsProfileImpl();
-		
+
 		out.setLanguage(getSliderBundle().getLanguage());
 		out.setDocLengthWeight(pnlDocLengthUI.getWeight());
 		out.setKeywordsData(sldKeywordsUI.isEnabled(), sldKeywordsUI.getWeight());
 		out.setDocLevelEnabled(DocumentReadabilityLevel.LEVEL_A, chkTextLevelAor1UI.getValue());
 		out.setDocLevelEnabled(DocumentReadabilityLevel.LEVEL_B, chkTextLevelBor2UI.getValue());
 		out.setDocLevelEnabled(DocumentReadabilityLevel.LEVEL_C, chkTextLevelCor3UI.getValue());
-		
+
 		for (GrammaticalConstruction itr : GrammaticalConstruction.getForLanguage(getSliderBundle().getLanguage()))
 		{
 			GrammaticalConstructionWeightSlider slider = getSliderBundle().getWeightSlider(itr);
 			if (slider != null)
 				out.setGramData(itr, slider.isEnabled(), slider.getWeight());
 		}
-		
+
 		return out;
 	}
 }

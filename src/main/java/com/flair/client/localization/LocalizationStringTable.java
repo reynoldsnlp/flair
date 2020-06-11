@@ -6,7 +6,6 @@ import com.flair.client.localization.interfaces.LocalizationDataCache;
 import com.flair.client.localization.interfaces.LocalizationProvider;
 import com.flair.client.localization.resources.LocalizedResources;
 import com.flair.client.localization.resources.StringTableReader;
-import com.flair.shared.grammar.Language;
 import com.google.gwt.resources.client.TextResource;
 
 /*
@@ -39,14 +38,14 @@ public class LocalizationStringTable implements LocalizationDataCache
 		return p;
 	}
 	
-	private void parseStringTableEntry(Language lang, String provider, String tag, String localizedStr) {
+	private void parseStringTableEntry(DisplayLanguage lang, String provider, String tag, String localizedStr) {
 		getProvider(provider, true).setLocalizedString(tag, lang, localizedStr);
 	}
 	
 	public void init()
 	{
 		StringTableReader reader = new StringTableReader();
-		for (Language lang : Language.values())
+		for (DisplayLanguage lang : DisplayLanguage.values())
 		{
 			TextResource general = LocalizedResources.get().getGeneralStrings(lang);
 			reader.parse(general, (p, t, l) -> parseStringTableEntry(lang, p, t, l));
@@ -66,7 +65,7 @@ public class LocalizationStringTable implements LocalizationDataCache
 	}
 	
 	@Override
-	public String getLocalizedString(String provider, String tag, Language lang) {
+	public String getLocalizedString(String provider, String tag, DisplayLanguage lang) {
 		return getProvider(provider).getLocalizedString(tag, lang);
 	}
 

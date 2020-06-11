@@ -1702,7 +1702,7 @@ class StanfordDocumentParserEnglishStrategy extends BasicStanfordDocumentParserS
 				&& (dep.index() == gov.index() - 1)))
 		{
 			// "do" is followed by a verb
-			addConstructionOccurrence(GrammaticalConstruction.VERBFORM_EMPATHIC_DO, start, end, dependency.toString());
+			addConstructionOccurrence(GrammaticalConstruction.VERBFORM_EMPHATIC_DO, start, end, dependency.toString());
 		} else if (dep.lemma().equalsIgnoreCase("be") || dep.lemma().equalsIgnoreCase("have")
 				|| dep.lemma().equalsIgnoreCase("do"))
 		{

@@ -4,10 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import com.flair.client.localization.CommonLocalizationTags;
-import com.flair.client.localization.DefaultLocalizationProviders;
-import com.flair.client.localization.LocalizationBinderData;
-import com.flair.client.localization.LocalizedComposite;
+import com.flair.client.localization.*;
 import com.flair.client.presentation.interfaces.CanReset;
 import com.flair.client.presentation.interfaces.GrammaticalConstructionContainer;
 import com.flair.shared.grammar.GrammaticalConstruction;
@@ -83,7 +80,7 @@ public class GrammaticalConstructionPanelItem extends LocalizedComposite impleme
 	}
 
 	@Override
-	public void setLocale(Language lang)
+	public void setLocale(DisplayLanguage lang)
 	{
 		super.setLocale(lang);
 		

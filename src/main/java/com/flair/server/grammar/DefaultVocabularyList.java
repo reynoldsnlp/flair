@@ -22,13 +22,13 @@ public class DefaultVocabularyList
 		case ENGLISH:
 			return EnglishAcademicWordList.getKeywords();
 		case GERMAN:
-			// ### TODO add one for german
+			// ### TODO add an academic word list for german
 			return new ArrayList<>();
 		case RUSSIAN:
-			// ### TODO add one for russian
+			// ### TODO add an academic word list for russian
 			return new ArrayList<>();
 		case ARABIC:
-			// ### TODO add one for russian
+			// ### TODO add an academic word list for arabic
 			return new ArrayList<>();
 		default:
 			throw new IllegalArgumentException("Invalid language " + lang);

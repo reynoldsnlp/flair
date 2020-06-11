@@ -2,10 +2,7 @@ package com.flair.client.presentation;
 
 
 import com.flair.client.ClientEndPoint;
-import com.flair.client.localization.CommonLocalizationTags;
-import com.flair.client.localization.LocalizationEngine;
-import com.flair.client.localization.LocalizedComposite;
-import com.flair.client.localization.LocalizedFieldType;
+import com.flair.client.localization.*;
 import com.flair.client.localization.annotations.LocalizedCommonField;
 import com.flair.client.localization.annotations.LocalizedField;
 import com.flair.client.localization.interfaces.LocalizationBinder;
@@ -243,7 +240,7 @@ public class MainViewport extends LocalizedComposite implements AbstractWebRanke
 		invokeAtomicOperation(() -> mdlWebSearchUI.show());
 	}
 		
-	private void switchDisplayLanguage(Language lang) {
+	private void switchDisplayLanguage(DisplayLanguage lang) {
 		LocalizationEngine.get().setLanguage(lang);
 	}
 	
@@ -255,11 +252,11 @@ public class MainViewport extends LocalizedComposite implements AbstractWebRanke
 		btnAboutUI.addClickHandler(e -> mdlAboutUI.show());
 		
 		btnLangEnUI.addClickHandler(e -> {
-			switchDisplayLanguage(Language.ENGLISH);
+			switchDisplayLanguage(DisplayLanguage.ENGLISH);
 		});
 		
 		btnLangDeUI.addClickHandler(e -> { //changes webpage language not search language
-			switchDisplayLanguage(Language.GERMAN);
+			switchDisplayLanguage(DisplayLanguage.GERMAN);
 		});
 		/*
 		btnLangRuUI.addClickHandler(e -> {

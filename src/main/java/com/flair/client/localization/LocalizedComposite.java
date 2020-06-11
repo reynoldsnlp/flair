@@ -3,7 +3,6 @@ package com.flair.client.localization;
 import com.flair.client.localization.interfaces.LocalizableEntity;
 import com.flair.client.localization.interfaces.LocalizationProvider;
 import com.flair.client.localization.interfaces.LocalizedUI;
-import com.flair.shared.grammar.Language;
 import com.google.gwt.user.client.ui.Composite;
 
 /*
@@ -13,6 +12,7 @@ import com.google.gwt.user.client.ui.Composite;
  */
 public abstract class LocalizedComposite extends Composite implements LocalizedUI
 {
+	protected DisplayLanguage displayLanguage = DisplayLanguage.ENGLISH;
 	private LocalizationBinderData		localizationBinderData;
 	
 	public LocalizedComposite()
@@ -51,7 +51,7 @@ public abstract class LocalizedComposite extends Composite implements LocalizedU
 		return LocalizationEngine.get().getLocalizedString(provider, tag);
 	}
 	
-	protected Language getCurrentLocale() {
+	protected DisplayLanguage getCurrentLocale() {
 		return LocalizationEngine.get().getLanguage();
 	}
 	
@@ -61,8 +61,9 @@ public abstract class LocalizedComposite extends Composite implements LocalizedU
 	}
 	
 	@Override
-	public void setLocale(Language lang)
+	public void setLocale(DisplayLanguage lang)
 	{
+		displayLanguage = lang;
 		for (LocalizableEntity itr : localizationBinderData.localizationWrappers)
 			itr.setLocale(lang, LocalizationStringTable.get());
 	}

@@ -1,0 +1,47 @@
+To add a new language to the front end:
+-Add a new ConstructionSliderBundle<Language> class to the package com.flair.client.presentation.widgets.sliderbundles
+	Format it like the others already there, with needed changes
+-Add a corresponding .xml file to the same package, again copying the other similar .xml files
+	Note that any GrammaticalConstructionWeightSlider tag that declares parentLanguage="NEW_LANGUAGE" can only reference
+	GrammaticalConstruction objects that include Language.<newLanguage> in their declaration in com.flair.shared.grammar.GrammaticalConstruction.java
+-For every @UiField @LocalizedField GrammaticalConstructionPanelItem declared in com.flair.client.presentation.widgets.sliderbundles.ConstructionSliderBundle<Language>,
+	add a corresponding entry in com/flair/client/localization/resources/strings-en-general.tsv
+	and in com/flair/client/localization/resources/strings-de-general.tsv
+-Add a variable in com.flair.client.presentation.widgets.RankerSettingsPane.java that looks like this:
+	@UiField ConstructionSliderBundle<Language> bdl<Language>SlidersUI;
+-Insert a part into com.flair.client.presentation.widgets.RankerSettingsPane.State.setSettingsChangedHandler() to imitate what it does for existing languages
+-In com/flair/client/presentation/widgets/RankerSettingsPane.ui.xml, find a tag that looks like this:
+	<flair.pak:ConstructionSliderBundleEnglish ui:field="bdlEnglishSlidersUI"/>
+	and add a corresponding one for the new language
+-In com.flair.client.presentation.widgets.DocumentCollectionVisualizer.java,
+	find where @UiField ConstructionSliderBundleEnglish bdlEnglishSlidersUI is declared and add a similar one for the new language
+-In com.flair.client.presentation.widgets.DocumentCollectionVisualizer.State.doInit(),
+	add a line like bdlEnglishSlidersUI.setVisible(false) but for the new language.
+	Also find the switch that assigns a value to 'toggles', such as 'toggles = bdlEnglishSlidersUI',
+	and make sure there's a case for the new language that assigns toggles to the bdl<Language>SlidersUI for the new language
+-In com/flair/client/presentation/widgets/DocumentCollectionVisualizer.ui.xml, find a tag that looks like this:
+	<flair.pak:ConstructionSliderBundleEnglish ui:field="bdlEnglishSlidersUI"/>
+	and add a corresponding one for the new language
+-Back in com.flair.client.presentation.widgets.RankerSettingsPane.java, in the function com.flair.client.presentation.widgets.RankerSettingsPane.State.resetUI(),
+	make sure that there's a case for the new language which does the same thing as other fully implemented languages (edit specifics if necessary)
+
+To add a new construction to the back end:
+-Add it to GrammaticalConstruction.java
+-Make sure its name (e.g. NEGATION_PRONOUNS) and id (e.g. "negationPronouns") are both unique among all GrammaticalConstructions
+-Add 3 lines for it with the appropriate formatting to src/main/java/com/flair/client/localization/resources/strings-en-constructions.tsv
+-Add 3 lines for it with the appropriate formatting to src/main/java/com/flair/client/localization/resources/strings-de-constructions.tsv
+
+To add a new construction to the front end:
+-In com/flair/client/presentation/widgets/sliderbundles/ConstructionSliderBundle<Language>.ui.xml, find (or create) the appropriate
+	GrammaticalConstructionPanelItem under which the new construction should be grouped
+	Add a tag that looks like this:
+	<flair:GrammaticalConstructionWeightSlider gram="ADVERB_SUPERLATIVE_SHORT" parentLanguage="ENGLISH"/>
+	but replace the value in gram with the name of the GrammaticalConstruction enum,
+	and replace the value in parentLanguage with the appropriate language name
+-If a new GrammaticalConstructionPanelItem is added in the .ui.xml file, also add it to
+	com/flair/client/presentation/widgets/sliderbundles/ConstructionSliderBundle<Language>.java
+	with a format like this:
+	@UiField @LocalizedField GrammaticalConstructionPanelItem	pnlAspectUI;
+	where the name of the field (in this example "pnlAspectUI") matches the value of ui:field in the corresponding
+	GrammaticalConstructionPanelItem tag in the .ui.xml file
+	

@@ -32,7 +32,7 @@ public class FarooSearchAgent extends CachingSearchAgent
 
 	public FarooSearchAgent(Language lang, String query)
 	{
-		super(lang, query, MAX_API_REQUESTS);
+		super(lang, query, false, MAX_API_REQUESTS);
 		this.pipeline = new FarooSearch();
 
 		switch (lang)
