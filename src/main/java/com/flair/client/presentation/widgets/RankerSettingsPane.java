@@ -296,7 +296,7 @@ public class RankerSettingsPane extends LocalizedComposite implements AbstractRa
 				case GERMAN:
 					return bdlGermanSlidersUI;
 				case RUSSIAN:
-					return bdlEnglishSlidersUI;
+					return bdlRussianSlidersUI;
 				case ARABIC:
 					return bdlArabicSlidersUI;
 				default:

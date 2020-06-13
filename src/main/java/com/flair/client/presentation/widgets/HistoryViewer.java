@@ -119,10 +119,10 @@ public class HistoryViewer extends LocalizedComposite implements HistoryViewerSe
 				langTag = CommonLocalizationTags.LANGUAGE_GERMAN.toString();
 				break;
 			case RUSSIAN:
-				langTag = CommonLocalizationTags.LANGUAGE_ENGLISH.toString();
+				langTag = CommonLocalizationTags.LANGUAGE_RUSSIAN.toString();
 				break;
 			case ARABIC:
-				langTag = CommonLocalizationTags.LANGUAGE_ENGLISH.toString();
+				langTag = CommonLocalizationTags.LANGUAGE_ARABIC.toString();
 				break;	
 			default:
 				langTag = CommonLocalizationTags.INVALID.toString();
