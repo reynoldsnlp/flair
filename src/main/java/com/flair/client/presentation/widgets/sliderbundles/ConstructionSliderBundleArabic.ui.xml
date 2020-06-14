@@ -145,8 +145,8 @@
                                 <flair:GrammaticalConstructionWeightSlider gram="NOUN_DUAL" parentLanguage="ARABIC"/>
                             </flair:GrammaticalConstructionPanelItem>
 
-                            <flair:GrammaticalConstructionPanelItem ui:field="pnlConstructUI" text="construct" iconType="EXPAND_MORE">
-                                <flair:GrammaticalConstructionWeightSlider gram="CONSTRUCT" parentLanguage="ARABIC"/>
+                            <flair:GrammaticalConstructionPanelItem ui:field="pnlConstructPhraseUI" text="construct phrase" iconType="EXPAND_MORE">
+                                <flair:GrammaticalConstructionWeightSlider gram="CONSTRUCT_PHRASE" parentLanguage="ARABIC"/>
                                 </flair:GrammaticalConstructionPanelItem>
 
                             <flair:GrammaticalConstructionPanelItem ui:field="pnlCaseUI" text="case" iconType="EXPAND_MORE">

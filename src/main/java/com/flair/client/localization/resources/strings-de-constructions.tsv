@@ -472,9 +472,9 @@ _gram-helpText_	VERB_FEM_PL	<Feminine_plural_HELP_TEXT>
 _gram-name_	VERB_DUAL	Dual
 _gram-path_	VERB_DUAL	Verbs > Person and Number > Dual
 _gram-helpText_	VERB_DUAL	<Dual_HELP_TEXT>
-_gram-name_	CONSTRUCT	Construct
-_gram-path_	CONSTRUCT	Nouns > Construct
-_gram-helpText_	CONSTRUCT	(Idaafa)
+_gram-name_	CONSTRUCT_PHRASE	Construct phrase
+_gram-path_	CONSTRUCT_PHRASE	Nouns > Construct phrase > Construct phrase
+_gram-helpText_	CONSTRUCT_PHRASE	(Idaafa)
 _gram-name_	NOUN_PL_MASC	Masculine plural
 _gram-path_	NOUN_PL_MASC	Nouns > Number > Masculine plural
 _gram-helpText_	NOUN_PL_MASC	<Masculine_plural_HELP_TEXT>

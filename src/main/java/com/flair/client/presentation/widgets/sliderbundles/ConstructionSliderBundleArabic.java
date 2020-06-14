@@ -91,7 +91,7 @@ public class ConstructionSliderBundleArabic extends LanguageSpecificConstruction
     GrammaticalConstructionPanelItem			pnlNumberUI;
     @UiField
     @LocalizedField
-    GrammaticalConstructionPanelItem			pnlConstructUI;
+    GrammaticalConstructionPanelItem			pnlConstructPhraseUI;
     @UiField
     @LocalizedField
     GrammaticalConstructionPanelItem			pnlCaseUI;

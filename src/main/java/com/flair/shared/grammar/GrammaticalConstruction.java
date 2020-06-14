@@ -305,7 +305,7 @@ public enum GrammaticalConstruction //TODO: separate lemma-based Constructions u
     CASE_ACCUSATIVE ("caseAcc", Language.ARABIC),
     CASE_GENITIVE ("caseGen", Language.ARABIC),
 
-    CONSTRUCT ("construct", Language.ARABIC),
+    CONSTRUCT_PHRASE ("constructPhrase", Language.ARABIC),
 
     //QUANTIFIERS("quantifiers", Language.ARABIC),
     //CONJUNCTIONS("conjunctions", Language.ARABIC),

@@ -480,7 +480,7 @@ class StanfordDocumentParserArabicStrategy extends BasicStanfordDocumentParserSt
 					else
 						end = madaTokens.get(--new_i).getEndIndex();
 
-					addConstructionByIndices(GrammaticalConstruction.CONSTRUCT, start, end);
+					addConstructionByIndices(GrammaticalConstruction.CONSTRUCT_PHRASE, start, end);
 				}
 			}
 
