@@ -25,9 +25,9 @@ abstract class CachingSearchAgent extends WebSearchAgent
 	protected final int						maxRequests;		// max number of times the search API can be invoked
 	private int								numRequests;
 
-	public CachingSearchAgent(Language lang, String query, int maxRequests)
+	public CachingSearchAgent(Language lang, String query, boolean useRestrictedDomains, int maxRequests)
 	{
-		super(lang, query);
+		super(lang, query, useRestrictedDomains);
 		this.nextPage = 1;
 		this.nextRank = 0;
 		this.cachedResults = new ArrayList<>();

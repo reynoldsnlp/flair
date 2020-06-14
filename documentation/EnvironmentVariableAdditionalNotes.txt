@@ -1,0 +1,9 @@
+Concerning the BING_API environment variable:
+Any standard tutorial for creating a new environment variable should suffice.
+However, when an IDE is employed (such as IntelliJ IDEA), one must ensure that the
+environment variable is still accessible from within the IDE. For IntelliJ IDEA on
+Windows 10, we have noticed that there are some difficulties. It seems that the IDE
+has difficulties integrating the environment variables. We have discovered that
+even restarting the IDE is insufficient; rather, a full system reboot was needed.
+When the whole computer was restarted and the IDE again opened, then the environment
+variable was accessible through the IDE.

@@ -1,58 +1,58 @@
 _gram-name_	ADJECTIVE_COMPARATIVE_LONG	Comparative Long
 _gram-path_	ADJECTIVE_COMPARATIVE_LONG	Adjectives > Comparative form of long adjectives
-_gram-helpText_	ADJECTIVE_COMPARATIVE_LONG	e.g., more difficult
+_gram-helpText_	ADJECTIVE_COMPARATIVE_LONG	e.g. more difficult
 _gram-name_	ADJECTIVE_COMPARATIVE_SHORT	Comparative Short
 _gram-path_	ADJECTIVE_COMPARATIVE_SHORT	Adjectives > Comparative form of short adjectives
-_gram-helpText_	ADJECTIVE_COMPARATIVE_SHORT	e.g., nicer
+_gram-helpText_	ADJECTIVE_COMPARATIVE_SHORT	e.g. nicer
 _gram-name_	ADJECTIVE_POSITIVE	Positive
 _gram-path_	ADJECTIVE_POSITIVE	Adjectives > Positive form of all adjectives
-_gram-helpText_	ADJECTIVE_POSITIVE	e.g., nice, difficult, bad, amazing
+_gram-helpText_	ADJECTIVE_POSITIVE	e.g. nice, difficult, bad, amazing
 _gram-name_	ADJECTIVE_SUPERLATIVE_LONG	Superlative Long
 _gram-path_	ADJECTIVE_SUPERLATIVE_LONG	Adjectives > Superlative form of long adjectives
-_gram-helpText_	ADJECTIVE_SUPERLATIVE_LONG	e.g., most difficult
+_gram-helpText_	ADJECTIVE_SUPERLATIVE_LONG	e.g. most difficult
 _gram-name_	ADJECTIVE_SUPERLATIVE_SHORT	Superlative Short
 _gram-path_	ADJECTIVE_SUPERLATIVE_SHORT	Adjectives > Superlative form of short adjectives
-_gram-helpText_	ADJECTIVE_SUPERLATIVE_SHORT	e.g., nicest
+_gram-helpText_	ADJECTIVE_SUPERLATIVE_SHORT	e.g. nicest
 _gram-name_	ADVERB_COMPARATIVE_LONG	Comparative Long
 _gram-path_	ADVERB_COMPARATIVE_LONG	Adverbs > Comparative form of long adverbs
-_gram-helpText_	ADVERB_COMPARATIVE_LONG	e.g., more seriously
+_gram-helpText_	ADVERB_COMPARATIVE_LONG	e.g. more seriously
 _gram-name_	ADVERB_COMPARATIVE_SHORT	Comparative Short
 _gram-path_	ADVERB_COMPARATIVE_SHORT	Adverbs > Comparative form of short adverbs
-_gram-helpText_	ADVERB_COMPARATIVE_SHORT	e.g., later
+_gram-helpText_	ADVERB_COMPARATIVE_SHORT	e.g. later
 _gram-name_	ADVERB_POSITIVE	Positive
 _gram-path_	ADVERB_POSITIVE	Adverbs > Positive form of all adverbs
-_gram-helpText_	ADVERB_POSITIVE	e.g., late
+_gram-helpText_	ADVERB_POSITIVE	e.g. late
 _gram-name_	ADVERB_SUPERLATIVE_LONG	Superlative Long
 _gram-path_	ADVERB_SUPERLATIVE_LONG	Adverbs > Superlative form of long adverbs
-_gram-helpText_	ADVERB_SUPERLATIVE_LONG	e.g., most seriously
+_gram-helpText_	ADVERB_SUPERLATIVE_LONG	e.g. most seriously
 _gram-name_	ADVERB_SUPERLATIVE_SHORT	Superlative Short
 _gram-path_	ADVERB_SUPERLATIVE_SHORT	Adverbs > Superlative form of short adverbs
-_gram-helpText_	ADVERB_SUPERLATIVE_SHORT	e.g., latest
+_gram-helpText_	ADVERB_SUPERLATIVE_SHORT	e.g. latest
 _gram-name_	ARTICLES	All Articles
 _gram-path_	ARTICLES	Articles > All articles
-_gram-helpText_	ARTICLES	e.g., a, an, the
+_gram-helpText_	ARTICLES	e.g. a, an, the
 _gram-name_	ARTICLE_A	A
 _gram-path_	ARTICLE_A	Articles > Article "a"
-_gram-helpText_	ARTICLE_A	e.g., a tortoise
+_gram-helpText_	ARTICLE_A	e.g. a tortoise
 _gram-name_	ARTICLE_AN	An
 _gram-path_	ARTICLE_AN	Articles > Article "an"
-_gram-helpText_	ARTICLE_AN	e.g., an apple
+_gram-helpText_	ARTICLE_AN	e.g. an apple
 _gram-name_	ARTICLE_THE	The
 _gram-path_	ARTICLE_THE	Articles > Article "the"
-_gram-helpText_	ARTICLE_THE	e.g., the Alps
+_gram-helpText_	ARTICLE_THE	e.g. the Alps
 _gram-name_	ASPECT_PERFECT	Perfect
 _gram-path_	ASPECT_PERFECT	Verbs > Aspects > Perfect aspect
-_gram-helpText_	ASPECT_PERFECT	All perfect tenses. Have/has/had/will have + done. 
+_gram-helpText_	ASPECT_PERFECT	All perfect tenses. Have/has/had/will have + done.
 _gram-name_	ASPECT_PERFECT_PROGRESSIVE	Perfect Progressive
 _gram-path_	ASPECT_PERFECT_PROGRESSIVE	Verbs > Aspects > Perfect Progressive aspect
 _gram-helpText_	ASPECT_PERFECT_PROGRESSIVE	All perfect progressive tenses. Have/has/had/will have + been + doing.
 _gram-name_	ASPECT_PROGRESSIVE	Progressive
 _gram-path_	ASPECT_PROGRESSIVE	Verbs > Aspects > Progressive aspect
-_gram-helpText_	ASPECT_PROGRESSIVE	All progressive tenses. Am/is/are/was/were/will be + doing. 
+_gram-helpText_	ASPECT_PROGRESSIVE	All progressive tenses. Am/is/are/was/were/will be + doing.
 _gram-name_	ASPECT_SIMPLE	Simple
 _gram-path_	ASPECT_SIMPLE	Verbs > Aspects > Simple aspect
-_gram-helpText_	ASPECT_SIMPLE	All simple tenses. Do/does/did/will do. 
-_gram-name_	ATTRIBUTES_ADJECTIVE	ATTRIBUTES_ADJECTIVE
+_gram-helpText_	ASPECT_SIMPLE	All simple tenses. Do/does/did/will do.
+_gram-name_	ATTRIBUTES_ADJECTIVE	Attributive Adjective
 _gram-path_	ATTRIBUTES_ADJECTIVE	ATTRIBUTES_ADJECTIVE
 _gram-helpText_	ATTRIBUTES_ADJECTIVE	<INSERT_HELP_TEXT>
 _gram-name_	ATTRIBUTES_PARTICIPLE_1	ATTRIBUTES_PARTICIPLE_1
@@ -69,109 +69,109 @@ _gram-path_	CARDINALS	CARDINALS
 _gram-helpText_	CARDINALS	<INSERT_HELP_TEXT>
 _gram-name_	CLAUSE_ADVERBIAL	Adverbial
 _gram-path_	CLAUSE_ADVERBIAL	Clauses > Adverbial clause
-_gram-helpText_	CLAUSE_ADVERBIAL	A subordinate clause functioning as an adverb. E.g., John's goldfish died when he was 3.
+_gram-helpText_	CLAUSE_ADVERBIAL	A subordinate clause functioning as an adverb, e.g. John's goldfish died when he was 3.
 _gram-name_	CLAUSE_THAT	CLAUSE_THAT
 _gram-path_	CLAUSE_THAT	CLAUSE_THAT
 _gram-helpText_	CLAUSE_THAT	<INSERT_HELP_TEXT>
 _gram-name_	CLAUSE_RELATIVE	Relative
 _gram-path_	CLAUSE_RELATIVE	Clauses > Relative clause
-_gram-helpText_	CLAUSE_RELATIVE	A subordinate clause that defines a noun phrase and starts with a relative pronoun (who, which, that, where, when, whose, whom). E.g., John saw Sam who was talking to his parents.
+_gram-helpText_	CLAUSE_RELATIVE	A subordinate clause that defines a noun phrase and starts with a relative pronoun (who, which, that, where, when, whose, whom), e.g. John saw Sam who was talking to his parents.
 _gram-name_	CLAUSE_RELATIVE_REDUCED	Relative reduced
 _gram-path_	CLAUSE_RELATIVE_REDUCED	Clauses > Relative reduced clause
-_gram-helpText_	CLAUSE_RELATIVE_REDUCED	A subordinate clause that defines a noun phrase (an object from another clause) but does not start with a relative pronoun. E.g., John ate an apple he bought a day ago.
+_gram-helpText_	CLAUSE_RELATIVE_REDUCED	A subordinate clause that defines a noun phrase (an object from another clause) but does not start with a relative pronoun, e.g. John ate an apple he bought a day ago.
 _gram-name_	CLAUSE_SUBORDINATE	Subordinate
 _gram-path_	CLAUSE_SUBORDINATE	Clauses > Subordinate clause
-_gram-helpText_	CLAUSE_SUBORDINATE	A clause that is dependent on the main clause and usually starts with a conjunction. E.g., Even though John goes snowboarding every year, he does not own a snowboard.
+_gram-helpText_	CLAUSE_SUBORDINATE	A clause that is dependent on the main clause and usually starts with a conjunction, e.g. Even though John goes snowboarding every year, he does not own a snowboard.
 _gram-name_	CONDITIONALS	Conditionals
 _gram-path_	CONDITIONALS	Clauses > All conditional clauses
-_gram-helpText_	CONDITIONALS	An if-clause of four types: real present, unreal present, unreal past, and mixed. E.g., If John works hard, he will get far. If I were you, I would talk to John about it. If John had known this before, he would have told you. If John had not seen this movie, he would watch it with us now. 
+_gram-helpText_	CONDITIONALS	An if-clause of four types: real present, unreal present, unreal past, and mixed, e.g. If John works hard, he will get far. If I were you, I would talk to John about it. If John had known this before, he would have told you. If John had not seen this movie, he would watch it with us now.
 _gram-name_	CONDITIONALS_REAL	Real Conditional
 _gram-path_	CONDITIONALS_REAL	Clauses > Real conditional clause
-_gram-helpText_	CONDITIONALS_REAL	An if-clause describing a fact or a situation when a certain condition has to be met. E.g., If John wakes up early, he goes jogging. If John has enough time, he will join us.
+_gram-helpText_	CONDITIONALS_REAL	An if-clause describing a fact or a situation when a certain condition has to be met, e.g. If John wakes up early, he goes jogging. If John has enough time, he will join us.
 _gram-name_	CONDITIONALS_UNREAL	Unreal Conditional
 _gram-path_	CONDITIONALS_UNREAL	Clauses > Unreal conditional clause
-_gram-helpText_	CONDITIONALS_UNREAL	An if-clause describing an unprobable or an impossible situation in the present or past. E.g., If John were here, he would tell you the same thing. If John had been more careful, he would not have got into trouble.
+_gram-helpText_	CONDITIONALS_UNREAL	An if-clause describing an unprobable or an impossible situation in the present or past, e.g. If John were here, he would tell you the same thing. If John had been more careful, he would not have got into trouble.
 _gram-name_	CONJUNCTIONS_ADVANCED	Advanced
 _gram-path_	CONJUNCTIONS_ADVANCED	Conjunctions > Advanced conjunctions
-_gram-helpText_	CONJUNCTIONS_ADVANCED	All non-simple conjunctions. E.g., therefore, until, besides
+_gram-helpText_	CONJUNCTIONS_ADVANCED	All non-simple conjunctions, e.g. therefore, until, besides
 _gram-name_	CONJUNCTIONS_SIMPLE	Simple
 _gram-path_	CONJUNCTIONS_SIMPLE	Conjunctions > Simple conjunctions
 _gram-helpText_	CONJUNCTIONS_SIMPLE	The following conjunctions: and, or, but, because, so
 _gram-name_	DETERMINER_ANY	Any
 _gram-path_	DETERMINER_ANY	Determiner > Determiner "any"
-_gram-helpText_	DETERMINER_ANY	e.g., Any questions?
+_gram-helpText_	DETERMINER_ANY	e.g. Any questions?
 _gram-name_	DETERMINER_A_LOT_OF	A lot of
 _gram-path_	DETERMINER_A_LOT_OF	Determiner > Determiner "a lot of"
-_gram-helpText_	DETERMINER_A_LOT_OF	e.g., a lot of air
+_gram-helpText_	DETERMINER_A_LOT_OF	e.g. a lot of air
 _gram-name_	DETERMINER_MANY	Many
 _gram-path_	DETERMINER_MANY	Determiner > Determiner "many"
-_gram-helpText_	DETERMINER_MANY	e.g., many texts
+_gram-helpText_	DETERMINER_MANY	e.g. many texts
 _gram-name_	DETERMINER_MUCH	Much
 _gram-path_	DETERMINER_MUCH	Determiner > Determiner "much"
-_gram-helpText_	DETERMINER_MUCH	e.g., much water
+_gram-helpText_	DETERMINER_MUCH	e.g. much water
 _gram-name_	DETERMINER_SOME	Some
 _gram-path_	DETERMINER_SOME	Determiner > Determiner "some"
-_gram-helpText_	DETERMINER_SOME	e.g., some time
+_gram-helpText_	DETERMINER_SOME	e.g. some time
 _gram-name_	EXISTENTIAL_THERE	Existential "there"
 _gram-path_	EXISTENTIAL_THERE	Clauses > Existential "there"
-_gram-helpText_	EXISTENTIAL_THERE	A clause starting with there is/are/was/were/will be. E.g., There is no internet connection in this room.
+_gram-helpText_	EXISTENTIAL_THERE	A clause starting with there is/are/was/were/will be, e.g. There is no internet connection in this room.
 _gram-name_	IMPERATIVES	Imperative
 _gram-path_	IMPERATIVES	Verbs > Imperative > Imperative verb
-_gram-helpText_	IMPERATIVES	A verb at the beginning of an imperative clause. E.g., Write this down. Watch out! 
+_gram-helpText_	IMPERATIVES	A verb at the beginning of an imperative clause, e.g. Write this down. Watch out!
 _gram-name_	MODALS	Modal
 _gram-path_	MODALS	Verbs > Modals > Modal verbs
-_gram-helpText_	MODALS	A verb that indicates likelihood, ability, permission, or obligation. E.g., might, can, ought to, must
+_gram-helpText_	MODALS	A verb that indicates likelihood, ability, permission, or obligation, e.g. might, can, ought to, must
 _gram-name_	MODALS_ABLE	Able
 _gram-path_	MODALS_ABLE	Verbs > Modals > Modal verb "able"
-_gram-helpText_	MODALS_ABLE	e.g., We were not able to reach John.
+_gram-helpText_	MODALS_ABLE	e.g. We were not able to reach John.
 _gram-name_	MODALS_ADVANCED	Advanced
 _gram-path_	MODALS_ADVANCED	Verbs > Modals > Advanced modal verbs
-_gram-helpText_	MODALS_ADVANCED	All non-simple modal verbs. E.g., ought to, able to, should.
+_gram-helpText_	MODALS_ADVANCED	All non-simple modal verbs, e.g. ought to, able to, should.
 _gram-name_	MODALS_CAN	Can
 _gram-path_	MODALS_CAN	Verbs > Modals > Modal verb "can"
-_gram-helpText_	MODALS_CAN	e.g., John can draw pretty well.
+_gram-helpText_	MODALS_CAN	e.g. John can draw pretty well.
 _gram-name_	MODALS_COULD	Could
 _gram-path_	MODALS_COULD	Verbs > Modals > Modal verb "could"
-_gram-helpText_	MODALS_COULD	As the past form of "can" or a separate modal verb. E.g., John could climb trees when he was 7. I could call you at 8pm.
+_gram-helpText_	MODALS_COULD	As the past form of "can" or a separate modal verb, e.g. John could climb trees when he was 7. I could call you at 8pm.
 _gram-name_	MODALS_HAVE_TO	Have to
 _gram-path_	MODALS_HAVE_TO	Verbs > Modals > Modal verb "have to"
-_gram-helpText_	MODALS_HAVE_TO	e.g. Sorry, it is already late, I have to go. 
+_gram-helpText_	MODALS_HAVE_TO	e.g. Sorry, it is already late, I have to go.
 _gram-name_	MODALS_MAY	May
 _gram-path_	MODALS_MAY	Verbs > Modals > Modal verb "may"
-_gram-helpText_	MODALS_MAY	e.g., May I ask a question?
+_gram-helpText_	MODALS_MAY	e.g. May I ask a question?
 _gram-name_	MODALS_MIGHT	Might
 _gram-path_	MODALS_MIGHT	Verbs > Modals > Modal verb "might"
-_gram-helpText_	MODALS_MIGHT	As the past form of "may" or a separate modal verb. E.g., John might have won that game. This might be true.
+_gram-helpText_	MODALS_MIGHT	As the past form of "may" or a separate modal verb, e.g. John might have won that game. This might be true.
 _gram-name_	MODALS_MUST	Must
 _gram-path_	MODALS_MUST	Verbs > Modals > Modal verb "must"
-_gram-helpText_	MODALS_MUST	e.g., You must be careful.
+_gram-helpText_	MODALS_MUST	e.g. You must be careful.
 _gram-name_	MODALS_NEED	Need
 _gram-path_	MODALS_NEED	Verbs > Modals > Modal verb "need"
-_gram-helpText_	MODALS_NEED	e.g., John needs your help.
+_gram-helpText_	MODALS_NEED	e.g. John needs your help.
 _gram-name_	MODALS_OUGHT	Ought to
 _gram-path_	MODALS_OUGHT	Verbs > Modals > Modal verb "ought to"
-_gram-helpText_	MODALS_OUGHT	e.g., Everyone ought to respect the law.
-_gram-name_	MODALS_SIMPLE	Simple 
+_gram-helpText_	MODALS_OUGHT	e.g. Everyone ought to respect the law.
+_gram-name_	MODALS_SIMPLE	Simple
 _gram-path_	MODALS_SIMPLE	Verbs > Modals > Simple modal verbs
 _gram-helpText_	MODALS_SIMPLE	The following modal verbs: can, must, need, may
 _gram-name_	NEGATION_ALL	All negation
 _gram-path_	NEGATION_ALL	Negation > All negation
-_gram-helpText_	NEGATION_ALL	All forms of negation: no, not, never, nobody, partial negation (e.g., barely, hardly)
+_gram-helpText_	NEGATION_ALL	All forms of negation: no, not, never, nobody, partial negation (e.g. barely, hardly)
 _gram-name_	NEGATION_NOT	Not (full form)
 _gram-path_	NEGATION_NOT	Negation > Full form "not"
-_gram-helpText_	NEGATION_NOT	e.g., John has not been to the US before.
-_gram-name_	NEGATION_NO_NOT_NEVER	No, not, never
-_gram-path_	NEGATION_NO_NOT_NEVER	Negation > Negative forms "no, not, never"
-_gram-helpText_	NEGATION_NO_NOT_NEVER	e.g., You have no right to say that. We do not know John well enough. Sam has never seen John.
+_gram-helpText_	NEGATION_NOT	e.g. John has not been to the US before.
+_gram-name_	NEGATION_NO_NOT_NEVER	No, not, never, etc.
+_gram-path_	NEGATION_NO_NOT_NEVER	Negation > Negative forms "no", "not", "never", etc.
+_gram-helpText_	NEGATION_NO_NOT_NEVER	e.g. You have no right to say that. We do not know John well enough. Sam has never seen John.
 _gram-name_	NEGATION_NT	N't (contracted form)
 _gram-path_	NEGATION_NT	Negation > Contracted form "n't"
-_gram-helpText_	NEGATION_NT	e.g., John isn't feeling very well.
+_gram-helpText_	NEGATION_NT	e.g. John isn't feeling very well.
 _gram-name_	NEGATION_PARTIAL	Partial negation
 _gram-path_	NEGATION_PARTIAL	Negation > Partial negation
-_gram-helpText_	NEGATION_PARTIAL	The following adverbs: hardly, barely, scarcely, rarely, seldom. E.g., John could hardly understand the lecture.
-_gram-name_	NOUNFORMS_ING	-ing forms 
+_gram-helpText_	NEGATION_PARTIAL	The following adverbs: hardly, barely, scarcely, rarely, seldom, e.g. John could hardly understand the lecture.
+_gram-name_	NOUNFORMS_ING	-ing forms
 _gram-path_	NOUNFORMS_ING	Nouns > -ing noun forms
-_gram-helpText_	NOUNFORMS_ING	Nouns derived from verbs and ending with -ing. E.g., skiing, being, but also building.
+_gram-helpText_	NOUNFORMS_ING	Nouns derived from verbs and ending with -ing, e.g. skiing, being, but also building.
 _gram-name_	NOUNS_ISMUS	NOUNS_ISMUS
 _gram-path_	NOUNS_ISMUS	NOUNS_ISMUS
 _gram-helpText_	NOUNS_ISMUS	<INSERT_HELP_TEXT>
@@ -183,16 +183,16 @@ _gram-path_	NOUNS_UNG	NOUNS_UNG
 _gram-helpText_	NOUNS_UNG	<INSERT_HELP_TEXT>
 _gram-name_	OBJECT_DIRECT	Transitive
 _gram-path_	OBJECT_DIRECT	Verbs > Transitive > Transitive verb
-_gram-helpText_	OBJECT_DIRECT	A verb that takes one direct object. E.g., John drives a Mercedes. 
+_gram-helpText_	OBJECT_DIRECT	A verb that takes one direct object, e.g. John drives a Mercedes.
 _gram-name_	OBJECT_INDIRECT	Ditransitive
 _gram-path_	OBJECT_INDIRECT	Verbs > Transitive > Ditransitive verb
-_gram-helpText_	OBJECT_INDIRECT	A verb that takes a direct and an indirect object. E.g., Please, pass this book to me. 
+_gram-helpText_	OBJECT_INDIRECT	A verb that takes a direct and an indirect object, e.g. Please, pass this book to me.
 _gram-name_	PARTICLE_PLUS_ADJ_ADV	PARTICLE_PLUS_ADJ_ADV
 _gram-path_	PARTICLE_PLUS_ADJ_ADV	PARTICLE_PLUS_ADJ_ADV
 _gram-helpText_	PARTICLE_PLUS_ADJ_ADV	<INSERT_HELP_TEXT>
 _gram-name_	PASSIVE_VOICE	Passive
 _gram-path_	PASSIVE_VOICE	Verbs > Voice > Passive voice
-_gram-helpText_	PASSIVE_VOICE	e.g., This book was written by George R. R. Martin.
+_gram-helpText_	PASSIVE_VOICE	e.g. This book was written by George R. R. Martin.
 _gram-name_	PASSIVE_VOICE_SEIN	PASSIVE_VOICE_SEIN
 _gram-path_	PASSIVE_VOICE_SEIN	PASSIVE_VOICE_SEIN
 _gram-helpText_	PASSIVE_VOICE_SEIN	<INSERT_HELP_TEXT>
@@ -201,175 +201,175 @@ _gram-path_	PASSIVE_VOICE_WERDEN	PASSIVE_VOICE_WERDEN
 _gram-helpText_	PASSIVE_VOICE_WERDEN	<INSERT_HELP_TEXT>
 _gram-name_	PLURAL_IRREGULAR	Plural irregular
 _gram-path_	PLURAL_IRREGULAR	Nouns > Irregular plural form of nouns
-_gram-helpText_	PLURAL_IRREGULAR	e.g., people, children, women
+_gram-helpText_	PLURAL_IRREGULAR	e.g. people, children, women
 _gram-name_	PLURAL_REGULAR	Plural regular
 _gram-path_	PLURAL_REGULAR	Nouns > Regular plural form of nouns
-_gram-helpText_	PLURAL_REGULAR	e.g., texts, flowers, settings
-_gram-name_	PREPOSITIONS	Prepositions
+_gram-helpText_	PLURAL_REGULAR	e.g. texts, flowers, settings
+_gram-name_	PREPOSITIONS	All Prepositions
 _gram-path_	PREPOSITIONS	Prepositions > All prepositions
-_gram-helpText_	PREPOSITIONS	e.g., in, on, between, under
+_gram-helpText_	PREPOSITIONS	e.g. in, on, between, under
 _gram-name_	PREPOSITIONS_ADVANCED	Advanced
 _gram-path_	PREPOSITIONS_ADVANCED	Prepositions > Advanced preposition
-_gram-helpText_	PREPOSITIONS_ADVANCED	All non-simple prepositions. E.g., between, above, after
+_gram-helpText_	PREPOSITIONS_ADVANCED	All non-simple prepositions, e.g. between, above, after
 _gram-name_	PREPOSITIONS_COMPLEX	Complex
 _gram-path_	PREPOSITIONS_COMPLEX	Prepositions > Complex preposition
-_gram-helpText_	PREPOSITIONS_COMPLEX	Prepositions consisting of two or more words. E.g., apart from, by means of
-_gram-name_	PREPOSITIONS_SIMPLE	Simple 
+_gram-helpText_	PREPOSITIONS_COMPLEX	Prepositions consisting of two or more words, e.g. apart from, by means of
+_gram-name_	PREPOSITIONS_SIMPLE	Simple
 _gram-path_	PREPOSITIONS_SIMPLE	Prepositions > Simple preposition
 _gram-helpText_	PREPOSITIONS_SIMPLE	The following prepositions: at, on, in, to, with, after
-_gram-name_	PRONOUNS	Pronouns
+_gram-name_	PRONOUNS	All Pronouns
 _gram-path_	PRONOUNS	Pronouns > All pronouns
 _gram-helpText_	PRONOUNS	Personal, possessive, indefinite, interrogative, reflexive, relative, demonstrative pronouns
 _gram-name_	PRONOUNS_DEMONSTRATIVE	Demonstrative
 _gram-path_	PRONOUNS_DEMONSTRATIVE	Pronouns > Demonstrative pronoun
-_gram-helpText_	PRONOUNS_DEMONSTRATIVE	e.g., this, that, these, those
+_gram-helpText_	PRONOUNS_DEMONSTRATIVE	e.g. this, that, these, those
 _gram-name_	PRONOUNS_INDEFINITE	Indefinite
 _gram-path_	PRONOUNS_INDEFINITE	Pronouns > Indefinite pronoun
-_gram-helpText_	PRONOUNS_INDEFINITE	e.g., somewhere, everything, nobody, neither, another
+_gram-helpText_	PRONOUNS_INDEFINITE	e.g. somewhere, everything, nobody, neither, another
 _gram-name_	PRONOUNS_INTERROGATIVE	Interrogative
 _gram-path_	PRONOUNS_INTERROGATIVE	Pronouns > Interrogative pronoun
-_gram-helpText_	PRONOUNS_INTERROGATIVE	All question words. E.g., what, where, which, how
-_gram-name_	PRONOUNS_OBJECTIVE	Object 
+_gram-helpText_	PRONOUNS_INTERROGATIVE	All question words, e.g. what, where, which, how
+_gram-name_	PRONOUNS_OBJECTIVE	Object
 _gram-path_	PRONOUNS_OBJECTIVE	Pronouns > Object pronoun
-_gram-helpText_	PRONOUNS_OBJECTIVE	Any pronoun used as an object. E.g., me, him, them
+_gram-helpText_	PRONOUNS_OBJECTIVE	Any pronoun used as an object, e.g. me, him, them
 _gram-name_	PRONOUNS_PERSONAL	Personal
 _gram-path_	PRONOUNS_PERSONAL	Pronouns > Personal pronoun
-_gram-helpText_	PRONOUNS_PERSONAL	e.g., I, he, they
+_gram-helpText_	PRONOUNS_PERSONAL	e.g. I, he, they
 _gram-name_	PRONOUNS_POSSESSIVE	Possessive
 _gram-path_	PRONOUNS_POSSESSIVE	Pronouns > Possessive pronoun
-_gram-helpText_	PRONOUNS_POSSESSIVE	e.g., my, his, their
+_gram-helpText_	PRONOUNS_POSSESSIVE	e.g. my, his, their
 _gram-name_	PRONOUNS_POSSESSIVE_ABSOLUTE	Absolute possessive
 _gram-path_	PRONOUNS_POSSESSIVE_ABSOLUTE	Pronouns > Absolute possessive pronoun
-_gram-helpText_	PRONOUNS_POSSESSIVE_ABSOLUTE	e.g., mine, his, theirs
+_gram-helpText_	PRONOUNS_POSSESSIVE_ABSOLUTE	e.g. mine, his, theirs
 _gram-name_	PRONOUNS_REFLEXIVE	Reflexive
 _gram-path_	PRONOUNS_REFLEXIVE	Pronouns > Reflexive pronoun
-_gram-helpText_	PRONOUNS_REFLEXIVE	e.g., myself, himself, themselves
+_gram-helpText_	PRONOUNS_REFLEXIVE	e.g. myself, himself, themselves
 _gram-name_	PRONOUNS_RELATIVE	Relative
 _gram-path_	PRONOUNS_RELATIVE	Pronouns > Relative pronouns
-_gram-helpText_	PRONOUNS_RELATIVE	e.g., who, which, that
+_gram-helpText_	PRONOUNS_RELATIVE	e.g. who, which, that
 _gram-name_	PRONOUNS_SUBJECTIVE	Subject
 _gram-path_	PRONOUNS_SUBJECTIVE	Pronouns > Subject pronoun
-_gram-helpText_	PRONOUNS_SUBJECTIVE	Any pronoun used as a subject. E.g., I, everyone, something
+_gram-helpText_	PRONOUNS_SUBJECTIVE	Any pronoun used as a subject, e.g. I, everyone, something
 _gram-name_	QUESTIONS_DIRECT	Questions
 _gram-path_	QUESTIONS_DIRECT	Questions > All questions
-_gram-helpText_	QUESTIONS_DIRECT	All direct questions. E.g., What is the capital of Germany?
+_gram-helpText_	QUESTIONS_DIRECT	All direct questions, e.g. What is the capital of Germany?
 _gram-name_	QUESTIONS_HOW	"How" questions
 _gram-path_	QUESTIONS_HOW	Questions > "How" questions
-_gram-helpText_	QUESTIONS_HOW	Questions starting with "how". E.g., How are you doing today?
+_gram-helpText_	QUESTIONS_HOW	Questions starting with "how", e.g. How are you doing today?
 _gram-name_	QUESTIONS_INDIRECT	Indirect
 _gram-path_	QUESTIONS_INDIRECT	Questions > Indirect questions
-_gram-helpText_	QUESTIONS_INDIRECT	Questions reported using indirect speech. E.g., John asked when he should come.
+_gram-helpText_	QUESTIONS_INDIRECT	Questions reported using indirect speech, e.g. John asked when he should come.
 _gram-name_	QUESTIONS_MODAL	Modal
 _gram-path_	QUESTIONS_MODAL	Questions > Modal questions
-_gram-helpText_	QUESTIONS_MODAL	Questions starting with a modal verb. E.g., Could you help me? 
+_gram-helpText_	QUESTIONS_MODAL	Questions starting with a modal verb, e.g. Could you help me?
 _gram-name_	QUESTIONS_TAG	Tag questions
 _gram-path_	QUESTIONS_TAG	Questions > Tag questions
 _gram-helpText_	QUESTIONS_TAG	e.g. It is still raining outside, isn't it?
 _gram-name_	QUESTIONS_TO_BE	"Be" questions
 _gram-path_	QUESTIONS_TO_BE	Questions > "Be" questions (Progressive Aspect)
-_gram-helpText_	QUESTIONS_TO_BE	Yes/no questions starting with a form of the verb "be". E.g., Are you listening to me?
+_gram-helpText_	QUESTIONS_TO_BE	Yes/no questions starting with a form of the verb "be", e.g. Are you listening to me?
 _gram-name_	QUESTIONS_TO_DO	"Do" questions
 _gram-path_	QUESTIONS_TO_DO	Questions > "Do" questions (Simple Aspect)
-_gram-helpText_	QUESTIONS_TO_DO	Yes/no questions starting with a form of the verb "do". E.g., Did you go to the cinema at the weekend?
-_gram-name_	QUESTIONS_TO_HAVE	"Have" questions 
+_gram-helpText_	QUESTIONS_TO_DO	Yes/no questions starting with a form of the verb "do", e.g. Did you go to the cinema at the weekend?
+_gram-name_	QUESTIONS_TO_HAVE	"Have" questions
 _gram-path_	QUESTIONS_TO_HAVE	Questions > "Have" questions (Perfect or Perfect Progressive Aspect)
-_gram-helpText_	QUESTIONS_TO_HAVE	Yes/no questions starting with a form of the verb "have". E.g., Have you ever seen a snake? Have you been studying for the last hour?
+_gram-helpText_	QUESTIONS_TO_HAVE	Yes/no questions starting with a form of the verb "have", e.g. Have you ever seen a snake? Have you been studying for the last hour?
 _gram-name_	QUESTIONS_WH	"Wh" questions
 _gram-path_	QUESTIONS_WH	Questions > "Wh" questions
-_gram-helpText_	QUESTIONS_WH	All non-yes/no questions. E.g., When is John's birthday? Which text have you read?
+_gram-helpText_	QUESTIONS_WH	All non-yes/no questions, e.g. When is John's birthday? Which text have you read?
 _gram-name_	QUESTIONS_WHAT	"What" questions
 _gram-path_	QUESTIONS_WHAT	Questions > "What" questions
-_gram-helpText_	QUESTIONS_WHAT	Questions starting with "what". E.g., What date is it today?
+_gram-helpText_	QUESTIONS_WHAT	Questions starting with "what", e.g. What date is it today?
 _gram-name_	QUESTIONS_WHEN	"When" questions
 _gram-path_	QUESTIONS_WHEN	Questions > "When" questions
-_gram-helpText_	QUESTIONS_WHEN	Questions starting with "when". E.g., When is the next break?
+_gram-helpText_	QUESTIONS_WHEN	Questions starting with "when", e.g. When is the next break?
 _gram-name_	QUESTIONS_WHERE	"Where" questions
 _gram-path_	QUESTIONS_WHERE	Questions > "Where" questions
-_gram-helpText_	QUESTIONS_WHERE	Questions starting with "where". E.g., Where did you go on holidays last summer?
+_gram-helpText_	QUESTIONS_WHERE	Questions starting with "where", e.g. Where did you go on holidays last summer?
 _gram-name_	QUESTIONS_WHICH	"Which" questions
 _gram-path_	QUESTIONS_WHICH	Questions > "Which" questions
-_gram-helpText_	QUESTIONS_WHICH	Questions starting with "which". E.g., Which topic have you chosen for your presentation?
+_gram-helpText_	QUESTIONS_WHICH	Questions starting with "which", e.g. Which topic have you chosen for your presentation?
 _gram-name_	QUESTIONS_WHO	"Who" questions
 _gram-path_	QUESTIONS_WHO	Questions > "Who" questions
-_gram-helpText_	QUESTIONS_WHO	Questions starting with "who". E.g., Who is absent today?
+_gram-helpText_	QUESTIONS_WHO	Questions starting with "who", e.g. Who is absent today?
 _gram-name_	QUESTIONS_WHOM	"Whom" questions
 _gram-path_	QUESTIONS_WHOM	Questions > "Whom" questions
-_gram-helpText_	QUESTIONS_WHOM	Questions starting with "whom". E.g., Whom should I contact?
+_gram-helpText_	QUESTIONS_WHOM	Questions starting with "whom", e.g. Whom should I contact?
 _gram-name_	QUESTIONS_WHOSE	"Whose" questions
 _gram-path_	QUESTIONS_WHOSE	Questions > "Whose" questions
-_gram-helpText_	QUESTIONS_WHOSE	Questions starting with "whose". E.g., Whose turn is it?
+_gram-helpText_	QUESTIONS_WHOSE	Questions starting with "whose", e.g. Whose turn is it?
 _gram-name_	QUESTIONS_WHY	"Why" questions
 _gram-path_	QUESTIONS_WHY	Questions > "Why" questions
-_gram-helpText_	QUESTIONS_WHY	Questions starting with "why". E.g., Why are you asking me this question?
+_gram-helpText_	QUESTIONS_WHY	Questions starting with "why", e.g. Why are you asking me this question?
 _gram-name_	QUESTIONS_YESNO	Yes/no questions
 _gram-path_	QUESTIONS_YESNO	Questions > Yes/no questions
-_gram-helpText_	QUESTIONS_YESNO	General yes/no questions starting with an auxiliary verb. E.g., Is John busy now? Have you completed the task?
+_gram-helpText_	QUESTIONS_YESNO	General yes/no questions starting with an auxiliary verb, e.g. Is John busy now? Have you completed the task?
 _gram-name_	SENTENCE_COMPLEX	Complex
 _gram-path_	SENTENCE_COMPLEX	Structure > Complex sentence
-_gram-helpText_	SENTENCE_COMPLEX	A sentence consisting of at least one independent (main) and one dependent (subordinate) clause. E.g., John is reading a book that Sam has given to him.
+_gram-helpText_	SENTENCE_COMPLEX	A sentence consisting of at least one independent (main) and one dependent (subordinate) clause, e.g. John is reading a book that Sam has given to him.
 _gram-name_	SENTENCE_COMPOUND	Coordinate
 _gram-path_	SENTENCE_COMPOUND	Structure > Coordinate sentence
-_gram-helpText_	SENTENCE_COMPOUND	A sentence consisting of two or more independent clauses. E.g., John was reading, and Sam was watching TV.
+_gram-helpText_	SENTENCE_COMPOUND	A sentence consisting of two or more independent clauses, e.g. John was reading, and Sam was watching TV.
 _gram-name_	SENTENCE_INCOMPLETE	Incomplete
 _gram-path_	SENTENCE_INCOMPLETE	Structure > Incomplete sentence
-_gram-helpText_	SENTENCE_INCOMPLETE	A simple sentence missing either a subject or a predicate. E.g., Him. Don't. What a shame.
+_gram-helpText_	SENTENCE_INCOMPLETE	A simple sentence missing either a subject or a predicate, e.g. Him. Don't. What a shame.
 _gram-name_	SENTENCE_SIMPLE	Simple
 _gram-path_	SENTENCE_SIMPLE	Structure > Simple sentence
-_gram-helpText_	SENTENCE_SIMPLE	A sentence consisting of one clause that contains a subject and a predicate. E.g., John loves peanut butter.
+_gram-helpText_	SENTENCE_SIMPLE	A sentence consisting of one clause that contains a subject and a predicate, e.g. John loves peanut butter.
 _gram-name_	TENSE_FUTURE_PERFECT	Future perfect
 _gram-path_	TENSE_FUTURE_PERFECT	Verbs > Tenses > Future perfect tense
-_gram-helpText_	TENSE_FUTURE_PERFECT	E.g., John will have been here for one year on June 3rd.
+_gram-helpText_	TENSE_FUTURE_PERFECT	e.g. John will have been here for one year on June 3rd.
 _gram-name_	TENSE_FUTURE_PERFECT_PROGRESSIVE	Future perfect progressive
 _gram-path_	TENSE_FUTURE_PERFECT_PROGRESSIVE	Verbs > Tenses > Future perfect progressive tense
-_gram-helpText_	TENSE_FUTURE_PERFECT_PROGRESSIVE	E.g., John will have been writing his essay for 3 days at 10pm tonight.
+_gram-helpText_	TENSE_FUTURE_PERFECT_PROGRESSIVE	e.g. John will have been writing his essay for 3 days at 10pm tonight.
 _gram-name_	TENSE_FUTURE_PROGRESSIVE	Future progressive
 _gram-path_	TENSE_FUTURE_PROGRESSIVE	Verbs > Tenses > Future progressive tense
-_gram-helpText_	TENSE_FUTURE_PROGRESSIVE	E.g., John will be working late tonight.
+_gram-helpText_	TENSE_FUTURE_PROGRESSIVE	e.g. John will be working late tonight.
 _gram-name_	TENSE_FUTURE_SIMPLE	Future simple
 _gram-path_	TENSE_FUTURE_SIMPLE	Verbs > Tenses > Future simple tense
-_gram-helpText_	TENSE_FUTURE_SIMPLE	E.g., John will reply to your email when he has time.
+_gram-helpText_	TENSE_FUTURE_SIMPLE	e.g. John will reply to your email when he has time.
 _gram-name_	TENSE_PAST_PERFECT	Past perfect
 _gram-path_	TENSE_PAST_PERFECT	Verbs > Tenses > Past perfect tense
-_gram-helpText_	TENSE_PAST_PERFECT	E.g., John had already seen this movie before we watched it together.
+_gram-helpText_	TENSE_PAST_PERFECT	e.g. John had already seen this movie before we watched it together.
 _gram-name_	TENSE_PAST_PERFECT_HABEN	TENSE_PAST_PERFECT_HABEN
 _gram-path_	TENSE_PAST_PERFECT_HABEN	TENSE_PAST_PERFECT_HABEN
 _gram-helpText_	TENSE_PAST_PERFECT_HABEN	<INSERT_HELP_TEXT>
 _gram-name_	TENSE_PAST_PERFECT_PROGRESSIVE	Past perfect progressive
 _gram-path_	TENSE_PAST_PERFECT_PROGRESSIVE	Verbs > Tenses > Past perfect progressive tense
-_gram-helpText_	TENSE_PAST_PERFECT_PROGRESSIVE	E.g., We had been driving very fast before we saw the speed limit sign.
+_gram-helpText_	TENSE_PAST_PERFECT_PROGRESSIVE	e.g. We had been driving very fast before we saw the speed limit sign.
 _gram-name_	TENSE_PAST_PERFECT_SEIN	TENSE_PAST_PERFECT_SEIN
 _gram-path_	TENSE_PAST_PERFECT_SEIN	TENSE_PAST_PERFECT_SEIN
 _gram-helpText_	TENSE_PAST_PERFECT_SEIN	<INSERT_HELP_TEXT>
 _gram-name_	TENSE_PAST_PROGRESSIVE	Past progressive
 _gram-path_	TENSE_PAST_PROGRESSIVE	Verbs > Tenses > Past progressive tense
-_gram-helpText_	TENSE_PAST_PROGRESSIVE	E.g., John and Sam were having lunch when I came by yesterday.
+_gram-helpText_	TENSE_PAST_PROGRESSIVE	e.g. John and Sam were having lunch when I came by yesterday.
 _gram-name_	TENSE_PAST_SIMPLE	Past simple
 _gram-path_	TENSE_PAST_SIMPLE	Verbs > Tenses > Past simple tense
-_gram-helpText_	TENSE_PAST_SIMPLE	E.g., John dressed up as a pumpkin last Halloween.
+_gram-helpText_	TENSE_PAST_SIMPLE	e.g. John dressed up as a pumpkin last Halloween.
 _gram-name_	TENSE_PRESENT_PERFECT	Present perfect
 _gram-path_	TENSE_PRESENT_PERFECT	Verbs > Tenses > Present perfect tense
-_gram-helpText_	TENSE_PRESENT_PERFECT	E.g., John and Sam have already prepared their presentation.
+_gram-helpText_	TENSE_PRESENT_PERFECT	e.g. John and Sam have already prepared their presentation.
 _gram-name_	TENSE_PRESENT_PERFECT_HABEN	TENSE_PRESENT_PERFECT_HABEN
 _gram-path_	TENSE_PRESENT_PERFECT_HABEN	TENSE_PRESENT_PERFECT_HABEN
 _gram-helpText_	TENSE_PRESENT_PERFECT_HABEN	<INSERT_HELP_TEXT>
 _gram-name_	TENSE_PRESENT_PERFECT_PROGRESSIVE	Perfect progressive
 _gram-path_	TENSE_PRESENT_PERFECT_PROGRESSIVE	Verbs > Tenses > Present perfect progressive tense
-_gram-helpText_	TENSE_PRESENT_PERFECT_PROGRESSIVE	E.g., John has been playing this online game for the last 5 hours.
+_gram-helpText_	TENSE_PRESENT_PERFECT_PROGRESSIVE	e.g. John has been playing this online game for the last 5 hours.
 _gram-name_	TENSE_PRESENT_PERFECT_SEIN	TENSE_PRESENT_PERFECT_SEIN
 _gram-path_	TENSE_PRESENT_PERFECT_SEIN	TENSE_PRESENT_PERFECT_SEIN
 _gram-helpText_	TENSE_PRESENT_PERFECT_SEIN	<INSERT_HELP_TEXT>
 _gram-name_	TENSE_PRESENT_PROGRESSIVE	Present progressive
 _gram-path_	TENSE_PRESENT_PROGRESSIVE	Verbs > Tenses > Present progressive tense
-_gram-helpText_	TENSE_PRESENT_PROGRESSIVE	E.g., My family and I are enjoying our holidays in Spain right now.
+_gram-helpText_	TENSE_PRESENT_PROGRESSIVE	e.g. My family and I are enjoying our holidays in Spain right now.
 _gram-name_	TENSE_PRESENT_SIMPLE	Present simple
 _gram-path_	TENSE_PRESENT_SIMPLE	Verbs > Tenses > Present simple tense
-_gram-helpText_	TENSE_PRESENT_SIMPLE	E.g., John wakes up at 7am every day.
+_gram-helpText_	TENSE_PRESENT_SIMPLE	e.g. John wakes up at 7am every day.
 _gram-name_	THERE_IS_ARE	There is/are
 _gram-path_	THERE_IS_ARE	Clauses > There is/are
-_gram-helpText_	THERE_IS_ARE	E.g., There is no juice left in the fridge.
+_gram-helpText_	THERE_IS_ARE	e.g. There is no juice left in the fridge.
 _gram-name_	THERE_WAS_WERE	There was/were
 _gram-path_	THERE_WAS_WERE	Clauses > There was/were
-_gram-helpText_	THERE_WAS_WERE	E.g., There were too many people, so we left.
+_gram-helpText_	THERE_WAS_WERE	e.g. There were too many people, so we left.
 _gram-name_	TIME_FUTURE	Future
 _gram-path_	TIME_FUTURE	Verbs > Time > Future time
 _gram-helpText_	TIME_FUTURE	All future tenses. Will/shall + do/be doing/have done/have been doing
@@ -379,30 +379,30 @@ _gram-helpText_	TIME_PAST	All past tenses. Did/was/were doing/had done/had been 
 _gram-name_	TIME_PRESENT	Present
 _gram-path_	TIME_PRESENT	Verbs > Time > Present time
 _gram-helpText_	TIME_PRESENT	All present tenses. Do/does/am/is/are doing/have/has done/have/has been doing
-_gram-name_	VERBCONST_GOING_TO	Going to 
+_gram-name_	VERBCONST_GOING_TO	Going to
 _gram-path_	VERBCONST_GOING_TO	Verbs > Other > Going to
-_gram-helpText_	VERBCONST_GOING_TO	An intention. Going to + verb. E.g., John is going to invite you to his party.
+_gram-helpText_	VERBCONST_GOING_TO	An intention. Going to + verb, e.g. John is going to invite you to his party.
 _gram-name_	VERBCONST_USED_TO	Used to
 _gram-path_	VERBCONST_USED_TO	Verbs > Other > Used to
-_gram-helpText_	VERBCONST_USED_TO	A habitual action in the past. Used to + verb. E.g., John used to play football every day when he was a kid.
-_gram-name_	VERBFORM_AUXILIARIES_BE_DO_HAVE	Auxiliaries 
+_gram-helpText_	VERBCONST_USED_TO	A habitual action in the past. Used to + verb, e.g. John used to play football every day when he was a kid.
+_gram-name_	VERBFORM_AUXILIARIES_BE_DO_HAVE	Auxiliaries
 _gram-path_	VERBFORM_AUXILIARIES_BE_DO_HAVE	Verbs > Verb forms > Auxiliaries
-_gram-helpText_	VERBFORM_AUXILIARIES_BE_DO_HAVE	Auxiliaries "be" and "have" (short and full forms). E.g., I am, He's
+_gram-helpText_	VERBFORM_AUXILIARIES_BE_DO_HAVE	Auxiliaries "be" and "have" (short and full forms), e.g. I am, He's
 _gram-name_	VERBFORM_COPULAR	Copula
 _gram-path_	VERBFORM_COPULAR	Verbs > Verb forms > Copular verbs
-_gram-helpText_	VERBFORM_COPULAR	Copular verbs be, seem, look, stay, etc. E.g., She looks upset.
-_gram-name_	VERBFORM_EMPATHIC_DO	Emphatic do 
-_gram-path_	VERBFORM_EMPATHIC_DO	Verbs > Other > Emphatic do
-_gram-helpText_	VERBFORM_EMPATHIC_DO	e.g., I did tell the truth.
+_gram-helpText_	VERBFORM_COPULAR	Copular verbs be, seem, look, stay, etc, e.g. She looks upset.
+_gram-name_	VERBFORM_EMPHATIC_DO	Emphatic do
+_gram-path_	VERBFORM_EMPHATIC_DO	Verbs > Other > Emphatic do
+_gram-helpText_	VERBFORM_EMPHATIC_DO	e.g. I did tell the truth.
 _gram-name_	VERBFORM_INFINITIVE	Infinitive
 _gram-path_	VERBFORM_INFINITIVE	Verbs > Verb forms > Infinitive
-_gram-helpText_	VERBFORM_INFINITIVE	Base form of the verb. E.g., John can draw pretty well.
+_gram-helpText_	VERBFORM_INFINITIVE	Base form of the verb, e.g. John can draw pretty well.
 _gram-name_	VERBFORM_ING	-ing
 _gram-path_	VERBFORM_ING	Verbs > Verb forms > -ing verb form
-_gram-helpText_	VERBFORM_ING	Gerunds and present participles. E.g., John likes swimming. You are constantly arguing with me.
+_gram-helpText_	VERBFORM_ING	Gerunds and present participles, e.g. John likes swimming. You are constantly arguing with me.
 _gram-name_	VERBFORM_LONG	Full auxiliary
 _gram-path_	VERBFORM_LONG	Verbs > Verb forms > Full auxiliary form
-_gram-helpText_	VERBFORM_LONG	Full form of the auxiliaries "be" and "have". E.g., I am, he has, we are
+_gram-helpText_	VERBFORM_LONG	Full form of the auxiliaries "be" and "have", e.g. I am, he has, we are
 _gram-name_	VERBFORM_PARTICIPLE	VERBFORM_PARTICIPLE
 _gram-path_	VERBFORM_PARTICIPLE	VERBFORM_PARTICIPLE
 _gram-helpText_	VERBFORM_PARTICIPLE	<INSERT_HELP_TEXT>
@@ -414,22 +414,22 @@ _gram-path_	VERBFORM_PARTICIPLE_2	VERBFORM_PARTICIPLE_2
 _gram-helpText_	VERBFORM_PARTICIPLE_2	<INSERT_HELP_TEXT>
 _gram-name_	VERBFORM_SHORT	Contracted auxiliary
 _gram-path_	VERBFORM_SHORT	Verbs > Verb forms > Contracted auxiliary form
-_gram-helpText_	VERBFORM_SHORT	Contracted form of the auxiliaries "be" and "have". E.g., I'm, he's, we're
+_gram-helpText_	VERBFORM_SHORT	Contracted form of the auxiliaries "be" and "have", e.g. I'm, he's, we're
 _gram-name_	VERBFORM_TO_INFINITIVE	"to" infinitive
 _gram-path_	VERBFORM_TO_INFINITIVE	Verbs > Verb forms > "To" infinitive
-_gram-helpText_	VERBFORM_TO_INFINITIVE	Base form of the verb precedes by "to". E.g., John wants to talk to you.
+_gram-helpText_	VERBFORM_TO_INFINITIVE	Base form of the verb precedes by "to", e.g. John wants to talk to you.
 _gram-name_	VERBS_IRREGULAR	Irregular
 _gram-path_	VERBS_IRREGULAR	Verbs > Verb forms > Irregular verbs
-_gram-helpText_	VERBS_IRREGULAR	Irregular forms V2 and V3. E.g., bought, said, forgot
+_gram-helpText_	VERBS_IRREGULAR	Irregular forms V2 and V3, e.g. bought, said, forgot
 _gram-name_	VERBS_PHRASAL	Phrasal verbs
 _gram-path_	VERBS_PHRASAL	Verbs > Phrasal > Phrasal verbs
-_gram-helpText_	VERBS_PHRASAL	Phrasal or particle verbs. E.g., speak up, get off, watch out
+_gram-helpText_	VERBS_PHRASAL	Phrasal or particle verbs, e.g. speak up, get off, watch out
 _gram-name_	VERBS_REGULAR	Regular
 _gram-path_	VERBS_REGULAR	Verbs > Verb forms > Regular verbs
-_gram-helpText_	VERBS_REGULAR	Regular forms V2 and V3. E.g., liked, typed, selected
+_gram-helpText_	VERBS_REGULAR	Regular forms V2 and V3, e.g. liked, typed, selected
 _gram-name_	VERBTYP_AUXILIARIES	Auxiliaries
 _gram-path_	VERBTYP_AUXILIARIES	Verbs > Verb forms > Auxiliary verbs
-_gram-helpText_	VERBTYP_AUXILIARIES	Full and contracted forms of "be" and "have". E.g., am, 's, have, 're
+_gram-helpText_	VERBTYP_AUXILIARIES	Full and contracted forms of "be" and "have", e.g. am, 's, have, 're
 _gram-name_	VERBTYP_MAIN	VERBTYP_MAIN
 _gram-path_	VERBTYP_MAIN	VERBTYP_MAIN
 _gram-helpText_	VERBTYP_MAIN	<INSERT_HELP_TEXT>
@@ -493,3 +493,300 @@ _gram-helpText_	CASE_ACCUSATIVE	<Accusative_HELP_TEXT>
 _gram-name_	CASE_GENITIVE	Genitive
 _gram-path_	CASE_GENITIVE	Nouns > Case > Genitive
 _gram-helpText_	CASE_GENITIVE	<Genitive_HELP_TEXT>
+_gram-name_	ADJECTIVE_LONG_RUSSIAN	Long-form
+_gram-path_	ADJECTIVE_LONG_RUSSIAN	Adjectives > Long-form
+_gram-helpText_	ADJECTIVE_LONG_RUSSIAN	Non-predicative adjectives
+_gram-name_	ADJECTIVE_SHORT_RUSSIAN	Short-form
+_gram-path_	ADJECTIVE_SHORT_RUSSIAN	Adjectives > Short-form
+_gram-helpText_	ADJECTIVE_SHORT_RUSSIAN	Predicative adjectives
+_gram-name_	ADJECTIVE_COMPARATIVE_SHORT_RUSSIAN	Comparative short-form
+_gram-path_	ADJECTIVE_COMPARATIVE_SHORT_RUSSIAN	Adjectives > Comparative short-form
+_gram-helpText_	ADJECTIVE_COMPARATIVE_SHORT_RUSSIAN	Predicative comparative adjectives
+_gram-name_	ADJECTIVE_COMPARATIVE_LONG_RUSSIAN	Comparative long-form
+_gram-path_	ADJECTIVE_COMPARATIVE_LONG_RUSSIAN	Adjectives > Comparative long-form
+_gram-helpText_	ADJECTIVE_COMPARATIVE_LONG_RUSSIAN	Adjectives preceded by "более"
+_gram-name_	ADJECTIVE_SUPERLATIVE_LONG_RUSSIAN	Superlative long-form
+_gram-path_	ADJECTIVE_SUPERLATIVE_LONG_RUSSIAN	Adjectives > Superlative long-form
+_gram-helpText_	ADJECTIVE_SUPERLATIVE_LONG_RUSSIAN	Adjectives preceded by "самый", as well as others such as высший, младший, ярчайший, etc.
+_gram-name_	NOUN_NOMINATIVE	Nominative
+_gram-path_	NOUN_NOMINATIVE	Nouns > Nominative
+_gram-helpText_	NOUN_NOMINATIVE	Nouns declined in the nominative case
+_gram-name_	ADJECTIVE_NOMINATIVE	Nominative
+_gram-path_	ADJECTIVE_NOMINATIVE	Adjectives > Nominative
+_gram-helpText_	ADJECTIVE_NOMINATIVE	Adjectives declined in the nominative case
+_gram-name_	PRONOUN_NOMINATIVE	Nominative
+_gram-path_	PRONOUN_NOMINATIVE	Nouns > Nominative
+_gram-helpText_	PRONOUN_NOMINATIVE	Pronouns declined in the nominative case
+_gram-name_	DETERMINER_NOMINATIVE	Nominative
+_gram-path_	DETERMINER_NOMINATIVE	Determiners > Nominative
+_gram-helpText_	DETERMINER_NOMINATIVE	Determiners declined in the nominative case
+_gram-name_	NOUN_ACCUSATIVE	Accusative
+_gram-path_	NOUN_ACCUSATIVE	Nouns > Accusative
+_gram-helpText_	NOUN_ACCUSATIVE	Nouns declined in the accusative case
+_gram-name_	ADJECTIVE_ACCUSATIVE	Accusative
+_gram-path_	ADJECTIVE_ACCUSATIVE	Adjectives > Accusative
+_gram-helpText_	ADJECTIVE_ACCUSATIVE	Adjectives declined in the accusative case
+_gram-name_	PRONOUN_ACCUSATIVE	Accusative
+_gram-path_	PRONOUN_ACCUSATIVE	Pronouns > Accusative
+_gram-helpText_	PRONOUN_ACCUSATIVE	Pronouns declined in the accusative case
+_gram-name_	DETERMINER_ACCUSATIVE	Accusative
+_gram-path_	DETERMINER_ACCUSATIVE	Determiners > Accusative
+_gram-helpText_	DETERMINER_ACCUSATIVE	Determiners declined in the accusative case
+_gram-name_	PREPOSITION_ACCUSATIVE	Accusative
+_gram-path_	PREPOSITION_ACCUSATIVE	Prepositions > Accusative
+_gram-helpText_	PREPOSITION_ACCUSATIVE	Prepositions that govern the accusative case
+_gram-name_	NOUN_GENITIVE	Genitive
+_gram-path_	NOUN_GENITIVE	Nouns > Genitive
+_gram-helpText_	NOUN_GENITIVE	Nouns declined in the genitive case
+_gram-name_	ADJECTIVE_GENITIVE	Genitive
+_gram-path_	ADJECTIVE_GENITIVE	Adjectives > Genitive
+_gram-helpText_	ADJECTIVE_GENITIVE	Adjectives declined in the genitive case
+_gram-name_	PRONOUN_GENITIVE	Genitive
+_gram-path_	PRONOUN_GENITIVE	Pronouns > Genitive
+_gram-helpText_	PRONOUN_GENITIVE	Pronouns declined in the genitive case
+_gram-name_	DETERMINER_GENITIVE	Genitive
+_gram-path_	DETERMINER_GENITIVE	Determiners > Genitive
+_gram-helpText_	DETERMINER_GENITIVE	Determiners declined in the genitive case
+_gram-name_	PREPOSITION_GENITIVE	Genitive
+_gram-path_	PREPOSITION_GENITIVE	Prepositions > Genitive
+_gram-helpText_	PREPOSITION_GENITIVE	Prepositions that govern the genitive case
+_gram-name_	NOUN_PREPOSITIONAL	Prepositional
+_gram-path_	NOUN_PREPOSITIONAL	Nouns > Prepositional
+_gram-helpText_	NOUN_PREPOSITIONAL	Nouns declined in the prepositional case
+_gram-name_	ADJECTIVE_PREPOSITIONAL	Prepositional
+_gram-path_	ADJECTIVE_PREPOSITIONAL	Adjectives > Prepositional
+_gram-helpText_	ADJECTIVE_PREPOSITIONAL	Adjectives declined in the prepositional case
+_gram-name_	PRONOUN_PREPOSITIONAL	Prepositional
+_gram-path_	PRONOUN_PREPOSITIONAL	Pronouns > Prepositional
+_gram-helpText_	PRONOUN_PREPOSITIONAL	Pronouns declined in the prepositional case
+_gram-name_	DETERMINER_PREPOSITIONAL	Prepositional
+_gram-path_	DETERMINER_PREPOSITIONAL	Determiners > Prepositional
+_gram-helpText_	DETERMINER_PREPOSITIONAL	Determiners declined in the prepositional case
+_gram-name_	PREPOSITION_PREPOSITIONAL	Prepositional
+_gram-path_	PREPOSITION_PREPOSITIONAL	Prepositions > Prepositional
+_gram-helpText_	PREPOSITION_PREPOSITIONAL	Prepositions which govern the prepositional case
+_gram-name_	NOUN_DATIVE	Dative
+_gram-path_	NOUN_DATIVE	Nouns > Dative
+_gram-helpText_	NOUN_DATIVE	Nouns declined in the dative case
+_gram-name_	ADJECTIVE_DATIVE	Dative
+_gram-path_	ADJECTIVE_DATIVE	Adjectives > Dative
+_gram-helpText_	ADJECTIVE_DATIVE	Adjectives declined in the dative case
+_gram-name_	PRONOUN_DATIVE	Dative
+_gram-path_	PRONOUN_DATIVE	Pronouns > Dative
+_gram-helpText_	PRONOUN_DATIVE	Pronouns declined in the dative case
+_gram-name_	DETERMINER_DATIVE	Dative
+_gram-path_	DETERMINER_DATIVE	Determiners > Dative
+_gram-helpText_	DETERMINER_DATIVE	Determiners declined in the dative case
+_gram-name_	PREPOSITION_DATIVE	Dative
+_gram-path_	PREPOSITION_DATIVE	Prepositions > Dative
+_gram-helpText_	PREPOSITION_DATIVE	Prepositions which govern the dative case
+_gram-name_	NOUN_INSTRUMENTAL	Instrumental
+_gram-path_	NOUN_INSTRUMENTAL	Nouns > Instrumental
+_gram-helpText_	NOUN_INSTRUMENTAL	Nouns declined in the instrumental case
+_gram-name_	ADJECTIVE_INSTRUMENTAL	Instrumental
+_gram-path_	ADJECTIVE_INSTRUMENTAL	Adjectives > Instrumental
+_gram-helpText_	ADJECTIVE_INSTRUMENTAL	Adjectives declined in the instrumental case
+_gram-name_	PRONOUN_INSTRUMENTAL	Instrumental
+_gram-path_	PRONOUN_INSTRUMENTAL	Pronouns > Instrumental
+_gram-helpText_	PRONOUN_INSTRUMENTAL	Pronouns declined in the instrumental case
+_gram-name_	DETERMINER_INSTRUMENTAL	Instrumental
+_gram-path_	DETERMINER_INSTRUMENTAL	Determiners > Instrumental
+_gram-helpText_	DETERMINER_INSTRUMENTAL	Determiners declined in the instrumental case
+_gram-name_	PREPOSITION_INSTRUMENTAL	Instrumental
+_gram-path_	PREPOSITION_INSTRUMENTAL	Prepositions > Instrumental
+_gram-helpText_	PREPOSITION_INSTRUMENTAL	Prepositions which govern the instrumental case
+_gram-name_	PARTICIPLE_PRESENT_ACTIVE	Present Active Participle
+_gram-path_	PARTICIPLE_PRESENT_ACTIVE	Verbs > Verb forms > Present Active Participle
+_gram-helpText_	PARTICIPLE_PRESENT_ACTIVE	e.g. следующий, трудящийся
+_gram-name_	PARTICIPLE_PRESENT_PASSIVE	Present Passive Participle
+_gram-path_	PARTICIPLE_PRESENT_PASSIVE	Verbs > Verb forms > Present Passive Participle
+_gram-helpText_	PARTICIPLE_PRESENT_PASSIVE	e.g. любимый, незабываемый
+_gram-name_	PARTICIPLE_PAST_ACTIVE	Past Active Participle
+_gram-path_	PARTICIPLE_PAST_ACTIVE	Verbs > Verb forms > Past Active Participle
+_gram-helpText_	PARTICIPLE_PAST_ACTIVE	e.g. бывший, неудавшийся
+_gram-name_	PARTICIPLE_PAST_PASSIVE	Past Passive Participle
+_gram-path_	PARTICIPLE_PAST_PASSIVE	Verbs > Verb forms > Past Passive Participle
+_gram-helpText_	PARTICIPLE_PAST_PASSIVE	e.g. убитый, написанный
+_gram-name_	VERB_REFLEXIVE_RUSSIAN	Reflexive
+_gram-path_	VERB_REFLEXIVE_RUSSIAN	Verbs > Verb forms > Reflexive
+_gram-helpText_	VERB_REFLEXIVE_RUSSIAN	Verbs ending with "ся" or "сь"
+_gram-name_	VERBAL_ADVERB	Verbal Adverb (Gerund)
+_gram-path_	VERBAL_ADVERB	Adverbs > Verbal Adverb (Gerund)
+_gram-helpText_	VERBAL_ADVERB	e.g. читая, молясь, прочитав
+_gram-name_	VERBAL_ADVERB_PRESENT	Present Verbal Adverb (Gerund)
+_gram-path_	VERBAL_ADVERB_PRESENT	Adverbs > Present Verbal Adverb (Gerund)
+_gram-helpText_	VERBAL_ADVERB_PRESENT	e.g. читая, молясь
+_gram-name_	VERBAL_ADVERB_PAST	Past Verbal Adverb (Gerund)
+_gram-path_	VERBAL_ADVERB_PAST	Adverbs > Past Verbal Adverb (Gerund)
+_gram-helpText_	VERBAL_ADVERB_PAST	e.g. прочитав, помолившись, обжёгшись
+_gram-name_	QUESTIONS_WHITHER_RUSSIAN	"Куда" questions
+_gram-path_	QUESTIONS_WHITHER_RUSSIAN	Questions > "Куда" questions
+_gram-helpText_	QUESTIONS_WHITHER_RUSSIAN	Questions starting with "куда", e.g. Куда ты идешь?
+_gram-name_	QUESTIONS_WHAT_KIND_RUSSIAN	"Каков" questions
+_gram-path_	QUESTIONS_WHAT_KIND_RUSSIAN	Questions > "Каков" questions
+_gram-helpText_	QUESTIONS_WHAT_KIND_RUSSIAN	Questions starting with "каков", e.g. Каков твой план?
+_gram-name_	TENSE_PRESENT	Present Tense
+_gram-path_	TENSE_PRESENT	Verbs > Tenses and Aspect > Present Tense
+_gram-helpText_	TENSE_PRESENT	e.g. бегаю, читаешь
+_gram-name_	ASPECT_BIASPECTUAL	Biaspectual
+_gram-path_	ASPECT_BIASPECTUAL	Verbs > Tenses and Aspect > Biaspectual
+_gram-helpText_	ASPECT_BIASPECTUAL	Verb forms that can be both perfective and imperfective
+_gram-name_	VERBS_IRREGULAR_PAST	Irregular Past
+_gram-path_	VERBS_IRREGULAR_PAST	Verbs > Tenses and Aspect > Irregular Past
+_gram-helpText_	VERBS_IRREGULAR_PAST	Verbs with irregular L-participle form (past tense)
+_gram-name_	VERBS_IRREGULAR_NONPAST	Irregular Present/Future
+_gram-path_	VERBS_IRREGULAR_NONPAST	Verbs > Tenses and Aspect > Irregular Present/Future
+_gram-helpText_	VERBS_IRREGULAR_NONPAST	Verbs with irregular conjugations (non-past tense)
+_gram-name_	PRONOUNS_NEGATIVE	Negative
+_gram-path_	PRONOUNS_NEGATIVE	Pronouns > Negative
+_gram-helpText_	PRONOUNS_NEGATIVE	Negative pronouns, e.g. nobody, nothing
+_gram-name_	NEGATION_PRONOUNS	Pronouns
+_gram-path_	NEGATION_PRONOUNS	Negation > Pronouns
+_gram-helpText_	NEGATION_PRONOUNS	Negative pronouns, e.g. nobody, nothing
+_gram-name_	PRONOUNS_DEFINITE_RUSSIAN	Definite
+_gram-path_	PRONOUNS_DEFINITE_RUSSIAN	Pronouns > Definite
+_gram-helpText_	PRONOUNS_DEFINITE_RUSSIAN	Definite pronouns, e.g. этот, такой
+_gram-name_	PRONOUNS_INDEFINITE_RUSSIAN	Indefinite
+_gram-path_	PRONOUNS_INDEFINITE_RUSSIAN	Pronouns > Indefinite
+_gram-helpText_	PRONOUNS_INDEFINITE_RUSSIAN	Indefinite pronouns, e.g. нечто, какие-либо
+_gram-name_	DETERMINER_SOME_RUSSIAN	Некоторый
+_gram-path_	DETERMINER_SOME_RUSSIAN	Determiners > Некоторый
+_gram-helpText_	DETERMINER_SOME_RUSSIAN	<someDetRussian_HELP_TEXT>
+_gram-name_	DETERMINER_ANY_RUSSIAN	Любой
+_gram-path_	DETERMINER_ANY_RUSSIAN	Determiners > Любой
+_gram-helpText_	DETERMINER_ANY_RUSSIAN	<anyDetRussian_HELP_TEXT>
+_gram-name_	DETERMINER_MUCH_RUSSIAN	Многий
+_gram-path_	DETERMINER_MUCH_RUSSIAN	Determiners > Многий
+_gram-helpText_	DETERMINER_MUCH_RUSSIAN	<muchDetRussian_HELP_TEXT>
+_gram-name_	NEGATION_NO_NOT_NEVER_RUSSIAN	No Not Never
+_gram-path_	NEGATION_NO_NOT_NEVER_RUSSIAN	Negation > No Not Never
+_gram-helpText_	NEGATION_NO_NOT_NEVER_RUSSIAN	General negation, e.g. Нет, не, ни, никогда, никак, etc.
+_gram-name_	QUESTIONS_YESNO_RUSSIAN	Yes/No questions
+_gram-path_	QUESTIONS_YESNO_RUSSIAN	Questions > Yes/No questions
+_gram-helpText_	QUESTIONS_YESNO_RUSSIAN	Questions that use "ли" or have no interrogative
+_gram-name_	QUESTIONS_WH_RUSSIAN	"К-" questions
+_gram-path_	QUESTIONS_WH_RUSSIAN	Questions > "К-" questions
+_gram-helpText_	QUESTIONS_WH_RUSSIAN	Questions with direct interrogatives (other than "ли") often starting with "К-", e.g. как, когда, куда, где, etc.
+_gram-name_	CONDITIONALS_RUSSIAN	Conditionals
+_gram-path_	CONDITIONALS_RUSSIAN	Sentence types > Conditionals
+_gram-helpText_	CONDITIONALS_RUSSIAN	Sentences that use "бы"
+_gram-name_	VERBFORM_INFINITIVE_RUSSIAN	Infinitives
+_gram-path_	VERBFORM_INFINITIVE_RUSSIAN	Verbs > Verb forms > Infinitives
+_gram-helpText_	VERBFORM_INFINITIVE_RUSSIAN	Infinitive verbs
+_gram-name_	VERBFORM_PARTICIPLE_RUSSIAN	Participles
+_gram-path_	VERBFORM_PARTICIPLE_RUSSIAN	Verbs > Verb forms > Participles
+_gram-helpText_	VERBFORM_PARTICIPLE_RUSSIAN	Verbs as participles
+_gram-name_	VERBS_IRREGULAR_RUSSIAN	Irregular
+_gram-path_	VERBS_IRREGULAR_RUSSIAN	Verbs > Verb forms > Irregular
+_gram-helpText_	VERBS_IRREGULAR_RUSSIAN	Verbs with irregular forms in any tense, e.g. есть, хотеть, расти, etc.
+_gram-name_	IMPERATIVES_RUSSIAN	Imperatives
+_gram-path_	IMPERATIVES_RUSSIAN	Verbs > Verb forms > Imperatives
+_gram-helpText_	IMPERATIVES_RUSSIAN	Imperative verbs
+_gram-name_	FUTURE_IMPERFECTIVE	Future Imperfective
+_gram-path_	FUTURE_IMPERFECTIVE	Verbs > Tenses and Aspect > Future Imperfective
+_gram-helpText_	FUTURE_IMPERFECTIVE	Imperfective verbs used as future tense
+_gram-name_	FUTURE_PERFECTIVE	Future Perfective
+_gram-path_	FUTURE_PERFECTIVE	Verbs > Tenses and Aspect > Future Perfective
+_gram-helpText_	FUTURE_PERFECTIVE	Perfective verbs used as future tense
+_gram-name_	PAST_PERFECTIVE	Past Perfective
+_gram-path_	PAST_PERFECTIVE	Verbs > Tenses and Aspect > Past Perfective
+_gram-helpText_	PAST_PERFECTIVE	Perfective verbs used in past tense
+_gram-name_	PAST_IMPERFECTIVE	Past Imperfective
+_gram-path_	PAST_IMPERFECTIVE	Verbs > Tenses and Aspect > Past Imperfective
+_gram-helpText_	PAST_IMPERFECTIVE	Imperfective verbs used in past tense
+_gram-name_	QUESTIONS_WHAT_RUSSIAN	"Что" questions
+_gram-path_	QUESTIONS_WHAT_RUSSIAN	Questions > "Что" questions
+_gram-helpText_	QUESTIONS_WHAT_RUSSIAN	Questions starting with "что", e.g. "Что вы делаете?"
+_gram-name_	QUESTIONS_WHO_RUSSIAN	"Кто" questions
+_gram-path_	QUESTIONS_WHO_RUSSIAN	Questions > "Кто" questions
+_gram-helpText_	QUESTIONS_WHO_RUSSIAN	Questions starting with "кто", e.g. "Кто хочет торт?"
+_gram-name_	QUESTIONS_HOW_RUSSIAN	"Как" questions
+_gram-path_	QUESTIONS_HOW_RUSSIAN	Questions > "Как" questions
+_gram-helpText_	QUESTIONS_HOW_RUSSIAN	Questions starting with "как", e.g. "Как собрание?"
+_gram-name_	QUESTIONS_WHY_RUSSIAN	"Почему" and "Зачем" questions
+_gram-path_	QUESTIONS_WHY_RUSSIAN	Questions > "Почему" and "Зачем" questions
+_gram-helpText_	QUESTIONS_WHY_RUSSIAN	Questions starting with "почему" or "зачем", e.g. "Почему ты не спишь?"
+_gram-name_	QUESTIONS_WHERE_RUSSIAN	"Где" questions
+_gram-path_	QUESTIONS_WHERE_RUSSIAN	Questions > "Где" questions
+_gram-helpText_	QUESTIONS_WHERE_RUSSIAN	Questions starting with "где", e.g. "Где твоя сестра?"
+_gram-name_	QUESTIONS_WHEN_RUSSIAN	"Когда" questions
+_gram-path_	QUESTIONS_WHEN_RUSSIAN	Questions > "Когда" questions
+_gram-helpText_	QUESTIONS_WHEN_RUSSIAN	Questions starting with "когда", e.g. "Когда он приехал?"
+_gram-name_	QUESTIONS_WHOSE_RUSSIAN	"Чей" questions
+_gram-path_	QUESTIONS_WHOSE_RUSSIAN	Questions > "Чей" questions
+_gram-helpText_	QUESTIONS_WHOSE_RUSSIAN	Questions starting with "чей", e.g. "Чья это книга?"
+_gram-name_	QUESTIONS_WHICH_RUSSIAN	"Какой" questions
+_gram-path_	QUESTIONS_WHICH_RUSSIAN	Questions > "Какой" questions
+_gram-helpText_	QUESTIONS_WHICH_RUSSIAN	Questions starting with "какой", e.g. "Какая работа?"
+_gram-name_	CLAUSE_RELATIVE_RUSSIAN	Relative
+_gram-path_	CLAUSE_RELATIVE_RUSSIAN	Clauses > Relative clause
+_gram-helpText_	CLAUSE_RELATIVE_RUSSIAN	A subordinate clause that defines a noun phrase and starts with a relativizer (который, кто, etc.), e.g. "Человек, который был здесь, украл мою машину."
+_gram-name_	VERB_WITH_ACCUSATIVE	With accusative
+_gram-path_	VERB_WITH_ACCUSATIVE	Verbs > Verb forms > With accusative
+_gram-helpText_	VERB_WITH_ACCUSATIVE	Verbs with accusative objects, e.g. "Я читаю книгу."
+_gram-name_	VERB_WITH_GENITIVE	With genitive
+_gram-path_	VERB_WITH_GENITIVE	Verbs > Verb forms > With genitive
+_gram-helpText_	VERB_WITH_GENITIVE	Verbs with genitive objects, e.g. "Я боюсь пауков."
+_gram-name_	VERB_WITH_DATIVE	With dative
+_gram-path_	VERB_WITH_DATIVE	Verbs > Verb forms > With dative
+_gram-helpText_	VERB_WITH_DATIVE	Verbs with dative objects, e.g. "Я верю тебе."
+_gram-name_	VERB_WITH_INSTRUMENTAL	With instrumental
+_gram-path_	VERB_WITH_INSTRUMENTAL	Verbs > Verb forms > With instrumental
+_gram-helpText_	VERB_WITH_INSTRUMENTAL	Verbs with instrumental objects, e.g. "Я стану президентом"
+_gram-name_	VERBS_CONJUGATION_1_RUSSIAN	-ать/-ять/-еть
+_gram-path_	VERBS_CONJUGATION_1_RUSSIAN	Verbs > Conjugation Classes > -ать/-ять/-еть
+_gram-helpText_	VERBS_CONJUGATION_1_RUSSIAN	1st conjugation verbs with underlying ай-/яй-/ей-, e.g. читать, менять, иметь
+_gram-name_	VERBS_CONJUGATION_2_RUSSIAN	-овать/-евать
+_gram-path_	VERBS_CONJUGATION_2_RUSSIAN	Verbs > Conjugation Classes > -овать/-евать
+_gram-helpText_	VERBS_CONJUGATION_2_RUSSIAN	1st conjugation verbs with underlying ова-/ева-, e.g. чувствовать, воевать
+_gram-name_	VERBS_CONJUGATION_3_RUSSIAN	-нуть
+_gram-path_	VERBS_CONJUGATION_3_RUSSIAN	Verbs > Conjugation Classes > -нуть
+_gram-helpText_	VERBS_CONJUGATION_3_RUSSIAN	1st conjugation verbs with underlying ну-, e.g. отдохнуть
+_gram-name_	VERBS_CONJUGATION_4_RUSSIAN	-ить
+_gram-path_	VERBS_CONJUGATION_4_RUSSIAN	Verbs > Conjugation Classes > -ить
+_gram-helpText_	VERBS_CONJUGATION_4_RUSSIAN	2nd conjugation verbs with underlying и-, e.g. говорить
+_gram-name_	VERBS_CONJUGATION_5_RUSSIAN	-ать/-оять/-еть
+_gram-path_	VERBS_CONJUGATION_5_RUSSIAN	Verbs > Conjugation Classes > -ать/-оять/-еть
+_gram-helpText_	VERBS_CONJUGATION_5_RUSSIAN	2nd conjugation verbs with underlying а-/оя-/е-, e.g. слышать, смотреть, стоять
+_gram-name_	VERBS_CONJUGATION_6_RUSSIAN	-ать/-ять (сказать)
+_gram-path_	VERBS_CONJUGATION_6_RUSSIAN	Verbs > Conjugation Classes > -ать/-ять (сказать)
+_gram-helpText_	VERBS_CONJUGATION_6_RUSSIAN	1st conjugation verbs with underlying а-/я-, e.g. сказать, надеяться
+_gram-name_	VERBS_CONJUGATION_7_RUSSIAN	-зть/-зти/-сть/-сти
+_gram-path_	VERBS_CONJUGATION_7_RUSSIAN	Verbs > Conjugation Classes > -зть/-зти/-сть/-сти
+_gram-helpText_	VERBS_CONJUGATION_7_RUSSIAN	1st conjugation verbs with underlying б-/д-/з-/с-/ст-/т-, e.g. лезть, везти, класть, расти
+_gram-name_	VERBS_CONJUGATION_8_RUSSIAN	-чь
+_gram-path_	VERBS_CONJUGATION_8_RUSSIAN	Verbs > Conjugation Classes > -чь
+_gram-helpText_	VERBS_CONJUGATION_8_RUSSIAN	1st conjugation verbs with underlying г-/к-, e.g. мочь, печь
+_gram-name_	VERBS_CONJUGATION_9_RUSSIAN	-ереть
+_gram-path_	VERBS_CONJUGATION_9_RUSSIAN	Verbs > Conjugation Classes > -ереть
+_gram-helpText_	VERBS_CONJUGATION_9_RUSSIAN	1st conjugation verbs with underlying TODO, e.g. умереть
+_gram-name_	VERBS_CONJUGATION_10_RUSSIAN	-олоть/-ороть
+_gram-path_	VERBS_CONJUGATION_10_RUSSIAN	Verbs > Conjugation Classes > -олоть/-ороть
+_gram-helpText_	VERBS_CONJUGATION_10_RUSSIAN	1st conjugation verbs with underlying TODO, e.g. колоть, бороться
+_gram-name_	VERBS_CONJUGATION_11_RUSSIAN	-ить (пить)
+_gram-path_	VERBS_CONJUGATION_11_RUSSIAN	Verbs > Conjugation Classes > -ить (пить)
+_gram-helpText_	VERBS_CONJUGATION_11_RUSSIAN	1st conjugation verbs with underlying C + fleeting vowel + й TODO, e.g. бить, вить, лить, пить, шить
+_gram-name_	VERBS_CONJUGATION_12_RUSSIAN	-ыть/-уть/-ить
+_gram-path_	VERBS_CONJUGATION_12_RUSSIAN	Verbs > Conjugation Classes > -ыть/-уть/-ить
+_gram-helpText_	VERBS_CONJUGATION_12_RUSSIAN	1st conjugation verbs with underlying TODO, e.g. мыть, дуть, брить
+_gram-name_	VERBS_CONJUGATION_13_RUSSIAN	-авать
+_gram-path_	VERBS_CONJUGATION_13_RUSSIAN	Verbs > Conjugation Classes > -авать
+_gram-helpText_	VERBS_CONJUGATION_13_RUSSIAN	1st conjugation verbs with underlying авай-, e.g. давать
+_gram-name_	VERBS_CONJUGATION_14_15_16_RUSSIAN	Other
+_gram-path_	VERBS_CONJUGATION_14_15_16_RUSSIAN	Verbs > Conjugation Classes > Other
+_gram-helpText_	VERBS_CONJUGATION_14_15_16_RUSSIAN	1st conjugation verbs with underlying м-/н- TODO, plus деть, стать, жить, плыть
+_gram-name_	VERBS_CONJUGATION_14_RUSSIAN	-ать/-ять (взять, жать, занять)
+_gram-path_	VERBS_CONJUGATION_14_RUSSIAN	Verbs > Conjugation Classes > -ать/-ять (взять, жать, занять)
+_gram-helpText_	VERBS_CONJUGATION_14_RUSSIAN	1st conjugation verbs with underlying м-/н- TODO
+_gram-name_	VERBS_CONJUGATION_15_RUSSIAN	-ть (деть, стать)
+_gram-path_	VERBS_CONJUGATION_15_RUSSIAN	Verbs > Conjugation Classes > -ть (деть, стать)
+_gram-helpText_	VERBS_CONJUGATION_15_RUSSIAN	1st conjugation verbs with underlying н- TODO
+_gram-name_	VERBS_CONJUGATION_16_RUSSIAN	-ть (жить, плыть)
+_gram-path_	VERBS_CONJUGATION_16_RUSSIAN	Verbs > Conjugation Classes > -ть (жить, плыть)
+_gram-helpText_	VERBS_CONJUGATION_16_RUSSIAN	1st conjugation verbs with underlying в- TODO
+_gram-name_	VERBS_CONJUGATION_FIRST_RUSSIAN	All 1st conjugation verbs (-е-)
+_gram-path_	VERBS_CONJUGATION_FIRST_RUSSIAN	Verbs > Conjugation Classes > 1st conjugation
+_gram-helpText_	VERBS_CONJUGATION_FIRST_RUSSIAN	Verbs with endings -у/ю, -ешь, -ет, -ем, -ете, -ут/ют
+_gram-name_	VERBS_CONJUGATION_SECOND_RUSSIAN	All 2nd conjugation verbs (-и-)
+_gram-path_	VERBS_CONJUGATION_SECOND_RUSSIAN	Verbs > Conjugation Classes > 2nd conjugation
+_gram-helpText_	VERBS_CONJUGATION_SECOND_RUSSIAN	Verbs with endings -ю, -ишь, -ит, -им, -ите, -ят

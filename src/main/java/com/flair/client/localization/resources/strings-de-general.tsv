@@ -26,7 +26,7 @@ _common-strings_	LANGUAGE_ARABIC	Arabisch
 _common-strings_	ACADEMIC_VOCAB	Akademisches Vokabular
 _common-strings_	KEYWORDS	Schlüsselwörter
 _common-strings_	CUSTOM_VOCAB	Benutzerdefiniertes Vokabular
-		
+
 _webrankercore_	ANALYSIS_COMPLETE	Analyse abgeschlossen
 _webrankercore_	SELECTED_FOR_COMPARISON	Zum Vergleichen ausgewählt
 _webrankercore_	CUSTOM_CORPUS_TITLE	Hochgeladene Dateien
@@ -41,7 +41,7 @@ _webrankercore_	NO_PARSED_DOCS	Wir konnten keine der Webseiten/Dateien verarbeit
 _webrankercore_	MISSING_DOCS	Einige Webseiten/Dateien konnten nicht analysiert werden.
 _webrankercore_	MISSING_SEARCH_RESULTS	Einige Webseiten konnten aufgrund von Konnektivitätsproblemen nicht analysiert werden.
 _webrankercore_	SERVER_PING_TIMEOUT	Die Analyse läuft auf vollen Touren. Vielen Dank für Ihre Geduld!
-		
+
 MainViewport	btnWebSearchUI	Internetsuche
 MainViewport	btnAboutUI	Über ${_common-strings_.BRANDING}
 MainViewport	btnHistoryUI	Frühere Analysen
@@ -51,18 +51,18 @@ MainViewport	lblDefaultSearchCaptionUI	Klicken Sie auf das Suchsymbol unten und 
 MainViewport	lblDefaultConfigTitleUI	Konfigurieren
 MainViewport	lblDefaultConfigCaptionUI	Konfgurieren Sie die Einstellungen: Text (Länge, Schwierigkeitsgrad) und Grammatik (Passiv, W-Fragen, akademisches Vokabular, ...). Sie können die Einstellungen auch exportieren, um sie auf spätere Suchen anzuwenden. ${_common-strings_.BRANDING} bewertet die Suchergebnisse entsprechend Ihrer Einstellungen neu. Klicken Sie auf den Link, um die Seite in einem neuen Tab zu öffnen, oder lesen Sie den extrahierten, erweiterten Text im Textfeld auf der rechten Seite.
 MainViewport	lblDefaultUploadCaptionUI	Laden Sie Ihre Dateien hoch. ${_common-strings_.BRANDING} wird sie analysieren und basierend auf Ihren Einstellungen nach Relevanz sortieren.
-		
+
 CorpusFileUploader	lblUploadTextUI	Ziehen Sie Ihre Dateien in diesen Bereich.
 CorpusFileUploader	stpLangUI	Textsprache wählen
 CorpusFileUploader	UPLOAD_INPROGRESS	Bitte warten Sie, bis der Hochladevorgang abgeschlossen ist.
 CorpusFileUploader	UPLOAD_FAILED	Diese Datei konnte nicht hochgeladen werden.
 CorpusFileUploader	MAX_FILE_LIMIT	Leider können nicht so viele Dateien auf einmal hochgeladen werden.
-		
+
 CustomKeywordsEditor	lblTitleUI	Benutzerdefiniertes Vokabular bearbeiten.
 CustomKeywordsEditor	txtKeywordsUI	Wörter können durch Kommas oder Zeilenumbrüche getrennt sein.
 CustomKeywordsEditor	KEYWORDS_APPLIED	Das neue Vokabular wird beim nächsten Suchvorgang angewendet.
 CustomKeywordsEditor	NO_KEYWORDS	Die Wortliste ist leer.
-		
+
 DocumentCollectionVisualizer	mdlVisualizerUI	Interaktive Visualisierung
 DocumentCollectionVisualizer	lblTitleUI	Bereiche auswählen durch Hoch- und Runterziehen des Zeigers. Reihenfolge der Achsen umtauschen durch Rechts- und Linksbewegen der Achsen. Achsen hinzufügen oder entfernen durch An- und Abwählen der Kontrollkästchen unten.
 DocumentCollectionVisualizer	chkAxisWordsUI	# von Wörtern
@@ -75,10 +75,10 @@ DocumentCollectionVisualizer	DOCS_FILTERED	Gefilterte Ergebnisse
 DocumentComparer	lblTitleUI	Ergebnisse vergleichen
 DocumentComparer	btnClearSelectionUI	Zwischenablage leeren
 DocumentComparer	lblPlaceholderUI	Die Zwischenablage ist leer
-		
+
 DocumentLengthConfigPane	lblTextLengthUI	Länge:
 DocumentLengthConfigPane	chkShorterTextsUI	Kurzere Texte bevorzugen
-		
+
 DocumentPreviewPane	icoHelpTextUI	Hervorhebungen können sich überlappen - Bewegen Sie die Maus über eine Hervorhebung, um eine Liste der Namen aller eingebetteten Konstruktionen zu sehen.
 DocumentPreviewPane	btnShowAllConstUI	Alle Konstruktionen
 DocumentPreviewPane	NUM_WORDS	Wörter
@@ -87,11 +87,11 @@ DocumentPreviewPane	COLUMN_CONSTRUCTION	Konstruktion
 DocumentPreviewPane	COLUMN_WEIGHT	Gewichtung
 DocumentPreviewPane	COLUMN_HITS	Anzahl
 DocumentPreviewPane	COLUMN_RELFREQ	Relative Häufigkeit in %
-		
+
 DocumentResultDisplayItem	ORIGINAL_RANK	Ursprüngliche Listenposition
-		
+
 DocumentResultsPane	btnCancelOpUI	Analyse stornieren
-		
+
 RankerSettingsPane	btnVisualizeUI	Visualisieren
 RankerSettingsPane	btnExportSettingsUI	Sucheinstellungen exportieren
 RankerSettingsPane	lblTextCharacteristicsUI	Eigenschaften der Texte:
@@ -99,29 +99,32 @@ RankerSettingsPane	lblTextLevelUI	Schwierigkeitsgrad:
 RankerSettingsPane	lblConstructionsUI	Konstruktionen:
 RankerSettingsPane	lblLanguageUseUI	Sprachverwendung:
 RankerSettingsPane	FILTERED	gefiltert
-		
+
 GrammaticalConstructionWeightSlider	chkToggleUI	Abwählen, um Texte mit dieser Konstruktion auszuschließen.
 GrammaticalConstructionWeightSlider	sldWeightUI	Nach rechts bewegen, um Texte mit dieser Konstruktion höher zu bewerten.
-		
+
 HistoryViewer	lblTitleUI	Analysechronik
 HistoryViewer	lblPlaceholderUI	Keine Analysen bisher
 HistoryViewer	NUM_ANALYSES	Analysen
-		
+
 KeywordWeightSlider	chkToggleUI	Auswählen, um Schlüsselwörter hervorzuheben.
 KeywordWeightSlider	sldWeightUI	Nach rechts bewegen, um Texte mit dieser Konstruktion zu priorisieren.
 KeywordWeightSlider	btnEditKeywordsUI	Vokabular bearbeiten
 KeywordWeightSlider	btnResetKeywordsUI	Standardliste für benutzerdefiniertes Vokabular verwenden.
-		
+
 SettingsExporter	lblTitleUI	Einstellungen exportieren
 SettingsExporter	lblTitleUI_Desc	Sie können diesen Link benutzen, um Ihre derzeigen Einstellungen auf zukünftige Suchen anzuwenden.
-		
+
 WebSearchModal	txtSearchBoxUI	Suchbegriff eingeben
+WebSearchModal	txtSearchBoxHelp	Wählen Sie für benutzerdefinierte Domains "Beliebige Domain" aus und verwenden Sie das Suchschlüsselwort "site:", z. "tennis site:wikipedia.org", "Novak (site:espn.com/tennis OR site:wikipedia.org)"
+WebSearchModal	selRestrictedDomainYes	Ausgewählte Domänen
+WebSearchModal	selRestrictedDomainNo	Beliebige Domain
 WebSearchModal	selResultCountItm1UI	1 Ergebnis
 WebSearchModal	selResultCountItm10UI	10 Ergebnisse
 WebSearchModal	selResultCountItm20UI	20 Ergebnisse
 WebSearchModal	selResultCountItm30UI	30 Ergebnisse
 WebSearchModal	selResultCountItm40UI	40 Ergebnisse
-		
+
 ConstructionSliderBundleEnglish	pnlSentencesUI	Sätze
 ConstructionSliderBundleEnglish	pnlQuestionsUI	Fragen
 ConstructionSliderBundleEnglish	pnlSentenceTypesUI	Satztypen
@@ -146,7 +149,7 @@ ConstructionSliderBundleEnglish	pnlPronounsUI	Pronomen
 ConstructionSliderBundleEnglish	pnlConjunctionsUI	Konjunktionen
 ConstructionSliderBundleEnglish	pnlPrepositionsUI	Präpositionen
 ConstructionSliderBundleEnglish	pnlNounsUI	Nomen
-		
+
 ConstructionSliderBundleGerman	pnlSaetzeUI	Sätze
 ConstructionSliderBundleGerman	pnlFragenUI	Fragen
 ConstructionSliderBundleGerman	pnlSatztypenUI	Satztypen
@@ -167,6 +170,27 @@ ConstructionSliderBundleGerman	pnlPraepositionenUI	Präpositionen
 ConstructionSliderBundleGerman	pnlNomenUI	Nomen
 ConstructionSliderBundleGerman	pnlNominalisierungenUI	Nominalisierungen
 ConstructionSliderBundleGerman	pnlAttributeUI	Attribute
+
+ConstructionSliderBundleRussian	pnlSentencesUI	<pnlSentencesUI>
+ConstructionSliderBundleRussian	pnlQuestionsUI	<pnlQuestionsUI>
+ConstructionSliderBundleRussian	pnlSentenceTypesUI	<pnlSentenceTypesUI>
+ConstructionSliderBundleRussian	pnlClauseTypesUI	<pnlClauseTypesUI>
+ConstructionSliderBundleRussian	pnlPartsOfSpeechUI	<pnlPartsOfSpeechUI>
+ConstructionSliderBundleRussian	pnlVerbsUI	<pnlVerbsUI>
+ConstructionSliderBundleRussian	pnlVerbFormsUI	<pnlVerbFormsUI>
+ConstructionSliderBundleRussian	pnlAspectTenseUI	<pnlAspectTenseUI>
+ConstructionSliderBundleRussian	pnl1stConjugationClassesUI	<pnl1stConjugationClassesUI>
+ConstructionSliderBundleRussian	pnl2ndConjugationClassesUI	<pnl2ndConjugationClassesUI>
+ConstructionSliderBundleRussian	pnlNegationUI	<pnlNegationUI>
+ConstructionSliderBundleRussian	pnlDeterminersUI	<pnlDeterminersUI>
+ConstructionSliderBundleRussian	pnlAdjectivesUI	<pnlAdjectivesUI>
+ConstructionSliderBundleRussian	pnlAdjectiveCasesUI	<pnlAdjectiveCasesUI>
+ConstructionSliderBundleRussian	pnlAdverbsUI	<pnlAdverbsUI>
+ConstructionSliderBundleRussian	pnlPronounsUI	<pnlPronounsUI>
+ConstructionSliderBundleRussian	pnlConjunctionsUI	<pnlConjunctionsUI>
+ConstructionSliderBundleRussian	pnlPrepositionsUI	<pnlPrepositionsUI>
+ConstructionSliderBundleRussian	pnlNounsUI	<pnlNounsUI>
+ConstructionSliderBundleRussian	pnlPronounCasesUI	<pnlPronounCasesUI>
 
 ConstructionSliderBundleArabic	pnlSentencesUI	Sätze
 ConstructionSliderBundleArabic	pnlQuestionsUI	Fragen

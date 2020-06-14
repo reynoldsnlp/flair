@@ -5,7 +5,7 @@ import java.io.Serializable;
 /*
  * Authentication/identification token for client-server interop
  */
-public class ServerAuthenticationToken implements AuthToken, Serializable
+public class ServerAuthenticationToken implements AuthToken
 {
 	/**
 	 * 

@@ -73,7 +73,7 @@
 								
 								<flair:GrammaticalConstructionWeightSlider gram="VERBFORM_TO_INFINITIVE" parentLanguage="ENGLISH"/>
 								
-								<flair:GrammaticalConstructionWeightSlider gram="VERBFORM_EMPATHIC_DO" parentLanguage="ENGLISH"/>
+								<flair:GrammaticalConstructionWeightSlider gram="VERBFORM_EMPHATIC_DO" parentLanguage="ENGLISH"/>
 								
 								<flair:GrammaticalConstructionWeightSlider gram="VERBS_IRREGULAR" parentLanguage="ENGLISH"/>
 								

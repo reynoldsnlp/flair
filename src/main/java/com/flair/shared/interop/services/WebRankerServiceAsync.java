@@ -13,7 +13,7 @@ public interface WebRankerServiceAsync
      * GWT-RPC service  asynchronous (client-side) interface
      * @see com.flair.shared.interop.services.WebRankerService
      */
-    void beginWebSearch( com.flair.shared.interop.AuthToken token, com.flair.shared.grammar.Language lang, java.lang.String query, int numResults, java.util.ArrayList<java.lang.String> keywords, AsyncCallback<Void> callback );
+    void beginWebSearch( com.flair.shared.interop.AuthToken token, com.flair.shared.grammar.Language lang, java.lang.String query, boolean useRestrictedDomains, int numResults, java.util.ArrayList<java.lang.String> keywords, AsyncCallback<Void> callback );
 
 
     /**

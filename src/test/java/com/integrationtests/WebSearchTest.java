@@ -8,7 +8,6 @@ import java.util.Arrays;
 import com.flair.server.parser.AbstractDocument;
 import com.flair.server.parser.DocumentCollection;
 import com.flair.server.parser.KeywordSearcherInput;
-//import com.flair.server.raft.Raft;
 import com.flair.server.utilities.Weka;
 import com.flair.server.taskmanager.MasterJobPipeline;
 import com.flair.server.taskmanager.SearchCrawlParseOperation;
@@ -74,6 +73,7 @@ public class WebSearchTest
 		 */
 		SearchCrawlParseOperation operation = MasterJobPipeline.get().doSearchCrawlParse(lang,
 				query,
+				false,
 				numResults,
 				new KeywordSearcherInput(Arrays.asList(keywords)));
 		
@@ -132,6 +132,7 @@ public class WebSearchTest
 		 */
 		SearchCrawlParseOperation operation = MasterJobPipeline.get().doSearchCrawlParse(lang,
 				query,
+				false,
 				numResults,
 				new KeywordSearcherInput(Arrays.asList(keywords)));
 		
@@ -190,6 +191,7 @@ public class WebSearchTest
 		 */
 		SearchCrawlParseOperation operation = MasterJobPipeline.get().doSearchCrawlParse(lang,
 				query,
+				false,
 				numResults,
 				new KeywordSearcherInput(Arrays.asList(keywords)));
 		
@@ -248,6 +250,7 @@ public class WebSearchTest
 		 */
 		SearchCrawlParseOperation operation = MasterJobPipeline.get().doSearchCrawlParse(lang,
 				query,
+				false,
 				numResults,
 				new KeywordSearcherInput(Arrays.asList(keywords)));
 		

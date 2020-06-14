@@ -52,15 +52,15 @@
 			<artifactId>jaxb-xjc</artifactId>
 			<version>2.2.6</version>
 		</dependency>
-		<!--<dependency>
-			<groupId>commons-beanutils</groupId>
-			<artifactId>commons-beanutils</artifactId>
-			<version>1.8.3</version>
-		</dependency>
 		<dependency>
 			<groupId>commons-lang</groupId>
 			<artifactId>commons-lang</artifactId>
 			<version>2.6</version>
+		</dependency>
+		<!--<dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+			<version>1.8.3</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-logging</groupId>
@@ -212,21 +212,11 @@
 			<artifactId>MADAMIRA-release</artifactId>
 			<version>20170403-2.1</version>
 		</dependency>-->
-		<dependency>
+		<!--<dependency>
 			<groupId>org.javatuples</groupId>
 			<artifactId>javatuples</artifactId>
 			<version>1.2</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpcore</artifactId>
-			<version>4.4.6</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpclient</artifactId>
-			<version>4.5.3</version>
-		</dependency>
+		</dependency>-->
 		<dependency>
 			<groupId>net.sourceforge.nekohtml</groupId>
 			<artifactId>nekohtml</artifactId>
@@ -285,7 +275,7 @@
 		<dependency>
 			<groupId>org.apache.tika</groupId>
 			<artifactId>tika-core</artifactId>
-			<version>1.21</version>
+			<version>1.22</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.tika</groupId>
@@ -391,6 +381,7 @@
 				</configuration>
 			</plugin>-->
 			<plugin>
+				<version>3.2.3</version>
 				<artifactId>maven-war-plugin</artifactId>
 				<!-- runs war:exploded with the mvn install goal, comment out <executions>...</executions> below to 
 				compile a .war file -->

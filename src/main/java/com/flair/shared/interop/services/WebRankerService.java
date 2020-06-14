@@ -24,6 +24,7 @@ public interface WebRankerService extends RemoteService
 	public void			beginWebSearch(AuthToken token,
 									Language lang,
 									String query,
+									boolean useRestrictedDomains,
 									int numResults,
 									ArrayList<String> keywords);
 	/**
