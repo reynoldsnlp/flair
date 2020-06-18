@@ -1,5 +1,6 @@
 package com.flair.shared.interop.services;
 
+import com.flair.shared.interop.AuthToken;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
@@ -15,6 +16,7 @@ public interface WebRankerServiceAsync
      */
     void beginWebSearch( com.flair.shared.interop.AuthToken token, com.flair.shared.grammar.Language lang, java.lang.String query, boolean useRestrictedDomains, int numResults, java.util.ArrayList<java.lang.String> keywords, AsyncCallback<Void> callback );
 
+    void moreResultsWebSearch(AuthToken token, AsyncCallback<Void> callback);
 
     /**
      * GWT-RPC service  asynchronous (client-side) interface

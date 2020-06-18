@@ -55,6 +55,11 @@ public class RankerSettingsPane extends LocalizedComposite implements AbstractRa
 	MaterialRow								pnlSettingsContainerUI;
 	@UiField
 	MaterialLabel							lblDocCountUI;
+
+	@UiField
+	@LocalizedField(type=LocalizedFieldType.TEXT_BUTTON)
+	MaterialButton                          btnMoreResultsUI;
+
 	@UiField
 	@LocalizedField(type=LocalizedFieldType.TEXT_BUTTON)
 	MaterialButton							btnVisualizeUI;
@@ -128,6 +133,7 @@ public class RankerSettingsPane extends LocalizedComposite implements AbstractRa
 		Language					sliderLanguage;
 		DocumentRankerOutput.Rank	rankData;
 		EventHandler				changeHandler;
+		EventHandler                moreResultsHandler;
 		EventHandler				visualizeHandler;
 		EventHandler				exportHandler;
 		EventHandler				resetHandler;
@@ -164,6 +170,11 @@ public class RankerSettingsPane extends LocalizedComposite implements AbstractRa
 			ClientLogger.get().info("onSettingChange()");
 			if (changeHandler != null)
 				changeHandler.handle();
+		}
+
+		private void onMoreResults(){
+			if (moreResultsHandler != null)
+				moreResultsHandler.handle();
 		}
 		
 		private void onVisualize()
@@ -318,6 +329,10 @@ public class RankerSettingsPane extends LocalizedComposite implements AbstractRa
 		public void setChangeHandler(EventHandler h) {
 			changeHandler = h;
 		}
+
+		public void setMoreResultsHandler(EventHandler h) {
+			moreResultsHandler = h;
+		}
 		
 		public void setVisualizeHandler(EventHandler h) {
 			visualizeHandler = h;
@@ -344,6 +359,7 @@ public class RankerSettingsPane extends LocalizedComposite implements AbstractRa
 	
 	private void initHandlers()
 	{
+		btnMoreResultsUI.addClickHandler(e -> state.onMoreResults());
 		btnVisualizeUI.addClickHandler(e -> state.onVisualize());
 		btnExportSettingsUI.addClickHandler(e -> state.onExport());
 		
@@ -446,6 +462,11 @@ public class RankerSettingsPane extends LocalizedComposite implements AbstractRa
 			s.setToggleHandler((w, v) -> state.onSettingChange());
 			s.refreshLocale();
 		});
+	}
+
+	@Override
+	public void setMoreResultsHandler(EventHandler handler) {
+		state.setMoreResultsHandler(handler);
 	}
 
 	@Override

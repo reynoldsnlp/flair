@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.flair.server.crawler.SearchResult;
+import com.flair.server.crawler.WebSearchAgent;
 import com.flair.server.grammar.DefaultVocabularyList;
 import com.flair.server.interop.MessagePipeline;
 import com.flair.server.parser.AbstractDocument;
@@ -22,11 +23,7 @@ import com.flair.server.parser.KeywordSearcherOutput;
 import com.flair.server.parser.SearchResultDocumentSource;
 import com.flair.server.parser.StreamDocumentSource;
 import com.flair.server.parser.TextSegment;
-import com.flair.server.taskmanager.AbstractPipelineOperation;
-import com.flair.server.taskmanager.CustomParseOperation;
-import com.flair.server.taskmanager.MasterJobPipeline;
-import com.flair.server.taskmanager.PipelineOperationType;
-import com.flair.server.taskmanager.SearchCrawlParseOperation;
+import com.flair.server.taskmanager.*;
 import com.flair.server.utilities.ServerLogger;
 import com.flair.shared.grammar.GrammaticalConstruction;
 import com.flair.shared.grammar.Language;
@@ -135,6 +132,9 @@ public class SessionState
 	private final AbstractMesageSender			messagePipeline;
 	private OperationState						currentOperation;
 	private TemporaryCache						cache;
+	private SearchCrawlParseOperation           lastSearchOperation;
+	private int                                 lastNumResults;
+	private List<String>                        lastKeywords;
 
 	public SessionState(ServerAuthenticationToken tok)
 	{
@@ -163,6 +163,21 @@ public class SessionState
 		
 		// has to be the tail call as the begin operation can trigger the completion event if there are no queued tasks
 		currentOperation.get().begin();
+	}
+
+	private void beginOperationWithAgent(OperationState state, WebSearchAgent agent){
+		if (hasOperation())
+			throw new RuntimeException("Previous state not cleared");
+
+		ServerLogger.get().info("Pipeline operation " + state.type + " has begun");
+
+		currentOperation = state;
+		// clear the message queue just in case any old messages ended up there
+		messagePipeline.clearPendingMessages();
+
+		// has to be the tail call as the begin operation can trigger the completion event if there are no queued tasks
+		SearchCrawlParseOperation op = (SearchCrawlParseOperation) currentOperation.get();
+		op.beginWithAgent(agent);
 	}
 	
 	/**
@@ -484,6 +499,9 @@ public class SessionState
 
 	public synchronized void searchCrawlParse(String query, Language lang, boolean useRestrictedDomains, int numResults, List<String> keywords)
 	{		//this is where the search crawl parse begins
+		lastNumResults = numResults;
+		lastKeywords = keywords;
+
 		ServerLogger.get().info("Begin search-crawl-parse -> Query: " + query + ", Language: " + lang.toString() + ", Use restricted domains: " + useRestrictedDomains + ", Results: " + numResults);
 		
 		if (hasOperation())
@@ -500,6 +518,7 @@ public class SessionState
 
 		ServerLogger.get().info("Creating search crawl parse operation");
 		SearchCrawlParseOperation op = MasterJobPipeline.get().doSearchCrawlParse(lang, query, useRestrictedDomains, numResults, k);
+		lastSearchOperation = op;
 		//do we ever get past here?
 		ServerLogger.get().info("finished creating search crawl parse operation");
 		op.setCrawlCompleteHandler(e -> {
@@ -511,9 +530,40 @@ public class SessionState
 		op.setJobCompleteHandler(e -> {
 			handleJobComplete(ServerMessage.Type.SEARCH_CRAWL_PARSE, e);
 		});
-		//according to the logs we never get to here
 		ServerLogger.get().info("Calling beginOperation()");
 		beginOperation(new OperationState(op));
+	}
+
+	public synchronized void moreResults(){
+		if (hasOperation())
+		{
+			sendErrorResponse("Another operation still running");
+			return;
+		}
+
+		SearchCrawlParseJob lastJob = lastSearchOperation.getJob();
+		WebSearchAgent agent = lastJob.getSearchAgent();
+
+		KeywordSearcherInput k;
+		if (lastKeywords.isEmpty())
+			k = new KeywordSearcherInput(DefaultVocabularyList.get(agent.getLanguage()));
+		else
+			k = new KeywordSearcherInput(lastKeywords);
+
+		SearchCrawlParseOperation op = MasterJobPipeline.get().doSearchCrawlParse(agent.getLanguage(), agent.getQuery(), agent.getUseRestrictedDomains(), lastNumResults, k);
+		//do we ever get past here?
+		ServerLogger.get().info("finished creating search crawl parse operation");
+		op.setCrawlCompleteHandler(e -> {
+			handleCrawlComplete(e);
+		});
+		op.setParseCompleteHandler(e -> {
+			handleParseComplete(ServerMessage.Type.SEARCH_CRAWL_PARSE, e);
+		});
+		op.setJobCompleteHandler(e -> {
+			handleJobComplete(ServerMessage.Type.SEARCH_CRAWL_PARSE, e);
+		});
+		ServerLogger.get().info("Calling beginOperation()");
+		beginOperationWithAgent(new OperationState(op), agent);
 	}
 
 	public synchronized void beginCustomCorpusUpload(Language lang, List<String> keywords)

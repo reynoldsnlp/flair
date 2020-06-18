@@ -26,6 +26,7 @@ public interface AbstractRankerSettingsPane
 	public void 										refresh();
 	
 	public void											setSettingsChangedHandler(EventHandler handler);
+	public void                                         setMoreResultsHandler(EventHandler handler);
 	public void											setVisualizeHandler(EventHandler handler);
 	public void											setExportSettingsHandler(EventHandler handler);
 	public void											setResetAllHandler(EventHandler handler);

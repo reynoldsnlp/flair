@@ -20,7 +20,7 @@ import com.flair.shared.grammar.Language;
 /*
  * Performs a web search, crawls the results and parses the text
  */
-final class SearchCrawlParseJob extends AbstractJob<SearchCrawlParseJobOutput, SearchCrawlParseJobEvent>
+public final class SearchCrawlParseJob extends AbstractJob<SearchCrawlParseJobOutput, SearchCrawlParseJobEvent>
 {
 	private static final int 						MINIMUM_TOKEN_COUNT = 100; 	// in the page text
 	private static final int 						MAX_CRAWLS = 100; 			// anymore and we time-out
@@ -85,6 +85,20 @@ final class SearchCrawlParseJob extends AbstractJob<SearchCrawlParseJobOutput, S
 
 		queueWebSearchTask(searchAgent, input.numResults);
 		flagStarted();
+	}
+
+	public void beginWithAgent(WebSearchAgent searchAgent){
+		if (isStarted())
+			throw new IllegalStateException("Job has already begun");
+
+		this.searchAgent = searchAgent;
+
+		queueWebSearchTask(searchAgent, input.numResults);
+		flagStarted();
+	}
+
+	public WebSearchAgent getSearchAgent(){
+		return searchAgent;
 	}
 	
 	@Override

@@ -27,6 +27,10 @@ public interface WebRankerService extends RemoteService
 									boolean useRestrictedDomains,
 									int numResults,
 									ArrayList<String> keywords);
+
+	public void         moreResultsWebSearch(AuthToken token);
+
+
 	/**
 	 * Begins the corpus upload operation 
 	 * @param token Client's AuthToken to validate web serach operation
@@ -50,4 +54,3 @@ public interface WebRankerService extends RemoteService
 	 */
 	public void			cancelCurrentOperation(AuthToken token);
 }
-

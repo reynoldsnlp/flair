@@ -1,6 +1,7 @@
 package com.flair.server.taskmanager;
 
 import com.flair.server.crawler.SearchResult;
+import com.flair.server.crawler.WebSearchAgent;
 import com.flair.server.parser.AbstractDocument;
 import com.flair.server.parser.DocumentCollection;
 import com.flair.server.utilities.ServerLogger;
@@ -28,6 +29,11 @@ public interface SearchCrawlParseOperation extends AbstractPipelineOperation
 	public interface JobComplete {
 		public void handle(DocumentCollection result);
 	}
+
+	public SearchCrawlParseJob getJob();
+
+	public void beginWithAgent(WebSearchAgent agent);
+
 	/**
 	 * Sets the handler for a crawl event completion
 	 * @param handler Crawl completion event handler
@@ -90,6 +96,39 @@ class SearchCrawlParseOperationImpl extends BasicPipelineOperation implements Se
 		});;
 		
 		super.begin();
+	}
+
+	@Override
+	public SearchCrawlParseJob getJob(){
+		return (SearchCrawlParseJob) job;
+	}
+
+	@Override
+	public void beginWithAgent(WebSearchAgent agent) {
+		// register listener
+		SearchCrawlParseJob j = (SearchCrawlParseJob)job;
+		j.addListener(e -> {
+			switch (e.type)
+			{
+				case JOB_COMPLETE:
+					if (jobC != null)
+						jobC.handle(e.jobOutput.parsedDocs);
+
+					break;
+				case PARSE_COMPLETE:
+					if (parseC != null)
+						parseC.handle(e.parsedDoc);
+
+					break;
+				case WEB_CRAWL_COMPLETE:
+					if (crawlC != null)
+						crawlC.handle(e.crawledResult);
+
+					break;
+			}
+		});;
+
+		j.beginWithAgent(agent);
 	}
 
 	@Override

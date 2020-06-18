@@ -27,6 +27,11 @@
 				<!-- Result Count -->
 				<m:MaterialLabel ui:field="lblDocCountUI" text="Result Count"
 					marginBottom="20" marginTop="10"/>
+
+				<!--More Results-->
+				<m:MaterialButton ui:field="btnMoreResultsUI" text="More Results"
+				                  textColor="WHITE" backgroundColor="BLUE"
+				                  waves="DEFAULT" iconType="ADD" iconPosition="RIGHT" iconColor="WHITE" marginBottom="20"/>
 				
 				<!-- Visualize -->
 				<m:MaterialButton ui:field="btnVisualizeUI" text="Visualize"

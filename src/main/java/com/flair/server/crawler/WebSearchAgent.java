@@ -64,9 +64,11 @@ public abstract class WebSearchAgent
     public String getQuery() {
 	return query;
     }
-    
     public Language getLanguage() {
 	return lang;
+    }
+    public boolean getUseRestrictedDomains() {
+    	return useRestrictedDomains;
     }
     
     public abstract List<SearchResult>		getNext(int numResults);	// returns the next n results

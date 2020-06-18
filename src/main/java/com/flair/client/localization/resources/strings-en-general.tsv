@@ -92,6 +92,7 @@ DocumentResultDisplayItem	ORIGINAL_RANK	Original Rank
 		
 DocumentResultsPane	btnCancelOpUI	Cancel Analysis
 		
+RankerSettingsPane	btnMoreResultsUI	More Results
 RankerSettingsPane	btnVisualizeUI	Visualize
 RankerSettingsPane	btnExportSettingsUI	Share Search Setup
 RankerSettingsPane	lblTextCharacteristicsUI	Text Characteristics:

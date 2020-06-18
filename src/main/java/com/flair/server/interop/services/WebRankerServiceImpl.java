@@ -32,6 +32,17 @@ public class WebRankerServiceImpl extends AbstractRemoteService implements WebRa
 	}
 
 	@Override
+	public void moreResultsWebSearch(AuthToken token){
+		try{
+			ServerAuthenticationToken authToken = validateToken(token);
+			SessionManager.get().getSessionState(authToken).moreResults();
+		}
+		catch (NullPointerException ex){
+			ServerLogger.get().error(ex, "NullPointerException in beginWebSearch:");
+		}
+	}
+
+	@Override
 	public void beginCorpusUpload(AuthToken token, Language lang, ArrayList<String> keywords)
 	{
 		ServerAuthenticationToken authToken = validateToken(token);

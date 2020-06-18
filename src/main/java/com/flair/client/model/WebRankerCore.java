@@ -78,6 +78,7 @@ import gwt.material.design.client.constants.Color;
  */
 public class WebRankerCore implements AbstractWebRankerCore, Window.ClosingHandler
 {
+
 	static enum LocalizationTags
 	{
 		ANALYSIS_COMPLETE,
@@ -148,6 +149,10 @@ public class WebRankerCore implements AbstractWebRankerCore, Window.ClosingHandl
 			return complete == false;
 		}
 	}
+
+	private Language lastLang;
+	private String lastQuery;
+	private int lastNumResults;
 		
 	private final class WebSearchProcessData extends ProcessData
 	{
@@ -201,7 +206,7 @@ public class WebRankerCore implements AbstractWebRankerCore, Window.ClosingHandl
 		{
 			final RankableDocument		doc;
 			int							rank;		// store the default rank separately to prevent the org doc from being modified
-			
+
 			public ComparisonWrapper(RankableDocument d)
 			{
 				doc = d;
@@ -1168,8 +1173,8 @@ public class WebRankerCore implements AbstractWebRankerCore, Window.ClosingHandl
 		{
 			if (isBusy())
 				throw new RuntimeException("Process manager is busy");
-			else if (d.complete)
-				throw new RuntimeException("Process is already complete");
+			/*else if (d.complete)
+				throw new RuntimeException("Process is already complete");*/
 			else if (OperationType.isTransient(d.type) == false)
 				throw new RuntimeException("Process " + d.type + " is not transient");
 			
@@ -1602,6 +1607,7 @@ public class WebRankerCore implements AbstractWebRankerCore, Window.ClosingHandl
 			String url = exporter.exportSettings(settings.generateSettingsProfile());
 			urlExport.show(url);
 		});
+		settings.setMoreResultsHandler(() -> onMoreResults());
 		settings.setVisualizeHandler(() -> {
 			if (transientProcessManager.isBusy())
 				notification.notify(getLocalizedString(DefaultLocalizationProviders.COMMON.toString(), CommonLocalizationTags.WAIT_TILL_COMPLETION.toString()));
@@ -1776,36 +1782,73 @@ public class WebRankerCore implements AbstractWebRankerCore, Window.ClosingHandl
 		doProcessHousekeeping();
 		
 		WebSearchProcessData proc = new WebSearchProcessData(lang, query, numResults);
+		lastLang = lang;
+		lastQuery = query;
+		lastNumResults = numResults;
 		proc.setKeywords(keywords.getCustomKeywords());
 
 		presenter.showLoaderOverlay(true);
-		service.beginWebSearch(token, lang, query, useRestrictedDomains, numResults, new ArrayList<>(keywords.getCustomKeywords()),
-				FuncCallback.get(e -> {
-					// ### hide the loader overlay before the process starts
-					// ### otherwise, the progress bar doesn't show
-					presenter.showLoaderOverlay(false);
-					processHistory.push(proc);
-					transientProcessManager.begin(proc,
-							(p,s) -> onTransientProcessEnd(p, s),
-							(p, d) -> {
-								// refresh the parsed results
-								if (p.parsedDocs.size() != ((WebSearchProcessData)p).numResults)
-								{
-									ClientLogger.get().info("in onWebSearch");
-									rankPreviewModule.rerank();
-									rankPreviewModule.refreshResults();
-								}
-							});
-					
-					onTransientProcessBegin(proc);
-				}, e -> {
-					ClientLogger.get().error(e, "Couldn't begin web search operation");
-					notification.notify(getLocalizedString(LocalizationTags.SERVER_ERROR.toString()));
-					presenter.showLoaderOverlay(false);
-					
-					if (e instanceof InvalidAuthTokenException)
-						ClientEndPoint.get().fatalServerError();
-				}));
+		FuncCallback<Void> searchCallback = FuncCallback.get(e -> {
+			// ### hide the loader overlay before the process starts
+			// ### otherwise, the progress bar doesn't show
+			presenter.showLoaderOverlay(false);
+			processHistory.push(proc);
+			transientProcessManager.begin(proc,
+					this::onTransientProcessEnd,
+					(p, d) -> {
+						// refresh the parsed results
+						if (p.parsedDocs.size() != ((WebSearchProcessData) p).numResults) {
+							ClientLogger.get().info("in onWebSearch");
+							rankPreviewModule.rerank();
+							rankPreviewModule.refreshResults();
+						}
+					});
+
+			onTransientProcessBegin(proc);
+		}, e -> {
+			ClientLogger.get().error(e, "Couldn't begin web search operation");
+			notification.notify(getLocalizedString(LocalizationTags.SERVER_ERROR.toString()));
+			presenter.showLoaderOverlay(false);
+
+			if (e instanceof InvalidAuthTokenException)
+				ClientEndPoint.get().fatalServerError();
+		});
+		service.beginWebSearch(token, lang, query, useRestrictedDomains, numResults, new ArrayList<>(keywords.getCustomKeywords()), searchCallback);
+	}
+
+	private void onMoreResults(){
+		doProcessHousekeeping();
+
+		WebSearchProcessData proc = new WebSearchProcessData(lastLang, lastQuery, lastNumResults);
+		proc.setKeywords(keywords.getCustomKeywords());
+
+		presenter.showLoaderOverlay(true);
+		FuncCallback<Void> searchCallback = FuncCallback.get(e -> {
+			// ### hide the loader overlay before the process starts
+			// ### otherwise, the progress bar doesn't show
+			presenter.showLoaderOverlay(false);
+			processHistory.push(proc);
+			transientProcessManager.begin(proc,
+					this::onTransientProcessEnd,
+					(p, d) -> {
+						// refresh the parsed results
+						if (p.parsedDocs.size() != ((WebSearchProcessData) p).numResults) {
+							ClientLogger.get().info("in onWebSearch");
+							rankPreviewModule.rerank();
+							rankPreviewModule.refreshResults();
+						}
+					});
+
+			onTransientProcessBegin(proc);
+		}, e -> {
+			ClientLogger.get().error(e, "Couldn't begin web search operation");
+			notification.notify(getLocalizedString(LocalizationTags.SERVER_ERROR.toString()));
+			presenter.showLoaderOverlay(false);
+
+			if (e instanceof InvalidAuthTokenException)
+				ClientEndPoint.get().fatalServerError();
+		});
+		service.moreResultsWebSearch(token, searchCallback); //TODO
 	}
 	
 	private void onUploadBegin(Language corpusLang)

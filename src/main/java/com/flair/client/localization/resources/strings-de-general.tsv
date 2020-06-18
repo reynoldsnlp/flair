@@ -92,6 +92,7 @@ DocumentResultDisplayItem	ORIGINAL_RANK	Ursprüngliche Listenposition
 		
 DocumentResultsPane	btnCancelOpUI	Analyse stornieren
 		
+RankerSettingsPane	btnMoreResultsUI	Mehr Ergebnisse
 RankerSettingsPane	btnVisualizeUI	Visualisieren
 RankerSettingsPane	btnExportSettingsUI	Sucheinstellungen exportieren
 RankerSettingsPane	lblTextCharacteristicsUI	Eigenschaften der Texte:
