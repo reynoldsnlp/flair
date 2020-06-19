@@ -90,3 +90,6 @@ To install on Windows:
 4. In the extracted directory you'll find a `cg3` directory; move this directory to `C:\Program Files`
 
 5. Add `C:\Program Files\cg3\bin` to the `PATH` system environment variable
+
+**Note that `cg-conv` is not fully reliable on Windows, and some analyses will not be complete if `cg-conv` is installed in a Windows environment**
+(as of VISL CG-3 Disambiguator version 1.3.1.13891).
