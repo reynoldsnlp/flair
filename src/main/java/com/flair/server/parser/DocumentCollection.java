@@ -63,14 +63,24 @@ public class DocumentCollection implements Iterable<AbstractDocument>
 		return dataStore.size();
 	}
 
-	public synchronized void add(AbstractDocument doc, boolean recalcConstructionData)
+	public synchronized void add(AbstractDocument doc, boolean recalculateConstructionData)
 	{
 		if (doc.getLanguage() != language)
 			throw new IllegalArgumentException("Invalid language for collection. Expected " + language + ", received " + doc.getLanguage());
 			
-		ServerLogger.get().info("recalcConstructionData is " + recalcConstructionData);
+		ServerLogger.get().info("recalculateConstructionData is " + recalculateConstructionData);
 		dataStore.add(doc);
-		if (recalcConstructionData)
+		if(recalculateConstructionData)
+			refreshConstructionData();
+	}
+	
+	public synchronized void addAll(DocumentCollection other, boolean recalculateConstructionData) {
+		if (other.getLanguage() != language)
+			throw new IllegalArgumentException("Invalid language for collection. Expected " + language + ", received " + other.getLanguage());
+
+		ServerLogger.get().info("recalculateConstructionData is " + recalculateConstructionData);
+		dataStore.addAll(other.dataStore);
+		if(recalculateConstructionData)
 			refreshConstructionData();
 	}
 

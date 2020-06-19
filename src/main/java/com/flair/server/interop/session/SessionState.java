@@ -165,7 +165,7 @@ public class SessionState
 		currentOperation.get().begin();
 	}
 
-	private void beginOperationWithAgent(OperationState state, WebSearchAgent agent){
+	private void beginMoreResultsOperation(OperationState state, SearchCrawlParseJob lastJob){
 		if (hasOperation())
 			throw new RuntimeException("Previous state not cleared");
 
@@ -177,7 +177,7 @@ public class SessionState
 
 		// has to be the tail call as the begin operation can trigger the completion event if there are no queued tasks
 		SearchCrawlParseOperation op = (SearchCrawlParseOperation) currentOperation.get();
-		op.beginWithAgent(agent);
+		op.beginFromPreviousSCPJob(lastJob);
 	}
 	
 	/**
@@ -551,6 +551,7 @@ public class SessionState
 			k = new KeywordSearcherInput(lastKeywords);
 
 		SearchCrawlParseOperation op = MasterJobPipeline.get().doSearchCrawlParse(agent.getLanguage(), agent.getQuery(), agent.getUseRestrictedDomains(), lastNumResults, k);
+		lastSearchOperation = op;
 		//do we ever get past here?
 		ServerLogger.get().info("finished creating search crawl parse operation");
 		op.setCrawlCompleteHandler(e -> {
@@ -563,7 +564,7 @@ public class SessionState
 			handleJobComplete(ServerMessage.Type.SEARCH_CRAWL_PARSE, e);
 		});
 		ServerLogger.get().info("Calling beginOperation()");
-		beginOperationWithAgent(new OperationState(op), agent);
+		beginMoreResultsOperation(new OperationState(op), lastJob);
 	}
 
 	public synchronized void beginCustomCorpusUpload(Language lang, List<String> keywords)

@@ -16,6 +16,7 @@ import com.flair.server.parser.KeywordSearcherInput;
 import com.flair.server.parser.SearchResultDocumentSource;
 import com.flair.server.utilities.ServerLogger;
 import com.flair.shared.grammar.Language;
+import org.apache.commons.math3.analysis.function.Abs;
 
 /*
  * Performs a web search, crawls the results and parses the text
@@ -87,11 +88,16 @@ public final class SearchCrawlParseJob extends AbstractJob<SearchCrawlParseJobOu
 		flagStarted();
 	}
 
-	public void beginWithAgent(WebSearchAgent searchAgent){
+	public void beginFromPreviousSCPJob(SearchCrawlParseJob previousJob){
 		if (isStarted())
 			throw new IllegalStateException("Job has already begun");
 
-		this.searchAgent = searchAgent;
+		searchAgent = previousJob.searchAgent;
+		output.addAll(previousJob.output);
+
+		//re-display the old results
+		for(SearchResult sr : output.searchResults) notifyListeners(new SearchCrawlParseJobEvent(sr));
+		for(AbstractDocument doc : output.parsedDocs) notifyListeners(new SearchCrawlParseJobEvent(doc));
 
 		queueWebSearchTask(searchAgent, input.numResults);
 		flagStarted();
@@ -162,7 +168,7 @@ public final class SearchCrawlParseJob extends AbstractJob<SearchCrawlParseJobOu
 					notifyListeners(new SearchCrawlParseJobEvent(result.getOutput()));
 					
 					// the ranks of the documents can be discontinuous if search results were discarded
-					// the client should rerank the collection upon job completion manually
+					// the client should re-rank the collection upon job completion manually
 					// however, the general sort order wrt the search results will be preserved
 				    output.parsedDocs.add(result.getOutput(), true);
 				    output.parsedDocs.sort();
@@ -183,9 +189,9 @@ public final class SearchCrawlParseJob extends AbstractJob<SearchCrawlParseJobOu
 	@Override
 	public String toString()
 	{
-		if (isStarted() == false)
+		if (!isStarted())
 			return "SearchCrawlParseJob has not started yet";
-		else if (isCompleted() == false)
+		else if (!isCompleted())
 			return "SearchCrawlParseJob is still running";
 		else if (isCancelled())
 			return "SearchCrawlParseJob was cancelled";
@@ -256,6 +262,11 @@ final class SearchCrawlParseJobOutput
 	{
 		this.searchResults = new ArrayList<>();
 		this.parsedDocs = new DocumentCollection(sourceLang);
+	}
+
+	public void addAll(SearchCrawlParseJobOutput previousOutput) {
+		searchResults.addAll(previousOutput.searchResults);
+		parsedDocs.addAll(previousOutput.parsedDocs, true);
 	}
 }
 

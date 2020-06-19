@@ -1,7 +1,6 @@
 package com.flair.server.taskmanager;
 
 import com.flair.server.crawler.SearchResult;
-import com.flair.server.crawler.WebSearchAgent;
 import com.flair.server.parser.AbstractDocument;
 import com.flair.server.parser.DocumentCollection;
 import com.flair.server.utilities.ServerLogger;
@@ -32,7 +31,7 @@ public interface SearchCrawlParseOperation extends AbstractPipelineOperation
 
 	public SearchCrawlParseJob getJob();
 
-	public void beginWithAgent(WebSearchAgent agent);
+	public void beginFromPreviousSCPJob(SearchCrawlParseJob previousJob);
 
 	/**
 	 * Sets the handler for a crawl event completion
@@ -104,7 +103,7 @@ class SearchCrawlParseOperationImpl extends BasicPipelineOperation implements Se
 	}
 
 	@Override
-	public void beginWithAgent(WebSearchAgent agent) {
+	public void beginFromPreviousSCPJob(SearchCrawlParseJob previousJob) {
 		// register listener
 		SearchCrawlParseJob j = (SearchCrawlParseJob)job;
 		j.addListener(e -> {
@@ -128,7 +127,7 @@ class SearchCrawlParseOperationImpl extends BasicPipelineOperation implements Se
 			}
 		});;
 
-		j.beginWithAgent(agent);
+		j.beginFromPreviousSCPJob(previousJob);
 	}
 
 	@Override
