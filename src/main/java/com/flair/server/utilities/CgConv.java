@@ -10,6 +10,7 @@ public class CgConv {
     //constants
     private static final String CG_CONV = "cg-conv";
     private static final int TIMEOUT_MS = 10*1000;
+    private static int failureCount = 0;
 
     //functions
 
@@ -35,6 +36,13 @@ public class CgConv {
             int exitCode = processWithTimeout.waitForProcess(TIMEOUT_MS);
             if(exitCode == Integer.MIN_VALUE) { //timeout!
                 process.destroyForcibly();
+                try {
+                    BufferedWriter out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("cg-conv-fail" + ++failureCount + ".txt"), StandardCharsets.UTF_8));
+                    out.write(hfstString);
+                    out.close();
+                } catch (FileNotFoundException e) {
+                    ServerLogger.get().error("Could not write to error file");
+                }
                 throw new InterruptedException("cg-conv timed out after " + TIMEOUT_MS + " milliseconds");
             }
             //forward output data
