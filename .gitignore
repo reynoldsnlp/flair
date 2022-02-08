@@ -11,6 +11,7 @@
 .project
 .settings/
 .vscode/
+deploy_prod.out
 flair.iml
 gwt-unitCache/
 mvnw*
