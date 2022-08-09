@@ -1,4 +1,4 @@
-# FLAIR (Foreign Language Acquisition Information Retrieval)
+# FLAIR (Form-focused, Linguistically Aware Information Retrieval)
 
 Forked from [FLAIR project](http://sifnos.sfs.uni-tuebingen.de/FLAIR/), which
 provides web search for language learning. The upstream version of FLAIR has
