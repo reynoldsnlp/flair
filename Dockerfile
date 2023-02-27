@@ -1,6 +1,7 @@
 FROM reynoldsnlp/flair-base AS flair-builder
 
 WORKDIR /opt/flair
+RUN apt-get -y update && wget https://apertium.projectjj.com/apt/install-nightly.sh -O - | bash && apt-get install -y cg3
 RUN git pull && mvn clean install
 
 # final image

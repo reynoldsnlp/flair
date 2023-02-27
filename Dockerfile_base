@@ -2,7 +2,8 @@ FROM maven:3-jdk-8
 
 RUN apt-get -y update \
     && apt-get -y upgrade \
-    && apt-get install -y apt-utils lsb-release python3 python3-pip \
+    && wget https://apertium.projectjj.com/apt/install-nightly.sh -O - | bash \
+    && apt-get install -y apt-utils cg3 lsb-release python3 python3-pip \
     && python3 -m pip install gdown
 
 RUN git clone https://github.com/reynoldsnlp/flair.git /opt/flair
