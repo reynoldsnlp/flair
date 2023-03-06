@@ -1,3 +1,5 @@
+set -x
+
 # if reynoldsnlp/flair-dev-base image does not exist, build it
 docker inspect reynoldsnlp/flair-dev-base 2> /dev/null \
 	|| docker build -t reynoldsnlp/flair-dev-base -f Dockerfile_dev_base .
@@ -10,4 +12,4 @@ docker inspect flair-dev 2> /dev/null \
 
 # run the `flair` container
 echo "Running the container 'flair-dev' on port 8081..."
-docker run -dit -p 8081:8080 -e BING_API=$BING_API --name flair-dev --restart always reynoldsnlp/flair-dev
+docker run -dit -p 8081:8080 -e BING_API=$(cat BING_API_KEY) --name flair-dev --restart always reynoldsnlp/flair-dev

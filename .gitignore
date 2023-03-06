@@ -18,3 +18,4 @@ mvnw*
 pom-stanford.xml
 "*.icloud"
 *.sh
+BING_API_KEY
