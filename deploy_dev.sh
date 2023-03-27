@@ -1,6 +1,4 @@
-# if reynoldsnlp/flair-dev-base image does not exist, build it
-docker inspect reynoldsnlp/flair-dev-base 2> /dev/null \
-	|| docker build -t reynoldsnlp/flair-dev-base -f Dockerfile_dev_base .
+docker build -t reynoldsnlp/flair-dev-base -f Dockerfile_dev_base .
 docker build -t reynoldsnlp/flair-dev --no-cache -f Dockerfile_dev .
 
 # if `flair-dev` container is already running, stop/rm the old one
