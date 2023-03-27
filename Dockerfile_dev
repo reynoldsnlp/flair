@@ -1,5 +1,7 @@
 FROM reynoldsnlp/flair-dev-base AS flair-builder
 
+COPY . /opt/flair
+
 WORKDIR /opt/flair
 RUN mvn clean install
 
