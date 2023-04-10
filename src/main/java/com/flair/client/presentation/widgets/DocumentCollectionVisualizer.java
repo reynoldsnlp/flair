@@ -16,6 +16,7 @@ import com.flair.client.presentation.interfaces.VisualizerService;
 import com.flair.client.presentation.widgets.sliderbundles.ConstructionSliderBundleEnglish;
 import com.flair.client.presentation.widgets.sliderbundles.ConstructionSliderBundleGerman;
 import com.flair.client.presentation.widgets.sliderbundles.ConstructionSliderBundleRussian;
+import com.flair.client.presentation.widgets.sliderbundles.ConstructionSliderBundlePersian;
 import com.flair.shared.grammar.GrammaticalConstruction;
 import com.flair.shared.grammar.Language;
 import com.flair.shared.interop.RankableDocument;
@@ -515,6 +516,7 @@ public class DocumentCollectionVisualizer extends LocalizedComposite implements 
 			bdlEnglishSlidersUI.setVisible(false);
 			bdlGermanSlidersUI.setVisible(false);
 			bdlRussianSlidersUI.setVisible(false);
+			bdlPersianSlidersUI.setVisible(false);
 			
 			resetSelectedAxes();
 			
@@ -530,6 +532,8 @@ public class DocumentCollectionVisualizer extends LocalizedComposite implements 
 					break;
 				case RUSSIAN:
 					toggles = bdlRussianSlidersUI;
+				case PERSIAN:
+					toggles = bdlPersianSlidersUI;
 					break;
 			}
 			
@@ -707,6 +711,8 @@ public class DocumentCollectionVisualizer extends LocalizedComposite implements 
 	ConstructionSliderBundleGerman		bdlGermanSlidersUI;
 	@UiField
 	ConstructionSliderBundleRussian		bdlRussianSlidersUI;
+	@UiField
+	ConstructionSliderBundlePersian		bdlPersianSlidersUI;
 	@UiField
 	@LocalizedCommonField(tag=CommonLocalizationTags.FILTER, type=LocalizedFieldType.TEXT_BUTTON)
 	MaterialButton				btnApplyUI;

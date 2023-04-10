@@ -41,6 +41,7 @@
 						<flair.pak:ConstructionSliderBundleEnglish ui:field="bdlEnglishSlidersUI"/>
 						<flair.pak:ConstructionSliderBundleGerman ui:field="bdlGermanSlidersUI"/>
 						<flair.pak:ConstructionSliderBundleRussian ui:field="bdlRussianSlidersUI"/>
+						<flair.pak:ConstructionSliderBundlePersian ui:field="bdlPersianSlidersUI"/>
 					</m:MaterialRow>
 				</m:MaterialPanel>
 				

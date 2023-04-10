@@ -199,12 +199,21 @@ _gram-helpText_	PASSIVE_VOICE_SEIN	<INSERT_HELP_TEXT>
 _gram-name_	PASSIVE_VOICE_WERDEN	PASSIVE_VOICE_WERDEN
 _gram-path_	PASSIVE_VOICE_WERDEN	PASSIVE_VOICE_WERDEN
 _gram-helpText_	PASSIVE_VOICE_WERDEN	<INSERT_HELP_TEXT>
+_gram-name_	PLURAL_ARABIC	<arabicPlural>
+_gram-path_	PLURAL_ARABIC	<arabicPlural_PATH>
+_gram-helpText_	PLURAL_ARABIC	<arabicPlural_HELP_TEXT>
 _gram-name_	PLURAL_IRREGULAR	Plural irregular
 _gram-path_	PLURAL_IRREGULAR	Nouns > Irregular plural form of nouns
 _gram-helpText_	PLURAL_IRREGULAR	e.g. people, children, women
 _gram-name_	PLURAL_REGULAR	Plural regular
 _gram-path_	PLURAL_REGULAR	Nouns > Regular plural form of nouns
 _gram-helpText_	PLURAL_REGULAR	e.g. texts, flowers, settings
+_gram-name_	PLURAL__ANIMATE	<animatePlural>
+_gram-path_	PLURAL__ANIMATE	<animatePlural_PATH>
+_gram-helpText_	PLURAL__ANIMATE	<animatePlural_HELP_TEXT>
+_gram-name_	PLURAL__INANIMATE	<inanimatePlural>
+_gram-path_	PLURAL__INANIMATE	<inanimatePlural_PATH>
+_gram-helpText_	PLURAL__INANIMATE	<inanimatePlural_HELP_TEXT>
 _gram-name_	PREPOSITIONS	All Prepositions
 _gram-path_	PREPOSITIONS	Prepositions > All prepositions
 _gram-helpText_	PREPOSITIONS	e.g. in, on, between, under
@@ -412,6 +421,12 @@ _gram-helpText_	VERBFORM_PARTICIPLE_1	<INSERT_HELP_TEXT>
 _gram-name_	VERBFORM_PARTICIPLE_2	VERBFORM_PARTICIPLE_2
 _gram-path_	VERBFORM_PARTICIPLE_2	VERBFORM_PARTICIPLE_2
 _gram-helpText_	VERBFORM_PARTICIPLE_2	<INSERT_HELP_TEXT>
+_gram-name_	VERBFORM_PAST_STEM	<pastStem>
+_gram-path_	VERBFORM_PAST_STEM	<pastStem_PATH>
+_gram-helpText_	VERBFORM_PAST_STEM	<pastStem_HELP_TEXT>
+_gram-name_	VERBFORM_PRESENT_STEM	<presentStem>
+_gram-path_	VERBFORM_PRESENT_STEM	<presentStem_PATH>
+_gram-helpText_	VERBFORM_PRESENT_STEM	<presentStem_HELP_TEXT>
 _gram-name_	VERBFORM_SHORT	Contracted auxiliary
 _gram-path_	VERBFORM_SHORT	Verbs > Verb forms > Contracted auxiliary form
 _gram-helpText_	VERBFORM_SHORT	Contracted form of the auxiliaries "be" and "have", e.g. I'm, he's, we're

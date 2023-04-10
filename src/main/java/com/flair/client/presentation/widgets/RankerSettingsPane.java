@@ -9,6 +9,7 @@ import com.flair.client.model.interfaces.DocumentRankerOutput.Rank;
 import com.flair.client.presentation.interfaces.AbstractRankerSettingsPane;
 import com.flair.client.presentation.widgets.sliderbundles.ConstructionSliderBundleEnglish;
 import com.flair.client.presentation.widgets.sliderbundles.ConstructionSliderBundleGerman;
+import com.flair.client.presentation.widgets.sliderbundles.ConstructionSliderBundlePersian;
 import com.flair.client.presentation.widgets.sliderbundles.ConstructionSliderBundleRussian;
 import com.flair.client.utilities.ClientLogger;
 import com.flair.shared.grammar.GrammaticalConstruction;
@@ -97,6 +98,8 @@ public class RankerSettingsPane extends LocalizedComposite implements AbstractRa
 	ConstructionSliderBundleGerman			bdlGermanSlidersUI;
 	@UiField
 	ConstructionSliderBundleRussian			bdlRussianSlidersUI;
+	@UiField
+	ConstructionSliderBundlePersian			bdlPersianSlidersUI;
 	@UiField
 	@LocalizedField
 	MaterialCardTitle						lblLanguageUseUI;
@@ -200,6 +203,7 @@ public class RankerSettingsPane extends LocalizedComposite implements AbstractRa
 			bdlEnglishSlidersUI.setVisible(false);
 			bdlGermanSlidersUI.setVisible(false);
 			bdlRussianSlidersUI.setVisible(false);
+			bdlPersianSlidersUI.setVisible(false);
 		}
 		
 		public void resetUI()
@@ -209,6 +213,7 @@ public class RankerSettingsPane extends LocalizedComposite implements AbstractRa
 			switch(sliderLanguage) {
 				case ENGLISH:
 				case GERMAN:
+				case PERSIAN:
 				case RUSSIAN:
 					showDefaultLevels();
 					hideSliderBundles();
@@ -306,6 +311,8 @@ public class RankerSettingsPane extends LocalizedComposite implements AbstractRa
 					return bdlGermanSlidersUI;
 				case RUSSIAN:
 					return bdlRussianSlidersUI;
+				case PERSIAN:
+					return bdlPersianSlidersUI;
 				default:
 					return null;
 			}
@@ -452,6 +459,7 @@ public class RankerSettingsPane extends LocalizedComposite implements AbstractRa
 		updateSlider(bdlEnglishSlidersUI);
 		updateSlider(bdlGermanSlidersUI);
 		updateSlider(bdlRussianSlidersUI);
+		updateSlider(bdlPersianSlidersUI);
 
 		state.setChangeHandler(handler);
 	}

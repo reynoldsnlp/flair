@@ -38,6 +38,12 @@ class BingSearchAgent extends CachingSearchAgent
 		"Mawdoo3.com",
 		"Hindawi.org",
 	};
+	private static final String[] WEBSITES_PERSIAN = new String[]{
+		"bbc.com/persian",
+		"fa.wikipedia.org",
+		"farsi.iranpress.com",
+		"entekhab.ir",
+	};
 
 	private final AzureWebSearch pipeline;
 
@@ -84,6 +90,9 @@ class BingSearchAgent extends CachingSearchAgent
 				qPostfix = " language:ar";
 				market = "ar-SA";
 				break;
+			case PERSIAN:
+				qPostfix = " language:fa";
+				market = "fa-FA";
 			default:
 				throw new IllegalArgumentException("Unsupported language " + lang);
 		}
@@ -98,6 +107,9 @@ class BingSearchAgent extends CachingSearchAgent
 					break;
 				case ARABIC:
 					websitesToSearch = WEBSITES_ARABIC;
+					break;
+				case PERSIAN:
+					websitesToSearch = WEBSITES_PERSIAN;
 					break;
 				default:
 					ServerLogger.get().info("usePresetWebsites was set to true but no list of domains was found for the selected language");

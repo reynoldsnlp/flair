@@ -199,12 +199,21 @@ _gram-helpText_	PASSIVE_VOICE_SEIN	ist geschlossen, ist gebacken
 _gram-name_	PASSIVE_VOICE_WERDEN	werden-Passiv
 _gram-path_	PASSIVE_VOICE_WERDEN	Verben > Passiv > Passiv mit "werden"
 _gram-helpText_	PASSIVE_VOICE_WERDEN	wird geschlossen, wird gebacken
+_gram-name_	PLURAL_ARABIC	<arabicPlural>
+_gram-path_	PLURAL_ARABIC	<arabicPlural_PATH>
+_gram-helpText_	PLURAL_ARABIC	<arabicPlural_HELP_TEXT>
 _gram-name_	PLURAL_IRREGULAR	PLURAL_IRREGULAR
 _gram-path_	PLURAL_IRREGULAR	PLURAL_IRREGULAR
 _gram-helpText_	PLURAL_IRREGULAR	<INSERT_HELP_TEXT>
 _gram-name_	PLURAL_REGULAR	PLURAL_REGULAR
 _gram-path_	PLURAL_REGULAR	PLURAL_REGULAR
 _gram-helpText_	PLURAL_REGULAR	<INSERT_HELP_TEXT>
+_gram-name_	PLURAL__ANIMATE	<animatePlural>
+_gram-path_	PLURAL__ANIMATE	<animatePlural_PATH>
+_gram-helpText_	PLURAL__ANIMATE	<animatePlural_HELP_TEXT>
+_gram-name_	PLURAL__INANIMATE	<inanimatePlural>
+_gram-path_	PLURAL__INANIMATE	<inanimatePlural_PATH>
+_gram-helpText_	PLURAL__INANIMATE	<inanimatePlural_HELP_TEXT>
 _gram-name_	PREPOSITIONS	Präpositionen (gesamt)
 _gram-path_	PREPOSITIONS	Präpositionen > Präpositionen (gesamt)
 _gram-helpText_	PREPOSITIONS	auf, unter, zufolge, wegen
@@ -415,6 +424,12 @@ _gram-helpText_	VERBFORM_PARTICIPLE_1	<INSERT_HELP_TEXT>
 _gram-name_	VERBFORM_PARTICIPLE_2	VERBFORM_PARTICIPLE_2
 _gram-path_	VERBFORM_PARTICIPLE_2	VERBFORM_PARTICIPLE_2
 _gram-helpText_	VERBFORM_PARTICIPLE_2	<INSERT_HELP_TEXT>
+_gram-name_	VERBFORM_PAST_STEM	<pastStem>
+_gram-path_	VERBFORM_PAST_STEM	<pastStem_PATH>
+_gram-helpText_	VERBFORM_PAST_STEM	<pastStem_HELP_TEXT>
+_gram-name_	VERBFORM_PRESENT_STEM	<presentStem>
+_gram-path_	VERBFORM_PRESENT_STEM	<presentStem_PATH>
+_gram-helpText_	VERBFORM_PRESENT_STEM	<presentStem_HELP_TEXT>
 _gram-name_	VERBFORM_SHORT	VERBFORM_SHORT
 _gram-path_	VERBFORM_SHORT	VERBFORM_SHORT
 _gram-helpText_	VERBFORM_SHORT	<INSERT_HELP_TEXT>

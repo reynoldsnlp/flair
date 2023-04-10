@@ -134,6 +134,12 @@
 			<version>3.9.2</version>
 			<classifier>models-german</classifier>
 		</dependency>
+		<!-- for HuggingFace models: https://mvnrepository.com/artifact/ai.djl/api -->
+		<dependency>
+    		<groupId>ai.djl</groupId>
+    		<artifactId>api</artifactId>
+    		<version>0.21.0</version>
+		</dependency>
 		<!-- HFST dependencies -->
 		<dependency>
 			<groupId>fi.seco</groupId>
