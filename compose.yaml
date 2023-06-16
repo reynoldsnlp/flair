@@ -1,0 +1,62 @@
+# run `docker compose up -d flair`
+# See below for deploying development instances
+services:
+  stanza-api:
+    image: ramonziai/stanza-api
+    environment: 
+      - STANZA_LANGUAGES=fa
+    ports:
+      - 8088:80
+    restart: always
+
+  madamira:
+    image: reynoldsnlp/madamira_container
+    ports:
+      - 8223:8223
+    restart: always
+
+  flair-base:
+    image: reynoldsnlp/flair_base
+    build:
+      dockerfile: ./Dockerfile_base
+
+  flair:  # docker compose up -d flair  # Use this to deploy all languages
+    image: reynoldsnlp/flair
+    depends_on:
+      - flair-base
+      - madamira
+      - stanza-api
+    build:
+      dockerfile: ./Dockerfile
+    ports:
+      - 8080:8080
+
+  arabic:  # docker compose up -d arabic  # Use this for Arabic development
+    image: reynoldsnlp/flair
+    depends_on:
+      - flair-base
+      - madamira
+      - stanza-api
+    build:
+      dockerfile: ./Dockerfile
+    ports:
+      - 8080:8080
+
+  corenlp:  # docker compose up -d corenlp  # use this for English, German, or Russian development
+    image: reynoldsnlp/flair
+    depends_on:
+      - flair-base
+    build:
+      dockerfile: ./Dockerfile
+    ports:
+      - 8080:8080
+
+  stanza:  # docker compose up -d stanza  # Use this for Persian development
+    image: reynoldsnlp/flair
+    depends_on:
+      - flair-base
+      - stanza-api
+    build:
+      dockerfile: ./Dockerfile
+    ports:
+      - 8080:8080
