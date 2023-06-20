@@ -2,12 +2,17 @@ package com.flair.server.stanza;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.IOException;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.flair.server.parser.AbstractDocument;
+import com.flair.server.utilities.ServerLogger;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -17,8 +22,9 @@ import org.apache.commons.text.StringEscapeUtils;
 public class StanzaPipeline {
 
   public List<List<StanzaToken>> process(AbstractDocument doc, String stanzaLang) {  // lang is the Stanza language identifier
+    String stringURL = "http://localhost:8088/analyze";
     try {
-      URL url = new URL("http://localhost:8088/analyze");
+      URL url = new URL(stringURL);
       HttpURLConnection con = (HttpURLConnection) url.openConnection();
       con.setRequestMethod("POST");
       con.setRequestProperty("Content-Type", "application/json");
@@ -53,8 +59,21 @@ public class StanzaPipeline {
       }
       return tokensList;
 
-    } catch (Exception e) {
+    }
+    catch (MalformedURLException e) {
+      ServerLogger.get().error(e, "Malformed URL: " + stringURL);
+    }
+    catch (ProtocolException e) {
+      ServerLogger.get().error(e, "ProtocolException in StanzaPipeline.");
+    }
+    catch (IOException e) {
+      ServerLogger.get().error(e, "IOException in StanzaPipeline.");
+    }
+    catch (Exception e) {
       throw e;
     }
+
+    return new ArrayList<>();
+
   }
 }

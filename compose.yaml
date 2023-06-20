@@ -10,7 +10,7 @@ services:
     restart: always
 
   madamira:
-    image: reynoldsnlp/madamira_container
+    image: reynoldsnlp/madamira_container:1.0
     ports:
       - 8223:8223
     restart: always
@@ -38,7 +38,6 @@ services:
     depends_on:
       - flair-base
       - madamira
-      - stanza-api
     build:
       dockerfile: ./Dockerfile
     ports:
