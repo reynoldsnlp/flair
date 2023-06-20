@@ -1,7 +1,7 @@
 /*
  * This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License.
  * To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.
- 
+
  */
 package com.flair.server.parser;
 
@@ -64,7 +64,7 @@ class StanzaDocumentParserPersianStrategy extends BasicStanzaDocumentParserStrat
 	/**
 	 * addConstructionOccurrence() is the function to record identified grammatical
 	 * constructions
-	 * 
+	 *
 	 * @param type  The target GrammaticalConstruction
 	 * @param start The index of the first character of the construction
 	 *              (StanzaToken.getStart())
@@ -82,18 +82,18 @@ class StanzaDocumentParserPersianStrategy extends BasicStanzaDocumentParserStrat
 
 		for (StanzaToken token : sent) {
 			// All logic for adding grammatical constructions goes in this loop.
-			// To keep code organized, you may create other functions to call inside this function 
+			// To keep code organized, you may create other functions to call inside this function
 			String upos = token.getUpos();
 			String surface = token.getText();
 			String surface_lower = surface.toLowerCase();
 			if (upos != null && surface != null) {
 
 				// These are (broken?) examples of how you would add a construction
-				if (PersianGrammaticalPatterns.NEGATION.matcher(surface_lower)) {
-					addConstructionOccurrence(GrammaticalConstruction.NEGATION_ALL, token.getStart(),
+				if (PersianGrammaticalPatterns.patternQuestionWords.matcher(surface_lower).matches()) {
+					addConstructionOccurrence(GrammaticalConstruction.QUESTIONS_WH, token.getStart(),
 							token.getEnd());
-				} else if (PersianGrammaticalPatterns.PARTIAL_NEGATION.matcher(surface_lower)) {
-					addConstructionOccurrence(GrammaticalConstruction.NEGATION_PARTIAL, token.getStart(),
+				} else if (PersianGrammaticalPatterns.patternAdv.matcher(upos).matches()) {
+					addConstructionOccurrence(GrammaticalConstruction.ADVERB_POSITIVE, token.getStart(),
 							token.getEnd());
 				}
 			}

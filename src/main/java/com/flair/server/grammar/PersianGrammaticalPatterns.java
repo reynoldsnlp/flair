@@ -1,7 +1,7 @@
 package com.flair.server.grammar;
 
 import java.util.regex.Pattern;
-public class PersianGrammaticalPaterns {
+public class PersianGrammaticalPatterns {
 
     //Question Words
     private static final String STR_QUESTION_WORDS = "/کجا|کی|کدم|چه|چطور|چرا|آیا|/";
@@ -104,5 +104,5 @@ public class PersianGrammaticalPaterns {
     //possibly distinguish between negative verbs and negative pronouns/dets? This would be easier to do in a function in the parser doc
 
 
-    
+
 }
