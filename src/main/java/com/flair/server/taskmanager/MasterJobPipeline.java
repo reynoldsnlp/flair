@@ -107,10 +107,10 @@ public final class MasterJobPipeline
 	}
 
 	/**
- 	* Selects the corrrect parsing strategy for the corresponding language
- 	* @param lang
- 	* @return language parsing strategy
- 	*/
+	* Selects the correct parsing strategy for the corresponding language
+	* @param lang
+	* @return language parsing strategy
+	*/
 	private AbstractParsingStrategyFactory getStrategyForLanguage(Language lang)
 	{
 		ServerLogger.get().info("getStrategyForLanguage() " + lang);
