@@ -30,6 +30,8 @@ services:
       dockerfile: ./Dockerfile
     ports:
       - 8080:8080
+    env_file:
+      - flair-variables.env
 
   arabic:  # docker compose up -d arabic  # Use this for Arabic development
     image: reynoldsnlp/flair
@@ -41,6 +43,8 @@ services:
       dockerfile: ./Dockerfile
     ports:
       - 8080:8080
+    env_file:
+      - flair-variables.env
 
   corenlp:  # docker compose up -d corenlp  # use this for English, German, or Russian development
     image: reynoldsnlp/flair
@@ -50,6 +54,8 @@ services:
       dockerfile: ./Dockerfile
     ports:
       - 8080:8080
+    env_file:
+      - flair-variables.env
 
   stanza:  # docker compose up -d stanza  # Use this for Persian development
     image: reynoldsnlp/flair
@@ -60,3 +66,5 @@ services:
       dockerfile: ./Dockerfile
     ports:
       - 8080:8080
+    env_file:
+      - flair-variables.env
