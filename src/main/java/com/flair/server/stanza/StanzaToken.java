@@ -2,6 +2,8 @@ package com.flair.server.stanza;
 
 import java.util.regex.Pattern;
 
+import com.flair.client.utilities.ClientLogger;
+
 public class StanzaToken {
     private String id;
     private String text;
@@ -12,9 +14,9 @@ public class StanzaToken {
     private int head;
     private String deprel;
     private String misc;
-    private Pattern startMatcher = Pattern.compile("start_char=(\\d+)");
-    private Pattern endMatcher = Pattern.compile("end_char=(\\d+)");
-  
+    private Pattern startMatcher = Pattern.compile("start_char=([0-9]+)");
+    private Pattern endMatcher = Pattern.compile("end_char=([0-9]+)");
+
     public String getId() {
       return id;
     }
@@ -43,10 +45,26 @@ public class StanzaToken {
       return misc;
     }
     public int getStart() {
-      return Integer.parseInt(startMatcher.matcher(misc).group(1));
+      try {
+        String startStr = startMatcher.matcher(misc).group(1);
+        int startInt = Integer.parseInt(startStr);
+        return startInt;
+      }
+      catch (IllegalStateException e) {
+        ClientLogger.get().error(e, "No start index: misc=" + misc);
+        return 0;
+      }
     }
     public int getEnd() {
-      return Integer.parseInt(endMatcher.matcher(misc).group(1));
+      try {
+        String endStr = endMatcher.matcher(misc).group(1);
+        int endInt = Integer.parseInt(endStr);
+        return endInt;
+      }
+      catch (IllegalStateException e) {
+        ClientLogger.get().error(e, "No end index: misc=" + misc);
+        return 0;
+      }
     }
     @Override
     public String toString() {

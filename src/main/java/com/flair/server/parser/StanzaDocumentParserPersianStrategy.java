@@ -5,14 +5,15 @@
  */
 package com.flair.server.parser;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import com.flair.client.utilities.ClientLogger;
 import com.flair.shared.grammar.GrammaticalConstruction;
 import com.flair.shared.grammar.Language;
 import com.flair.server.grammar.PersianGrammaticalPatterns;
 import com.flair.server.stanza.StanzaToken;
+
 
 /**
  * Implementation of Persian language parsing logic for the Stanza parser
@@ -121,6 +122,10 @@ class StanzaDocumentParserPersianStrategy extends BasicStanzaDocumentParserStrat
 
 					// changed: only count words (no punctuation)
 					for (StanzaToken token : sent) {
+						if (token == null) {
+							ClientLogger.get().warn("Null token: " + sent.toString());
+							continue;
+						}
 						tokenCount++;
 						if (!token.getUpos().matches("PUNCT|SYM|X")) {
 							wordCount++;

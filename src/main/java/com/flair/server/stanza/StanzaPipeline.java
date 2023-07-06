@@ -22,7 +22,9 @@ import org.apache.commons.text.StringEscapeUtils;
 public class StanzaPipeline {
 
   public List<List<StanzaToken>> process(AbstractDocument doc, String stanzaLang) {  // lang is the Stanza language identifier
-    String stringURL = "http://localhost:8088/analyze";
+    //String stringURL = "http://localhost:8088/analyze";  //until Stanza's servers are fixed
+    String stringURL = "http://icall.byu.edu:8088/analyze";
+		ServerLogger.get().info("StanzaPipeline: (" + stanzaLang + "): " + doc.getText().substring(0,50) + "...");
     try {
       URL url = new URL(stringURL);
       HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -43,6 +45,7 @@ public class StanzaPipeline {
         response.append(output);
       }
       in.close();
+      ServerLogger.get().info("StanzaPipeline: (response): " + response);
 
       // Parse JSON response into Java object
       Gson gson = new Gson();

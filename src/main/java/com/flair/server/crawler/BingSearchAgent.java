@@ -56,11 +56,12 @@ class BingSearchAgent extends CachingSearchAgent
 			if(!isKeySet) {
 				ServerLogger.get().info("Setting PROD_API_KEY");
 				PROD_API_KEY = System.getenv("BING_API");
+				ServerLogger.get().info("PROD_API_KEY is set to " + PROD_API_KEY.substring(0, 5) + "..." );
 				if(PROD_API_KEY == null) throw new Exception("BING_API environment variable not found");
 				isKeySet = true;
 			}
 			else {
-				throw new Exception();
+				ServerLogger.get().warn("PROD_API_KEY already set!");
 			}
 		}
 		catch(SecurityException ex) {
@@ -93,11 +94,14 @@ class BingSearchAgent extends CachingSearchAgent
 			case PERSIAN:
 				qPostfix = " language:fa";
 				market = "fa-FA";
+				break;
 			default:
+				ServerLogger.get().error("Unsupported language: " + lang);
 				throw new IllegalArgumentException("Unsupported language " + lang);
 		}
 
 		String totalQueryString = query + qPostfix;
+		ServerLogger.get().info("query string: " + totalQueryString);
 
 		if(this.useRestrictedDomains){
 			String[] websitesToSearch;

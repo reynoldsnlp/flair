@@ -1,7 +1,7 @@
 /*
  * This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License.
  * To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.
- 
+
  */
 package com.flair.server.parser;
 
@@ -15,7 +15,7 @@ import com.flair.shared.parser.DocumentReadabilityLevel;
 
 /**
  * Represents a text document that's parsed by the NLP Parser
- * 
+ *
  * @author shadeMe
  */
 class Document implements AbstractDocument
@@ -35,12 +35,12 @@ class Document implements AbstractDocument
 	private double										avgSentenceLength;
 	private double										avgTreeDepth;
 
-	private double										fancyDocLength;	
+	private double										fancyDocLength;
 	private KeywordSearcherOutput						keywordData;
 
 	private boolean parsed;
 
-	public Document(AbstractDocumentSource source, double readabilityScore, 
+	public Document(AbstractDocumentSource source, double readabilityScore,
 			DocumentReadabilityLevel readabilityLevel)
 	{
 		this.source = source;
@@ -77,11 +77,13 @@ class Document implements AbstractDocument
 		double readabilityLevelThreshold_B = 0;
 
 		/**
-		 * The switch statements below classify the readability threshHolds 
-		 * Readability thresholds are hard coded here 
+		 * The switch statements below classify the readability threshHolds
+		 * Readability thresholds are hard coded here
 		 */
 		switch (source.getLanguage())
 		{
+		case ARABIC:
+			throw new IllegalArgumentException("Invalid document language, use the ArabicDocument object for arabic text");
 		case ENGLISH:
 			readabilityScoreCalc = Math.ceil(4.71 * ((double) numCharacters / (double) numTokens)
 					+ 0.5 * (numTokens / (double) numSentences) - 21.43);
@@ -94,14 +96,18 @@ class Document implements AbstractDocument
 			readabilityLevelThreshold_A = 10;
 			readabilityLevelThreshold_B = 20;
 			break;
-		case RUSSIAN:
+		case PERSIAN:  //TODO implement real Flesch-Kincaid coefficients
 			readabilityScoreCalc = Math
 					.ceil(((double) numCharacters / (double) numTokens) + (numTokens / (double) numSentences));
 			readabilityLevelThreshold_A = 10;
 			readabilityLevelThreshold_B = 20;
-			break;	
-		case ARABIC:
-			throw new IllegalArgumentException("Invalid document language, use the ArabicDocument object for arabic text");
+			break;
+		case RUSSIAN:  //TODO implement real Flesch-Kincaid coefficients
+			readabilityScoreCalc = Math
+					.ceil(((double) numCharacters / (double) numTokens) + (numTokens / (double) numSentences));
+			readabilityLevelThreshold_A = 10;
+			readabilityLevelThreshold_B = 20;
+			break;
 		default:
 			throw new IllegalArgumentException("Invalid document language");
 		}
@@ -111,7 +117,7 @@ class Document implements AbstractDocument
 		else												//else we use a negative score, this ensures that we either dont use the document or its is ranked as easiest
 			readabilityScore = -10.0;
 															// Below we determine DocumentReadabilityLevel tag for the client
-		if (readabilityScore < readabilityLevelThreshold_A)		
+		if (readabilityScore < readabilityLevelThreshold_A)
 			readabilityLevel = DocumentReadabilityLevel.LEVEL_A;
 		else if (readabilityLevelThreshold_A <= readabilityScore && readabilityScore <= readabilityLevelThreshold_B)
 			readabilityLevel = DocumentReadabilityLevel.LEVEL_B;
@@ -122,7 +128,7 @@ class Document implements AbstractDocument
 		keywordData = null;
 		parsed = false;
 	}
-	
+
 	@Override
 	public Language getLanguage() {
 		return source.getLanguage();
@@ -312,17 +318,17 @@ class Document implements AbstractDocument
 	public Iterable<GrammaticalConstruction> getSupportedConstructions() {
 		return GrammaticalConstruction.getForLanguage(getLanguage());
 	}
-	@Override 
+	@Override
 	public String toString(){
-		return "Document : " + getDescription() + 
-		"\nAverage Sentence Length : " + getAvgSentenceLength() + 
-		"\nAverage Word Length : " + getAvgWordLength() + 
-		"\nLength : " + getLength() + 
+		return "Document : " + getDescription() +
+		"\nAverage Sentence Length : " + getAvgSentenceLength() +
+		"\nAverage Word Length : " + getAvgWordLength() +
+		"\nLength : " + getLength() +
 		"\nNumber of Dependencies : " + getNumDependencies() +
-		"\nNumber of Words : " + getNumWords() + 
-		"\nNumber of Tokens : " + getNumTokens() + 
+		"\nNumber of Words : " + getNumWords() +
+		"\nNumber of Tokens : " + getNumTokens() +
 		"\nNumber of Sentences : " + getNumSentences() +
-		"\nNumber of Characters : " + getNumCharacters() + 
+		"\nNumber of Characters : " + getNumCharacters() +
 		"\nIs Parsed : " + isParsed() + "\n";
 
 	}
