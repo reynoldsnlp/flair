@@ -18,12 +18,20 @@ public class PersianGrammaticalPatterns {
     public static final Pattern patternChetor = Pattern.compile(STR_CHETOR);
     private static final String STR_CHERA = "چرا";
     public static final Pattern patternChera = Pattern.compile(STR_CHERA);
-    private static final String STR_QUEST_TAG = "آیا";
-    public static final Pattern patternQuestTag = Pattern.compile(STR_QUEST_TAG);
+    private static final String STR_QUEST_AYA = "آیا";
+    public static final Pattern patternQuestAya = Pattern.compile(STR_QUEST_AYA);
 
     //Quantifiers
     private static final String STR_QUANT = "/هر|چند|هیچ|زیاد/";
     public static final Pattern patternQuant = Pattern.compile(STR_QUANT);
+    private static final String STR_HAR = "هر";
+    public static final Pattern patternHar = Pattern.compile(STR_HAR);
+    private static final String STR_CHAND = "چند";
+    public static final Pattern patternChand = Pattern.compile(STR_CHAND);
+    private static final String STR_HICH = "هیچ";
+    public static final Pattern patternHich = Pattern.compile(STR_HICH);
+    private static final String STR_ZIAD = "زیاد";
+    public static final Pattern patternZiad = Pattern.compile(STR_ZIAD);
 
     //Adverbs
     private static final String STR_ADV = "ADV";
@@ -50,7 +58,7 @@ public class PersianGrammaticalPatterns {
     public static final Pattern patternNegPron = Pattern.compile(STR_NEG_PRON);
     private static final String STR_PRS = "PronType=Prs";
     public static final Pattern patternPrs = Pattern.compile(STR_PRS);
-    private static final String STR_RCP = "PronType=RCP";
+    private static final String STR_RCP = "PronType=Rcp";
     public static final Pattern patternRcp = Pattern.compile(STR_RCP);
     private static final String STR_REL = "PronType=Rel";
     public static final Pattern patternRel = Pattern.compile(STR_REL);
@@ -82,8 +90,17 @@ public class PersianGrammaticalPatterns {
     public static final Pattern patternFut = Pattern.compile(STR_FUT);
 
     //Verb Forms
-    private static final String STR_AUX = "​​";
+    private static final String STR_AUX = "​V_AUX";
     public static final Pattern patternAux = Pattern.compile(STR_AUX);
+    private static final String STR_IMP = "V_IMP";
+    public static final Pattern patternImp = Pattern.compile(STR_IMP);
+    private static final String STR_V_PASTPART = "V_PP";
+    public static final Pattern patternVPP = Pattern.compile(STR_V_PASTPART);
+    private static final String STR_V_FIN = "V_FIN";
+    public static final Pattern patternVFin = Pattern.compile(STR_V_FIN);
+    private static final String STR_V_SUB = "V_SUB";
+    public static final Pattern patternVSub = Pattern.compile(STR_V_SUB);
+
     //decide whether to add all possible sub-trees of verb forms
 
     //Person
@@ -97,6 +114,8 @@ public class PersianGrammaticalPatterns {
     //Polarity
     private static final String STR_NEG_POL = "Polarity=Neg";
     public static final Pattern patternNegPol = Pattern.compile(STR_NEG_POL);
+    private static final String STR_POS_POL = "Polarity=Pos";
+    public static final Pattern patternPosPol = Pattern.compile(STR_POS_POL);
 
     //Reflexive
     private static final String STR_REFL = "Reflex=Yes";

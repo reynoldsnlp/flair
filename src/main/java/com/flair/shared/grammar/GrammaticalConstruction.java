@@ -46,14 +46,14 @@ public enum GrammaticalConstruction
     OBJECT_DIRECT("directObject", Language.ENGLISH),
     OBJECT_INDIRECT("indirectObject", Language.ENGLISH, Language.PERSIAN),
     
-    PRONOUNS("pronouns", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN),
-    PRONOUNS_PERSONAL("pronounsPersonal", Language.GERMAN, Language.RUSSIAN),
-    PRONOUNS_RELATIVE("pronounsRelative", Language.GERMAN, Language.RUSSIAN),
+    PRONOUNS("pronouns", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN, Language.PERSIAN),
+    PRONOUNS_PERSONAL("pronounsPersonal", Language.GERMAN, Language.RUSSIAN, Language.PERSIAN),
+    PRONOUNS_RELATIVE("pronounsRelative", Language.GERMAN, Language.RUSSIAN, Language.PERSIAN),
     PRONOUNS_POSSESSIVE("pronounsPossessive", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), // /PRP$ ("", my, your, their)
-    PRONOUNS_DEMONSTRATIVE("pronounsDemonstrative", Language.GERMAN, Language.RUSSIAN),
+    PRONOUNS_DEMONSTRATIVE("pronounsDemonstrative", Language.GERMAN, Language.RUSSIAN, Language.PERSIAN),
     PRONOUNS_REFLEXIVE("pronounsReflexive", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN, Language.PERSIAN), // /PRP + myself, themselves, etc.
-    PRONOUNS_INDEFINITE("pronounsIndefinite", Language.GERMAN),
-    PRONOUNS_INTERROGATIVE("pronounsInterrogative", Language.GERMAN, Language.RUSSIAN),
+    PRONOUNS_INDEFINITE("pronounsIndefinite", Language.GERMAN, Language.PERSIAN),
+    PRONOUNS_INTERROGATIVE("pronounsInterrogative", Language.GERMAN, Language.RUSSIAN, Language.PERSIAN),
     PRONOUNS_SUBJECTIVE("pronounsSubjective", Language.ENGLISH, Language.PERSIAN),
 
     // quantifiers
@@ -77,6 +77,7 @@ public enum GrammaticalConstruction
     NEGATION_NO_NOT_NEVER("noNotNever", Language.ENGLISH, Language.GERMAN),
     NEGATION_NT("nt", Language.ENGLISH),
     NEGATION_NOT("not", Language.ENGLISH),
+    NEGATION_PERSIAN("negationPersian", Language.PERSIAN),
 
     QUESTIONS_DIRECT("directQuestions", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN, Language.PERSIAN), // Russian: ends in a '?'
     QUESTIONS_INDIRECT("indirectQuestions", Language.ENGLISH, Language.GERMAN/*, Language.RUSSIAN*/),
@@ -96,6 +97,14 @@ public enum GrammaticalConstruction
     QUESTIONS_WHOM("whom", Language.ENGLISH, Language.GERMAN),
     QUESTIONS_WHICH("which", Language.ENGLISH, Language.GERMAN),
     QUESTIONS_TAG("tagQuestions", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN, Language.PERSIAN), // ", isn't it?" //*** ", (nje) tak (li)?" (, AND ? ARE IMPORTANT)
+    QUESTIONS_PERSIAN("persianQuestions", Language.PERSIAN),
+    QUESTIONS_KOJA("kojaQuestions", Language.PERSIAN),
+    QUESTIONS_KE("keQuestions", Language.PERSIAN),
+    QUESTIONS_KODOM("kodomQuestions", Language.PERSIAN),
+    QUESTIONS_CHE("cheQuestions", Language.PERSIAN),
+    QUESTIONS_CHETOR("chetorQuestions", Language.PERSIAN),
+    QUESTIONS_CHERA("cheraQuestions", Language.PERSIAN),
+    QUESTIONS_AYA("ayaQuestions", Language.PERSIAN),
     
     // conditionals - check first, before tenses
     CONDITIONALS("conditionals", Language.ENGLISH),
@@ -316,7 +325,7 @@ public enum GrammaticalConstruction
     VERBS_IRREGULAR_NONPAST("verbsIrregularNonpast", Language.RUSSIAN), // Russian: хотеть бежать есть дать чтить
 
     //OTHER
-    PRONOUNS_NEGATIVE("pronounsNegative", Language.RUSSIAN),
+    PRONOUNS_NEGATIVE("pronounsNegative", Language.RUSSIAN, Language.PERSIAN),
     NEGATION_PRONOUNS("negationPronouns", Language.RUSSIAN),
     PRONOUNS_DEFINITE_RUSSIAN("pronounsDefiniteRussian", Language.RUSSIAN),
     PRONOUNS_INDEFINITE_RUSSIAN("pronounsIndefiniteRussian", Language.RUSSIAN),
@@ -330,11 +339,45 @@ public enum GrammaticalConstruction
     //PERSIAN VERB FORMS
     VERBFORM_PAST_STEM("pastStem", Language.PERSIAN),
     VERBFORM_PRESENT_STEM("presentStem", Language.PERSIAN),
+    VERBFORM_ADJ("adjectivalVerbPersian", Language.PERSIAN),
+    VERBFORM_FINITE_PERSIAN("finiteVerbPersian", Language.PERSIAN),
+    VERBFORM_INFINITIVE_PERSIAN("infinitivePersian", Language.PERSIAN),
+    VERBFORM_PRESENT_PARTICIPLE_PERSIAN("presentPartPersian", Language.PERSIAN),
+    VERBFORM_SUBORDINATING_PERSIAN("subVerb", Language.PERSIAN),
+    PLURAL_PERSIAN("plurPersian", Language.PERSIAN),
+    SINGULAR_PERSIAN("singPersian", Language.PERSIAN),
 
     //PERSIAN PLURALS
     PLURAL_ANIMATE("animatePlural", Language.PERSIAN),
     PLURAL_INANIMATE("inanimatePlural", Language.PERSIAN),
     PLURAL_ARABIC("arabicPlural", Language.PERSIAN),
+
+    //PERSIAN ADJECTIVES
+    ADJECTIVE_POSITIVE_PERSIAN("adjPosPersian", Language.PERSIAN),
+    ADJECTIVE_COMPARATIVE_PERSIAN("adjCompPersian", Language.PERSIAN),
+    ADJECTIVE_SUPERLATIVE_PERSIAN("adjSupPerisna", Language.PERSIAN),
+    ADJECTIVE_NEG("adjNegPersian", Language.PERSIAN),
+    POSITIVE_PERSIAN("posPersian", Language.PERSIAN),
+
+    //PERSIAN QUANTIFIERS
+    DETERMINER_HAR("detHar", Language.PERSIAN),
+    DETERMINER_CHAND("detChand", Language.PERSIAN),
+    DETERMINER_HICH("detHich", Language.PERSIAN),
+    DETERMINER_ZIAD("detZiad", Language.PERSIAN),
+
+    //PERSIAN NUMBERS
+    NUMBERS_CARDINAL_PERSIAN("numCardPersian", Language.PERSIAN),
+    NUMBERS_ORDINAL_PERSIAN("numOrdPersian", Language.PERSIAN),
+
+    //OTHER PERSIAN
+    FIRST_PERSON_PERSIAN("firstPersonPersian", Language.PERSIAN),
+    SECOND_PERSON_PERSIAN("secondPersonPersian", Language.PERSIAN),
+    THIRD_PERSON_PERSIAN("thirdPersonPersian", Language.PERSIAN),
+    MOOD_IMP("moodImpPersian", Language.PERSIAN),
+    MOOD_SUB("moodSubPersian", Language.PERSIAN),
+    PRONOUNS_RECIPROCAL("pronReciprocalPersian", Language.PERSIAN),
+    REFLEXIVE_PERSIAN("reflexivePersian", Language.PERSIAN),
+
 
 
     ;

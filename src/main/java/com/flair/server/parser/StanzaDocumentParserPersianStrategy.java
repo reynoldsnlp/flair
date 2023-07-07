@@ -5,15 +5,14 @@
  */
 package com.flair.server.parser;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import com.flair.client.utilities.ClientLogger;
 import com.flair.shared.grammar.GrammaticalConstruction;
 import com.flair.shared.grammar.Language;
 import com.flair.server.grammar.PersianGrammaticalPatterns;
 import com.flair.server.stanza.StanzaToken;
-
 
 /**
  * Implementation of Persian language parsing logic for the Stanza parser
@@ -83,7 +82,8 @@ class StanzaDocumentParserPersianStrategy extends BasicStanzaDocumentParserStrat
 
 		for (StanzaToken token : sent) {
 			// All logic for adding grammatical constructions goes in this loop.
-			// To keep code organized, you may create other functions to call inside this function
+			// To keep code organized, you may create other functions to call inside this
+			// function
 			String upos = token.getUpos();
 			String surface = token.getText();
 			String surface_lower = surface.toLowerCase();
@@ -93,14 +93,23 @@ class StanzaDocumentParserPersianStrategy extends BasicStanzaDocumentParserStrat
 				if (PersianGrammaticalPatterns.patternQuestionWords.matcher(surface_lower).matches()) {
 					addConstructionOccurrence(GrammaticalConstruction.QUESTIONS_PERSIAN, token.getStart(),
 							token.getEnd());
-				} else if (PersianGrammaticalPatterns.patternAdv.matcher(upos).matches()) {
-					addConstructionOccurrence(GrammaticalConstruction.ADVERB_POSITIVE, token.getStart(),
-							token.getEnd());
 				} else if (PersianGrammaticalPatterns.patternKoja.matcher(upos).matches()) {
 					addConstructionOccurrence(GrammaticalConstruction.QUESTIONS_KOJA, token.getStart(),
 							token.getEnd());
 				} else if (PersianGrammaticalPatterns.patternKe.matcher(upos).matches()) {
 					addConstructionOccurrence(GrammaticalConstruction.QUESTIONS_KE, token.getStart(),
+							token.getEnd());
+				} else if (PersianGrammaticalPatterns.patternKodom.matcher(upos).matches()) {
+					addConstructionOccurrence(GrammaticalConstruction.QUESTIONS_KODOM, token.getStart(),
+							token.getEnd());
+				} else if (PersianGrammaticalPatterns.patternChe.matcher(upos).matches()) {
+					addConstructionOccurrence(GrammaticalConstruction.QUESTIONS_CHE, token.getStart(),
+							token.getEnd());
+				} else if (PersianGrammaticalPatterns.patternChetor.matcher(upos).matches()) {
+					addConstructionOccurrence(GrammaticalConstruction.QUESTIONS_CHETOR, token.getStart(),
+							token.getEnd());
+				} else if (PersianGrammaticalPatterns.patternChera.matcher(upos).matches()) {
+					addConstructionOccurrence(GrammaticalConstruction.QUESTIONS_CHERA, token.getStart(),
 							token.getEnd());
 				}
 			}
@@ -128,10 +137,6 @@ class StanzaDocumentParserPersianStrategy extends BasicStanzaDocumentParserStrat
 
 					// changed: only count words (no punctuation)
 					for (StanzaToken token : sent) {
-						if (token == null) {
-							ClientLogger.get().warn("Null token: " + sent.toString());
-							continue;
-						}
 						tokenCount++;
 						if (!token.getUpos().matches("PUNCT|SYM|X")) {
 							wordCount++;

@@ -259,6 +259,18 @@ _gram-helpText_	PRONOUNS_RELATIVE	e.g. who, which, that
 _gram-name_	PRONOUNS_SUBJECTIVE	Subject
 _gram-path_	PRONOUNS_SUBJECTIVE	Pronouns > Subject pronoun
 _gram-helpText_	PRONOUNS_SUBJECTIVE	Any pronoun used as a subject, e.g. I, everyone, something
+_gram-name_	QUESTIONS_AYA	آیا
+_gram-path_	QUESTIONS_AYA	Questions > آیا
+_gram-helpText_	QUESTIONS_AYA	Yes/No Question Tag
+_gram-name_	QUESTIONS_CHE	چه
+_gram-path	QUESTIONS_CHE	Questions > آیا
+_gram_helpText_	QUESTIONS_CHE	"What" questions
+_gram-name_	QUESTIONS_CHERA	چرا
+_gram-path	QUESTIONS_CHERA	Questions > چرا
+_gram_helpText_	QUESTIONS_CHERA	"Why" questions
+_gram-name_	QUESTIONS_CHETOR	چطور
+_gram-path	QUESTIONS_CHETOR	Questions > چطور
+_gram_helpText_	QUESTIONS_CHETOR	"How" questions
 _gram-name_	QUESTIONS_DIRECT	Questions
 _gram-path_	QUESTIONS_DIRECT	Questions > All questions
 _gram-helpText_	QUESTIONS_DIRECT	All direct questions, e.g. What is the capital of Germany?
@@ -268,9 +280,21 @@ _gram-helpText_	QUESTIONS_HOW	Questions starting with "how", e.g. How are you do
 _gram-name_	QUESTIONS_INDIRECT	Indirect
 _gram-path_	QUESTIONS_INDIRECT	Questions > Indirect questions
 _gram-helpText_	QUESTIONS_INDIRECT	Questions reported using indirect speech, e.g. John asked when he should come.
+_gram-name_	QUESTIONS_KE	کی
+_gram-path_	QUESTIONS_KE	Questions > کی
+_gram-helpText_	QUESTIONS_KE	"Who" questions
+_gram-name_	QUESTIONS_KODOM	کدم
+_gram-path_	QUESTIONS_KODOM	Questions > کدم
+_gram-helpText_	QUESTIONS_KODOM	"Which" questions
+_gram-name_	QUESTIONS_KOJA	کجا
+_gram-path_	QUESTIONS_KOJA	Questions > کجا
+_gram-helpText_	QUESTIONS_KOJA	"Where" questions
 _gram-name_	QUESTIONS_MODAL	Modal
 _gram-path_	QUESTIONS_MODAL	Questions > Modal questions
 _gram-helpText_	QUESTIONS_MODAL	Questions starting with a modal verb, e.g. Could you help me?
+_gram-name_	QUESTIONS_PERSIAN	All question words
+_gram-path_	QUESTIONS_PERSIAN	Questions > All question words
+_gram-helpText_	QUESTIONS_PERSIAN	All Persian question words, i.e. کجا، کدم، کی، چه، چطور، چرا، آیا.
 _gram-name_	QUESTIONS_TAG	Tag questions
 _gram-path_	QUESTIONS_TAG	Questions > Tag questions
 _gram-helpText_	QUESTIONS_TAG	e.g. It is still raining outside, isn't it?
@@ -421,18 +445,27 @@ _gram-helpText_	VERBFORM_PARTICIPLE_1	<INSERT_HELP_TEXT>
 _gram-name_	VERBFORM_PARTICIPLE_2	VERBFORM_PARTICIPLE_2
 _gram-path_	VERBFORM_PARTICIPLE_2	VERBFORM_PARTICIPLE_2
 _gram-helpText_	VERBFORM_PARTICIPLE_2	<INSERT_HELP_TEXT>
-_gram-name_	VERBFORM_PAST_STEM	<pastStem>
-_gram-path_	VERBFORM_PAST_STEM	<pastStem_PATH>
-_gram-helpText_	VERBFORM_PAST_STEM	<pastStem_HELP_TEXT>
-_gram-name_	VERBFORM_PRESENT_STEM	<presentStem>
-_gram-path_	VERBFORM_PRESENT_STEM	<presentStem_PATH>
-_gram-helpText_	VERBFORM_PRESENT_STEM	<presentStem_HELP_TEXT>
 _gram-name_	VERBFORM_SHORT	Contracted auxiliary
 _gram-path_	VERBFORM_SHORT	Verbs > Verb forms > Contracted auxiliary form
 _gram-helpText_	VERBFORM_SHORT	Contracted form of the auxiliaries "be" and "have", e.g. I'm, he's, we're
 _gram-name_	VERBFORM_TO_INFINITIVE	"to" infinitive
 _gram-path_	VERBFORM_TO_INFINITIVE	Verbs > Verb forms > "To" infinitive
 _gram-helpText_	VERBFORM_TO_INFINITIVE	Base form of the verb precedes by "to", e.g. John wants to talk to you.
+_gram-name_	VERBFORM_ADJ	VERBFORM_ADJ
+_gram-path_	VERBFORM_ADJ	VERBFORM_ADJ
+_gram-helpText_	VERBFORM_ADJ	<INSERT_HELP_TEXT>
+_gram-name_	VERBFORM_FINITE_PERSIAN	VERBFORM_FINITE_PERSIAN
+_gram-path_	VERBFORM_FINITE_PERSIAN	VERBFORM_FINITE_PERSIAN
+_gram-helpText_	VERBFORM_FINITE_PERSIAN	<INSERT_HELP_TEXT>
+_gram-name_	VERBFORM_INFINITIVE_PERSIAN	VERBFORM_INFINITIVE_PERSIAN
+_gram-path_	VERBFORM_INFINITIVE_PERSIAN	VERBFORM_INFINITIVE_PERSIAN
+_gram-helpText_	VERBFORM_INFINITIVE_PERSIAN	<INSERT_HELP_TEXT>
+_gram-name_	VERBFORM_PRESENT_PARTICIPLE_PERSIAN	VERBFORM_PRESENT_PARTICIPLE_PERSIAN
+_gram-path_	VERBFORM_PRESENT_PARTICIPLE_PERSIAN	VERBFORM_PRESENT_PARTICIPLE_PERSIAN
+_gram-helpText_	VERBFORM_PRESENT_PARTICIPLE_PERSIAN	<INSERT_HELP_TEXT>
+_gram-name_	VERBFORM_SUBORDINATING PERSIAN	VERBFORM_SUBORDINATING PERSIAN
+_gram-path_	VERBFORM_SUBORDINATING PERSIAN	VERBFORM_SUBORDINATING PERSIAN
+_gram-helpText_	VERBFORM_SUBORDINATING PERSIAN	<INSERT_HELP_TEXT>
 _gram-name_	VERBS_IRREGULAR	Irregular
 _gram-path_	VERBS_IRREGULAR	Verbs > Verb forms > Irregular verbs
 _gram-helpText_	VERBS_IRREGULAR	Irregular forms V2 and V3, e.g. bought, said, forgot
@@ -757,3 +790,60 @@ _gram-helpText_	VERBS_CONJUGATION_FIRST_RUSSIAN	Verbs with endings -у/ю, -еш
 _gram-name_	VERBS_CONJUGATION_SECOND_RUSSIAN	All 2nd conjugation verbs (-и-)
 _gram-path_	VERBS_CONJUGATION_SECOND_RUSSIAN	Verbs > Conjugation Classes > 2nd conjugation
 _gram-helpText_	VERBS_CONJUGATION_SECOND_RUSSIAN	Verbs with endings -ю, -ишь, -ит, -им, -ите, -ят
+_gram-name_	FIRST_PERSON_PERSIAN	FIRST_PERSON_PERSIAN
+_gram-path_	FIRST_PERSON_PERSIAN	FIRST_PERSON_PERSIAN
+_gram-helpText_	FIRST_PERSON_PERSIAN	<INSERT_HELP_TEXT>
+_gram-name_	SECOND_PERSON_PERSIAN	SECOND_PERSON_PERSIAN
+_gram-path_	SECOND_PERSON_PERSIAN	SECOND_PERSON_PERSIAN
+_gram-helpText_	SECOND_PERSON_PERSIAN	<INSERT_HELP_TEXT>
+_gram-name_	THIRD_PERSON_PERSIAN	THIRD_PERSON_PERSIAN
+_gram-path_	THIRD_PERSON_PERSIAN	THIRD_PERSON_PERSIAN
+_gram-helpText_	THIRD_PERSON_PERSIAN	<INSERT_HELP_TEXT>
+_gram-name_	PLURAL_PERSIAN	PLURAL_PERSIAN
+_gram-path_	PLURAL_PERSIAN	PLURAL_PERSIAN
+_gram-helpText_	PLURAL_PERSIAN	<INSERT_HELP_TEXT>
+_gram-name_	SINGULAR_PERSIAN	SINGULAR_PERSIAN
+_gram-path_	SINGULAR_PERSIAN	SINGULAR_PERSIAN
+_gram-helpText_	SINGULAR_PERSIAN	<INSERT_HELP_TEXT>
+_gram-name_	MOOD_IMP	MOOD_IMP
+_gram-path_	MOOD_IMP	MOOD_IMP
+_gram-helpText_	MOOD_IMP	<INSERT_HELP_TEXT>
+_gram-name_	MOOD_SUB	MOOD_SUB
+_gram-path_	MOOD_SUB	MOOD_SUB
+_gram-helpText_	MOOD_SUB	<INSERT_HELP_TEXT>
+_gram-name_	NEGATION_PERSIAN	NEGATION_PERSIAN
+_gram-path_	NEGATION_PERSIAN	NEGATION_PERSIAN
+_gram-helpText_	NEGATION_PERSIAN	<INSERT_HELP_TEXT>
+_gram-name_	POSITIVE_PERSIAN	POSITIVE_PERSIAN
+_gram-path_	POSITIVE_PERSIAN	POSITIVE_PERSIAN
+_gram-helpText_	POSITIVE_PERSIAN	<INSERT_HELP_TEXT>
+_gram-name_	DETERMINER_HAR	DETERMINER_HAR
+_gram-path_	DETERMINER_HAR	DETERMINER_HAR
+_gram-helpText_	DETERMINER_HAR	<INSERT_HELP_TEXT>
+_gram-name_	DETERMINER_CHAND	DETERMINER_CHAND
+_gram-path_	DETERMINER_CHAND	DETERMINER_CHAND
+_gram-helpText_	DETERMINER_CHAND	<INSERT_HELP_TEXT>
+_gram-name_	DETERMINER_HICH	DETERMINER_HICH
+_gram-path_	DETERMINER_HICH	DETERMINER_HICH
+_gram-helpText_	DETERMINER_HICH	<INSERT_HELP_TEXT>
+_gram-name_	DETERMINER_ZIAD	DETERMINER_ZIAD
+_gram-path_	DETERMINER_ZIAD	DETERMINER_ZIAD
+_gram-helpText_	DETERMINER_ZIAD	<INSERT_HELP_TEXT>
+_gram-name_	ADJECTIVE_POSITIVE_PERSIAN	ADJECTIVE_POSITIVE_PERSIAN
+_gram-path_	ADJECTIVE_POSITIVE_PERSIAN	ADJECTIVE_POSITIVE_PERSIAN
+_gram-helpText_	ADJECTIVE_POSITIVE_PERSIAN	<INSERT_HELP_TEXT>
+_gram-name_	ADJECTIVE_COMPARATIVE_PERSIAN	ADJECTIVE_COMPARATIVE_PERSIAN
+_gram-path_	ADJECTIVE_COMPARATIVE_PERSIAN	ADJECTIVE_COMPARATIVE_PERSIAN
+_gram-helpText_	ADJECTIVE_COMPARATIVE_PERSIAN	<INSERT_HELP_TEXT>
+_gram-name_	ADJECTIVE_SUPERLATIVE_PERSIAN	ADJECTIVE_SUPERLATIVE_PERSIAN
+_gram-path_	ADJECTIVE_SUPERLATIVE_PERSIAN	ADJECTIVE_SUPERLATIVE_PERSIAN
+_gram-helpText_	ADJECTIVE_SUPERLATIVE_PERSIAN	<INSERT_HELP_TEXT>
+_gram-name_	NUMBERS_CARDINAL_PERSIAN	NUMBERS_CARDINAL_PERSIAN
+_gram-path_	NUMBERS_CARDINAL_PERSIAN	NUMBERS_CARDINAL_PERSIAN
+_gram-helpText_	NUMBERS_CARDINAL_PERSIAN	<INSERT_HELP_TEXT>
+_gram-name_	NUMBERS_ORDINAL_PERSIAN	NUMBERS_ORDINAL_PERSIAN
+_gram-path_	NUMBERS_ORDINAL_PERSIAN	NUMBERS_ORDINAL_PERSIAN
+_gram-helpText_	NUMBERS_ORDINAL_PERSIAN	<INSERT_HELP_TEXT>
+_gram-name_	REFLEXIVE_PERSIAN	REFLEXIVE_PERSIAN
+_gram-path_	REFLEXIVE_PERSIAN	REFLEXIVE_PERSIAN
+_gram-helpText_	REFLEXIVE_PERSIAN	<INSERT_HELP_TEXT>
