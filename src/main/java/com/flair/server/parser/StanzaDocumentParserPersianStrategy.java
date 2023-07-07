@@ -91,10 +91,16 @@ class StanzaDocumentParserPersianStrategy extends BasicStanzaDocumentParserStrat
 
 				// These are (broken?) examples of how you would add a construction
 				if (PersianGrammaticalPatterns.patternQuestionWords.matcher(surface_lower).matches()) {
-					addConstructionOccurrence(GrammaticalConstruction.QUESTIONS_WH, token.getStart(),
+					addConstructionOccurrence(GrammaticalConstruction.QUESTIONS_PERSIAN, token.getStart(),
 							token.getEnd());
 				} else if (PersianGrammaticalPatterns.patternAdv.matcher(upos).matches()) {
 					addConstructionOccurrence(GrammaticalConstruction.ADVERB_POSITIVE, token.getStart(),
+							token.getEnd());
+				} else if (PersianGrammaticalPatterns.patternKoja.matcher(upos).matches()) {
+					addConstructionOccurrence(GrammaticalConstruction.QUESTIONS_KOJA, token.getStart(),
+							token.getEnd());
+				} else if (PersianGrammaticalPatterns.patternKe.matcher(upos).matches()) {
+					addConstructionOccurrence(GrammaticalConstruction.QUESTIONS_KE, token.getStart(),
 							token.getEnd());
 				}
 			}
