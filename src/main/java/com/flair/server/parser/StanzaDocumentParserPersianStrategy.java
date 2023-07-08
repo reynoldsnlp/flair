@@ -138,7 +138,11 @@ class StanzaDocumentParserPersianStrategy extends BasicStanzaDocumentParserStrat
 					// changed: only count words (no punctuation)
 					for (StanzaToken token : sent) {
 						tokenCount++;
-						if (!token.getUpos().matches("PUNCT|SYM|X")) {
+						String tokenUpos = token.getUpos();
+						if (tokenUpos == null) {
+							continue;
+						}
+						else if (!tokenUpos.matches("PUNCT|SYM|X")) {
 							wordCount++;
 							characterCount += token.getText().length();
 						}
