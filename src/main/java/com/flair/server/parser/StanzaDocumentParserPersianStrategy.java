@@ -5,7 +5,6 @@
  */
 package com.flair.server.parser;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -84,31 +83,32 @@ class StanzaDocumentParserPersianStrategy extends BasicStanzaDocumentParserStrat
 			// All logic for adding grammatical constructions goes in this loop.
 			// To keep code organized, you may create other functions to call inside this
 			// function
-			String upos = token.getUpos();
+			// String upos = token.getUpos();
 			String surface = token.getText();
-			String surface_lower = surface.toLowerCase();
-			if (upos != null && surface != null) {
+			if (surface != null) {
 
-				// These are (broken?) examples of how you would add a construction
-				if (PersianGrammaticalPatterns.patternQuestionWords.matcher(surface_lower).matches()) {
+				if (PersianGrammaticalPatterns.patternQuestionWords.matcher(surface).matches()) {
 					addConstructionOccurrence(GrammaticalConstruction.QUESTIONS_PERSIAN, token.getStart(),
 							token.getEnd());
-				} else if (PersianGrammaticalPatterns.patternKoja.matcher(upos).matches()) {
+				}
+
+				// TODO order the following questions words with most frequent first
+				if (PersianGrammaticalPatterns.patternKoja.matcher(surface).matches()) {
 					addConstructionOccurrence(GrammaticalConstruction.QUESTIONS_KOJA, token.getStart(),
 							token.getEnd());
-				} else if (PersianGrammaticalPatterns.patternKe.matcher(upos).matches()) {
+				} else if (PersianGrammaticalPatterns.patternKe.matcher(surface).matches()) {
 					addConstructionOccurrence(GrammaticalConstruction.QUESTIONS_KE, token.getStart(),
 							token.getEnd());
-				} else if (PersianGrammaticalPatterns.patternKodom.matcher(upos).matches()) {
+				} else if (PersianGrammaticalPatterns.patternKodom.matcher(surface).matches()) {
 					addConstructionOccurrence(GrammaticalConstruction.QUESTIONS_KODOM, token.getStart(),
 							token.getEnd());
-				} else if (PersianGrammaticalPatterns.patternChe.matcher(upos).matches()) {
+				} else if (PersianGrammaticalPatterns.patternChe.matcher(surface).matches()) {
 					addConstructionOccurrence(GrammaticalConstruction.QUESTIONS_CHE, token.getStart(),
 							token.getEnd());
-				} else if (PersianGrammaticalPatterns.patternChetor.matcher(upos).matches()) {
+				} else if (PersianGrammaticalPatterns.patternChetor.matcher(surface).matches()) {
 					addConstructionOccurrence(GrammaticalConstruction.QUESTIONS_CHETOR, token.getStart(),
 							token.getEnd());
-				} else if (PersianGrammaticalPatterns.patternChera.matcher(upos).matches()) {
+				} else if (PersianGrammaticalPatterns.patternChera.matcher(surface).matches()) {
 					addConstructionOccurrence(GrammaticalConstruction.QUESTIONS_CHERA, token.getStart(),
 							token.getEnd());
 				}
