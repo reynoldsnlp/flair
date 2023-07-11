@@ -1,8 +1,9 @@
 package com.flair.server.stanza;
 
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.flair.client.utilities.ClientLogger;
+import com.flair.server.utilities.ServerLogger;
 
 public class StanzaToken {
     private String id;
@@ -14,60 +15,85 @@ public class StanzaToken {
     private int head;
     private String deprel;
     private String misc;
-    private Pattern startMatcher = Pattern.compile("start_char=([0-9]+)");
-    private Pattern endMatcher = Pattern.compile("end_char=([0-9]+)");
+    private Pattern startPattern = Pattern.compile("start_char=([0-9]+)");
+    private Pattern endPattern = Pattern.compile("end_char=([0-9]+)");
 
     public String getId() {
-      return id;
+        return id;
     }
+
     public String getText() {
-      return text;
+        return text;
     }
+
     public String getLemma() {
-      return lemma;
+        return lemma;
     }
+
     public String getUpos() {
-      return upos;
+        return upos;
     }
+
     public String getXpos() {
-      return xpos;
+        return xpos;
     }
+
     public String getFeats() {
-      return feats;
+        return feats;
     }
+
     public int getHead() {
-      return head;
+        return head;
     }
+
     public String getDeprel() {
-      return deprel;
+        return deprel;
     }
+
     public String getMisc() {
-      return misc;
+        return misc;
     }
+
     public int getStart() {
-      try {
-        String startStr = startMatcher.matcher(misc).group(1);
-        int startInt = Integer.parseInt(startStr);
-        return startInt;
-      }
-      catch (IllegalStateException e) {
-        ClientLogger.get().error(e, "No start index: misc=" + misc);
-        return 0;
-      }
+        try {
+            if (misc != null) {
+                Matcher startMatcher = startPattern.matcher(misc);
+                startMatcher.find();
+                String startStr = startMatcher.group(1);
+                int startInt = Integer.parseInt(startStr);
+                return startInt;
+            } else {
+                ServerLogger.get().warn("misc is null:" + this.toString());
+                return 0;
+            }
+        } catch (IllegalStateException e) {
+            ServerLogger.get().error(e, "No start index: misc=" + misc);
+            return 0;
+        }
     }
+
     public int getEnd() {
-      try {
-        String endStr = endMatcher.matcher(misc).group(1);
-        int endInt = Integer.parseInt(endStr);
-        return endInt;
-      }
-      catch (IllegalStateException e) {
-        ClientLogger.get().error(e, "No end index: misc=" + misc);
-        return 0;
-      }
+        try {
+            if (misc != null) {
+                Matcher endMatcher = endPattern.matcher(misc);
+                endMatcher.find();
+                String endStr = endMatcher.group(1);
+                int endInt = Integer.parseInt(endStr);
+                return endInt;
+            } else {
+                ServerLogger.get().warn("misc is null:" + this.toString());
+                return 0;
+            }
+        } catch (IllegalStateException e) {
+            ServerLogger.get().error(e, "No end index: misc=" + misc);
+            return 0;
+        }
     }
+
     @Override
     public String toString() {
-      return "Token [" + id + " \"" + text + "\"]";
+        return "Token [" + id + " \"" + text + "\"]";
     }
-  }
+
+    // TODO add toJson() method
+}
