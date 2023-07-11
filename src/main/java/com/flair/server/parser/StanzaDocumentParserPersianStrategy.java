@@ -5,6 +5,7 @@
  */
 package com.flair.server.parser;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -88,40 +89,31 @@ class StanzaDocumentParserPersianStrategy extends BasicStanzaDocumentParserStrat
 
 			String lemma = token.getLemma();
 			// String surface = token.getText();
-			// String upos = token.getUpos();
 			if (lemma != null) {
 
-				if (PersianGrammaticalPatterns.patternQuestionWords.matcher(lemma).matches()) {
-					ServerLogger.get().info("NEW OCCURRENCE (QUESTIONS_PERSIAN): " + token.toString());
-					addConstructionOccurrence(GrammaticalConstruction.QUESTIONS_PERSIAN, token.getStart(),
-							token.getEnd());
+				// lookup grammatical constructions mapped to this lemma
+				GrammaticalConstruction[] lemmaConstructions = PersianGrammaticalPatterns.lemmaMap.get(lemma);
+				if (lemmaConstructions == null) {
+					continue;
 				}
+				for (GrammaticalConstruction c : lemmaConstructions) {
+					addConstructionOccurrence(c, token.getStart(), token.getEnd());
+				}
+			}
 
-				// TODO order the following questions words with most frequent first
-				if (PersianGrammaticalPatterns.patternKoja.matcher(lemma).matches()) {
-					ServerLogger.get().info("NEW OCCURRENCE (QUESTIONS_KOJA): " + token.toString());
-					addConstructionOccurrence(GrammaticalConstruction.QUESTIONS_KOJA, token.getStart(),
-							token.getEnd());
-				} else if (PersianGrammaticalPatterns.patternKe.matcher(lemma).matches()) {
-					ServerLogger.get().info("NEW OCCURRENCE (QUESTIONS_KE): " + token.toString());
-					addConstructionOccurrence(GrammaticalConstruction.QUESTIONS_KE, token.getStart(),
-							token.getEnd());
-				} else if (PersianGrammaticalPatterns.patternKodom.matcher(lemma).matches()) {
-					ServerLogger.get().info("NEW OCCURRENCE (QUESTIONS_KODOM): " + token.toString());
-					addConstructionOccurrence(GrammaticalConstruction.QUESTIONS_KODOM, token.getStart(),
-							token.getEnd());
-				} else if (PersianGrammaticalPatterns.patternChe.matcher(lemma).matches()) {
-					ServerLogger.get().info("NEW OCCURRENCE (QUESTIONS_CHE): " + token.toString());
-					addConstructionOccurrence(GrammaticalConstruction.QUESTIONS_CHE, token.getStart(),
-							token.getEnd());
-				} else if (PersianGrammaticalPatterns.patternChetor.matcher(lemma).matches()) {
-					ServerLogger.get().info("NEW OCCURRENCE (QUESTIONS_CHETOR): " + token.toString());
-					addConstructionOccurrence(GrammaticalConstruction.QUESTIONS_CHETOR, token.getStart(),
-							token.getEnd());
-				} else if (PersianGrammaticalPatterns.patternChera.matcher(lemma).matches()) {
-					ServerLogger.get().info("NEW OCCURRENCE (QUESTIONS_CHERA): " + token.toString());
-					addConstructionOccurrence(GrammaticalConstruction.QUESTIONS_CHERA, token.getStart(),
-							token.getEnd());
+			// Constructions based on upos
+			String upos = token.getUpos();
+			if (upos != null) {
+				if (upos == "PRON") {
+					addConstructionOccurrence(GrammaticalConstruction.PRONOUNS, token.getStart(), token.getEnd());
+				}
+			}
+
+			// Constructions based on feats
+			ArrayList<String> feats = token.getFeats();
+			if (feats != null) {
+				if (feats.contains("Sing")) {
+					addConstructionOccurrence(GrammaticalConstruction.SINGULAR_PERSIAN, token.getStart(), token.getEnd());
 				}
 			}
 		}
@@ -152,8 +144,7 @@ class StanzaDocumentParserPersianStrategy extends BasicStanzaDocumentParserStrat
 						String tokenUpos = token.getUpos();
 						if (tokenUpos == null) {
 							continue;
-						}
-						else if (!tokenUpos.matches("PUNCT|SYM|X")) {
+						} else if (!tokenUpos.matches("PUNCT|SYM|X")) {
 							wordCount++;
 							characterCount += token.getText().length();
 						}

@@ -1,5 +1,6 @@
 package com.flair.server.stanza;
 
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -12,10 +13,14 @@ public class StanzaToken {
     private String upos;
     private String xpos;
     private String feats;
+    private Pattern featsPattern = Pattern.compile("[^=]*=([^|]*)\\|?");
+    private ArrayList<String> featsList;
     private int head;
     private String deprel;
     private String misc;
+    private Integer start;
     private Pattern startPattern = Pattern.compile("start_char=([0-9]+)");
+    private Integer end;
     private Pattern endPattern = Pattern.compile("end_char=([0-9]+)");
 
     public String getId() {
@@ -38,8 +43,16 @@ public class StanzaToken {
         return xpos;
     }
 
-    public String getFeats() {
-        return feats;
+    public ArrayList<String> getFeats() {
+        if (featsList != null) {
+            return featsList;
+        } else {
+            Matcher featsMatcher = featsPattern.matcher(feats);
+            while (featsMatcher.find()) {
+                featsList.add(featsMatcher.group());
+            }
+            return featsList;
+        }
     }
 
     public int getHead() {
@@ -54,14 +67,17 @@ public class StanzaToken {
         return misc;
     }
 
-    public int getStart() {
+    public Integer getStart() {
+        if (start != null) {
+            return start;
+        }
         try {
             if (misc != null) {
                 Matcher startMatcher = startPattern.matcher(misc);
                 startMatcher.find();
                 String startStr = startMatcher.group(1);
-                int startInt = Integer.parseInt(startStr);
-                return startInt;
+                start = Integer.parseInt(startStr);
+                return start;
             } else {
                 ServerLogger.get().warn("misc is null:" + this.toString());
                 return 0;
@@ -73,13 +89,16 @@ public class StanzaToken {
     }
 
     public int getEnd() {
+        if (end != null) {
+            return end;
+        }
         try {
             if (misc != null) {
                 Matcher endMatcher = endPattern.matcher(misc);
                 endMatcher.find();
                 String endStr = endMatcher.group(1);
-                int endInt = Integer.parseInt(endStr);
-                return endInt;
+                end = Integer.parseInt(endStr);
+                return end;
             } else {
                 ServerLogger.get().warn("misc is null:" + this.toString());
                 return 0;
