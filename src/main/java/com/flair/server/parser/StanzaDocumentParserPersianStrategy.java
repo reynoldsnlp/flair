@@ -107,6 +107,7 @@ class StanzaDocumentParserPersianStrategy extends BasicStanzaDocumentParserStrat
 				if (upos == "PRON") {
 					addConstructionOccurrence(GrammaticalConstruction.PRONOUNS, token.getStart(), token.getEnd());
 				}
+				// TODO add more upos-pased constructions here
 			}
 
 			// Constructions based on feats
@@ -115,6 +116,7 @@ class StanzaDocumentParserPersianStrategy extends BasicStanzaDocumentParserStrat
 				if (feats.contains("Sing")) {
 					addConstructionOccurrence(GrammaticalConstruction.SINGULAR_PERSIAN, token.getStart(), token.getEnd());
 				}
+				// TODO add more feats-pased constructions here
 			}
 		}
 	}

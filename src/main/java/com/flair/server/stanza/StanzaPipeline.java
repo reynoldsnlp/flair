@@ -55,6 +55,10 @@ public class StanzaPipeline {
         JsonArray jsonArray2 = jsonElement.getAsJsonArray();
         for (JsonElement jsonElement2 : jsonArray2) {
           StanzaToken token = gson.fromJson(jsonElement2, StanzaToken.class);
+          // TODO deal with "super"-tokens with hyphenated ids, such as ...
+          // {"id":"20-21","text":"کیست","misc":"start_char=760|end_char=764"},
+          // {"id":"20","text":"کی","lemma":"کی","upos":"PRON","xpos":"PRO","feats":"PronType=Int","head":12,"deprel":"ccomp"},
+          // {"id":"21","text":"ست","lemma":"است","upos":"AUX","xpos":"V_PRS","feats":"Number=Sing|Person=3|Tense=Pres","head":20,"deprel":"cop"},...
           tokens.add(token);
         }
         tokensList.add(tokens);

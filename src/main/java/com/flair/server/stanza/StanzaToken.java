@@ -13,15 +13,15 @@ public class StanzaToken {
     private String upos;
     private String xpos;
     private String feats;
-    private Pattern featsPattern = Pattern.compile("[^=]*=([^|]*)\\|?");
-    private ArrayList<String> featsList;
+    private static final Pattern featsPattern = Pattern.compile("[^=]*=([^|]*)\\|?");
+    private ArrayList<String> featsList = new ArrayList<String>();
     private int head;
     private String deprel;
     private String misc;
     private Integer start;
-    private Pattern startPattern = Pattern.compile("start_char=([0-9]+)");
+    private static final Pattern startPattern = Pattern.compile("start_char=([0-9]+)");
     private Integer end;
-    private Pattern endPattern = Pattern.compile("end_char=([0-9]+)");
+    private static final Pattern endPattern = Pattern.compile("end_char=([0-9]+)");
 
     public String getId() {
         return id;
@@ -44,12 +44,14 @@ public class StanzaToken {
     }
 
     public ArrayList<String> getFeats() {
-        if (featsList != null) {
+        if (feats == null) {
+            return featsList;
+        } else if (!featsList.isEmpty()) {
             return featsList;
         } else {
             Matcher featsMatcher = featsPattern.matcher(feats);
             while (featsMatcher.find()) {
-                featsList.add(featsMatcher.group());
+                featsList.add(featsMatcher.group(1));
             }
             return featsList;
         }
