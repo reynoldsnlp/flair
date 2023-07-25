@@ -427,8 +427,8 @@ _gram-helpText_	VERBFORM_ING	Gerunds and present participles, e.g. John likes sw
 _gram-name_	VERBFORM_LONG	Full auxiliary
 _gram-path_	VERBFORM_LONG	Verbs > Verb forms > Full auxiliary form
 _gram-helpText_	VERBFORM_LONG	Full form of the auxiliaries "be" and "have", e.g. I am, he has, we are
-_gram-name_	VERBFORM_PARTICIPLE	VERBFORM_PARTICIPLE
-_gram-path_	VERBFORM_PARTICIPLE	VERBFORM_PARTICIPLE
+_gram-name_	VERBFORM_PARTICIPLE	Participle
+_gram-path_	VERBFORM_PARTICIPLE	Verb form > Participle
 _gram-helpText_	VERBFORM_PARTICIPLE	<INSERT_HELP_TEXT>
 _gram-name_	VERBFORM_PARTICIPLE_1	VERBFORM_PARTICIPLE_1
 _gram-path_	VERBFORM_PARTICIPLE_1	VERBFORM_PARTICIPLE_1
@@ -445,15 +445,15 @@ _gram-helpText_	VERBFORM_TO_INFINITIVE	Base form of the verb precedes by "to", e
 _gram-name_	VERBFORM_ADJ	Participle Adjective
 _gram-path_	VERBFORM_ADJ	Verb form > Participle Adjective
 _gram-helpText_	VERBFORM_ADJ	Participle acting as an adjective, i.e. "the well-loved actor"
-_gram-name_	VERBFORM_FINITE_PERSIAN	VERBFORM_FINITE_PERSIAN
-_gram-path_	VERBFORM_FINITE_PERSIAN	VERBFORM_FINITE_PERSIAN
-_gram-helpText_	VERBFORM_FINITE_PERSIAN	<INSERT_HELP_TEXT>
-_gram-name_	VERBFORM_INFINITIVE_PERSIAN	VERBFORM_INFINITIVE_PERSIAN
-_gram-path_	VERBFORM_INFINITIVE_PERSIAN	VERBFORM_INFINITIVE_PERSIAN
-_gram-helpText_	VERBFORM_INFINITIVE_PERSIAN	<INSERT_HELP_TEXT>
-_gram-name_	VERBFORM_PRESENT_PARTICIPLE_PERSIAN	VERBFORM_PRESENT_PARTICIPLE_PERSIAN
-_gram-path_	VERBFORM_PRESENT_PARTICIPLE_PERSIAN	VERBFORM_PRESENT_PARTICIPLE_PERSIAN
-_gram-helpText_	VERBFORM_PRESENT_PARTICIPLE_PERSIAN	<INSERT_HELP_TEXT>
+_gram-name_	VERBFORM_FINITE_PERSIAN	Finite Auxiliaries
+_gram-path_	VERBFORM_FINITE_PERSIAN	Verb forms > Finite auxiliaries
+_gram-helpText_	VERBFORM_FINITE_PERSIAN	Future tense, progressive tenses, or other auxiliaries
+_gram-name_	VERBFORM_INFINITIVE_PERSIAN	Infinitives
+_gram-path_	VERBFORM_INFINITIVE_PERSIAN	Verb forms > Infinitive
+_gram-helpText_	VERBFORM_INFINITIVE_PERSIAN	Infinitive verbs, particularly auxiliaries
+_gram-name_	VERBFORM_PRESENT_PARTICIPLE_PERSIAN	Present Participle
+_gram-path_	VERBFORM_PRESENT_PARTICIPLE_PERSIAN	Verb forms > Present participle
+_gram-helpText_	VERBFORM_PRESENT_PARTICIPLE_PERSIAN	Present participle of verbs
 _gram-name_	VERBS_IRREGULAR	Irregular
 _gram-path_	VERBS_IRREGULAR	Verbs > Verb forms > Irregular verbs
 _gram-helpText_	VERBS_IRREGULAR	Irregular forms V2 and V3, e.g. bought, said, forgot
@@ -788,23 +788,17 @@ _gram-name_	THIRD_PERSON_PERSIAN	Third person verbs
 _gram-path_	THIRD_PERSON_PERSIAN	Verbs > Third person
 _gram-helpText_	THIRD_PERSON_PERSIAN	Verbs conjugated for third person
 _gram-name_	PLURAL_PERSIAN	Plural
-_gram-path_	PLURAL_PERSIAN	PLURAL_PERSIAN
-_gram-helpText_	PLURAL_PERSIAN	<INSERT_HELP_TEXT>
+_gram-path_	PLURAL_PERSIAN	Nouns > Plural
+_gram-helpText_	PLURAL_PERSIAN	Plural nouns (animate, inanimate, and irregular)
 _gram-name_	SINGULAR_PERSIAN	Singular
-_gram-path_	SINGULAR_PERSIAN	SINGULAR_PERSIAN
-_gram-helpText_	SINGULAR_PERSIAN	<INSERT_HELP_TEXT>
+_gram-path_	SINGULAR_PERSIAN	Nouns > Singular
+_gram-helpText_	SINGULAR_PERSIAN	Singular nouns
 _gram-name_	MOOD_IMP	Imperative mood
 _gram-path_	MOOD_IMP	Mood > Imperative
-_gram-helpText_	MOOD_IMP	<INSERT_HELP_TEXT>
+_gram-helpText_	MOOD_IMP	Command form
 _gram-name_	MOOD_SUB	Subjunctive mood
 _gram-path_	MOOD_SUB	Mood > Subjunctive
-_gram-helpText_	MOOD_SUB	<INSERT_HELP_TEXT>
-_gram-name_	NEGATION_PERSIAN	Negation
-_gram-path_	NEGATION_PERSIAN	Polarity > Negation
-_gram-helpText_	NEGATION_PERSIAN	<INSERT_HELP_TEXT>
-_gram-name_	POSITIVE_PERSIAN	Positive
-_gram-path_	POSITIVE_PERSIAN	Polarity > Positive
-_gram-helpText_	POSITIVE_PERSIAN	<INSERT_HELP_TEXT>
+_gram-helpText_	MOOD_SUB	Used for conditionals
 _gram-name_	DETERMINER_HAR	هر
 _gram-path_	DETERMINER_HAR	Determiners > هر
 _gram-helpText_	DETERMINER_HAR	Any

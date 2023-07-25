@@ -56,4 +56,5 @@ public interface AbstractDocument extends Comparable<AbstractDocument>
     
     public boolean					isParsed();
     public void						flagAsParsed();
+    public void setText(String replaceAll);
 }

@@ -28,20 +28,13 @@ public class PersianGrammaticalPatterns {
                 GrammaticalConstruction.QUESTIONS_PERSIAN });
         lemmas.put("آیا", new GrammaticalConstruction[] { GrammaticalConstruction.QUESTIONS_AYA,
                 GrammaticalConstruction.QUESTIONS_PERSIAN });
+        lemmas.put("هر", new GrammaticalConstruction[] { GrammaticalConstruction.DETERMINER_HAR });
+        lemmas.put("چند", new GrammaticalConstruction[] { GrammaticalConstruction.DETERMINER_CHAND });
+        lemmas.put("هیچ", new GrammaticalConstruction[] { GrammaticalConstruction.DETERMINER_HICH });
+        lemmas.put("زیاد", new GrammaticalConstruction[] { GrammaticalConstruction.DETERMINER_ZIAD });
         return lemmas;
     }
 
-    // Quantifiers
-    private static final String STR_QUANT = "/هر|چند|هیچ|زیاد/";
-    public static final Pattern patternQuant = Pattern.compile(STR_QUANT);
-    private static final String STR_HAR = "هر";
-    public static final Pattern patternHar = Pattern.compile(STR_HAR);
-    private static final String STR_CHAND = "چند";
-    public static final Pattern patternChand = Pattern.compile(STR_CHAND);
-    private static final String STR_HICH = "هیچ";
-    public static final Pattern patternHich = Pattern.compile(STR_HICH);
-    private static final String STR_ZIAD = "زیاد";
-    public static final Pattern patternZiad = Pattern.compile(STR_ZIAD);
 
     // Adverbs
     private static final String STR_ADV = "ADV";
