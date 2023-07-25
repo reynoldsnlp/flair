@@ -60,15 +60,17 @@
 							<!-- Verb Form -->
 							<flair:GrammaticalConstructionPanelItem ui:field="pnlVerbFormsUI" text="verb forms" iconType="EXPAND_MORE">
 
-								<flair:GrammaticalConstructionWeightSlider gram="VERBFORM_ADJ" parentLanguage="PERSIAN"/>								
+								<flair:GrammaticalConstructionWeightSlider gram="VERBFORM_ADJ" parentLanguage="PERSIAN"/>
+								
+								<flair:GrammaticalConstructionWeightSlider gram="VERBFORM_AUX" parentLanguage="PERSIAN"/>
 								
 								<flair:GrammaticalConstructionWeightSlider gram="VERBFORM_FINITE_PERSIAN" parentLanguage="PERSIAN"/>
 								
 								<flair:GrammaticalConstructionWeightSlider gram="VERBFORM_INFINITIVE_PERSIAN" parentLanguage="PERSIAN"/>
 								
 								<flair:GrammaticalConstructionWeightSlider gram="VERBFORM_PRESENT_PARTICIPLE_PERSIAN" parentLanguage="PERSIAN"/>
-								
-								<flair:GrammaticalConstructionWeightSlider gram="VERBFORM_SUBORDINATING_PERSIAN" parentLanguage="PERSIAN"/>
+
+								<flair:GrammaticalConstructionWeightSlider gram="VERBFORM_NEG" parentLanguage="PERSIAN"/>
 							</flair:GrammaticalConstructionPanelItem>			
 			
 							<!-- Tenses & Person -->
@@ -93,7 +95,7 @@
 										
 										<flair:GrammaticalConstructionWeightSlider gram="THIRD_PERSON_PERSIAN" parentLanguage="PERSIAN"/>
 
-										<flair:GrammaticalConstructionWeightSlider gram="PLURAL_PERSIAN" parentLanguage="PERSIAN"/>
+										<flair:GrammaticalConstructionWeightSlider gram="PLURAL_VERB_PERSIAN" parentLanguage="PERSIAN"/>
 
 										<flair:GrammaticalConstructionWeightSlider gram="SINGULAR_PERSIAN" parentLanguage="PERSIAN"/>
 									</flair:GrammaticalConstructionPanelItem>
@@ -113,13 +115,6 @@
 							</flair:GrammaticalConstructionPanelItem>
 						</flair:GrammaticalConstructionPanel>
 					</flair:GrammaticalConstructionPanelItem>
-				
-					<!-- Polarity -->
-					<flair:GrammaticalConstructionPanelItem ui:field="pnlPolarityUI" text="polarity" iconType="EXPAND_MORE">
-						<flair:GrammaticalConstructionWeightSlider gram="NEGATION_PERSIAN" parentLanguage="PERSIAN"/>
-
-						<flair:GrammaticalConstructionWeightSlider gram="POSITIVE_PERSIAN" parentLanguage="PERSIAN"/>
-					</flair:GrammaticalConstructionPanelItem>
 					
 					<!-- Quantifiers -->
 					<flair:GrammaticalConstructionPanelItem ui:field="pnlQuantifiersUI" text="quantifiers" iconType="EXPAND_MORE">
@@ -130,6 +125,8 @@
 						<flair:GrammaticalConstructionWeightSlider gram="DETERMINER_HICH" parentLanguage="PERSIAN"/>
 
 						<flair:GrammaticalConstructionWeightSlider gram="DETERMINER_ZIAD" parentLanguage="PERSIAN"/>
+
+						<flair:GrammaticalConstructionWeightSlider gram="DETERMINER_OTHER" parentLanguage="PERSIAN"/>
 					</flair:GrammaticalConstructionPanelItem>
 					
 					<!-- Adjectives -->
@@ -153,15 +150,13 @@
 					
 					<!-- Adverbs -->
 					<flair:GrammaticalConstructionPanelItem ui:field="pnlAdverbsUI" text="adverbs" iconType="EXPAND_MORE">
-						<flair:GrammaticalConstructionWeightSlider gram="ADVERB_POSITIVE" parentLanguage="PERSIAN"/>
+						<flair:GrammaticalConstructionWeightSlider gram="ADVERB_PERSIAN" parentLanguage="PERSIAN"/>
+
+						<flair:GrammaticalConstructionWeightSlider gram="ADVERB_NEGATIVE" parentLanguage="PERSIAN"/>
 						
-						<flair:GrammaticalConstructionWeightSlider gram="ADVERB_COMPARATIVE_SHORT" parentLanguage="PERSIAN"/>
+						<flair:GrammaticalConstructionWeightSlider gram="ADVERB_LOCATIONAL" parentLanguage="PERSIAN"/>
 						
-						<flair:GrammaticalConstructionWeightSlider gram="ADVERB_SUPERLATIVE_SHORT" parentLanguage="PERSIAN"/>
-						
-						<flair:GrammaticalConstructionWeightSlider gram="ADVERB_COMPARATIVE_LONG" parentLanguage="PERSIAN"/>
-						
-						<flair:GrammaticalConstructionWeightSlider gram="ADVERB_SUPERLATIVE_LONG" parentLanguage="PERSIAN"/>
+						<flair:GrammaticalConstructionWeightSlider gram="ADVERB_TEMPORAL" parentLanguage="PERSIAN"/>
 					</flair:GrammaticalConstructionPanelItem>
 					
 					<!-- Pronouns -->
@@ -178,9 +173,11 @@
 
 						<flair:GrammaticalConstructionWeightSlider gram="PRONOUNS_RECIPROCAL" parentLanguage="PERSIAN"/>
 
+						<flair:GrammaticalConstructionWeightSlider gram="PRONOUNS_REFLEXIVE_PERSIAN" parentLanguage="PERSIAN"/>
+
 						<flair:GrammaticalConstructionWeightSlider gram="PRONOUNS_RELATIVE" parentLanguage="PERSIAN"/>
 					
-						<flair:GrammaticalConstructionWeightSlider gram="PRONOUNS" parentLanguage="PERSIAN"/>
+						<flair:GrammaticalConstructionWeightSlider gram="PRONOUNS_TOT" parentLanguage="PERSIAN"/>
 					</flair:GrammaticalConstructionPanelItem>
 
 					<!-- Numbers -->
@@ -188,18 +185,6 @@
 						<flair:GrammaticalConstructionWeightSlider gram="NUMBERS_CARDINAL_PERSIAN" parentLanguage="PERSIAN"/>
 						
 						<flair:GrammaticalConstructionWeightSlider gram="NUMBERS_ORDINAL_PERSIAN" parentLanguage="PERSIAN"/>
-					</flair:GrammaticalConstructionPanelItem>
-
-					<!-- Plurality -->
-					<flair:GrammaticalConstructionPanelItem ui:field="pnlPluralityUI" text="plural" iconType="EXPAND_MORE">
-						<flair:GrammaticalConstructionWeightSlider gram="PLURAL_PERSIAN" parentLanguage="PERSIAN"/>
-						
-						<flair:GrammaticalConstructionWeightSlider gram="SINGULAR_PERSIAN" parentLanguage="PERSIAN"/>
-					</flair:GrammaticalConstructionPanelItem>
-
-					<!-- Reflexivity -->
-					<flair:GrammaticalConstructionPanelItem ui:field="pnlReflexivityUI" text="reflexivity" iconType="EXPAND_MORE">
-						<flair:GrammaticalConstructionWeightSlider gram="REFLEXIVE_PERSIAN" parentLanguage="PERSIAN"/>
 					</flair:GrammaticalConstructionPanelItem>
 					
 					<!-- Colloquial Conjunctions -->
@@ -211,18 +196,14 @@
 					
 					<!-- Prepositions -->
 					<flair:GrammaticalConstructionPanelItem ui:field="pnlPrepositionsUI" text="prepositions" iconType="EXPAND_MORE">
-						<flair:GrammaticalConstructionWeightSlider gram="PREPOSITIONS_SIMPLE" parentLanguage="PERSIAN"/>
-						
-						<flair:GrammaticalConstructionWeightSlider gram="PREPOSITIONS_COMPLEX" parentLanguage="PERSIAN"/>
+						<flair:GrammaticalConstructionWeightSlider gram="PREPOSITIONS" parentLanguage="PERSIAN"/>
 					</flair:GrammaticalConstructionPanelItem>
 					
 					<!-- Nouns -->
 					<flair:GrammaticalConstructionPanelItem ui:field="pnlNounsUI" text="nouns" iconType="EXPAND_MORE">
-						<flair:GrammaticalConstructionWeightSlider gram="PLURAL_ANIMATE" parentLanguage="PERSIAN"/>
+						<flair:GrammaticalConstructionWeightSlider gram="PLURAL_PERSIAN" parentLanguage="PERSIAN"/>
 
-						<flair:GrammaticalConstructionWeightSlider gram="PLURAL_INANIMATE" parentLanguage="PERSIAN"/>
-
-						<flair:GrammaticalConstructionWeightSlider gram="PLURAL_ARABIC" parentLanguage="PERSIAN"/>
+						<flair:GrammaticalConstructionWeightSlider gram="SINGULAR_PERSIAN" parentLanguage="PERSIAN"/>
 					</flair:GrammaticalConstructionPanelItem>
 				</flair:GrammaticalConstructionPanel>
 			</flair:GrammaticalConstructionPanelItem>	

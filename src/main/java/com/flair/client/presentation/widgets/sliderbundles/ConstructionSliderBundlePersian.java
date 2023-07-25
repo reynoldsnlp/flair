@@ -88,12 +88,6 @@ public class ConstructionSliderBundlePersian extends LanguageSpecificConstructio
     GrammaticalConstructionPanelItem			pnlNumbersUI;
     @UiField
     @LocalizedField
-    GrammaticalConstructionPanelItem			pnlPluralityUI;
-    @UiField
-    @LocalizedField
-    GrammaticalConstructionPanelItem			pnlReflexivityUI;
-    @UiField
-    @LocalizedField
     GrammaticalConstructionPanelItem			pnlConjunctionsUI;
     @UiField
     @LocalizedField

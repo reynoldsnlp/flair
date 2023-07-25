@@ -199,21 +199,12 @@ _gram-helpText_	PASSIVE_VOICE_SEIN	ist geschlossen, ist gebacken
 _gram-name_	PASSIVE_VOICE_WERDEN	werden-Passiv
 _gram-path_	PASSIVE_VOICE_WERDEN	Verben > Passiv > Passiv mit "werden"
 _gram-helpText_	PASSIVE_VOICE_WERDEN	wird geschlossen, wird gebacken
-_gram-name_	PLURAL_ARABIC	<arabicPlural>
-_gram-path_	PLURAL_ARABIC	<arabicPlural_PATH>
-_gram-helpText_	PLURAL_ARABIC	<arabicPlural_HELP_TEXT>
 _gram-name_	PLURAL_IRREGULAR	PLURAL_IRREGULAR
 _gram-path_	PLURAL_IRREGULAR	PLURAL_IRREGULAR
 _gram-helpText_	PLURAL_IRREGULAR	<INSERT_HELP_TEXT>
 _gram-name_	PLURAL_REGULAR	PLURAL_REGULAR
 _gram-path_	PLURAL_REGULAR	PLURAL_REGULAR
 _gram-helpText_	PLURAL_REGULAR	<INSERT_HELP_TEXT>
-_gram-name_	PLURAL__ANIMATE	<animatePlural>
-_gram-path_	PLURAL__ANIMATE	<animatePlural_PATH>
-_gram-helpText_	PLURAL__ANIMATE	<animatePlural_HELP_TEXT>
-_gram-name_	PLURAL__INANIMATE	<inanimatePlural>
-_gram-path_	PLURAL__INANIMATE	<inanimatePlural_PATH>
-_gram-helpText_	PLURAL__INANIMATE	<inanimatePlural_HELP_TEXT>
 _gram-name_	PREPOSITIONS	Präpositionen (gesamt)
 _gram-path_	PREPOSITIONS	Präpositionen > Präpositionen (gesamt)
 _gram-helpText_	PREPOSITIONS	auf, unter, zufolge, wegen
@@ -454,9 +445,9 @@ _gram-helpText_	VERBFORM_SHORT	<INSERT_HELP_TEXT>
 _gram-name_	VERBFORM_TO_INFINITIVE	zu-Infinitive
 _gram-path_	VERBFORM_TO_INFINITIVE	Verbformen > zu-Infinitive
 _gram-helpText_	VERBFORM_TO_INFINITIVE	zu helfen, zu lachen
-_gram-name_	VERBFORM_ADJ	VERBFORM_ADJ
-_gram-path_	VERBFORM_ADJ	VERBFORM_ADJ
-_gram-helpText_	VERBFORM_ADJ	<INSERT_HELP_TEXT>
+_gram-name_	VERBFORM_ADJ	Participle Adjective
+_gram-path_	VERBFORM_ADJ	Verb form > Participle Adjective
+_gram-helpText_	VERBFORM_ADJ	Participle acting as an adjective, i.e. "the well-loved actor"
 _gram-name_	VERBFORM_FINITE_PERSIAN	VERBFORM_FINITE_PERSIAN
 _gram-path_	VERBFORM_FINITE_PERSIAN	VERBFORM_FINITE_PERSIAN
 _gram-helpText_	VERBFORM_FINITE_PERSIAN	<INSERT_HELP_TEXT>
@@ -466,9 +457,6 @@ _gram-helpText_	VERBFORM_INFINITIVE_PERSIAN	<INSERT_HELP_TEXT>
 _gram-name_	VERBFORM_PRESENT_PARTICIPLE_PERSIAN	VERBFORM_PRESENT_PARTICIPLE_PERSIAN
 _gram-path_	VERBFORM_PRESENT_PARTICIPLE_PERSIAN	VERBFORM_PRESENT_PARTICIPLE_PERSIAN
 _gram-helpText_	VERBFORM_PRESENT_PARTICIPLE_PERSIAN	<INSERT_HELP_TEXT>
-_gram-name_	VERBFORM_SUBORDINATING PERSIAN	VERBFORM_SUBORDINATING PERSIAN
-_gram-path_	VERBFORM_SUBORDINATING PERSIAN	VERBFORM_SUBORDINATING PERSIAN
-_gram-helpText_	VERBFORM_SUBORDINATING PERSIAN	<INSERT_HELP_TEXT>
 _gram-name_	VERBS_IRREGULAR	VERBS_IRREGULAR
 _gram-path_	VERBS_IRREGULAR	VERBS_IRREGULAR
 _gram-helpText_	VERBS_IRREGULAR	<INSERT_HELP_TEXT>
@@ -817,33 +805,63 @@ _gram-helpText_	NEGATION_PERSIAN	<INSERT_HELP_TEXT>
 _gram-name_	POSITIVE_PERSIAN	POSITIVE_PERSIAN
 _gram-path_	POSITIVE_PERSIAN	POSITIVE_PERSIAN
 _gram-helpText_	POSITIVE_PERSIAN	<INSERT_HELP_TEXT>
-_gram-name_	DETERMINER_HAR	DETERMINER_HAR
-_gram-path_	DETERMINER_HAR	DETERMINER_HAR
-_gram-helpText_	DETERMINER_HAR	<INSERT_HELP_TEXT>
-_gram-name_	DETERMINER_CHAND	DETERMINER_CHAND
-_gram-path_	DETERMINER_CHAND	DETERMINER_CHAND
-_gram-helpText_	DETERMINER_CHAND	<INSERT_HELP_TEXT>
-_gram-name_	DETERMINER_HICH	DETERMINER_HICH
-_gram-path_	DETERMINER_HICH	DETERMINER_HICH
-_gram-helpText_	DETERMINER_HICH	<INSERT_HELP_TEXT>
-_gram-name_	DETERMINER_ZIAD	DETERMINER_ZIAD
-_gram-path_	DETERMINER_ZIAD	DETERMINER_ZIAD
-_gram-helpText_	DETERMINER_ZIAD	<INSERT_HELP_TEXT>
-_gram-name_	ADJECTIVE_POSITIVE_PERSIAN	ADJECTIVE_POSITIVE_PERSIAN
-_gram-path_	ADJECTIVE_POSITIVE_PERSIAN	ADJECTIVE_POSITIVE_PERSIAN
-_gram-helpText_	ADJECTIVE_POSITIVE_PERSIAN	<INSERT_HELP_TEXT>
-_gram-name_	ADJECTIVE_COMPARATIVE_PERSIAN	ADJECTIVE_COMPARATIVE_PERSIAN
-_gram-path_	ADJECTIVE_COMPARATIVE_PERSIAN	ADJECTIVE_COMPARATIVE_PERSIAN
-_gram-helpText_	ADJECTIVE_COMPARATIVE_PERSIAN	<INSERT_HELP_TEXT>
-_gram-name_	ADJECTIVE_SUPERLATIVE_PERSIAN	ADJECTIVE_SUPERLATIVE_PERSIAN
-_gram-path_	ADJECTIVE_SUPERLATIVE_PERSIAN	ADJECTIVE_SUPERLATIVE_PERSIAN
-_gram-helpText_	ADJECTIVE_SUPERLATIVE_PERSIAN	<INSERT_HELP_TEXT>
-_gram-name_	NUMBERS_CARDINAL_PERSIAN	NUMBERS_CARDINAL_PERSIAN
-_gram-path_	NUMBERS_CARDINAL_PERSIAN	NUMBERS_CARDINAL_PERSIAN
-_gram-helpText_	NUMBERS_CARDINAL_PERSIAN	<INSERT_HELP_TEXT>
-_gram-name_	NUMBERS_ORDINAL_PERSIAN	NUMBERS_ORDINAL_PERSIAN
-_gram-path_	NUMBERS_ORDINAL_PERSIAN	NUMBERS_ORDINAL_PERSIAN
-_gram-helpText_	NUMBERS_ORDINAL_PERSIAN	<INSERT_HELP_TEXT>
-_gram-name_	REFLEXIVE_PERSIAN	REFLEXIVE_PERSIAN
-_gram-path_	REFLEXIVE_PERSIAN	REFLEXIVE_PERSIAN
-_gram-helpText_	REFLEXIVE_PERSIAN	<INSERT_HELP_TEXT>
+_gram-name_	DETERMINER_HAR	هر
+_gram-path_	DETERMINER_HAR	Determinatoren > هر
+_gram-helpText_	DETERMINER_HAR	irgendein
+_gram-name_	DETERMINER_CHAND	چند
+_gram-path_	DETERMINER_CHAND	Determinatoren > چند
+_gram-helpText_	DETERMINER_CHAND	ein Paar
+_gram-name_	DETERMINER_HICH	هیچ
+_gram-path_	DETERMINER_HICH	Determinatoren > هیچ
+_gram-helpText_	DETERMINER_HICH	kein
+_gram-name_	DETERMINER_ZIAD	زیاد
+_gram-path_	DETERMINER_ZIAD	Determinatoren > زیاد
+_gram-helpText_	DETERMINER_ZIAD	viel
+_gram-name_	DETERMINER_OTHER	Alle Determinatoren
+_gram-path_	DETERMINER_OTHER	Determinatoren > Alle
+_gram-helpText_	DETERMINER_OTHER	(z.B. آن٬ این)
+_gram-name_	ADJECTIVE_POSITIVE_PERSIAN	Positive Adjectives
+_gram-path_	ADJECTIVE_POSITIVE_PERSIAN	Adjectives > Positive
+_gram-helpText_	ADJECTIVE_POSITIVE_PERSIAN	Adjectives with positive valence
+_gram-name_	ADJECTIVE_COMPARATIVE_PERSIAN	Comparative Adjectives
+_gram-path_	ADJECTIVE_COMPARATIVE_PERSIAN	Adjectives > Comparative
+_gram-helpText_	ADJECTIVE_COMPARATIVE_PERSIAN	i.e. بهتر
+_gram-name_	ADJECTIVE_SUPERLATIVE_PERSIAN	Superlative Adjectives
+_gram-path_	ADJECTIVE_SUPERLATIVE_PERSIAN	Adjectives > Superlative
+_gram-helpText_	ADJECTIVE_SUPERLATIVE_PERSIAN	i.e. بهترین
+_gram-name_	NUMBERS_CARDINAL_PERSIAN	Cardinalzahlen
+_gram-path_	NUMBERS_CARDINAL_PERSIAN	Zahlen > Cardinal
+_gram-helpText_	NUMBERS_CARDINAL_PERSIAN	یک٬ دو٬ سه٬ usw.
+_gram-name_	NUMBERS_ORDINAL_PERSIAN	Ordinalzahlen
+_gram-path_	NUMBERS_ORDINAL_PERSIAN	Zahlen > Ordinal
+_gram-helpText_	NUMBERS_ORDINAL_PERSIAN	دومین٬ سومین٬ usw.
+_gram-name_	PRONOUNS_REFLEXIVE_PERSIAN	Reflexivpronomen
+_gram-path_	PRONOUNS_REFLEXIVE_PERSIAN	Pronomen > Reflexiv
+_gram-helpText_	PRONOUNS_REFLEXIVE_PERSIAN	Persische Reflexivpronomen, z.B. خود
+_gram-name_	PRONOUNS_TOT	Totalpronomen
+_gram-path_	PRONOUNS_TOT	Pronomen > Total
+_gram-helpText_	PRONOUNS_TOT	Persische Totalpronomen
+_gram-name_	VERBFORM_AUX	Auxiliary Verbs
+_gram-path_	VERBFORM_AUX	Verb Form > Auxiliaries
+_gram-helpText_	VERBFORM_AUX	Auxiliary verbs, i.e. بودن٬ شدن
+_gram-name_	VERBFORM_NEG	Negated Verbs
+_gram-path_	VERBFORM_NEG	Verb Form > Negated
+_gram-helpText_	VERBFORM_NEG	Negative form of verbs, i.e. نکرد٬ ندید
+_gram-name_	ADVERB_NEGATIVE	Negative Adverbs
+_gram-path_	ADVERB_NEGATIVE	Adverbs > Negative
+_gram-helpText_	ADVERB_NEGATIVE	Negative Adverbs
+_gram-name_	ADVERB_LOCATIONAL	Locational Adverbs
+_gram-path_	ADVERB_LOCATIONAL	Adverbs > Locational
+_gram-helpText_	ADVERB_LOCATIONAL	Locational Adverbs
+_gram-name_	ADVERB_TEMPORAL	Temporal Adverbs
+_gram-path_	ADVERB_TEMPORAL	Adverbs > Temporal
+_gram-helpText_	ADVERB_TEMPORAL	Temporal Adverbs
+_gram-name_	ADVERB_PERSIAN	Adverbs
+_gram-path_	ADVERB_PERSIAN	Adverbs > Other
+_gram-helpText_	ADVERB_PERSIAN	All other adverbs
+_gram-name_	PLURAL_VERB_PERSIAN	Plural Verb
+_gram-path_	PLURAL_VERB_PERSIAN	Verb > Person > Plural
+_gram-helpText_	PLURAL_VERB_PERSIAN	Plural Persian verbs (conjugated for "we")
+_gram-name_	SINGULAR_VERB_PERSIAN	Singular Verb
+_gram-path_	SINGULAR_VERB_PERSIAN	Verb > Person > Singular
+_gram-helpText_	SINGULAR_VERB_PERSIAN	Singular Persian verbs (conjugated for "I")
