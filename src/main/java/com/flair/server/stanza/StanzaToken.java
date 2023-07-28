@@ -90,7 +90,7 @@ public class StanzaToken {
         }
     }
 
-    public int getEnd() {
+    public Integer getEnd() {
         if (end != null) {
             return end;
         }
@@ -113,7 +113,7 @@ public class StanzaToken {
 
     @Override
     public String toString() {
-        return "Token [" + id + " \"" + text + "\"]";
+        return "Tok[ " + id + " \"" + text + "\" ]";
     }
 
     // TODO add toJson() method

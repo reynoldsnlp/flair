@@ -73,6 +73,7 @@ class StanzaDocumentParserPersianStrategy extends BasicStanzaDocumentParserStrat
 	 *              (StanzaToken.getEnd())
 	 **/
 	private void addConstructionOccurrence(GrammaticalConstruction type, int start, int end) {
+		ServerLogger.get().info("OCCURRENCE: " + type + ": " + start + "-" + end);
 		workingDoc.getConstructionData(type).addOccurrence(start, end);
 	}
 
@@ -81,197 +82,273 @@ class StanzaDocumentParserPersianStrategy extends BasicStanzaDocumentParserStrat
 			return;
 		}
 
+		Integer intId; // cast id to Integer
+		Integer tokStart;
+		Integer tokEnd;
+
+		// Handle multi-word tokens
+		Integer mwStart = null;
+		Integer mwEnd = null;
+		Integer mwLastId = null;
+
 		for (StanzaToken token : sent) {
 			// All logic for adding grammatical constructions goes in this loop.
 			// To keep code organized, you may create other functions to call inside this
 			// function
 
+			if (token.getId().contains("-")) { // Multi-word token
+				mwStart = token.getStart();
+				mwEnd = token.getEnd();
+				mwLastId = Integer.parseInt(token.getId().substring(token.getId().lastIndexOf('-') + 1));
+				ServerLogger.get()
+						.info("MWTOKEN: " + token.toString() + "\t" + mwStart + " - " + mwEnd + " last:\t" + mwLastId);
+				continue;
+			} else {
+				intId = Integer.parseInt(token.getId());
+				if (mwLastId != null) {
+					if (intId > mwLastId) {
+						mwStart = null;
+						mwEnd = null;
+						mwLastId = null;
+						tokStart = token.getStart();
+						tokEnd = token.getEnd();
+					} else {
+						tokStart = mwStart;
+						tokEnd = mwEnd;
+					}
+				} else {
+					tokStart = token.getStart();
+					tokEnd = token.getEnd();
+				}
+			}
 
 			String lemma = token.getLemma();
-			// String surface = token.getText();
-			if (lemma != null) {
+			String upos = token.getUpos();
+			String xpos = token.getXpos();
+			ArrayList<String> feats = token.getFeats();
 
+			ServerLogger.get()
+					.info("TOKEN: " + token.toString() + " " + lemma + " / " + upos + " / " + feats.toString());
+
+			if (lemma != null) {
 				// lookup grammatical constructions mapped to this lemma
 				GrammaticalConstruction[] lemmaConstructions = PersianGrammaticalPatterns.lemmaMap.get(lemma);
-				if (lemmaConstructions == null) {
-					continue;
-				}
-				for (GrammaticalConstruction c : lemmaConstructions) {
-					addConstructionOccurrence(c, token.getStart(), token.getEnd());
+				if ( lemmaConstructions != null ) {
+					for (GrammaticalConstruction c : lemmaConstructions) {
+						addConstructionOccurrence(c, tokStart, tokEnd);
+					}
 				}
 			}
 
-			// Constructions based on upos
-			String upos = token.getUpos();
+			/////////////////////////////////
+			// Constructions based on upos //
+			/////////////////////////////////
+
+			ServerLogger.get().info("UPOS: " + upos + " (" + token.toString() + ")");
 			if (upos != null) {
-				if (upos.equals("ADJ")){
-					String xpos = token.getXpos();
-					if (xpos != null) {
-						if (xpos.equals("ADJ_INO")){
-							addConstructionOccurrence(GrammaticalConstruction.VERBFORM_ADJ, token.getStart(), token.getEnd());
+				ServerLogger.get().info("BYTES: " + upos.getBytes() + " (" + token.toString() + upos + ")");
+				switch (upos) {
+					case "ADJ":
+						if (xpos != null && xpos.equals("ADJ_INO")) {
+							addConstructionOccurrence(GrammaticalConstruction.VERBFORM_ADJ, tokStart, tokEnd);
 						}
-					}
+						break;
+					case "ADP":
+						addConstructionOccurrence(GrammaticalConstruction.PREPOSITIONS, tokStart, tokEnd);
+						break;
+					case "ADV":
+						addConstructionOccurrence(GrammaticalConstruction.ADVERB_PERSIAN, tokStart, tokEnd);
+						if (feats != null) {
+							if (feats.contains("Neg")) {
+								addConstructionOccurrence(GrammaticalConstruction.ADVERB_NEGATIVE, tokStart,
+										tokEnd);
+							}
+							if (feats.contains("Loc")) {
+								addConstructionOccurrence(GrammaticalConstruction.ADVERB_LOCATIONAL, tokStart,
+										tokEnd);
+							}
+							if (feats.contains("Tem")) {
+								addConstructionOccurrence(GrammaticalConstruction.ADVERB_TEMPORAL, tokStart,
+										tokEnd);
+							}
+						}
+						break;
+					case "AUX":
+						addConstructionOccurrence(GrammaticalConstruction.VERBFORM_AUX, tokStart, tokEnd);
+						if (!feats.isEmpty()) {
+							if (feats.contains("Sing")) {
+								addConstructionOccurrence(GrammaticalConstruction.SINGULAR_VERB_PERSIAN, tokStart,
+										tokEnd);
+							}
+							if (feats.contains("Plur")) {
+								addConstructionOccurrence(GrammaticalConstruction.PLURAL_VERB_PERSIAN, tokStart,
+										tokEnd);
+							}
+						}
+						break;
+					case "CCONJ":
+						addConstructionOccurrence(GrammaticalConstruction.SENTENCE_COMPOUND, tokStart, tokEnd);
+						addConstructionOccurrence(GrammaticalConstruction.CLAUSE_RELATIVE, tokStart, tokEnd);
+						break;
+					case "DET":
+						addConstructionOccurrence(GrammaticalConstruction.DETERMINER_OTHER, tokStart, tokEnd);
+						break;
+					case "NOUN":
+						if (!feats.isEmpty()) {
+							if (feats.contains("Sing")) {
+								addConstructionOccurrence(GrammaticalConstruction.SINGULAR_PERSIAN, tokStart, tokEnd);
+							}
+							if (feats.contains("Plur")) {
+								addConstructionOccurrence(GrammaticalConstruction.PLURAL_PERSIAN, tokStart, tokEnd);
+							}
+						}
+						break;
+					case "PRON":
+						if (!feats.isEmpty()) {
+							if (feats.contains("1") || feats.contains("2") || feats.contains("3")) {
+								addConstructionOccurrence(GrammaticalConstruction.PRONOUNS_PERSONAL, tokStart, tokEnd);
+							}
+							if (feats.contains("Dem")) {
+								addConstructionOccurrence(GrammaticalConstruction.PRONOUNS_DEMONSTRATIVE, tokStart,
+										tokEnd);
+							}
+							if (feats.contains("Ind")) {
+								addConstructionOccurrence(GrammaticalConstruction.PRONOUNS_INDEFINITE, tokStart,
+										tokEnd);
+							}
+							if (feats.contains("Int")) {
+								addConstructionOccurrence(GrammaticalConstruction.PRONOUNS_INTERROGATIVE, tokStart,
+										tokEnd);
+							}
+							if (feats.contains("Neg")) {
+								addConstructionOccurrence(GrammaticalConstruction.PRONOUNS_NEGATIVE, tokStart,
+										tokEnd);
+							}
+							if (feats.contains("Rcp")) {
+								addConstructionOccurrence(GrammaticalConstruction.PRONOUNS_RECIPROCAL, tokStart,
+										tokEnd);
+							}
+							if (feats.contains("Rel")) {
+								addConstructionOccurrence(GrammaticalConstruction.PRONOUNS_RELATIVE, tokStart,
+										tokEnd);
+							}
+							if (feats.contains("Tot")) {
+								addConstructionOccurrence(GrammaticalConstruction.PRONOUNS_TOT, tokStart,
+										tokEnd);
+							}
+						}
+						break;
+					case "SCONJ":
+						addConstructionOccurrence(GrammaticalConstruction.SENTENCE_COMPLEX, tokStart, tokEnd);
+						addConstructionOccurrence(GrammaticalConstruction.CLAUSE_SUBORDINATE, tokStart, tokEnd);
+						break;
+					case "VERB":
+						if (feats != null) {
+							if (feats.contains("1")) {
+								addConstructionOccurrence(GrammaticalConstruction.FIRST_PERSON_PERSIAN, tokStart,
+										tokEnd);
+							}
+							if (feats.contains("2")) {
+								addConstructionOccurrence(GrammaticalConstruction.SECOND_PERSON_PERSIAN, tokStart,
+										tokEnd);
+							}
+							if (feats.contains("3")) {
+								addConstructionOccurrence(GrammaticalConstruction.THIRD_PERSON_PERSIAN, tokStart,
+										tokEnd);
+							}
+							if (feats.contains("Neg")) {
+								addConstructionOccurrence(GrammaticalConstruction.VERBFORM_NEG, tokStart, tokEnd);
+							}
+							if (feats.contains("Plur")) {
+								addConstructionOccurrence(GrammaticalConstruction.PLURAL_VERB_PERSIAN, tokStart,
+										tokEnd);
+							}
+							if (feats.contains("Sing")) {
+								addConstructionOccurrence(GrammaticalConstruction.SINGULAR_VERB_PERSIAN, tokStart,
+										tokEnd);
+							}
+						}
+						break;
+					default:
+						ServerLogger.get().info("UPOS SKIPPED: " + token.toString() + upos);
+						break;
 				}
-				if (upos.equals("ADP")){
-					addConstructionOccurrence(GrammaticalConstruction.PREPOSITIONS, token.getStart(), token.getEnd());
-				}
-				if (upos.equals("ADV")){
-					addConstructionOccurrence(GrammaticalConstruction.ADVERB_PERSIAN, token.getStart(), token.getEnd());
-					ArrayList<String> feats = token.getFeats();
-					if (feats != null) {
-						if (feats.contains("Neg")) {
-							addConstructionOccurrence(GrammaticalConstruction.ADVERB_NEGATIVE, token.getStart(), token.getEnd());
-						}
-						if (feats.contains("Loc")) {
-							addConstructionOccurrence(GrammaticalConstruction.ADVERB_LOCATIONAL, token.getStart(), token.getEnd());
-						}
-						if (feats.contains("Tem")) {
-							addConstructionOccurrence(GrammaticalConstruction.ADVERB_TEMPORAL, token.getStart(), token.getEnd());
-						}
-					}
-				}
-				if (upos.equals("AUX")){
-					addConstructionOccurrence(GrammaticalConstruction.VERBFORM_AUX, token.getStart(), token.getEnd());
-				}
-				if (upos.equals("CCONJ")){
-					addConstructionOccurrence(GrammaticalConstruction.SENTENCE_COMPOUND, token.getStart(), token.getEnd());
-					addConstructionOccurrence(GrammaticalConstruction.CLAUSE_RELATIVE, token.getStart(), token.getEnd());
-				}
-				if (upos.equals("DET")){
-					addConstructionOccurrence(GrammaticalConstruction.DETERMINER_OTHER, token.getStart(), token.getEnd());
-				}
-				if (upos.equals("PRON")){
-					ArrayList<String> feats = token.getFeats();
-					if (feats != null) {
-						if (feats.contains("Dem")) {
-							addConstructionOccurrence(GrammaticalConstruction.PRONOUNS_DEMONSTRATIVE, token.getStart(), token.getEnd());
-						}
-						if (feats.contains("Ind")) {
-							addConstructionOccurrence(GrammaticalConstruction.PRONOUNS_INDEFINITE, token.getStart(), token.getEnd());
-						}
-						if (feats.contains("Int")) {
-							addConstructionOccurrence(GrammaticalConstruction.PRONOUNS_INTERROGATIVE, token.getStart(), token.getEnd());
-						}
-						if (feats.contains("Neg")) {
-							addConstructionOccurrence(GrammaticalConstruction.PRONOUNS_NEGATIVE, token.getStart(), token.getEnd());
-						}
-						if (feats.contains("Rcp")) {
-							addConstructionOccurrence(GrammaticalConstruction.PRONOUNS_RECIPROCAL, token.getStart(), token.getEnd());
-						}
-						if (feats.contains("Rel")) {
-							addConstructionOccurrence(GrammaticalConstruction.PRONOUNS_RELATIVE, token.getStart(), token.getEnd());
-						}
-						if (feats.contains("Tot")) {
-							addConstructionOccurrence(GrammaticalConstruction.PRONOUNS_TOT, token.getStart(), token.getEnd());
-						}
-					}
-				}
-				if (upos.equals("SCONJ")){
-					addConstructionOccurrence(GrammaticalConstruction.SENTENCE_COMPLEX, token.getStart(), token.getEnd());
-					addConstructionOccurrence(GrammaticalConstruction.CLAUSE_SUBORDINATE, token.getStart(), token.getEnd());
-				}
-				if (upos.equals("VERB")){
-					ArrayList<String> feats = token.getFeats();
-					if (feats != null) {
-						if (feats.contains("Neg")) {
-							addConstructionOccurrence(GrammaticalConstruction.VERBFORM_NEG, token.getStart(), token.getEnd());
-						}
-					}
-				// TODO add more upos-pased constructions here
-				}
+			} else {
+				ServerLogger.get().info("UPOS NULL: " + token.toString());
 			}
-			// Constructions based on feats
-			ArrayList<String> feats = token.getFeats();
-			if (feats != null) {
-				if (feats.contains("Sing")) {					
-					if (upos.equals("AUX") || upos.equals("VERB")) {
-					addConstructionOccurrence(GrammaticalConstruction.SINGULAR_VERB_PERSIAN, token.getStart(), token.getEnd());
-					}
-					if (upos.equals("NOUN")) {
-						addConstructionOccurrence(GrammaticalConstruction.SINGULAR_PERSIAN, token.getStart(), token.getEnd());
-					}			
+
+			//////////////////////////////////
+			// Constructions based on feats //
+			//////////////////////////////////
+
+			if (!feats.isEmpty()) {
+				boolean debugFeats = false;
+				if (feats.contains("Imp")) {
+					addConstructionOccurrence(GrammaticalConstruction.MOOD_IMP, tokStart, tokEnd);
+					debugFeats = true;
 				}
-				if (feats.contains("Mood=Imp")) {
-					addConstructionOccurrence(GrammaticalConstruction.MOOD_IMP, token.getStart(), token.getEnd());
+				if (feats.contains("Sub")) {
+					addConstructionOccurrence(GrammaticalConstruction.MOOD_SUB, tokStart, tokEnd);
+					debugFeats = true;
 				}
-				if (feats.contains("Mood=Sub")) {
-					addConstructionOccurrence(GrammaticalConstruction.MOOD_SUB, token.getStart(), token.getEnd());
+				if (feats.contains("Part")) {
+					addConstructionOccurrence(GrammaticalConstruction.VERBFORM_PRESENT_PARTICIPLE_PERSIAN, tokStart,
+							tokEnd);
+					debugFeats = true;
 				}
-				//possibly add check for null upos
-				if (feats.contains("Person=1")) {
-					if (upos.equals("VERB")) {
-						addConstructionOccurrence(GrammaticalConstruction.FIRST_PERSON_PERSIAN, token.getStart(), token.getEnd());
-					}
-					else if (upos.equals("PRON")) {
-						addConstructionOccurrence(GrammaticalConstruction.PRONOUNS_PERSONAL, token.getStart(), token.getEnd());	
-					}
+				if (feats.contains("Inf")) {
+					addConstructionOccurrence(GrammaticalConstruction.VERBFORM_INFINITIVE_PERSIAN, tokStart, tokEnd);
+					debugFeats = true;
 				}
-				if (feats.contains("Person=2")) {
-					if (upos.equals("VERB")) {
-						addConstructionOccurrence(GrammaticalConstruction.SECOND_PERSON_PERSIAN, token.getStart(), token.getEnd());
-					}
-					else if (upos.equals("PRON")) {
-						addConstructionOccurrence(GrammaticalConstruction.PRONOUNS_PERSONAL, token.getStart(), token.getEnd());	
-					}
+				if (feats.contains("Fin")) {
+					addConstructionOccurrence(GrammaticalConstruction.VERBFORM_FINITE_PERSIAN, tokStart, tokEnd);
+					debugFeats = true;
 				}
-				if (feats.contains("Person=3")) {
-					if (upos.equals("VERB")){
-						addConstructionOccurrence(GrammaticalConstruction.THIRD_PERSON_PERSIAN, token.getStart(), token.getEnd());
-					}
-					else if (upos.equals("PRON")){
-						addConstructionOccurrence(GrammaticalConstruction.PRONOUNS_PERSONAL, token.getStart(), token.getEnd());	
-					}
+				if (feats.contains("Past")) {
+					addConstructionOccurrence(GrammaticalConstruction.TENSE_PAST_SIMPLE, tokStart, tokEnd);
+					debugFeats = true;
 				}
-				if (feats.contains("VerbForm=Part")) {
-					addConstructionOccurrence(GrammaticalConstruction.VERBFORM_PRESENT_PARTICIPLE_PERSIAN, token.getStart(), token.getEnd());
+				if (feats.contains("Pres")) {
+					addConstructionOccurrence(GrammaticalConstruction.TENSE_PRESENT_SIMPLE, tokStart, tokEnd);
+					debugFeats = true;
 				}
-				if (feats.contains("VerbForm=Inf")) {
-					addConstructionOccurrence(GrammaticalConstruction.VERBFORM_INFINITIVE_PERSIAN, token.getStart(), token.getEnd());
-				}
-				if (feats.contains("VerbForm=Fin")) {
-					addConstructionOccurrence(GrammaticalConstruction.VERBFORM_FINITE_PERSIAN, token.getStart(), token.getEnd());
-				}
-				if (feats.contains("Tense=Past")) {
-					addConstructionOccurrence(GrammaticalConstruction.TENSE_PAST_SIMPLE, token.getStart(), token.getEnd());
-				}
-				if (feats.contains("Tense=Pres")) {
-					addConstructionOccurrence(GrammaticalConstruction.TENSE_PRESENT_SIMPLE, token.getStart(), token.getEnd());
-				}
-				if (feats.contains("Tense=Fut")) {
-					addConstructionOccurrence(GrammaticalConstruction.TENSE_FUTURE_SIMPLE, token.getStart(), token.getEnd());
-				}
-				if (feats.contains("Number=Plur")) {
-					if (upos.equals("AUX")){
-						addConstructionOccurrence(GrammaticalConstruction.PLURAL_VERB_PERSIAN, token.getStart(), token.getEnd());
-					}
-					if (upos.equals("NOUN")){
-						addConstructionOccurrence(GrammaticalConstruction.PLURAL_PERSIAN, token.getStart(), token.getEnd());
-					}
-					if (upos.equals("VERB")){
-						addConstructionOccurrence(GrammaticalConstruction.PLURAL_VERB_PERSIAN, token.getStart(), token.getEnd());
-					}
+				if (feats.contains("Fut")) {
+					addConstructionOccurrence(GrammaticalConstruction.TENSE_FUTURE_SIMPLE, tokStart, tokEnd);
+					debugFeats = true;
 				}
 				if (feats.contains("Card")) {
-					addConstructionOccurrence(GrammaticalConstruction.NUMBERS_CARDINAL_PERSIAN, token.getStart(), token.getEnd());
+					addConstructionOccurrence(GrammaticalConstruction.NUMBERS_CARDINAL_PERSIAN, tokStart, tokEnd);
+					debugFeats = true;
 				}
 				if (feats.contains("Ord")) {
-					addConstructionOccurrence(GrammaticalConstruction.NUMBERS_ORDINAL_PERSIAN, token.getStart(), token.getEnd());
+					addConstructionOccurrence(GrammaticalConstruction.NUMBERS_ORDINAL_PERSIAN, tokStart, tokEnd);
+					debugFeats = true;
 				}
 				if (feats.contains("Reflex")) {
-					addConstructionOccurrence(GrammaticalConstruction.PRONOUNS_REFLEXIVE_PERSIAN, token.getStart(), token.getEnd());
+					addConstructionOccurrence(GrammaticalConstruction.PRONOUNS_REFLEXIVE_PERSIAN, tokStart, tokEnd);
+					debugFeats = true;
 				}
-				if (feats.contains("Degree=Pos")) {
-					addConstructionOccurrence(GrammaticalConstruction.ADJECTIVE_POSITIVE_PERSIAN, token.getStart(), token.getEnd());
+				if (feats.contains("Pos")) {
+					addConstructionOccurrence(GrammaticalConstruction.ADJECTIVE_POSITIVE_PERSIAN, tokStart, tokEnd);
+					debugFeats = true;
 				}
-				if (feats.contains("Degree=Cmp")) {
-					addConstructionOccurrence(GrammaticalConstruction.ADJECTIVE_COMPARATIVE_PERSIAN, token.getStart(), token.getEnd());
+				if (feats.contains("Cmp")) {
+					addConstructionOccurrence(GrammaticalConstruction.ADJECTIVE_COMPARATIVE_PERSIAN, tokStart, tokEnd);
+					debugFeats = true;
 				}
-				if (feats.contains("Degree=Sup")) {
-					addConstructionOccurrence(GrammaticalConstruction.ADJECTIVE_SUPERLATIVE_PERSIAN, token.getStart(), token.getEnd());
+				if (feats.contains("Sup")) {
+					addConstructionOccurrence(GrammaticalConstruction.ADJECTIVE_SUPERLATIVE_PERSIAN, tokStart, tokEnd);
+					debugFeats = true;
+				}
+				if ( !debugFeats ) {
+					ServerLogger.get().info("FEATS SKIPPED: " + token.toString() + feats.toString());
 				}
 				// TODO add more feats-based constructions here
+			} else {
+				ServerLogger.get().info("FEATS EMPTY: " + token.toString());
 			}
 		}
+
 	}
 
 	@Override
@@ -297,7 +374,7 @@ class StanzaDocumentParserPersianStrategy extends BasicStanzaDocumentParserStrat
 					for (StanzaToken token : sent) {
 						tokenCount++;
 						String tokenUpos = token.getUpos();
-						if (tokenUpos.equals(null)) {
+						if (tokenUpos == null) {
 							continue;
 						} else if (!tokenUpos.matches("PUNCT|SYM|X")) {
 							wordCount++;
