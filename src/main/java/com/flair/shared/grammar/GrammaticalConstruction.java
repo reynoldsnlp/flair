@@ -36,17 +36,17 @@ public enum GrammaticalConstruction
     CLAUSE_SUBORDINATE("subordinateClause", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN, Language.PERSIAN),
 	CLAUSE_RELATIVE("relativeClause", Language.ENGLISH, Language.GERMAN, Language.PERSIAN),
     CLAUSE_RELATIVE_REDUCED("relativeClauseReduced", Language.ENGLISH),
-    CLAUSE_ADVERBIAL("adverbialClause", Language.ENGLISH, Language.GERMAN, Language.PERSIAN),
+    CLAUSE_ADVERBIAL("adverbialClause", Language.ENGLISH, Language.GERMAN),
     CLAUSE_THAT("thatClause", Language.GERMAN),
     SENTENCE_SIMPLE("simpleSentence", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN, Language.PERSIAN),
-    SENTENCE_COMPLEX("complexSentence", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN, Language.PERSIAN),
+    SENTENCE_COMPLEX("complexSentence", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN),
     SENTENCE_COMPOUND("compoundSentence", Language.ENGLISH, Language.GERMAN, Language.PERSIAN),
-    SENTENCE_INCOMPLETE("incompleteSentence", Language.ENGLISH, Language.GERMAN, Language.PERSIAN),
+    SENTENCE_INCOMPLETE("incompleteSentence", Language.ENGLISH, Language.GERMAN),
     
     OBJECT_DIRECT("directObject", Language.ENGLISH),
-    OBJECT_INDIRECT("indirectObject", Language.ENGLISH, Language.PERSIAN),
+    OBJECT_INDIRECT("indirectObject", Language.ENGLISH),
     
-    PRONOUNS("pronouns", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN, Language.PERSIAN),
+    PRONOUNS("pronouns", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN),
     PRONOUNS_PERSONAL("pronounsPersonal", Language.GERMAN, Language.RUSSIAN, Language.PERSIAN),
     PRONOUNS_RELATIVE("pronounsRelative", Language.GERMAN, Language.RUSSIAN, Language.PERSIAN),
     PRONOUNS_POSSESSIVE("pronounsPossessive", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), // /PRP$ ("", my, your, their)
@@ -54,17 +54,17 @@ public enum GrammaticalConstruction
     PRONOUNS_REFLEXIVE("pronounsReflexive", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), // /PRP + myself, themselves, etc.
     PRONOUNS_INDEFINITE("pronounsIndefinite", Language.GERMAN, Language.PERSIAN),
     PRONOUNS_INTERROGATIVE("pronounsInterrogative", Language.GERMAN, Language.RUSSIAN, Language.PERSIAN),
-    PRONOUNS_SUBJECTIVE("pronounsSubjective", Language.ENGLISH, Language.PERSIAN),
+    PRONOUNS_SUBJECTIVE("pronounsSubjective", Language.ENGLISH),
     PRONOUNS_TOT("pronounsTot", Language.PERSIAN),
 
     // quantifiers
-    DETERMINER_SOME("someDet", Language.ENGLISH, Language.GERMAN, Language.PERSIAN),
-    DETERMINER_ANY("anyDet", Language.ENGLISH, Language.GERMAN, Language.PERSIAN),
-    DETERMINER_MUCH("muchDet", Language.ENGLISH, Language.PERSIAN),
-    DETERMINER_MANY("manyDet", Language.ENGLISH, Language.GERMAN, Language.PERSIAN),
+    DETERMINER_SOME("someDet", Language.ENGLISH, Language.GERMAN),
+    DETERMINER_ANY("anyDet", Language.ENGLISH, Language.GERMAN),
+    DETERMINER_MUCH("muchDet", Language.ENGLISH),
+    DETERMINER_MANY("manyDet", Language.ENGLISH, Language.GERMAN),
     DETERMINER_A_LOT_OF("aLotOfDet", Language.ENGLISH),
     
-    ARTICLES("articles", Language.ENGLISH, Language.GERMAN, Language.PERSIAN),
+    ARTICLES("articles", Language.ENGLISH, Language.GERMAN),
     ARTICLE_THE("theArticle", Language.ENGLISH, Language.GERMAN),
     ARTICLE_A("aArticle", Language.ENGLISH, Language.GERMAN),
     ARTICLE_AN("anArticle", Language.ENGLISH),
@@ -73,19 +73,19 @@ public enum GrammaticalConstruction
     NOUNS_TUR("turNounForms", Language.GERMAN),
     NOUNS_UNG("ungNounForms", Language.GERMAN),
     
-    NEGATION_ALL("negAll", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN, Language.PERSIAN), // nobody, nowhere, etc.
-    NEGATION_PARTIAL("partialNegation", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN, Language.PERSIAN), // rarely, barely, seldom, hardly, scarcely // Russian: вряд, редко, едва, еле, еле-еле, не совсем, навряд, наврядли, едва-едва, нечасто, изредка, почти не, с трудом, чуть, чуть-чуть
+    NEGATION_ALL("negAll", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), // nobody, nowhere, etc.
+    NEGATION_PARTIAL("partialNegation", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), // rarely, barely, seldom, hardly, scarcely // Russian: вряд, редко, едва, еле, еле-еле, не совсем, навряд, наврядли, едва-едва, нечасто, изредка, почти не, с трудом, чуть, чуть-чуть
     NEGATION_NO_NOT_NEVER("noNotNever", Language.ENGLISH, Language.GERMAN),
     NEGATION_NT("nt", Language.ENGLISH),
     NEGATION_NOT("not", Language.ENGLISH),
 
-    QUESTIONS_DIRECT("directQuestions", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN, Language.PERSIAN), // Russian: ends in a '?'
+    QUESTIONS_DIRECT("directQuestions", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), // Russian: ends in a '?'
     QUESTIONS_INDIRECT("indirectQuestions", Language.ENGLISH, Language.GERMAN/*, Language.RUSSIAN*/),
-    QUESTIONS_YESNO("yesNoQuestions", Language.ENGLISH, Language.GERMAN, Language.PERSIAN), // direct: "Are you ok?"
+    QUESTIONS_YESNO("yesNoQuestions", Language.ENGLISH, Language.GERMAN), // direct: "Are you ok?"
     QUESTIONS_WH("whQuestions", Language.ENGLISH, Language.GERMAN), // direct: "What do you do?"
-    QUESTIONS_TO_BE("toBeQuestions", Language.ENGLISH, Language.PERSIAN), // direct: "What's this?"
-    QUESTIONS_TO_DO("toDoQuestions", Language.ENGLISH, Language.PERSIAN), // direct: "What do you do?"
-    QUESTIONS_TO_HAVE("toHaveQuestions", Language.ENGLISH, Language.PERSIAN), // direct: "What have you done?"
+    QUESTIONS_TO_BE("toBeQuestions", Language.ENGLISH), // direct: "What's this?"
+    QUESTIONS_TO_DO("toDoQuestions", Language.ENGLISH), // direct: "What do you do?"
+    QUESTIONS_TO_HAVE("toHaveQuestions", Language.ENGLISH), // direct: "What have you done?"
     QUESTIONS_MODAL("modalQuestions", Language.ENGLISH), // direct: "Should I go?", "What should I do?"
     QUESTIONS_WHAT("what", Language.ENGLISH, Language.GERMAN),
     QUESTIONS_WHO("who", Language.ENGLISH, Language.GERMAN),
@@ -96,7 +96,7 @@ public enum GrammaticalConstruction
     QUESTIONS_WHOSE("whose", Language.ENGLISH, Language.GERMAN),
     QUESTIONS_WHOM("whom", Language.ENGLISH, Language.GERMAN),
     QUESTIONS_WHICH("which", Language.ENGLISH, Language.GERMAN),
-    QUESTIONS_TAG("tagQuestions", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN, Language.PERSIAN), // ", isn't it?" //*** ", (nje) tak (li)?" (, AND ? ARE IMPORTANT)
+    QUESTIONS_TAG("tagQuestions", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), // ", isn't it?" //*** ", (nje) tak (li)?" (, AND ? ARE IMPORTANT)
     QUESTIONS_PERSIAN("persianQuestions", Language.PERSIAN),
     QUESTIONS_KOJA("kojaQuestions", Language.PERSIAN),
     QUESTIONS_KE("keQuestions", Language.PERSIAN),
@@ -108,8 +108,8 @@ public enum GrammaticalConstruction
     
     // conditionals - check first, before tenses
     CONDITIONALS("conditionals", Language.ENGLISH),
-    CONDITIONALS_REAL("condReal", Language.ENGLISH, Language.PERSIAN),
-    CONDITIONALS_UNREAL("condUnreal", Language.ENGLISH/*, Language.RUSSIAN*/, Language.PERSIAN), //usefulness is questionable for Russian
+    CONDITIONALS_REAL("condReal", Language.ENGLISH),
+    CONDITIONALS_UNREAL("condUnreal", Language.ENGLISH/*, Language.RUSSIAN*/), //usefulness is questionable for Russian
     
     // tenses - only if not conditional
     TENSE_PRESENT_SIMPLE("presentSimple", Language.ENGLISH, Language.PERSIAN),
@@ -119,16 +119,16 @@ public enum GrammaticalConstruction
     TENSE_PAST_PERFECT_HABEN("pastPerfectHaben", Language.GERMAN),
     TENSE_PAST_PERFECT_SEIN("pastPerfectSein", Language.GERMAN),
     TENSE_FUTURE_SIMPLE("futureSimple", Language.ENGLISH, Language.GERMAN, Language.PERSIAN),
-    TENSE_FUTURE_PERFECT("futurePerfect", Language.ENGLISH, Language.GERMAN, Language.PERSIAN),
+    TENSE_FUTURE_PERFECT("futurePerfect", Language.ENGLISH, Language.GERMAN),
     
-    ASPECT_SIMPLE("simpleAspect", Language.ENGLISH, Language.PERSIAN),
-    ASPECT_PROGRESSIVE("progressiveAspect", Language.ENGLISH, Language.PERSIAN),
-    ASPECT_PERFECT("perfectAspect", Language.ENGLISH, Language.PERSIAN),
-    ASPECT_PERFECT_PROGRESSIVE("perfProgAspect", Language.ENGLISH, Language.PERSIAN),
+    ASPECT_SIMPLE("simpleAspect", Language.ENGLISH),
+    ASPECT_PROGRESSIVE("progressiveAspect", Language.ENGLISH),
+    ASPECT_PERFECT("perfectAspect", Language.ENGLISH),
+    ASPECT_PERFECT_PROGRESSIVE("perfProgAspect", Language.ENGLISH),
     
-    TIME_PRESENT("presentTime", Language.ENGLISH, Language.PERSIAN),
-    TIME_PAST("pastTime", Language.ENGLISH, Language.PERSIAN),
-    TIME_FUTURE("futureTime", Language.ENGLISH, Language.PERSIAN),
+    TIME_PRESENT("presentTime", Language.ENGLISH),
+    TIME_PAST("pastTime", Language.ENGLISH),
+    TIME_FUTURE("futureTime", Language.ENGLISH),
     
     VERBCONST_GOING_TO("goingTo", Language.ENGLISH),
     VERBCONST_USED_TO("usedTo", Language.ENGLISH),
@@ -138,15 +138,15 @@ public enum GrammaticalConstruction
     VERBTYP_MODAL("modalVerbs", Language.GERMAN),
     
     VERBFORM_TO_INFINITIVE("toInfinitiveForms", Language.ENGLISH, Language.GERMAN),
-    VERBFORM_INFINITIVE("infinitiveForms", Language.GERMAN, Language.PERSIAN),
+    VERBFORM_INFINITIVE("infinitiveForms", Language.GERMAN),
     VERBFORM_PARTICIPLE("participleForms", Language.GERMAN),
 
     VERB_CLUSTER("verbCluster", Language.GERMAN),
     VERB_BRACKETS("verbBrackets", Language.GERMAN),
     
     MODALS("modals", Language.ENGLISH),// all
-    MODALS_SIMPLE("simpleModals", Language.ENGLISH, Language.PERSIAN),// can, must, need, may
-    MODALS_ADVANCED("advancedModals", Language.ENGLISH, Language.PERSIAN),// the others
+    MODALS_SIMPLE("simpleModals", Language.ENGLISH),// can, must, need, may
+    MODALS_ADVANCED("advancedModals", Language.ENGLISH),// the others
     MODALS_CAN("can", Language.ENGLISH),// Klasse 6
     MODALS_MUST("must", Language.ENGLISH),// Klasse 6
     MODALS_NEED("need", Language.ENGLISH),// Klasse 6
@@ -157,25 +157,25 @@ public enum GrammaticalConstruction
     MODALS_ABLE("able", Language.ENGLISH),// Klasse 10 ("", annotated as JJ)
     MODALS_HAVE_TO("haveTo", Language.ENGLISH),// ??
 
-    VERBS_IRREGULAR("irregularVerbs", Language.ENGLISH, Language.PERSIAN),// past tense or past participle not ending with -ed
-    VERBS_REGULAR("regularVerbs", Language.ENGLISH, Language.PERSIAN),// past tense or past participle ending with -ed
-    VERBS_PHRASAL("phrasalVerbs", Language.ENGLISH, Language.PERSIAN),// phrasal verbs ("", & verbs with prepositions: look atPrep)
+    VERBS_IRREGULAR("irregularVerbs", Language.ENGLISH),// past tense or past participle not ending with -ed
+    VERBS_REGULAR("regularVerbs", Language.ENGLISH),// past tense or past participle ending with -ed
+    VERBS_PHRASAL("phrasalVerbs", Language.ENGLISH),// phrasal verbs ("", & verbs with prepositions: look atPrep)
 
     IMPERATIVES("imperatives", Language.ENGLISH, Language.GERMAN, Language.PERSIAN),// start with a Verb, often end with "!": "Do it yourself!"
     PASSIVE_VOICE_WERDEN("passiveVoiceWerden", Language.GERMAN),
     PASSIVE_VOICE_SEIN("passiveVoiceSein", Language.GERMAN),
 
-    ADJECTIVE_POSITIVE("positiveAdj", Language.ENGLISH, Language.GERMAN, Language.PERSIAN),// "nice"
-    ADJECTIVE_COMPARATIVE_SHORT("comparativeAdjShort", Language.ENGLISH, Language.PERSIAN),// "nicer"
-    ADJECTIVE_SUPERLATIVE_SHORT("superlativeAdjShort", Language.ENGLISH, Language.PERSIAN),// "nicest"
-    ADJECTIVE_COMPARATIVE_LONG("comparativeAdjLong", Language.ENGLISH, Language.PERSIAN),// "more beautiful"
-    ADJECTIVE_SUPERLATIVE_LONG("superlativeAdjLong", Language.ENGLISH, Language.PERSIAN),// "most beautiful"
+    ADJECTIVE_POSITIVE("positiveAdj", Language.ENGLISH, Language.GERMAN),// "nice"
+    ADJECTIVE_COMPARATIVE_SHORT("comparativeAdjShort", Language.ENGLISH),// "nicer"
+    ADJECTIVE_SUPERLATIVE_SHORT("superlativeAdjShort", Language.ENGLISH),// "nicest"
+    ADJECTIVE_COMPARATIVE_LONG("comparativeAdjLong", Language.ENGLISH),// "more beautiful"
+    ADJECTIVE_SUPERLATIVE_LONG("superlativeAdjLong", Language.ENGLISH),// "most beautiful"
     
-    ADVERB_POSITIVE("positiveAdv", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN, Language.PERSIAN),// "quickly"
-    ADVERB_COMPARATIVE_SHORT("comparativeAdvShort", Language.ENGLISH, Language.PERSIAN),// "faster"
-    ADVERB_SUPERLATIVE_SHORT("superlativeAdvShort", Language.ENGLISH, Language.PERSIAN),// "fastest"
-    ADVERB_COMPARATIVE_LONG("comparativeAdvLong", Language.ENGLISH, Language.PERSIAN),// "more quickly"
-    ADVERB_SUPERLATIVE_LONG("superlativeAdvLong", Language.ENGLISH, Language.PERSIAN),// "most quickly"
+    ADVERB_POSITIVE("positiveAdv", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN),// "quickly"
+    ADVERB_COMPARATIVE_SHORT("comparativeAdvShort", Language.ENGLISH),// "faster"
+    ADVERB_SUPERLATIVE_SHORT("superlativeAdvShort", Language.ENGLISH),// "fastest"
+    ADVERB_COMPARATIVE_LONG("comparativeAdvLong", Language.ENGLISH),// "more quickly"
+    ADVERB_SUPERLATIVE_LONG("superlativeAdvLong", Language.ENGLISH),// "most quickly"
     
     PARTICLE_PLUS_ADJ_ADV("particleAdjAdv", Language.GERMAN),
     
@@ -185,12 +185,12 @@ public enum GrammaticalConstruction
     PLURAL_IRREGULAR("pluralIrregular", Language.ENGLISH),
     NOUNFORMS_ING("ingNounForms", Language.ENGLISH),
 	
-    TENSE_PRESENT_PROGRESSIVE("presentProgressive", Language.ENGLISH, Language.PERSIAN),
-    TENSE_PRESENT_PERFECT_PROGRESSIVE("presentPerfProg", Language.ENGLISH, Language.PERSIAN),
+    TENSE_PRESENT_PROGRESSIVE("presentProgressive", Language.ENGLISH),
+    TENSE_PRESENT_PERFECT_PROGRESSIVE("presentPerfProg", Language.ENGLISH),
     TENSE_PAST_PROGRESSIVE("pastProgressive", Language.ENGLISH, Language.PERSIAN),
-    TENSE_PAST_PERFECT_PROGRESSIVE("pastPerfProg", Language.ENGLISH, Language.PERSIAN),
-    TENSE_FUTURE_PROGRESSIVE("futureProgressive", Language.ENGLISH, Language.PERSIAN),
-    TENSE_FUTURE_PERFECT_PROGRESSIVE("futurePerfProg", Language.ENGLISH, Language.PERSIAN),
+    TENSE_PAST_PERFECT_PROGRESSIVE("pastPerfProg", Language.ENGLISH),
+    TENSE_FUTURE_PROGRESSIVE("futureProgressive", Language.ENGLISH),
+    TENSE_FUTURE_PERFECT_PROGRESSIVE("futurePerfProg", Language.ENGLISH),
 	
     VERBFORM_SHORT("shortVerbForms", Language.ENGLISH), // 's, 're, 'm, 's, 've, 'd??!
     VERBFORM_LONG("longVerbForms", Language.ENGLISH), // is, are, am, has, have, had??!
@@ -200,9 +200,9 @@ public enum GrammaticalConstruction
     VERBFORM_EMPHATIC_DO("emphaticDo", Language.ENGLISH), // "I do realize it": do/did/VBP followed by /VB
     
     PRONOUNS_POSSESSIVE_ABSOLUTE("pronounsPossessiveAbsolute", Language.ENGLISH), // /JJ or PRP... ("", mine, yours, theirs)
-    PASSIVE_VOICE("passiveVoice", Language.ENGLISH, Language.RUSSIAN, Language.PERSIAN),
-    TENSE_PRESENT_PERFECT("presentPerfect", Language.ENGLISH, Language.PERSIAN),
-    TENSE_PAST_PERFECT("pastPerfect", Language.ENGLISH, Language.PERSIAN),
+    PASSIVE_VOICE("passiveVoice", Language.ENGLISH, Language.RUSSIAN),
+    TENSE_PRESENT_PERFECT("presentPerfect", Language.ENGLISH),
+    TENSE_PAST_PERFECT("pastPerfect", Language.ENGLISH),
     PRONOUNS_OBJECTIVE("pronounsObjective", Language.ENGLISH), // /PRP + me, you, them...
     POSTPOSITION("postposition", Language.GERMAN),
 
@@ -337,14 +337,11 @@ public enum GrammaticalConstruction
     CLAUSE_RELATIVE_RUSSIAN("relativeClauseRussian", Language.RUSSIAN),
 
     //PERSIAN VERB FORMS
-    VERBFORM_PAST_STEM("pastStem", Language.PERSIAN),
-    VERBFORM_PRESENT_STEM("presentStem", Language.PERSIAN),
     VERBFORM_ADJ("adjectivalVerbPersian", Language.PERSIAN),
     VERBFORM_AUX("auxVerbPersian", Language.PERSIAN),
     VERBFORM_FINITE_PERSIAN("finiteVerbPersian", Language.PERSIAN),
     VERBFORM_INFINITIVE_PERSIAN("infinitivePersian", Language.PERSIAN),
     VERBFORM_PRESENT_PARTICIPLE_PERSIAN("presentPartPersian", Language.PERSIAN),
-    VERBFORM_SUBORDINATING_PERSIAN("subVerb", Language.PERSIAN),
     PLURAL_PERSIAN("plurPersian", Language.PERSIAN),
     SINGULAR_PERSIAN("singPersian", Language.PERSIAN),
 
@@ -378,7 +375,6 @@ public enum GrammaticalConstruction
     ADVERB_NEGATIVE("advNeg", Language.PERSIAN),
     ADVERB_PERSIAN("advPersian", Language.PERSIAN),
     VERBFORM_NEG("verbNeg", Language.PERSIAN),
-    ADPOSITIONS_PERSIAN("adpPersian", Language.PERSIAN),
     PLURAL_VERB_PERSIAN("verbPlurPersian", Language.PERSIAN),
     SINGULAR_VERB_PERSIAN("verbSingPersian", Language.PERSIAN),
 

@@ -32,21 +32,13 @@
 						<flair:GrammaticalConstructionWeightSlider gram="SENTENCE_SIMPLE" parentLanguage="PERSIAN"/>
 						
 						<flair:GrammaticalConstructionWeightSlider gram="SENTENCE_COMPOUND" parentLanguage="PERSIAN"/>
-						
-						<flair:GrammaticalConstructionWeightSlider gram="CLAUSE_SUBORDINATE" parentLanguage="PERSIAN"/>
-						
-						<flair:GrammaticalConstructionWeightSlider gram="SENTENCE_INCOMPLETE" parentLanguage="PERSIAN"/>
 					</flair:GrammaticalConstructionPanelItem>
 					
 					<!-- Clause Types -->
 					<flair:GrammaticalConstructionPanelItem ui:field="pnlClauseTypesUI" text="clause types" iconType="EXPAND_MORE">
 						<flair:GrammaticalConstructionWeightSlider gram="CLAUSE_RELATIVE" parentLanguage="PERSIAN"/>
 						
-						<flair:GrammaticalConstructionWeightSlider gram="CLAUSE_ADVERBIAL" parentLanguage="PERSIAN"/>
-						
-						<flair:GrammaticalConstructionWeightSlider gram="CONDITIONALS_REAL" parentLanguage="PERSIAN"/>
-						
-						<flair:GrammaticalConstructionWeightSlider gram="CONDITIONALS_UNREAL" parentLanguage="PERSIAN"/>
+						<flair:GrammaticalConstructionWeightSlider gram="CLAUSE_SUBORDINATE" parentLanguage="PERSIAN"/>
 					</flair:GrammaticalConstructionPanelItem>
 				</flair:GrammaticalConstructionPanel>
 			</flair:GrammaticalConstructionPanelItem>

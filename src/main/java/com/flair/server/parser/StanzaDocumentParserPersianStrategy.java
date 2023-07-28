@@ -104,18 +104,18 @@ class StanzaDocumentParserPersianStrategy extends BasicStanzaDocumentParserStrat
 			// Constructions based on upos
 			String upos = token.getUpos();
 			if (upos != null) {
-				if (upos == "ADJ") {
+				if (upos.equals("ADJ")){
 					String xpos = token.getXpos();
 					if (xpos != null) {
-						if (xpos == "ADJ_INO") {
+						if (xpos.equals("ADJ_INO")){
 							addConstructionOccurrence(GrammaticalConstruction.VERBFORM_ADJ, token.getStart(), token.getEnd());
 						}
 					}
 				}
-				if (upos == "ADP") {
+				if (upos.equals("ADP")){
 					addConstructionOccurrence(GrammaticalConstruction.PREPOSITIONS, token.getStart(), token.getEnd());
 				}
-				if (upos == "ADV") {
+				if (upos.equals("ADV")){
 					addConstructionOccurrence(GrammaticalConstruction.ADVERB_PERSIAN, token.getStart(), token.getEnd());
 					ArrayList<String> feats = token.getFeats();
 					if (feats != null) {
@@ -130,16 +130,17 @@ class StanzaDocumentParserPersianStrategy extends BasicStanzaDocumentParserStrat
 						}
 					}
 				}
-				if (upos == "AUX") {
+				if (upos.equals("AUX")){
 					addConstructionOccurrence(GrammaticalConstruction.VERBFORM_AUX, token.getStart(), token.getEnd());
 				}
-				if (upos == "CCONJ") {
+				if (upos.equals("CCONJ")){
 					addConstructionOccurrence(GrammaticalConstruction.SENTENCE_COMPOUND, token.getStart(), token.getEnd());
+					addConstructionOccurrence(GrammaticalConstruction.CLAUSE_RELATIVE, token.getStart(), token.getEnd());
 				}
-				if (upos == "DET") {
+				if (upos.equals("DET")){
 					addConstructionOccurrence(GrammaticalConstruction.DETERMINER_OTHER, token.getStart(), token.getEnd());
 				}
-				if (upos == "PRON") {
+				if (upos.equals("PRON")){
 					ArrayList<String> feats = token.getFeats();
 					if (feats != null) {
 						if (feats.contains("Dem")) {
@@ -165,10 +166,11 @@ class StanzaDocumentParserPersianStrategy extends BasicStanzaDocumentParserStrat
 						}
 					}
 				}
-				if (upos == "SCONJ") {
+				if (upos.equals("SCONJ")){
 					addConstructionOccurrence(GrammaticalConstruction.SENTENCE_COMPLEX, token.getStart(), token.getEnd());
+					addConstructionOccurrence(GrammaticalConstruction.CLAUSE_SUBORDINATE, token.getStart(), token.getEnd());
 				}
-				if (upos == "VERB") {
+				if (upos.equals("VERB")){
 					ArrayList<String> feats = token.getFeats();
 					if (feats != null) {
 						if (feats.contains("Neg")) {
@@ -182,15 +184,12 @@ class StanzaDocumentParserPersianStrategy extends BasicStanzaDocumentParserStrat
 			ArrayList<String> feats = token.getFeats();
 			if (feats != null) {
 				if (feats.contains("Sing")) {					
-					if (upos == "AUX") {
+					if (upos.equals("AUX") || upos.equals("VERB")) {
 					addConstructionOccurrence(GrammaticalConstruction.SINGULAR_VERB_PERSIAN, token.getStart(), token.getEnd());
 					}
-					if (upos == "NOUN") {
+					if (upos.equals("NOUN")) {
 						addConstructionOccurrence(GrammaticalConstruction.SINGULAR_PERSIAN, token.getStart(), token.getEnd());
-					}
-					if (upos == "VERB") {
-						addConstructionOccurrence(GrammaticalConstruction.SINGULAR_VERB_PERSIAN, token.getStart(), token.getEnd());
-					}				
+					}			
 				}
 				if (feats.contains("Mood=Imp")) {
 					addConstructionOccurrence(GrammaticalConstruction.MOOD_IMP, token.getStart(), token.getEnd());
@@ -200,26 +199,26 @@ class StanzaDocumentParserPersianStrategy extends BasicStanzaDocumentParserStrat
 				}
 				//possibly add check for null upos
 				if (feats.contains("Person=1")) {
-					if (upos == "VERB") {
+					if (upos.equals("VERB")) {
 						addConstructionOccurrence(GrammaticalConstruction.FIRST_PERSON_PERSIAN, token.getStart(), token.getEnd());
 					}
-					else if (upos == "PRON") {
+					else if (upos.equals("PRON")) {
 						addConstructionOccurrence(GrammaticalConstruction.PRONOUNS_PERSONAL, token.getStart(), token.getEnd());	
 					}
 				}
 				if (feats.contains("Person=2")) {
-					if (upos == "VERB") {
+					if (upos.equals("VERB")) {
 						addConstructionOccurrence(GrammaticalConstruction.SECOND_PERSON_PERSIAN, token.getStart(), token.getEnd());
 					}
-					else if (upos == "PRON") {
+					else if (upos.equals("PRON")) {
 						addConstructionOccurrence(GrammaticalConstruction.PRONOUNS_PERSONAL, token.getStart(), token.getEnd());	
 					}
 				}
 				if (feats.contains("Person=3")) {
-					if (upos == "VERB") {
+					if (upos.equals("VERB")){
 						addConstructionOccurrence(GrammaticalConstruction.THIRD_PERSON_PERSIAN, token.getStart(), token.getEnd());
 					}
-					else if (upos == "PRON") {
+					else if (upos.equals("PRON")){
 						addConstructionOccurrence(GrammaticalConstruction.PRONOUNS_PERSONAL, token.getStart(), token.getEnd());	
 					}
 				}
@@ -242,13 +241,13 @@ class StanzaDocumentParserPersianStrategy extends BasicStanzaDocumentParserStrat
 					addConstructionOccurrence(GrammaticalConstruction.TENSE_FUTURE_SIMPLE, token.getStart(), token.getEnd());
 				}
 				if (feats.contains("Number=Plur")) {
-					if (upos == "AUX") {
+					if (upos.equals("AUX")){
 						addConstructionOccurrence(GrammaticalConstruction.PLURAL_VERB_PERSIAN, token.getStart(), token.getEnd());
 					}
-					if (upos == "NOUN") {
+					if (upos.equals("NOUN")){
 						addConstructionOccurrence(GrammaticalConstruction.PLURAL_PERSIAN, token.getStart(), token.getEnd());
 					}
-					if (upos == "VERB") {
+					if (upos.equals("VERB")){
 						addConstructionOccurrence(GrammaticalConstruction.PLURAL_VERB_PERSIAN, token.getStart(), token.getEnd());
 					}
 				}
@@ -298,7 +297,7 @@ class StanzaDocumentParserPersianStrategy extends BasicStanzaDocumentParserStrat
 					for (StanzaToken token : sent) {
 						tokenCount++;
 						String tokenUpos = token.getUpos();
-						if (tokenUpos == null) {
+						if (tokenUpos.equals(null)) {
 							continue;
 						} else if (!tokenUpos.matches("PUNCT|SYM|X")) {
 							wordCount++;
