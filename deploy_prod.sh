@@ -1,3 +1,5 @@
+set -x
+
 logfile="deploy_prod.out"
 rm ${logfile}
 touch ${logfile}
@@ -15,4 +17,4 @@ docker inspect flair 2>&1 >> ${logfile} \
 	&& docker rm flair 2>&1 >> ${logfile}
 
 # run the `flair` container
-docker run -dit -p 8080:8080 -e BING_API=$BING_API --name flair --restart always reynoldsnlp/flair 2>&1 >> ${logfile}
+docker run -dit -p 8080:8080 -e BING_API=$(cat BING_API_KEY) --name flair --restart always reynoldsnlp/flair 2>&1 >> ${logfile}
