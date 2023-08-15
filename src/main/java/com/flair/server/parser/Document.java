@@ -96,11 +96,11 @@ class Document implements AbstractDocument
 			readabilityLevelThreshold_A = 10;
 			readabilityLevelThreshold_B = 20;
 			break;
-		case PERSIAN:  //TODO implement real Flesch-Kincaid coefficients
+		case PERSIAN:  //TODO repair
 			readabilityScoreCalc = Math
-					.ceil(((double) numCharacters / (double) numTokens) + (numTokens / (double) numSentences));
-			readabilityLevelThreshold_A = 10;
-			readabilityLevelThreshold_B = 20;
+					.floor(-((-0.864 * (double) numCharacters / (double) numTokens) + (-1.015 * numTokens / (double) numSentences) + 262.835));
+			readabilityLevelThreshold_A = -70;
+			readabilityLevelThreshold_B = -60;
 			break;
 		case RUSSIAN:  //TODO implement real Flesch-Kincaid coefficients
 			readabilityScoreCalc = Math
