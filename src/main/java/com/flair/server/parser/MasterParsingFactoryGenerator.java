@@ -1,7 +1,7 @@
 /*
  * This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License.
  * To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.
- 
+
  */
 package com.flair.server.parser;
 
@@ -14,7 +14,7 @@ import com.flair.shared.grammar.Language;
 public final class MasterParsingFactoryGenerator
 {	//here we can handle a case for a different parsing strategy
     private MasterParsingFactoryGenerator() {}
-    
+
     public static AbstractDocumentParserFactory createParser(ParserType type, Language lang)
     {
 	switch (type)
@@ -22,24 +22,28 @@ public final class MasterParsingFactoryGenerator
 		case STANFORD_CORENLP:
 			if(lang.toString().equals("ARABIC"))
 				return new StanfordDocumentParserFactory(new ArabicDocumentFactory(), lang);
-			else 
+			else
 				return new StanfordDocumentParserFactory(new DocumentFactory(), lang);
-			default:
-		throw new IllegalArgumentException("Couldn't create parser of type " + type);
+		case STANZA:
+			return new StanzaDocumentParserFactory(new DocumentFactory(), lang);
+		default:
+			throw new IllegalArgumentException("Couldn't create parser of type " + type);
 	}
     }
-    
+
     public static AbstractParsingStrategyFactory createParsingStrategy(ParserType type, Language lang)
     {
 	switch (type)
 	{
 	    case STANFORD_CORENLP:
-		return new StanfordDocumentParserStrategyFactory(lang);
+			return new StanfordDocumentParserStrategyFactory(lang);
+		case STANZA:
+			return new StanzaDocumentParserStrategyFactory(lang);
 	    default:
-		throw new IllegalArgumentException("Couldn't create parsing strategy of type " + type);
+			throw new IllegalArgumentException("Couldn't create parsing strategy of type " + type);
 	}
     }
-    
+
     public static AbstractDocumentKeywordSearcherFactory createKeywordSearcher(KeywordSearcherType type)
     {
 	switch (type)

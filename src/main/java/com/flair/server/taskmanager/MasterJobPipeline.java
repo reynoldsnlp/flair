@@ -1,7 +1,7 @@
 /*
  * This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License.
  * To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.
- 
+
  */
 package com.flair.server.taskmanager;
 
@@ -20,7 +20,7 @@ import com.flair.shared.grammar.Language;
 /**
  * Job scheduler for the web crawling/local parser frameworks
  * Specifies the language to use
- * 
+ *
  * @author shadeMe
  */
 public final class MasterJobPipeline
@@ -54,18 +54,20 @@ public final class MasterJobPipeline
 	private final WebCrawlTask.Executor			webCrawlExecutor;
 	private final DocumentParseTask.Executor	docParseExecutor;
 
+	private final AbstractParsingStrategyFactory	stanfordArabicStrategy;
 	private final AbstractParsingStrategyFactory	stanfordEnglishStrategy;
 	private final AbstractParsingStrategyFactory	stanfordGermanStrategy;
+	private final AbstractParsingStrategyFactory	stanzaPersianStrategy;
 	private final AbstractParsingStrategyFactory	stanfordRussianStrategy;
-	private final AbstractParsingStrategyFactory	stanfordArabicStrategy;
 
 
 	private final AbstractDocumentKeywordSearcherFactory naiveSubstringSearcher;
 
+	private DocumentParserPool	stanfordParserArabicPool;
 	private DocumentParserPool	stanfordParserEnglishPool;
 	private DocumentParserPool	stanfordParserGermanPool;
+	private DocumentParserPool	stanzaParserPersianPool;
 	private DocumentParserPool	stanfordParserRussianPool;
-	private DocumentParserPool	stanfordParserArabicPool;
 
 
 	private MasterJobPipeline()
@@ -75,23 +77,26 @@ public final class MasterJobPipeline
 		this.webCrawlExecutor = WebCrawlTask.getExecutor();
 		this.docParseExecutor = DocumentParseTask.getExecutor();
 
+		this.stanfordArabicStrategy = MasterParsingFactoryGenerator.createParsingStrategy(ParserType.STANFORD_CORENLP,
+				Language.ARABIC);
 		this.stanfordEnglishStrategy = MasterParsingFactoryGenerator.createParsingStrategy(ParserType.STANFORD_CORENLP,
 				Language.ENGLISH);
 		this.stanfordGermanStrategy = MasterParsingFactoryGenerator.createParsingStrategy(ParserType.STANFORD_CORENLP,
 				Language.GERMAN);
+		this.stanzaPersianStrategy = MasterParsingFactoryGenerator.createParsingStrategy(ParserType.STANZA,
+				Language.PERSIAN);
 		this.stanfordRussianStrategy = MasterParsingFactoryGenerator.createParsingStrategy(ParserType.STANFORD_CORENLP,
 				Language.RUSSIAN);
-		this.stanfordArabicStrategy = MasterParsingFactoryGenerator.createParsingStrategy(ParserType.STANFORD_CORENLP,
-				Language.ARABIC);
 
 		this.naiveSubstringSearcher = MasterParsingFactoryGenerator
 				.createKeywordSearcher(KeywordSearcherType.NAIVE_SUBSTRING);
 
 		// lazy initilization
+		this.stanfordParserArabicPool = null;
 		this.stanfordParserGermanPool = null;
 		this.stanfordParserEnglishPool = null;
+		this.stanzaParserPersianPool = null;
 		this.stanfordParserRussianPool = null;
-		this.stanfordParserArabicPool = null;
 	}
 
 	private void shutdown()
@@ -102,26 +107,25 @@ public final class MasterJobPipeline
 	}
 
 	/**
- 	* Selects the corrrect parsing strategy for the corresponding language
- 	* @param lang
- 	* @return language parsing strategy 
- 	*/
+	* Selects the correct parsing strategy for the corresponding language
+	* @param lang
+	* @return language parsing strategy
+	*/
 	private AbstractParsingStrategyFactory getStrategyForLanguage(Language lang)
 	{
+		ServerLogger.get().info("getStrategyForLanguage() " + lang);
 		switch (lang)
 		{
+		case ARABIC:
+			return stanfordArabicStrategy;
 		case ENGLISH:
-		ServerLogger.get().info("getStrategyForLanguage()");
 			return stanfordEnglishStrategy;
 		case GERMAN:
-		ServerLogger.get().info("getStrategyForLanguage()");
 			return stanfordGermanStrategy;
+		case PERSIAN:
+			return stanzaPersianStrategy;
 		case RUSSIAN:
-		ServerLogger.get().info("getStrategyForLanguage()");
 			return stanfordRussianStrategy;
-		case ARABIC:
-		ServerLogger.get().info("getStrategyForLanguage()");
-			return stanfordArabicStrategy;	
 		default:
 			throw new IllegalArgumentException("Language " + lang + " not supported");
 		}
@@ -130,20 +134,26 @@ public final class MasterJobPipeline
 	/**
 	 * Checks language parameter and then creates a parser for the specific language being used
 	 * @param lang
-	 * @return Parser for specific language 
+	 * @return Parser for specific language
 	 */
 	private DocumentParserPool getParserPoolForLanguage(Language lang)
 	{
+		ServerLogger.get().info("getParserPoolForLanguage() " + lang);
 		switch (lang)
 		{
+		case ARABIC:
+			if (stanfordParserArabicPool == null)
+			{
+				stanfordParserArabicPool = new DocumentParserPool(
+						MasterParsingFactoryGenerator.createParser(ParserType.STANFORD_CORENLP, Language.ARABIC));
+			}
+			return stanfordParserArabicPool;
 		case ENGLISH:
 			if (stanfordParserEnglishPool == null)
 			{
 				stanfordParserEnglishPool = new DocumentParserPool(
 						MasterParsingFactoryGenerator.createParser(ParserType.STANFORD_CORENLP, Language.ENGLISH));
 			}
-
-		ServerLogger.get().info("getParserPoolForLanguage()");
 			return stanfordParserEnglishPool;
 		case GERMAN:
 			if (stanfordParserGermanPool == null)
@@ -151,27 +161,21 @@ public final class MasterJobPipeline
 				stanfordParserGermanPool = new DocumentParserPool(
 						MasterParsingFactoryGenerator.createParser(ParserType.STANFORD_CORENLP, Language.GERMAN));
 			}
-
-		ServerLogger.get().info("getParserPoolForLanguage()");
 			return stanfordParserGermanPool;
+		case PERSIAN:
+			if (stanzaParserPersianPool == null)
+			{
+				stanzaParserPersianPool = new DocumentParserPool(
+						MasterParsingFactoryGenerator.createParser(ParserType.STANZA, Language.PERSIAN));
+			}
+			return stanzaParserPersianPool;
 		case RUSSIAN:
 			if (stanfordParserRussianPool == null)
 			{
 				stanfordParserRussianPool = new DocumentParserPool(
 						MasterParsingFactoryGenerator.createParser(ParserType.STANFORD_CORENLP, Language.RUSSIAN));
 			}
-
-		ServerLogger.get().info("getParserPoolForLanguage()");
-			return stanfordParserRussianPool;	
-		case ARABIC:
-			if (stanfordParserArabicPool == null)
-			{
-				stanfordParserArabicPool = new DocumentParserPool(
-						MasterParsingFactoryGenerator.createParser(ParserType.STANFORD_CORENLP, Language.ARABIC));
-			}	
-
-		ServerLogger.get().info("getParserPoolForLanguage()");
-			return stanfordParserArabicPool;	
+			return stanfordParserRussianPool;
 		default:
 			throw new IllegalArgumentException("Language " + lang + " not supported");
 		}
@@ -197,12 +201,12 @@ public final class MasterJobPipeline
 			getStrategyForLanguage(lang),
 			naiveSubstringSearcher,
 			keywords);
-			newOp = new SearchCrawlParseOperationImpl(jobParams);	
+			newOp = new SearchCrawlParseOperationImpl(jobParams);
 		} catch(Exception ex) {
 			ServerLogger.get().info("Failed in doSearchCrawlParse on exception " + ex.getMessage());
 			return newOp;
 		}
-		
+
 		ServerLogger.get().info("End of doSearchCrawlParse()");
 		return newOp;
 	}

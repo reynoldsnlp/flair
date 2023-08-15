@@ -38,6 +38,12 @@ class BingSearchAgent extends CachingSearchAgent
 		"Mawdoo3.com",
 		"Hindawi.org",
 	};
+	private static final String[] WEBSITES_PERSIAN = new String[]{
+		"bbc.com/persian",
+		"fa.wikipedia.org",
+		"farsi.iranpress.com",
+		"entekhab.ir",
+	};
 
 	private final AzureWebSearch pipeline;
 
@@ -50,11 +56,12 @@ class BingSearchAgent extends CachingSearchAgent
 			if(!isKeySet) {
 				ServerLogger.get().info("Setting PROD_API_KEY");
 				PROD_API_KEY = System.getenv("BING_API");
+				ServerLogger.get().info("PROD_API_KEY is set to " + PROD_API_KEY.substring(0, 5) + "..." );
 				if(PROD_API_KEY == null) throw new Exception("BING_API environment variable not found");
 				isKeySet = true;
 			}
 			else {
-				throw new Exception();
+				ServerLogger.get().warn("PROD_API_KEY already set!");
 			}
 		}
 		catch(SecurityException ex) {
@@ -84,11 +91,17 @@ class BingSearchAgent extends CachingSearchAgent
 				qPostfix = " language:ar";
 				market = "ar-SA";
 				break;
+			case PERSIAN:
+				qPostfix = " language:fa";
+				market = "fa-FA";
+				break;
 			default:
+				ServerLogger.get().error("Unsupported language: " + lang);
 				throw new IllegalArgumentException("Unsupported language " + lang);
 		}
 
 		String totalQueryString = query + qPostfix;
+		ServerLogger.get().info("query string: " + totalQueryString);
 
 		if(this.useRestrictedDomains){
 			String[] websitesToSearch;
@@ -98,6 +111,9 @@ class BingSearchAgent extends CachingSearchAgent
 					break;
 				case ARABIC:
 					websitesToSearch = WEBSITES_ARABIC;
+					break;
+				case PERSIAN:
+					websitesToSearch = WEBSITES_PERSIAN;
 					break;
 				default:
 					ServerLogger.get().info("usePresetWebsites was set to true but no list of domains was found for the selected language");

@@ -30,6 +30,9 @@ public class DefaultVocabularyList
 		case ARABIC:
 			// ### TODO add an academic word list for arabic
 			return new ArrayList<>();
+		case PERSIAN:
+			// ### TODO add an academic word list for Persian
+			return new ArrayList<>();
 		default:
 			throw new IllegalArgumentException("Invalid language " + lang);
 		}

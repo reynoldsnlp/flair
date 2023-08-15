@@ -1,18 +1,16 @@
 FROM maven:3-jdk-8
 
+
 RUN apt-get -y update \
     && apt-get -y upgrade \
     && apt-get install -y apt-utils lsb-release python3 python3-pip \
     && python3 -m pip install gdown
 
-RUN git clone https://github.com/reynoldsnlp/flair.git /opt/flair \
-	&& cd /opt/flair \
-	&& git checkout russian2
-
+COPY pom.xml /opt/flair/pom.xml
 WORKDIR /opt/flair
 
 # add russian corenlp model
-RUN mkdir src/main/webapp/WEB-INF/lib \
+RUN mkdir -p src/main/webapp/WEB-INF/lib \
     && gdown https://drive.google.com/uc?id=1_0oU8BOiYCqHvItSsz0BjJnSNp8PRWlC \
        -O src/main/webapp/WEB-INF/lib/stanford-corenlp-russian-models-master-SNAPSHOT.jar \
     && mvn install:install-file \

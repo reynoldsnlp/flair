@@ -1,0 +1,204 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui"
+	xmlns:flair="urn:import:com.flair.client.presentation.widgets">
+	
+	<g:HTMLPanel ui:field="pnlRootUI">
+		<flair:GrammaticalConstructionPanel accordion="true">			
+			<!-- Sentences -->
+			<flair:GrammaticalConstructionPanelItem ui:field="pnlSentencesUI" text="sentences" iconType="EXPAND_MORE">
+				<flair:GrammaticalConstructionPanel accordion="true" popout="false">
+					<!-- Questions -->
+					<flair:GrammaticalConstructionPanelItem ui:field="pnlQuestionsUI" text="questions" iconType="EXPAND_MORE">
+						<flair:GrammaticalConstructionWeightSlider gram="QUESTIONS_PERSIAN" parentLanguage="PERSIAN"/>
+						
+						<flair:GrammaticalConstructionWeightSlider gram="QUESTIONS_KOJA" parentLanguage="PERSIAN"/>
+						
+						<flair:GrammaticalConstructionWeightSlider gram="QUESTIONS_KE" parentLanguage="PERSIAN"/>
+						
+						<flair:GrammaticalConstructionWeightSlider gram="QUESTIONS_KODOM" parentLanguage="PERSIAN"/>
+						
+						<flair:GrammaticalConstructionWeightSlider gram="QUESTIONS_CHE" parentLanguage="PERSIAN"/>
+						
+						<flair:GrammaticalConstructionWeightSlider gram="QUESTIONS_CHETOR" parentLanguage="PERSIAN"/>
+												
+						<flair:GrammaticalConstructionWeightSlider gram="QUESTIONS_CHERA" parentLanguage="PERSIAN"/>
+
+						<flair:GrammaticalConstructionWeightSlider gram="QUESTIONS_AYA" parentLanguage="PERSIAN"/>
+					</flair:GrammaticalConstructionPanelItem>
+					
+					<!-- Sentence Types -->
+					<flair:GrammaticalConstructionPanelItem ui:field="pnlSentenceTypesUI" text="sentence types" iconType="EXPAND_MORE">
+						<flair:GrammaticalConstructionWeightSlider gram="SENTENCE_SIMPLE" parentLanguage="PERSIAN"/>
+						
+						<flair:GrammaticalConstructionWeightSlider gram="SENTENCE_COMPOUND" parentLanguage="PERSIAN"/>
+					</flair:GrammaticalConstructionPanelItem>
+					
+					<!-- Clause Types -->
+					<flair:GrammaticalConstructionPanelItem ui:field="pnlClauseTypesUI" text="clause types" iconType="EXPAND_MORE">
+						<flair:GrammaticalConstructionWeightSlider gram="CLAUSE_RELATIVE" parentLanguage="PERSIAN"/>
+						
+						<flair:GrammaticalConstructionWeightSlider gram="CLAUSE_SUBORDINATE" parentLanguage="PERSIAN"/>
+					</flair:GrammaticalConstructionPanelItem>
+				</flair:GrammaticalConstructionPanel>
+			</flair:GrammaticalConstructionPanelItem>
+			
+			<!-- Parts of Speech -->
+			<flair:GrammaticalConstructionPanelItem ui:field="pnlPartsOfSpeechUI" text="parts of speech" iconType="EXPAND_MORE">
+				<flair:GrammaticalConstructionPanel accordion="true" popout="false">
+					<!-- Verbs -->
+					<flair:GrammaticalConstructionPanelItem ui:field="pnlVerbsUI" text="verbs" iconType="EXPAND_MORE">
+						<flair:GrammaticalConstructionPanel accordion="true" popout="false">
+							<!-- Verb Form -->
+							<flair:GrammaticalConstructionPanelItem ui:field="pnlVerbFormsUI" text="verb forms" iconType="EXPAND_MORE">
+
+								<flair:GrammaticalConstructionWeightSlider gram="VERBFORM_ADJ" parentLanguage="PERSIAN"/>
+								
+								<flair:GrammaticalConstructionWeightSlider gram="VERBFORM_AUX" parentLanguage="PERSIAN"/>
+								
+								<flair:GrammaticalConstructionWeightSlider gram="VERBFORM_FINITE_PERSIAN" parentLanguage="PERSIAN"/>
+								
+								<flair:GrammaticalConstructionWeightSlider gram="VERBFORM_INFINITIVE_PERSIAN" parentLanguage="PERSIAN"/>
+								
+								<flair:GrammaticalConstructionWeightSlider gram="VERBFORM_PRESENT_PARTICIPLE_PERSIAN" parentLanguage="PERSIAN"/>
+
+								<flair:GrammaticalConstructionWeightSlider gram="VERBFORM_NEG" parentLanguage="PERSIAN"/>
+							</flair:GrammaticalConstructionPanelItem>			
+			
+							<!-- Tenses & Person -->
+							<flair:GrammaticalConstructionPanelItem ui:field="pnlTensesAndPersonUI" text="tenses and person" iconType="EXPAND_MORE">
+								<flair:GrammaticalConstructionPanel accordion="true" popout="false">
+									<!-- Tenses -->
+									<flair:GrammaticalConstructionPanelItem ui:field="pnlTensesUI" text="tenses" iconType="EXPAND_MORE">
+										<flair:GrammaticalConstructionWeightSlider gram="TENSE_PRESENT_SIMPLE" parentLanguage="PERSIAN"/>
+										
+										<flair:GrammaticalConstructionWeightSlider gram="TENSE_PAST_SIMPLE" parentLanguage="PERSIAN"/>
+										
+										<flair:GrammaticalConstructionWeightSlider gram="TENSE_PAST_PROGRESSIVE" parentLanguage="PERSIAN"/>
+										
+										<flair:GrammaticalConstructionWeightSlider gram="TENSE_FUTURE_SIMPLE" parentLanguage="PERSIAN"/>
+									</flair:GrammaticalConstructionPanelItem>
+
+									<!-- Person -->
+									<flair:GrammaticalConstructionPanelItem ui:field="pnlPersonUI" text="tenses" iconType="EXPAND_MORE">
+										<flair:GrammaticalConstructionWeightSlider gram="FIRST_PERSON_PERSIAN" parentLanguage="PERSIAN"/>
+										
+										<flair:GrammaticalConstructionWeightSlider gram="SECOND_PERSON_PERSIAN" parentLanguage="PERSIAN"/>
+										
+										<flair:GrammaticalConstructionWeightSlider gram="THIRD_PERSON_PERSIAN" parentLanguage="PERSIAN"/>
+
+										<flair:GrammaticalConstructionWeightSlider gram="PLURAL_VERB_PERSIAN" parentLanguage="PERSIAN"/>
+
+										<flair:GrammaticalConstructionWeightSlider gram="SINGULAR_PERSIAN" parentLanguage="PERSIAN"/>
+									</flair:GrammaticalConstructionPanelItem>
+								</flair:GrammaticalConstructionPanel>
+							</flair:GrammaticalConstructionPanelItem>
+
+							<!-- Mood -->
+							<flair:GrammaticalConstructionPanelItem ui:field="pnlMoodUI" text="mood" iconType="EXPAND_MORE">
+								<flair:GrammaticalConstructionWeightSlider gram="MOOD_IMP" parentLanguage="PERSIAN"/>
+								
+								<flair:GrammaticalConstructionWeightSlider gram="MOOD_SUB" parentLanguage="PERSIAN"/>
+							</flair:GrammaticalConstructionPanelItem>
+							
+							<!-- Imperative -->
+							<flair:GrammaticalConstructionPanelItem ui:field="pnlImperativeUI" text="imperatives" iconType="EXPAND_MORE">								
+								<flair:GrammaticalConstructionWeightSlider gram="IMPERATIVES" parentLanguage="PERSIAN"/>
+							</flair:GrammaticalConstructionPanelItem>
+						</flair:GrammaticalConstructionPanel>
+					</flair:GrammaticalConstructionPanelItem>
+					
+					<!-- Quantifiers -->
+					<flair:GrammaticalConstructionPanelItem ui:field="pnlQuantifiersUI" text="quantifiers" iconType="EXPAND_MORE">
+						<flair:GrammaticalConstructionWeightSlider gram="DETERMINER_HAR" parentLanguage="PERSIAN"/>
+
+						<flair:GrammaticalConstructionWeightSlider gram="DETERMINER_CHAND" parentLanguage="PERSIAN"/>
+
+						<flair:GrammaticalConstructionWeightSlider gram="DETERMINER_HICH" parentLanguage="PERSIAN"/>
+
+						<flair:GrammaticalConstructionWeightSlider gram="DETERMINER_ZIAD" parentLanguage="PERSIAN"/>
+
+						<flair:GrammaticalConstructionWeightSlider gram="DETERMINER_OTHER" parentLanguage="PERSIAN"/>
+					</flair:GrammaticalConstructionPanelItem>
+					
+					<!-- Adjectives -->
+					<flair:GrammaticalConstructionPanelItem ui:field="pnlAdjectivesUI" text="adjectives" iconType="EXPAND_MORE">
+						<flair:GrammaticalConstructionPanel accordion="true" popout="false">
+							<!-- Degree -->
+							<flair:GrammaticalConstructionPanelItem ui:field="pnlDegreeUI" text="degree" iconType="EXPAND_MORE">
+									<flair:GrammaticalConstructionWeightSlider gram="ADJECTIVE_POSITIVE_PERSIAN" parentLanguage="PERSIAN"/>
+									
+									<flair:GrammaticalConstructionWeightSlider gram="ADJECTIVE_COMPARATIVE_PERSIAN" parentLanguage="PERSIAN"/>
+									
+									<flair:GrammaticalConstructionWeightSlider gram="ADJECTIVE_SUPERLATIVE_PERSIAN" parentLanguage="PERSIAN"/>
+							</flair:GrammaticalConstructionPanelItem>
+
+							<!-- Polarity -->
+							<flair:GrammaticalConstructionPanelItem ui:field="pnlPolarityAdjUI" text="polarity" iconType="EXPAND_MORE">
+									<flair:GrammaticalConstructionWeightSlider gram="ADJECTIVE_NEG" parentLanguage="PERSIAN"/>
+							</flair:GrammaticalConstructionPanelItem>
+						</flair:GrammaticalConstructionPanel>
+					</flair:GrammaticalConstructionPanelItem>
+					
+					<!-- Adverbs -->
+					<flair:GrammaticalConstructionPanelItem ui:field="pnlAdverbsUI" text="adverbs" iconType="EXPAND_MORE">
+						<flair:GrammaticalConstructionWeightSlider gram="ADVERB_PERSIAN" parentLanguage="PERSIAN"/>
+
+						<flair:GrammaticalConstructionWeightSlider gram="ADVERB_NEGATIVE" parentLanguage="PERSIAN"/>
+						
+						<flair:GrammaticalConstructionWeightSlider gram="ADVERB_LOCATIONAL" parentLanguage="PERSIAN"/>
+						
+						<flair:GrammaticalConstructionWeightSlider gram="ADVERB_TEMPORAL" parentLanguage="PERSIAN"/>
+					</flair:GrammaticalConstructionPanelItem>
+					
+					<!-- Pronouns -->
+					<flair:GrammaticalConstructionPanelItem ui:field="pnlPronounsUI" text="pronouns" iconType="EXPAND_MORE">
+						<flair:GrammaticalConstructionWeightSlider gram="PRONOUNS_DEMONSTRATIVE" parentLanguage="PERSIAN"/>
+						
+						<flair:GrammaticalConstructionWeightSlider gram="PRONOUNS_INDEFINITE" parentLanguage="PERSIAN"/>
+
+						<flair:GrammaticalConstructionWeightSlider gram="PRONOUNS_INTERROGATIVE" parentLanguage="PERSIAN"/>
+
+						<flair:GrammaticalConstructionWeightSlider gram="PRONOUNS_NEGATIVE" parentLanguage="PERSIAN"/>
+
+						<flair:GrammaticalConstructionWeightSlider gram="PRONOUNS_PERSONAL" parentLanguage="PERSIAN"/>
+
+						<flair:GrammaticalConstructionWeightSlider gram="PRONOUNS_RECIPROCAL" parentLanguage="PERSIAN"/>
+
+						<flair:GrammaticalConstructionWeightSlider gram="PRONOUNS_REFLEXIVE_PERSIAN" parentLanguage="PERSIAN"/>
+
+						<flair:GrammaticalConstructionWeightSlider gram="PRONOUNS_RELATIVE" parentLanguage="PERSIAN"/>
+					
+						<flair:GrammaticalConstructionWeightSlider gram="PRONOUNS_TOT" parentLanguage="PERSIAN"/>
+					</flair:GrammaticalConstructionPanelItem>
+
+					<!-- Numbers -->
+					<flair:GrammaticalConstructionPanelItem ui:field="pnlNumbersUI" text="numbers" iconType="EXPAND_MORE">
+						<flair:GrammaticalConstructionWeightSlider gram="NUMBERS_CARDINAL_PERSIAN" parentLanguage="PERSIAN"/>
+						
+						<flair:GrammaticalConstructionWeightSlider gram="NUMBERS_ORDINAL_PERSIAN" parentLanguage="PERSIAN"/>
+					</flair:GrammaticalConstructionPanelItem>
+					
+					<!-- Colloquial Conjunctions -->
+					<flair:GrammaticalConstructionPanelItem ui:field="pnlConjunctionsUI" text="conjunctions" iconType="EXPAND_MORE">
+						<flair:GrammaticalConstructionWeightSlider gram="CONJUNCTIONS_SIMPLE" parentLanguage="PERSIAN"/>
+						
+						<flair:GrammaticalConstructionWeightSlider gram="CONJUNCTIONS_ADVANCED" parentLanguage="PERSIAN"/>
+					</flair:GrammaticalConstructionPanelItem>
+					
+					<!-- Prepositions -->
+					<flair:GrammaticalConstructionPanelItem ui:field="pnlPrepositionsUI" text="prepositions" iconType="EXPAND_MORE">
+						<flair:GrammaticalConstructionWeightSlider gram="PREPOSITIONS" parentLanguage="PERSIAN"/>
+					</flair:GrammaticalConstructionPanelItem>
+					
+					<!-- Nouns -->
+					<flair:GrammaticalConstructionPanelItem ui:field="pnlNounsUI" text="nouns" iconType="EXPAND_MORE">
+						<flair:GrammaticalConstructionWeightSlider gram="PLURAL_PERSIAN" parentLanguage="PERSIAN"/>
+
+						<flair:GrammaticalConstructionWeightSlider gram="SINGULAR_PERSIAN" parentLanguage="PERSIAN"/>
+					</flair:GrammaticalConstructionPanelItem>
+				</flair:GrammaticalConstructionPanel>
+			</flair:GrammaticalConstructionPanelItem>	
+		</flair:GrammaticalConstructionPanel>
+	</g:HTMLPanel>
+</ui:UiBinder> 

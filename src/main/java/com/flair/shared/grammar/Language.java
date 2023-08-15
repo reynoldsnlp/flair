@@ -15,6 +15,7 @@ public enum Language
     GERMAN,
     RUSSIAN,
     ARABIC,
+    PERSIAN,
     TEST,	//useful for unit tests
     ;
     
@@ -28,6 +29,8 @@ public enum Language
             return RUSSIAN;
         else if (lang.equalsIgnoreCase(ARABIC.name()))
     		return ARABIC;
+        else if (lang.equalsIgnoreCase(PERSIAN.name()))
+            return PERSIAN;
         else if (lang.equalsIgnoreCase(TEST.name()))
     		return TEST;
     	else

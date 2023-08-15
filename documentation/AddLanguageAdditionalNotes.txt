@@ -1,4 +1,5 @@
 To add a new language to the front end:
+-In com/flair/client/
 -Add a new ConstructionSliderBundle<Language> class to the package com.flair.client.presentation.widgets.sliderbundles
 	Format it like the others already there, with needed changes
 -Add a corresponding .xml file to the same package, again copying the other similar .xml files

@@ -33,6 +33,11 @@
 	</dependencyManagement>
 	<dependencies>
 		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-text</artifactId>
+			<version>1.10.0</version>
+		</dependency>
+		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpcore</artifactId>
 			<version>4.4.6</version>
@@ -46,6 +51,12 @@
 			<groupId>net.sourceforge.nekohtml</groupId>
 			<artifactId>nekohtml</artifactId>
 			<version>1.9.22</version>
+		</dependency>
+		<dependency>
+		      <groupId>com.google.code.gson</groupId>
+		      <artifactId>gson</artifactId>
+		      <version>2.10.1</version>
+		      <scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.google.gwt</groupId>
@@ -134,6 +145,12 @@
 			<version>3.9.2</version>
 			<classifier>models-german</classifier>
 		</dependency>
+		<!-- for HuggingFace models: https://mvnrepository.com/artifact/ai.djl/api -->
+		<dependency>
+    		<groupId>ai.djl</groupId>
+    		<artifactId>api</artifactId>
+    		<version>0.21.0</version>
+		</dependency>
 		<!-- HFST dependencies -->
 		<dependency>
 			<groupId>fi.seco</groupId>
@@ -183,7 +200,7 @@
 			<plugin>
 				<version>3.2.3</version>
 				<artifactId>maven-war-plugin</artifactId>
-				<!-- runs war:exploded with the mvn install goal, comment out <executions>...</executions> below to 
+				<!-- runs war:exploded with the mvn install goal, comment out <executions>...</executions> below to
 				compile a .war file -->
 				<executions>
                     <execution>
@@ -270,7 +287,7 @@
          			<!--<threadCount>2</threadCount>-->
 					<!--comment line below to include integration tests-->
 					<excludedGroups>type.IntegrationTest</excludedGroups>
-					
+
     			</configuration>
         	</plugin>
 		</plugins>
