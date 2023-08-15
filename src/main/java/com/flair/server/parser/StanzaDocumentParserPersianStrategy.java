@@ -188,7 +188,6 @@ class StanzaDocumentParserPersianStrategy extends BasicStanzaDocumentParserStrat
 						break;
 					case "CCONJ":
 						addConstructionOccurrence(GrammaticalConstruction.SENTENCE_COMPOUND, tokStart, tokEnd);
-						addConstructionOccurrence(GrammaticalConstruction.CLAUSE_RELATIVE, tokStart, tokEnd);
 						break;
 					case "DET":
 						addConstructionOccurrence(GrammaticalConstruction.DETERMINER_OTHER, tokStart, tokEnd);
@@ -230,6 +229,8 @@ class StanzaDocumentParserPersianStrategy extends BasicStanzaDocumentParserStrat
 							}
 							if (feats.contains("Rel")) {
 								addConstructionOccurrence(GrammaticalConstruction.PRONOUNS_RELATIVE, tokStart,
+										tokEnd);
+								addConstructionOccurrence(GrammaticalConstruction.CLAUSE_RELATIVE, tokStart,
 										tokEnd);
 							}
 							if (feats.contains("Tot")) {
