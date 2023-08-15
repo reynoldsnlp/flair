@@ -1,35 +1,46 @@
 package com.flair.server.grammar;
 
 import java.util.regex.Pattern;
+
+import com.flair.shared.grammar.GrammaticalConstruction;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class PersianGrammaticalPatterns {
 
-    //Question Words
-    private static final String STR_QUESTION_WORDS = "/کجا|کی|کدم|چه|چطور|چرا|آیا|/";
-    public static final Pattern patternQuestionWords = Pattern.compile(STR_QUESTION_WORDS);
-    private static final String STR_KOJA = "کجا";
-    public static final Pattern patternKoja = Pattern.compile(STR_KOJA);
-    private static final String STR_KE = "کی";
-    public static final Pattern patternKe = Pattern.compile(STR_KE);
-    private static final String STR_KODOM = "کدم";
-    public static final Pattern patternKodom = Pattern.compile(STR_KODOM);
-    private static final String STR_CHE = "چه";
-    public static final Pattern patternChe = Pattern.compile(STR_CHE);
-    private static final String STR_CHETOR = "چطور";
-    public static final Pattern patternChetor = Pattern.compile(STR_CHETOR);
-    private static final String STR_CHERA = "چرا";
-    public static final Pattern patternChera = Pattern.compile(STR_CHERA);
-    private static final String STR_QUEST_TAG = "آیا";
-    public static final Pattern patternQuestTag = Pattern.compile(STR_QUEST_TAG);
+    // Lemma matching
+    public static final Map<String, GrammaticalConstruction[]> lemmaMap = createLemmaMap();
 
-    //Quantifiers
-    private static final String STR_QUANT = "/هر|چند|هیچ|زیاد/";
-    public static final Pattern patternQuant = Pattern.compile(STR_QUANT);
+    private static HashMap<String, GrammaticalConstruction[]> createLemmaMap() {
+        HashMap<String, GrammaticalConstruction[]> lemmas = new HashMap<String, GrammaticalConstruction[]>();
+        lemmas.put("کجا", new GrammaticalConstruction[] { GrammaticalConstruction.QUESTIONS_KOJA,
+                GrammaticalConstruction.QUESTIONS_PERSIAN });
+        lemmas.put("کی", new GrammaticalConstruction[] { GrammaticalConstruction.QUESTIONS_KE,
+                GrammaticalConstruction.QUESTIONS_PERSIAN });
+        lemmas.put("کدم", new GrammaticalConstruction[] { GrammaticalConstruction.QUESTIONS_KODOM,
+                GrammaticalConstruction.QUESTIONS_PERSIAN });
+        lemmas.put("چه", new GrammaticalConstruction[] { GrammaticalConstruction.QUESTIONS_CHE,
+                GrammaticalConstruction.QUESTIONS_PERSIAN });
+        lemmas.put("چطور", new GrammaticalConstruction[] { GrammaticalConstruction.QUESTIONS_CHETOR,
+                GrammaticalConstruction.QUESTIONS_PERSIAN });
+        lemmas.put("چرا", new GrammaticalConstruction[] { GrammaticalConstruction.QUESTIONS_CHERA,
+                GrammaticalConstruction.QUESTIONS_PERSIAN });
+        lemmas.put("آیا", new GrammaticalConstruction[] { GrammaticalConstruction.QUESTIONS_AYA,
+                GrammaticalConstruction.QUESTIONS_PERSIAN });
+        lemmas.put("هر", new GrammaticalConstruction[] { GrammaticalConstruction.DETERMINER_HAR });
+        lemmas.put("چند", new GrammaticalConstruction[] { GrammaticalConstruction.DETERMINER_CHAND });
+        lemmas.put("هیچ", new GrammaticalConstruction[] { GrammaticalConstruction.DETERMINER_HICH });
+        lemmas.put("زیاد", new GrammaticalConstruction[] { GrammaticalConstruction.DETERMINER_ZIAD });
+        return lemmas;
+    }
 
-    //Adverbs
+
+    // Adverbs
     private static final String STR_ADV = "ADV";
     public static final Pattern patternAdv = Pattern.compile(STR_ADV);
 
-    //Degree
+    // Degree
     private static final String STR_CMP = "Degree=Cmp";
     public static final Pattern patternCmp = Pattern.compile(STR_CMP);
     private static final String STR_POS = "Degree=Pos";
@@ -37,7 +48,7 @@ public class PersianGrammaticalPatterns {
     private static final String STR_SUP = "Degree=Sup";
     public static final Pattern patternSup = Pattern.compile(STR_SUP);
 
-    //Pronouns
+    // Pronouns
     private static final String STR_PRON = "PRON";
     public static final Pattern patternPron = Pattern.compile(STR_PRON);
     private static final String STR_DEM = "PronType=Dem";
@@ -50,20 +61,20 @@ public class PersianGrammaticalPatterns {
     public static final Pattern patternNegPron = Pattern.compile(STR_NEG_PRON);
     private static final String STR_PRS = "PronType=Prs";
     public static final Pattern patternPrs = Pattern.compile(STR_PRS);
-    private static final String STR_RCP = "PronType=RCP";
+    private static final String STR_RCP = "PronType=Rcp";
     public static final Pattern patternRcp = Pattern.compile(STR_RCP);
     private static final String STR_REL = "PronType=Rel";
     public static final Pattern patternRel = Pattern.compile(STR_REL);
     private static final String STR_TOT = "PronType=Tot";
     public static final Pattern patternTot = Pattern.compile(STR_TOT);
 
-    //Mood
+    // Mood
     private static final String STR_MOOD_IMP = "Mood=Imp";
     public static final Pattern patternMoodImp = Pattern.compile(STR_MOOD_IMP);
     private static final String STR_MOOD_SUBJ = "Mood=Sub";
     public static final Pattern patternMoodSubj = Pattern.compile(STR_MOOD_SUBJ);
 
-    //Number
+    // Number
     private static final String STR_SING = "Number=Sing";
     public static final Pattern patternSing = Pattern.compile(STR_SING);
     private static final String STR_PLUR = "Number=Plur";
@@ -73,7 +84,7 @@ public class PersianGrammaticalPatterns {
     private static final String STR_ORD = "NumType=Ord";
     public static final Pattern patternOrd = Pattern.compile(STR_ORD);
 
-    //Tense
+    // Tense
     private static final String STR_PRES = "Tense=Pres";
     public static final Pattern patternPres = Pattern.compile(STR_PRES);
     private static final String STR_PAST = "Tense=Past";
@@ -81,12 +92,21 @@ public class PersianGrammaticalPatterns {
     private static final String STR_FUT = "Tense=Fut";
     public static final Pattern patternFut = Pattern.compile(STR_FUT);
 
-    //Verb Forms
-    private static final String STR_AUX = "​​";
+    // Verb Forms
+    private static final String STR_AUX = "​V_AUX";
     public static final Pattern patternAux = Pattern.compile(STR_AUX);
-    //decide whether to add all possible sub-trees of verb forms
+    private static final String STR_IMP = "V_IMP";
+    public static final Pattern patternImp = Pattern.compile(STR_IMP);
+    private static final String STR_V_PASTPART = "V_PP";
+    public static final Pattern patternVPP = Pattern.compile(STR_V_PASTPART);
+    private static final String STR_V_FIN = "V_FIN";
+    public static final Pattern patternVFin = Pattern.compile(STR_V_FIN);
+    private static final String STR_V_SUB = "V_SUB";
+    public static final Pattern patternVSub = Pattern.compile(STR_V_SUB);
 
-    //Person
+    // decide whether to add all possible sub-trees of verb forms
+
+    // Person
     private static final String STR_FIRST = "Person=1";
     public static final Pattern patternFirst = Pattern.compile(STR_FIRST);
     private static final String STR_SEC = "Person=2";
@@ -94,15 +114,16 @@ public class PersianGrammaticalPatterns {
     private static final String STR_THIRD = "Person=3";
     public static final Pattern patternThird = Pattern.compile(STR_THIRD);
 
-    //Polarity
+    // Polarity
     private static final String STR_NEG_POL = "Polarity=Neg";
     public static final Pattern patternNegPol = Pattern.compile(STR_NEG_POL);
+    private static final String STR_POS_POL = "Polarity=Pos";
+    public static final Pattern patternPosPol = Pattern.compile(STR_POS_POL);
 
-    //Reflexive
+    // Reflexive
     private static final String STR_REFL = "Reflex=Yes";
     public static final Pattern patternRefl = Pattern.compile(STR_REFL);
-    //possibly distinguish between negative verbs and negative pronouns/dets? This would be easier to do in a function in the parser doc
-
-
+    // possibly distinguish between negative verbs and negative pronouns/dets? This
+    // would be easier to do in a function in the parser doc
 
 }

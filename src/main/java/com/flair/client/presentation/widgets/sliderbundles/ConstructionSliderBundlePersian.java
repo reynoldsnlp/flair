@@ -24,9 +24,10 @@ public class ConstructionSliderBundlePersian extends LanguageSpecificConstructio
     
     private static ConstructionSliderBundlePersianLocalizationBinder localeBinder = GWT.create(ConstructionSliderBundlePersianLocalizationBinder.class);
     interface ConstructionSliderBundlePersianLocalizationBinder extends LocalizationBinder<ConstructionSliderBundlePersian> {}
-         
+    
+
     @UiField
-    HTMLPanel		pnlRootUI;
+    HTMLPanel									pnlRootUI;
     
     @UiField
     @LocalizedField
@@ -51,34 +52,19 @@ public class ConstructionSliderBundlePersian extends LanguageSpecificConstructio
     GrammaticalConstructionPanelItem			pnlVerbFormsUI;
     @UiField
     @LocalizedField
+    GrammaticalConstructionPanelItem			pnlTensesAndPersonUI;
+    @UiField
+    @LocalizedField
     GrammaticalConstructionPanelItem			pnlTensesUI;
     @UiField
     @LocalizedField
-    GrammaticalConstructionPanelItem			pnlAspectUI;
+    GrammaticalConstructionPanelItem			pnlPersonUI;
     @UiField
     @LocalizedField
-    GrammaticalConstructionPanelItem			pnlTimeUI;
-    @UiField
-    @LocalizedField
-    GrammaticalConstructionPanelItem			pnlVoiceUI;
-    @UiField
-    @LocalizedField
-    GrammaticalConstructionPanelItem			pnlPhrasalUI;
-    @UiField
-    @LocalizedField
-    GrammaticalConstructionPanelItem			pnlModalUI;
-    @UiField
-    @LocalizedField
-    GrammaticalConstructionPanelItem			pnlTransitiveUI;
+    GrammaticalConstructionPanelItem			pnlMoodUI;
     @UiField
     @LocalizedField
     GrammaticalConstructionPanelItem			pnlImperativeUI;
-    @UiField
-    @LocalizedField
-    GrammaticalConstructionPanelItem			pnlNegationUI;
-    @UiField
-    @LocalizedField
-    GrammaticalConstructionPanelItem			pnlArticlesUI;
     @UiField
     @LocalizedField
     GrammaticalConstructionPanelItem			pnlQuantifiersUI;
@@ -87,10 +73,16 @@ public class ConstructionSliderBundlePersian extends LanguageSpecificConstructio
     GrammaticalConstructionPanelItem			pnlAdjectivesUI;
     @UiField
     @LocalizedField
+    GrammaticalConstructionPanelItem			pnlDegreeUI;
+    @UiField
+    @LocalizedField
     GrammaticalConstructionPanelItem			pnlAdverbsUI;
     @UiField
     @LocalizedField
     GrammaticalConstructionPanelItem			pnlPronounsUI;
+    @UiField
+    @LocalizedField
+    GrammaticalConstructionPanelItem			pnlNumbersUI;
     @UiField
     @LocalizedField
     GrammaticalConstructionPanelItem			pnlConjunctionsUI;
@@ -110,6 +102,3 @@ public class ConstructionSliderBundlePersian extends LanguageSpecificConstructio
         setRootContainer(pnlRootUI);
     }
 }
-
-
-

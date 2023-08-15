@@ -20,7 +20,96 @@ publications on ongoing work.
 }
 ```
 
-## Installation 
+#### Citing Arabic module
+
+@mastersthesis{hveem2019raft,
+  author={Hveem, Joshua},
+  title={RAFT: Readable Arabic Finding Tool},
+  school={{B}righam {Y}oung {U}niversity},
+  year={2019}
+}
+
+## Installation
+
+### Bing API
+
+FLAIR utilizes the Bing search API. In order to access Bing's services, you
+must create an account with Microsoft Azure. You can sign up for a free
+Microsoft account here
+https://azure.microsoft.com/en-us/services/cognitive-services/bing-web-search-api/.
+This account will provide you with many service options. For this project you
+must create a Cognitive Services resource.
+
+There are multiple ways of storing this API key. FLAIR is expecting the API key
+to be stored in an environment variable called `BING_API`. If you intend to use
+`docker` (recommended), store the API key in `flair-variables.env`, using
+`flair-variables.env.example` as an example. Never commit this file to git!
+There is also a text file reader in the utilities folder available for use if
+you wish to store your API key in a text file.
+
+### Using `docker compose` (recommended)
+
+The simplest way to deploy the project is using `docker compose`, which relies
+on the containers defined in [`compose.yaml`](compose.yaml), which in turn
+depends on images defined in [Dockerfile\_base](Dockerfile_base) and
+[Dockerfile](Dockerfile), as well as services for a [Stanza
+API](https://github.com/lingmod-tue/stanza-api) and
+[Madamira](https://github.com/reynoldsnlp/madamira_container).
+
+To use docker, simply install `docker` (including `docker-compose`), or a
+drop-in replacement, such as `podman` or `orbstack`. Then in the root directory
+of the repository, run...
+
+```bash
+docker compose up -d flair
+```
+
+Note that the target `flair` implies all languages, including both Arabic (and
+the dependent `madamira` container) and Persian (and its dependent `stanza-api`
+container). If you wish to deploy only Arabic, use the target `arabic`.  If you
+wish to deploy only Persian, use the target `stanza`. If you wish to deploy
+only English, German, and Russian, use the target `corenlp`.
+
+This command will take a while. Go play a game of rapid chess.
+
+Once complete, visit http://localhost:8080/flair-2.0/ to test your deployment.
+
+To see summary of all running containers, run `docker ps`.
+
+To view the logs, run...  (replace `<container_name>` with the name of the
+desired container)
+
+```bash
+docker logs <container_name>
+```
+
+...or if you want to "follow" the logs as they run, use the following command.
+(When finished, use <kbd>Ctrl</kbd> + <kbd>C</kbd> to exit.)
+
+```bash
+docker logs -f <container_name>
+```
+
+To shut down the docker containers run...
+
+```bash
+docker compose down
+```
+
+#### Re-deploying local changes to docker
+
+Run `docker ps` to see all running containers. Depending on whether your
+requested target for `docker compose` was `flair`/`arabic`/`corenlp`/`stanza`,
+the main container should be named `flair-<target>-1`. The following commands
+assume that `stanza` was requested, so the container is named `flair-stanza-1`.
+
+```bash
+docker stop flair-stanza-1
+docker rmi --force reynoldsnlp/flair
+docker compose up -d stanza
+```
+
+### Installing locally
 
 Requirements:
 
@@ -32,21 +121,7 @@ FLAIR utilizes a maven build system. In order to compile this project, maven
 must be installed. For more information on using maven, click here
 https://maven.apache.org/.
 
-## Using Bing API
-
-FLAIR utilizes the Bing search api. In order to access Bing's services, you must
-create an account with Microsoft Azure. You can sign up for a free Microsoft
-account here
-https://azure.microsoft.com/en-us/services/cognitive-services/bing-web-search-api/.
-This account will provide you with many service options. For this project you
-must create a Cognitive Services resource. 
-
-There are multiple ways of storing this api key. FLAIR is expecting the api key
-to be stored in an environment variable called `BING_API`. There is also a text
-file reader in the utilities folder available for use if you wish to store your
-api key in a text file. 
-
-## Third Party Dependencies 
+#### Third Party Dependencies
 
 In order to run our Russian extension, you need to use some third party
 dependencies which are not supported by maven. Follow this
@@ -59,19 +134,19 @@ provides documentation on how to accomplish this
 [here](https://maven.apache.org/guides/mini/guide-3rd-party-jars-local.html).
 You must update the pom to include the correct versions, artifactID's, etc. To
 line things up with the provided pom.xml file, follow the naming of the
-dependencies below. 
+dependencies below.
 
 ```
    <dependency>
       <groupId>edu.stanford.nlp</groupId>
       <artifactId>stanford-corenlp-russian-models</artifactId>
       <version>master-SNAPSHOT</version>
-   </dependency> 
+   </dependency>
 ```
 
-### Cg3
+##### Cg3
 
-The following command-line tools are needed:
+For the Russian module, the following command-line tools are needed:
 - `vislcg3`
 - `cg-conv`
 

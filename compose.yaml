@@ -16,7 +16,7 @@ services:
     restart: always
 
   flair-base:
-    image: reynoldsnlp/flair_base
+    image: reynoldsnlp/flair-base
     build:
       dockerfile: ./Dockerfile_base
 
