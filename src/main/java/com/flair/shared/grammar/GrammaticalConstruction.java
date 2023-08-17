@@ -27,19 +27,19 @@ public enum GrammaticalConstruction
     CONJUNCTIONS_ADVANCED("advancedConjunctions", Language.ENGLISH),
     CONJUNCTIONS_SIMPLE("simpleConjunctions", Language.ENGLISH),
     
-    PREPOSITIONS("prepositions", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN, Language.PERSIAN),
+    PREPOSITIONS("prepositions", Language.ENGLISH, Language.GERMAN, Language.PERSIAN, Language.RUSSIAN),
     PREPOSITIONS_SIMPLE("simplePrepositions", Language.ENGLISH, Language.GERMAN),
     PREPOSITIONS_COMPLEX("complexPrepositions", Language.ENGLISH),
     PREPOSITIONS_ADVANCED("advancedPrepositions", Language.ENGLISH),
 
     // sentence structure
-    CLAUSE_SUBORDINATE("subordinateClause", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN, Language.PERSIAN),
+    CLAUSE_SUBORDINATE("subordinateClause", Language.ENGLISH, Language.GERMAN, Language.PERSIAN, Language.RUSSIAN),
 	CLAUSE_RELATIVE("relativeClause", Language.ENGLISH, Language.GERMAN, Language.PERSIAN),
     CLAUSE_RELATIVE_REDUCED("relativeClauseReduced", Language.ENGLISH),
     CLAUSE_ADVERBIAL("adverbialClause", Language.ENGLISH, Language.GERMAN),
     CLAUSE_THAT("thatClause", Language.GERMAN),
-    SENTENCE_SIMPLE("simpleSentence", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN, Language.PERSIAN),
-    SENTENCE_COMPLEX("complexSentence", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN),
+    SENTENCE_SIMPLE("simpleSentence", Language.ENGLISH, Language.GERMAN, Language.PERSIAN, Language.RUSSIAN),
+    SENTENCE_COMPLEX("complexSentence", Language.ENGLISH, Language.GERMAN, Language.PERSIAN, Language.RUSSIAN),
     SENTENCE_COMPOUND("compoundSentence", Language.ENGLISH, Language.GERMAN, Language.PERSIAN),
     SENTENCE_INCOMPLETE("incompleteSentence", Language.ENGLISH, Language.GERMAN),
     
@@ -47,13 +47,13 @@ public enum GrammaticalConstruction
     OBJECT_INDIRECT("indirectObject", Language.ENGLISH),
     
     PRONOUNS("pronouns", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN),
-    PRONOUNS_PERSONAL("pronounsPersonal", Language.GERMAN, Language.RUSSIAN, Language.PERSIAN),
-    PRONOUNS_RELATIVE("pronounsRelative", Language.GERMAN, Language.RUSSIAN, Language.PERSIAN),
+    PRONOUNS_PERSONAL("pronounsPersonal", Language.GERMAN, Language.PERSIAN, Language.RUSSIAN),
+    PRONOUNS_RELATIVE("pronounsRelative", Language.GERMAN, Language.PERSIAN, Language.RUSSIAN),
     PRONOUNS_POSSESSIVE("pronounsPossessive", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), // /PRP$ ("", my, your, their)
-    PRONOUNS_DEMONSTRATIVE("pronounsDemonstrative", Language.GERMAN, Language.RUSSIAN, Language.PERSIAN),
+    PRONOUNS_DEMONSTRATIVE("pronounsDemonstrative", Language.GERMAN, Language.PERSIAN, Language.RUSSIAN),
     PRONOUNS_REFLEXIVE("pronounsReflexive", Language.ENGLISH, Language.GERMAN, Language.RUSSIAN), // /PRP + myself, themselves, etc.
     PRONOUNS_INDEFINITE("pronounsIndefinite", Language.GERMAN, Language.PERSIAN),
-    PRONOUNS_INTERROGATIVE("pronounsInterrogative", Language.GERMAN, Language.RUSSIAN, Language.PERSIAN),
+    PRONOUNS_INTERROGATIVE("pronounsInterrogative", Language.GERMAN, Language.PERSIAN, Language.RUSSIAN),
     PRONOUNS_SUBJECTIVE("pronounsSubjective", Language.ENGLISH),
     PRONOUNS_TOT("pronounsTot", Language.PERSIAN),
 
@@ -325,7 +325,7 @@ public enum GrammaticalConstruction
     VERBS_IRREGULAR_NONPAST("verbsIrregularNonpast", Language.RUSSIAN), // Russian: хотеть бежать есть дать чтить
 
     //OTHER
-    PRONOUNS_NEGATIVE("pronounsNegative", Language.RUSSIAN, Language.PERSIAN),
+    PRONOUNS_NEGATIVE("pronounsNegative", Language.PERSIAN, Language.RUSSIAN),
     NEGATION_PRONOUNS("negationPronouns", Language.RUSSIAN),
     PRONOUNS_DEFINITE_RUSSIAN("pronounsDefiniteRussian", Language.RUSSIAN),
     PRONOUNS_INDEFINITE_RUSSIAN("pronounsIndefiniteRussian", Language.RUSSIAN),
